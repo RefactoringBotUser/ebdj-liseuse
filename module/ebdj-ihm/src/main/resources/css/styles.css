@@ -1,0 +1,331 @@
+.boutonPhase{
+	-fx-background-color: #008CBA;
+	-fx-border-color:#008CBA;
+	-fx-font-family: "Venacti";
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.boutonPhase:selected {
+	-fx-background-color: black;
+	-fx-border-color:black;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.boutonPhase:hover {
+	-fx-background-color: #ff7f50;
+	-fx-border-color:red;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.boutonMode9PG{
+	-fx-background-color: #008CBA;
+	-fx-border-color:#008CBA;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.boutonMode9PG:selected {
+	-fx-background-color: black;
+	-fx-border-color:black;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.boutonMode9PG:hover {
+	-fx-background-color: #ff7f50;
+	-fx-background-radius: 10;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-border-color:red;
+	-fx-border-radius: 10;
+}
+
+.boutonSelectionnerUtilisateur{
+	-fx-background-color: #008CBA;
+	-fx-border-color:#008CBA;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.boutonSelectionnerUtilisateur:selected {
+	-fx-background-color: black;
+	-fx-border-color:black;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.boutonSelectionnerUtilisateur:hover {
+	-fx-background-color: #ff7f50;
+	-fx-background-radius: 10;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-border-color:red;
+	-fx-border-radius: 10;
+}
+
+.boutonNouvelleQuestion{
+	-fx-background-color: #008CBA;
+	-fx-background-radius: 20;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.boutonNouvelleQuestion:hover {
+	-fx-background-color: #ff7f50;
+	-fx-background-radius: 20;
+	-fx-border-color:red;
+	-fx-border-radius: 20;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.boutonErreurQuestion{
+	-fx-background-color: #008CBA;
+	-fx-background-radius: 20;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.boutonErreurQuestion:hover{
+	-fx-background-color: #ff7f50;
+	-fx-background-radius: 20;
+	-fx-border-color:red;
+	-fx-border-radius: 20;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.boutonRemplacementQuestion{	
+	-fx-background-color: #008CBA;
+	-fx-background-radius: 20;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.boutonRemplacementQuestion:hover{
+	-fx-background-color: #ff7f50;
+	-fx-background-radius: 20;
+	-fx-border-color:red;
+	-fx-border-radius: 20;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.themeJD, .themeFAF  {
+	-fx-font-family: "Venacti";
+	-fx-font-size: 22px;
+	-fx-font-weight: bold;
+	-fx-text-fill: black;
+	-fx-padding: 10 10 10 10;
+}
+
+.question9PG, .questionJD, .questionFAF {
+	-fx-font-family: "Arial";
+	-fx-text-fill: black;
+	-fx-padding: 0 30 10 30;
+}
+
+.reponse9PG, .reponseJD, .reponseFAF  {
+	-fx-font-family: "Venacti";
+	-fx-font-weight: bold;
+	-fx-text-fill: black;
+	-fx-padding: 10 10 10 10;
+}
+
+.question9PGInfos, .questionJDInfos, .questionFAFInfos {
+	-fx-font: 14px "Venacti";
+	-fx-font-style:italic;
+	-fx-text-fill: black;
+}
+
+.nbQuestion{
+	-fx-background-color: #4CAF50;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-padding: 10 5 10 5;
+}
+
+.utilisateur{
+	-fx-background-color: #4CAF50;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.chronometre{
+	-fx-background-color: #4CAF50;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-padding: 10 5 10 5;
+}
+
+.zoneCarton9PG, .zoneCarton4ALS .content, .zoneCartonJD, .zoneCartonFAF{
+	-fx-background-color: #ffe808;
+	-fx-text-area-background: #ffe808;
+	-fx-background-radius: 2;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-border-radius: 2;
+}
+
+.zoneHistoriqueQuestion{
+	-fx-background-color: #D8D8D8;
+	-fx-background-radius: 10;
+	-fx-border-color: #D8D8D8;
+	-fx-border-radius: 10;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.labelHistoriqueQuestion {
+	
+	-fx-border-color: #D8D8D8;
+	-fx-font: 16px "Venacti";
+	-fx-font-weight: bold;
+	-fx-text-fill: black;
+}
+
+.listeHistoriqueQuestion  {
+	-fx-background-color: #D8D8D8;
+	-fx-border-color: #D8D8D8;
+}
+
+.listeHistoriqueQuestion .list-cell:even,.list-cell:odd {	
+	-fx-background-color: #D8D8D8;
+	-fx-border-color: #D8D8D8;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 14px;
+	-fx-font-style:italic;
+	-fx-text-fill: black;
+}
+.panneauPhase, .panneau9PG, .panneauNiveau9PG, .panneauJD{
+	-fx-background-color: white;
+}
+
+.theme4ALS
+{
+	-fx-skin: "com.sun.javafx.scene.control.skin.TitledPaneSkin";    
+	-fx-font-family: "Venacti";
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+}
+
+.theme4ALS > .title 
+{
+
+	-fx-background-color: #008CBA;
+-fx-background-insets: 0, 1, 2;
+-fx-background-radius: 10 10 10 10, 8 8 8 8, 6 6 6 6;
+-fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
+}
+
+.theme4ALS:focused > .title 
+{
+	
+-fx-background-radius: 10 10 0 0, 8 8 0 0, 6 6 0 0;
+	-fx-background-color:black;
+}
+
+.theme4ALS > .title > .arrow-button 
+{
+-fx-background-color: null;
+-fx-background-insets: 0;
+-fx-background-radius: 0;
+-fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
+}
+
+.theme4ALS > .title > .arrow-button .arrow 
+{
+-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+-fx-background-insets: 1 0 -1 0, 0;
+-fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
+-fx-shape: "M 0 0 h 7 l -3.5 4 z";
+}
+
+.theme4ALS:collapsed > .title > .arrow-button .arrow 
+{
+-fx-rotate: -90;
+}
+
+.theme4ALS > *.content 
+{
+-fx-background-color:
+-fx-box-border,
+linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,      derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
+-fx-background-insets: 0, 0 1 1 1;
+-fx-padding: 0.167em;
+ }
+
+.theme4ALS:focused > .title > .arrow-button .arrow 
+{
+-fx-background-color: white;
+}

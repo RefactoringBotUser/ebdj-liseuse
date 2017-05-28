@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" BorderPane.alignment="CENTER"  fx:controller="fr.qp1c.ebdj.controller.NPGController">
+         <top>
+            <VBox prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox id="btn123" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <Button fx:id="btn123" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changerNiveau123" prefWidth="100.0" text="1-2-3" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btn23" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changerNiveau23" prefWidth="100.0" text="2-3" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btn3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changerNiveau3" prefWidth="100.0" text="3" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+               <children>
+                  <BorderPane prefHeight="40.0" prefWidth="40.0">
+                     <center>
+                        <Label fx:id="level" text="Niveau" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="18.0" />
+                           </font>
+                           <BorderPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </BorderPane.margin>
+                        </Label>
+                     </center>
+                     <right>
+                        <Label fx:id="nbQuestion" alignment="CENTER" contentDisplay="CENTER" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="18.0" />
+                           </font>
+                           <BorderPane.margin>
+                              <Insets right="10.0" />
+                           </BorderPane.margin>
+                        </Label>
+                     </right>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <left>
+                        <HBox prefHeight="100.0" prefWidth="120.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <ImageView fx:id="niveau1" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="/images/etoile.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="niveau2" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="/images/etoile.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="niveau3" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="/images/etoile.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </left>
+                  </BorderPane>
+                  <Separator prefHeight="10.0" />
+                  <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" minHeight="390.0" prefHeight="390.0" style="-fx-background-color: #FFFFFF;" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="22.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
+                  </Label>
+                  <BorderPane prefHeight="75.0" prefWidth="200.0" style="-fx-background-color: #D8D8D8;">
+                     <center>
+                        <Label fx:id="reponse" alignment="CENTER" contentDisplay="CENTER" prefHeight="75.0" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="NONE" />
+                           </cursor>
+                           <font>
+                              <Font name="Arial" size="22.0" />
+                           </font>
+                        </Label>
+                     </center>
+                  </BorderPane>
+                  <Separator prefHeight="10.0" />
+                  <Label fx:id="questionDetails" prefHeight="20.0" text="Source : Talence - internet - 23/03/2012 /  Intégré le 01/04/2013">
+                     <font>
+                        <Font name="Arial Italic" size="12.0" />
+                     </font></Label>
+                  <Separator prefHeight="10.0" />
+                  <Button fx:id="btnNextQuestion" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changerQuestion" prefHeight="70.0" prefWidth="400.0" style="-fx-background-color: #4CAF50;;" text="Question suivante" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="btnErreurQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="222.0" layoutY="606.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="400.0" style="-fx-background-color: #FE2E64;" text="Erreur" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </center>
+         <left>
+            <VBox alignment="TOP_CENTER" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="TOP_CENTER">
+               <children>
+                  <Label fx:id="labelHistoQuestion" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" text="Historique des questions" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Separator prefHeight="10.0" />
+                  <ListView id="histo9PG" fx:id="histoQuestion" maxHeight="500.0" minHeight="500.0" minWidth="200.0" prefHeight="500.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+         </left>
+      </BorderPane>

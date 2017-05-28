@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root fx:id="zoneUtilisateur" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="150.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+		     <ToggleButton fx:id="btnSelectionnerUilisateur" onAction="#selectionnerUtilisateur" styleClass="boutonSelectionnerUtilisateur" textAlignment="CENTER" toggleGroup="$utilisateur">
+	         <HBox.margin>
+	            <Insets left="15.0" />
+	         </HBox.margin>
+	         <toggleGroup>
+				<ToggleGroup fx:id="utilisateur" />
+			</toggleGroup>
+	      </ToggleButton>
+		<Label fx:id="libelleUtilisateur" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="140.0" >
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+         </Label>
+	</children>
+</fx:root>

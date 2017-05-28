@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="panneau" maxHeight="-Infinity" maxWidth="1600" minHeight="600" minWidth="800" prefHeight="800.0" prefWidth="1024.0" styleClass="panneau9PG"  BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.NPGController">
+     <top>
+        <VBox prefHeight="50.0">
+           <children>
+              <BorderPane>
+              <center>
+	              <HBox alignment="CENTER">
+	                 <children>
+	                    <ToggleButton fx:id="btn123" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changerNiveau123" prefWidth="100.0" selected="true" styleClass="boutonMode9PG"  text="1-2-3" textAlignment="CENTER" toggleGroup="$mode9PG">
+	                       <HBox.margin>
+	                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+	                       </HBox.margin>
+		                 	<toggleGroup>
+		                 		<ToggleGroup fx:id="mode9PG" />
+		                 	</toggleGroup>
+	                    </ToggleButton>
+	                    <ToggleButton fx:id="btn23" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changerNiveau23" prefWidth="100.0" styleClass="boutonMode9PG"  text="2-3" textAlignment="CENTER" toggleGroup="$mode9PG">
+	                       <HBox.margin>
+	                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+	                       </HBox.margin>
+	                    </ToggleButton>
+	                    <ToggleButton fx:id="btn3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changerNiveau3" prefWidth="100.0" styleClass="boutonMode9PG"  text="3" textAlignment="CENTER" toggleGroup="$mode9PG">
+	                       <HBox.margin>
+	                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+	                       </HBox.margin>
+	                    </ToggleButton>
+	                 </children>
+	              </HBox>
+                 </center>
+                 <right>
+                    <Label fx:id="nbQuestion" alignment="CENTER" contentDisplay="CENTER" prefWidth="200.0" styleClass="nbQuestion" >
+                       <BorderPane.margin>
+                          <Insets bottom="10.0" right="10.0" top="10.0" />
+                       </BorderPane.margin>
+                    </Label>
+                 </right>
+                 <left>
+                    <Label fx:id="vide" alignment="CENTER" contentDisplay="CENTER" prefWidth="200.0" styleClass="vide" >
+                       <BorderPane.margin>
+                          <Insets bottom="10.0" left="10.0" top="10.0" />
+                       </BorderPane.margin>
+                    </Label>
+                 </left>
+              </BorderPane>
+              <Separator />
+           </children>
+        </VBox>
+	</top>
+     <left>
+        <VBox alignment="TOP_CENTER" styleClass="zoneHistoriqueQuestion" >
+           <children>
+              <Label fx:id="labelHistoQuestion" alignment="CENTER" contentDisplay="CENTER" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" styleClass="labelHistoriqueQuestion"  text="Historique :" />
+              <ListView fx:id="histoQuestion" maxHeight="400.0" minHeight="400.0" minWidth="300.0" prefHeight="400.0" prefWidth="300.0" styleClass="listeHistoriqueQuestion" >
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></ListView>
+           
+           </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="10.0" right="10.0"  top="20.0" />
+         </BorderPane.margin>
+        </VBox>
+     </left>
+     <center>
+        <VBox fx:id="carton9PG" alignment="TOP_CENTER" prefWidth="100.0" styleClass="zoneCarton9PG"  BorderPane.alignment="CENTER">
+           <children>
+              <BorderPane prefHeight="40.0" prefWidth="40.0">
+                 <center>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="120.0">
+                       <children>
+                          <ImageView fx:id="niveau1" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                <Image url="/images/etoile.png" />
+                             </image>
+                          </ImageView>
+                          <ImageView fx:id="niveau2" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                <Image url="/images/etoile.png" />
+                             </image>
+                          </ImageView>
+                          <ImageView fx:id="niveau3" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                <Image url="/images/etoile.png" />
+                             </image>
+                          </ImageView>
+                       </children>
+                     <BorderPane.margin>
+                        <Insets top="10.0" />
+                     </BorderPane.margin>   
+                    </HBox> 
+                 </center>
+              </BorderPane>
+              <Label fx:id="question9PG" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="200.0" styleClass="question9PG"  textAlignment="CENTER" wrapText="true" />
+              <Label fx:id="reponse9PG" alignment="TOP_CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="150.0" styleClass="reponse9PG"  textAlignment="CENTER" wrapText="true" />
+ 			  <Separator />
+              <Label fx:id="question9PGInfos" prefHeight="60.0" styleClass="question9PGInfos"  />
+           </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+         </BorderPane.margin>
+        </VBox>
+     </center>
+     <bottom>
+        <VBox>
+           <children>
+     			<StackPane>
+		           <children>
+		                <Button fx:id="btnReprendre9PG" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#reprendre9PG" prefHeight="70.0" prefWidth="400.0" styleClass="boutonRemplacementQuestion"  text="Reprendre le 9PG" textAlignment="CENTER" />
+						<Button fx:id="btnNouvelleQuestion9PG" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#jouerNouvelleQuestion9PG" prefHeight="70.0" prefWidth="400.0" styleClass="boutonNouvelleQuestion"  text="Nouvelle question" textAlignment="CENTER" />
+		           </children>
+		           <VBox.margin>
+		              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+		           </VBox.margin>
+		        </StackPane>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="120.0">
+                       <children>
+              				<Button fx:id="btnSignalerErreurQuestion9PG" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signalerErreurQuestion9PG" prefHeight="50.0" prefWidth="300.0" styleClass="boutonErreurQuestion"  text="Signaler une erreur" textAlignment="CENTER">
+           					<HBox.margin>
+	                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+	                       </HBox.margin>
+	                       </Button>
+           					<Button fx:id="btnRemplacerQuestion9PG" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#remplacerQuestion9PG" prefHeight="50.0" prefWidth="300.0" styleClass="boutonRemplacementQuestion"  text="Remplacer la question" textAlignment="CENTER" />
+                       </children>   
+                    </HBox> 
+           </children>
+        </VBox>
+     </bottom>
+  </BorderPane>
