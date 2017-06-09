@@ -4,14 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Question4ALS extends Question {
-	
+
+	// Attributs
+
 	private String theme;
 
-	private Map<String,Question> questions=new HashMap<>();
-	
+	private Map<String, Question> questions = new HashMap<>();
+
 	private String reference;
-	
+
 	private Source source;
+
+	// Getters - setters
 
 	public String getTheme() {
 		return theme;
@@ -44,7 +48,5 @@ public class Question4ALS extends Question {
 	public void setSource(Source source) {
 		this.source = source;
 	}
-	
-	
-	
+
 }

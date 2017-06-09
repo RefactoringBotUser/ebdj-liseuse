@@ -9,9 +9,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.moteur.bean.question.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.moteur.bean.question.Source;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
+import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
 import fr.qp1c.ebdj.moteur.utils.db.DBManager;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
 
@@ -26,6 +28,16 @@ public class DBConnecteurNPGDaoImpl implements DBConnecteurNPGDao {
 	 * Default logger.
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurNPGDaoImpl.class);
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public List<QuestionNPG> listerQuestionsJouable(int nbQuestion) throws DBManagerException {
+
+		return listerQuestionsJouable(nbQuestion, -1);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -58,7 +70,7 @@ public class DBConnecteurNPGDaoImpl implements DBConnecteurNPGDao {
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager("QP1C-EBDJ.sqlite");
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
 			Connection connection = dbManager.connect();
 			Statement stmt = connection.createStatement();
 
@@ -114,7 +126,7 @@ public class DBConnecteurNPGDaoImpl implements DBConnecteurNPGDao {
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager("QP1C-EBDJ.sqlite");
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
 			Connection connection = dbManager.connect();
 			Statement stmt = connection.createStatement();
 			stmt.execute(query.toString());
@@ -128,6 +140,12 @@ public class DBConnecteurNPGDaoImpl implements DBConnecteurNPGDao {
 		}
 	}
 
+	@Override
+	public void signalerAnomalie(String referenceTheme, Anomalie anomalie, String lecteur) throws DBManagerException {
+		// TODO A implementer
+
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -135,16 +153,40 @@ public class DBConnecteurNPGDaoImpl implements DBConnecteurNPGDao {
 	@Override
 	public int compterNbQuestion() {
 
+		return compterNbQuestion(-1);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public int compterNbQuestionJouee() {
+
+		return compterNbQuestion(-1);
+	}
+
+	@Override
+	public int compterNbQuestion(int difficulte) {
+
 		int nbQuestion = 0;
 
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM QUESTION_NPG Q_9PG;");
+		query.append("SELECT count(1) FROM QUESTION_NPG Q_9PG");
+
+		if (difficulte > 0) {
+			query.append(" WHERE Q_9PG.difficulte='");
+			query.append(difficulte);
+			query.append("' ");
+		}
+
+		query.append(";");
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager("QP1C-EBDJ.sqlite");
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
 			Connection connection = dbManager.connect();
 			Statement stmt = connection.createStatement();
 
@@ -164,12 +206,8 @@ public class DBConnecteurNPGDaoImpl implements DBConnecteurNPGDao {
 		return nbQuestion;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
 	@Override
-	public int compterNbQuestionJouee() {
+	public int compterNbQuestionJouee(int difficulte) {
 
 		int nbQuestionJouee = 0;
 
@@ -177,11 +215,19 @@ public class DBConnecteurNPGDaoImpl implements DBConnecteurNPGDao {
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT DISTINCT * FROM QUESTION_NPG_JOUEE Q_9PG_J WHERE Q_9PG.id=Q_9PG_J.question_id);");
+				"SELECT count(1) FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT DISTINCT * FROM QUESTION_NPG_JOUEE Q_9PG_J WHERE Q_9PG.id=Q_9PG_J.question_id) ");
+
+		if (difficulte > 0) {
+			query.append(" AND Q_9PG.difficulte='");
+			query.append(difficulte);
+			query.append("' ");
+		}
+
+		query.append(";");
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager("QP1C-EBDJ.sqlite");
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
 			Connection connection = dbManager.connect();
 			Statement stmt = connection.createStatement();
 

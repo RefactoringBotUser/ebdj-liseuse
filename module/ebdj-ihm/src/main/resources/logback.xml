@@ -15,10 +15,12 @@
     <logger name="fr.qp1c.ebdj.view" level="INFO" additivity="false">
 		<appender-ref ref="STDOUT" />
     </logger>
-    
-    
 
-    <logger name="fr.qp1c.ebdj.loader" level="INFO" additivity="false">
+    <logger name="fr.qp1c.ebdj.moteur" level="ERROR" additivity="false">
+		<appender-ref ref="STDOUT" />
+    </logger>
+    
+    <logger name="fr.qp1c.ebdj.loader" level="ERROR" additivity="false">
 		<appender-ref ref="STDOUT" />
     </logger>
 

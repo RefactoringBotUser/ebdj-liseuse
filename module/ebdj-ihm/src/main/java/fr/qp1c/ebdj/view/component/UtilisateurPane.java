@@ -54,6 +54,7 @@ public class UtilisateurPane extends HBox {
 		ImageUtils.reduireImageCustom(imageUtilisateur, 25);
 
 		btnSelectionnerUilisateur.setGraphic(imageUtilisateur);
+
 	}
 
 	@FXML
@@ -61,14 +62,14 @@ public class UtilisateurPane extends HBox {
 
 		LOGGER.info("### --> Clic sur \"Selectionner un utilisateur\".");
 
-		List<String> typesErreur = new ArrayList<>();
-		typesErreur.add("Par défaut");
-		typesErreur.add("Colette");
-		typesErreur.add("Jean-Marc");
-		typesErreur.add("Jocelyne");
-		typesErreur.add("Laurent");
+		List<String> listeUtilisateur = new ArrayList<>();
+		listeUtilisateur.add("Par défaut");
+		listeUtilisateur.add("Colette");
+		listeUtilisateur.add("Jean-Marc");
+		listeUtilisateur.add("Jocelyne");
+		listeUtilisateur.add("Laurent");
 
-		ChoiceDialog<String> popupErreur = new ChoiceDialog<>("Par défaut", typesErreur);
+		ChoiceDialog<String> popupErreur = new ChoiceDialog<>("Par défaut", listeUtilisateur);
 		popupErreur.setTitle("QP1C - E-Boite de jeu");
 		popupErreur.setHeaderText("Sélectionner l'utilisateur...");
 		popupErreur.setContentText("Utilisateur:");

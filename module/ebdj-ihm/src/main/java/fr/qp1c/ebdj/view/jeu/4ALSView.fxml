@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="1600" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.jeu.QALSController">
+   <center>
+      <Accordion BorderPane.alignment="CENTER">
+        <panes>
+            <TitledPane fx:id="theme4ALS1" animated="false" styleClass="theme4ALS">
+            <content>
+                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
+	              <top>
+	              		<ScrollPane fx:id="panneauQuestionTheme4ALS1" prefWidth="800.0">
+	                        <TextFlow fx:id="questionTheme4ALS1" layoutX="14.0" layoutY="14.0" maxWidth="1600.00" prefHeight="694.0" prefWidth="1000.0"  styleClass="zoneCarton4ALS"  />
+	             		</ScrollPane>                  
+	              </top>
+                </BorderPane>
+              </content>
+            </TitledPane>
+          <TitledPane fx:id="theme4ALS2" animated="false" styleClass="theme4ALS">
+            <content>
+                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
+	              <top>
+	              		<ScrollPane fx:id="panneauQuestionTheme4ALS2" prefWidth="800.0">
+	                        <TextFlow fx:id="questionTheme4ALS2" layoutX="14.0" layoutY="14.0" maxWidth="1600.00" prefHeight="694.0" prefWidth="1000.0"  styleClass="zoneCarton4ALS"  />
+	             		</ScrollPane>                  
+	              </top>
+                </BorderPane>
+              </content>
+          </TitledPane>
+          <TitledPane fx:id="theme4ALS3" animated="false" styleClass="theme4ALS">
+            <content>
+                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
+	              <top>
+	              		<ScrollPane fx:id="panneauQuestionTheme4ALS3" prefWidth="800.0">
+	                        <TextFlow fx:id="questionTheme4ALS3" layoutX="14.0" layoutY="14.0" maxWidth="1600.00" prefHeight="694.0" prefWidth="1000.0"  styleClass="zoneCarton4ALS"  />
+	             		</ScrollPane>                  
+	              </top>
+                </BorderPane>
+              </content>
+          </TitledPane>
+          <TitledPane fx:id="theme4ALS4" animated="false" styleClass="theme4ALS">
+            <content>
+                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
+	              <top>
+	              		<ScrollPane fx:id="panneauQuestionTheme4ALS4" prefWidth="800.0">
+	                        <TextFlow fx:id="questionTheme4ALS4" layoutX="14.0" layoutY="14.0" maxWidth="1600.00" prefHeight="694.0" prefWidth="1000.0"  styleClass="zoneCarton4ALS"  />
+	             		</ScrollPane>                  
+	              </top>
+                </BorderPane>
+              </content>
+          </TitledPane>
+            <TitledPane fx:id="theme4ALS5" animated="false" text="theme5">
+            <content>
+                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
+	              <top>
+	              		<ScrollPane fx:id="panneauQuestionTheme4ALS5" prefWidth="800.0">
+	                        <TextFlow fx:id="questionTheme4ALS5" layoutX="14.0" layoutY="14.0" maxWidth="1600.00" prefHeight="694.0" prefWidth="1000.0"  styleClass="zoneCarton4ALS"  />
+	             		</ScrollPane>                  
+	              </top>
+                </BorderPane>
+              </content>
+            </TitledPane>
+        </panes>
+      </Accordion>
+   </center>
+</BorderPane>

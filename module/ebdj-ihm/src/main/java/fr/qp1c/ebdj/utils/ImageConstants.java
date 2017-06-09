@@ -5,35 +5,61 @@ import javafx.scene.image.WritableImage;
 
 public final class ImageConstants {
 
-	public static final String LOGO_QP1C = "/images/QP1C.JPG";
+	// URL Images
 
-	public static final String ETOILE = "/images/etoile.png";
+	public static final String LOGO_QP1C = "/images/commun/QP1C.JPG";
 
-	public static final String ICONE_POPUP = "/images/dialog.png";
+	public static final String ICONE_POPUP = "/images/commun/dialog.png";
 
-	public static final String ICONE_UTILISATEUR = "/images/utilisateur.png";
+	public static final String ICONE_UTILISATEUR = "/images/commun/utilisateur.png";
 
-	public static final String ICONE_UTILISATEUR_BLANK = "/images/utilisateur_blank.png";
+	public static final String ICONE_PARAMETRAGE = "/images/commun/parametrage.png";
 
-	public static final String ICONE_1 = "/images/1.png";
+	// Images pour le jeu
 
-	public static final String ICONE_2 = "/images/2.png";
+	public static final String ETOILE = "/images/jeu/etoile.png";
 
-	public static final String ICONE_3 = "/images/3.png";
+	public static final String ICONE_1 = "/images/jeu/1.png";
 
-	public static final String ICONE_4 = "/images/4.png";
+	public static final String ICONE_2 = "/images/jeu/2.png";
 
-	public static final String ICONE_5 = "/images/5.png";
+	public static final String ICONE_3 = "/images/jeu/3.png";
 
-	public static final Image IMAGE_QUESTION;
+	public static final String ICONE_4 = "/images/jeu/4.png";
 
-	public static final Image IMAGE_REMPLACEMENT_QUESTION;
+	public static final String ICONE_5 = "/images/jeu/5.png";
+
+	// Images pour la partie home
+
+	public static final String ICONE_HOME = "/images/home/home.png";
+
+	public static final String ICONE_HOME_QUESTION = "/images/home/question.png";
+
+	public static final String ICONE_HOME_STATS = "/images/home/stats.png";
+
+	public static final String ICONE_HOME_PARAMETRAGE = "/images/home/parametrage.png";
+
+	// Images
+
+	// public static final Image IMAGE_QUESTION;
+
+	// public static final Image IMAGE_REMPLACEMENT_QUESTION;
 
 	public static final Image IMAGE_POPUP;
 
 	public static final Image IMAGE_ETOILE;
 
 	public static final Image IMAGE_UTILISATEUR;
+
+	public static final Image IMAGE_PARAMETRAGE;
+
+	public static final Image IMAGE_HOME;
+
+	public static final Image IMAGE_HOME_QUESTION;
+
+	public static final Image IMAGE_HOME_STATS;
+
+	public static final Image IMAGE_HOME_PARAMETRAGE;
 
 	public static final Image IMAGE_1;
 
@@ -52,9 +78,9 @@ public final class ImageConstants {
 	static {
 
 		// Chargement des icones
-		IMAGE_QUESTION = new Image("images/question1.png");
+		// IMAGE_QUESTION = new Image("/images/question1.png");
 
-		IMAGE_REMPLACEMENT_QUESTION = new Image("images/remplacement2.png");
+		// IMAGE_REMPLACEMENT_QUESTION = new Image("/images/remplacement2.png");
 
 		IMAGE_VIDE = new WritableImage(12, 12);
 
@@ -65,6 +91,16 @@ public final class ImageConstants {
 		IMAGE_ETOILE = new Image(ImageConstants.ETOILE);
 
 		IMAGE_UTILISATEUR = new Image(ImageConstants.ICONE_UTILISATEUR);
+
+		IMAGE_PARAMETRAGE = new Image(ImageConstants.ICONE_PARAMETRAGE);
+
+		IMAGE_HOME = new Image(ImageConstants.ICONE_HOME);
+
+		IMAGE_HOME_QUESTION = new Image(ImageConstants.ICONE_HOME_QUESTION);
+
+		IMAGE_HOME_STATS = new Image(ImageConstants.ICONE_HOME_STATS);
+
+		IMAGE_HOME_PARAMETRAGE = new Image(ImageConstants.ICONE_HOME_PARAMETRAGE);
 
 		IMAGE_1 = new Image(ImageConstants.ICONE_1);
 
