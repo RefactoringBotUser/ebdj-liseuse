@@ -37,6 +37,8 @@ public class SynchronisationServiceImpl implements SynchronisationService {
 		CleAuthentification cleAuthentification = authentificationService.recupererCleActivation();
 
 		SynchroArtefact synchroArtefact = retrouverIndexQuestion(cle, cleAuthentification);
+		
+		if()
 
 		return true;
 	}
