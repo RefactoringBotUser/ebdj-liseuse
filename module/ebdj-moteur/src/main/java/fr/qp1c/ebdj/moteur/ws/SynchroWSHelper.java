@@ -4,7 +4,7 @@ import fr.qp1c.ebdj.moteur.bean.authentification.CleAuthentification;
 
 public class SynchroWSHelper {
 
-	public Integer recupererIndexBDJReference(String cle, CleAuthentification cleAuthentification) {
+	public Integer recupererReferenceBDJReference(String cle, CleAuthentification cleAuthentification) {
 
 		// TODO : a implemente
 

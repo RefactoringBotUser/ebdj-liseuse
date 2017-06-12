@@ -9,6 +9,8 @@ import fr.qp1c.ebdj.utils.ImageUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.TextAlignment;
@@ -21,7 +23,7 @@ public class HomeController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
 	@FXML
-	private Button btnQuestion;
+	private MenuButton btnQuestion;
 
 	@FXML
 	private Button btnStats;
@@ -60,6 +62,18 @@ public class HomeController {
 		btnQuestion.setGraphic(imageHomeQuestion);
 		btnQuestion.setTextAlignment(TextAlignment.CENTER);
 		btnQuestion.setContentDisplay(ContentDisplay.TOP);
+
+		MenuItem menu9PG = new MenuItem("9PG uniquement");
+		MenuItem menu4ALS = new MenuItem("4ALS uniquement");
+		MenuItem menuJD = new MenuItem("JD uniquement");
+		MenuItem menuFAF = new MenuItem("FAF uniquement");
+		MenuItem menuPartieComplete = new MenuItem("PARTIE COMPLETE");
+
+		btnQuestion.getItems().add(menuPartieComplete);
+		btnQuestion.getItems().add(menu9PG);
+		btnQuestion.getItems().add(menu4ALS);
+		btnQuestion.getItems().add(menuJD);
+		btnQuestion.getItems().add(menuFAF);
 
 		ImageView imageHomeStats = new ImageView(ImageConstants.IMAGE_HOME_STATS);
 		ImageUtils.reduireImageCustom(imageHomeStats, 150);

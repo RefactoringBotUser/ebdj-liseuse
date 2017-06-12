@@ -36,9 +36,10 @@ public class SynchronisationServiceImpl implements SynchronisationService {
 
 		CleAuthentification cleAuthentification = authentificationService.recupererCleActivation();
 
-		SynchroArtefact synchroArtefact = retrouverIndexQuestion(cle, cleAuthentification);
-		
-		if()
+		// SynchroArtefact synchroArtefact = retrouverIndexQuestion(cle,
+		// cleAuthentification);
+
+		// if()
 
 		return true;
 	}
@@ -58,7 +59,7 @@ public class SynchronisationServiceImpl implements SynchronisationService {
 
 		SynchroArtefact artefact = new SynchroArtefact();
 		artefact.setIndexBdjLocale(indexBdjLocale);
-		artefact.setIndexBdjDistante(indexBdjDistante);
+		// artefact.setIndexBdjDistante(indexBdjDistante);
 
 		// Compter le nombre de questions entre 2 indexs
 
