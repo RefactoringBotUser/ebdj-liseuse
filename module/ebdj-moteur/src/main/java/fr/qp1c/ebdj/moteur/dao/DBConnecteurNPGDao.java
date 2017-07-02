@@ -7,7 +7,7 @@ import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
-import fr.qp1c.ebdj.moteur.ws.wrapper.Question9PGBdjDistante;
+import fr.qp1c.ebdj.moteur.ws.wrapper.question.Question9PGBdjDistante;
 
 /**
  * Cette interface liste des fonctionnalités possibles permettant le traitement

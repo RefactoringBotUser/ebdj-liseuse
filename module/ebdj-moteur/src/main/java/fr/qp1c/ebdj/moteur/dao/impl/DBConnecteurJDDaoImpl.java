@@ -19,7 +19,7 @@ import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
 import fr.qp1c.ebdj.moteur.utils.db.DBManager;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
-import fr.qp1c.ebdj.moteur.ws.wrapper.QuestionJDBdjDistante;
+import fr.qp1c.ebdj.moteur.ws.wrapper.question.QuestionJDBdjDistante;
 
 public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements DBConnecteurJDDao {
 
@@ -284,6 +284,12 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	@Override
 	public Long recupererIndexMaxLecture() {
 		return recupererIndexMaxLecture("JD");
+	}
+
+	@Override
+	public Long recupererReferenceMaxQuestion() {
+
+		return recupererReferenceMaxQuestion("JD");
 	}
 
 }

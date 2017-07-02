@@ -19,7 +19,7 @@ import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
 import fr.qp1c.ebdj.moteur.utils.db.DBManager;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
-import fr.qp1c.ebdj.moteur.ws.wrapper.Question9PGBdjDistante;
+import fr.qp1c.ebdj.moteur.ws.wrapper.question.Question9PGBdjDistante;
 
 /**
  * Connecteur permettant de récupérer et persister l'ensemble des données liées

@@ -1,19 +1,20 @@
 package fr.qp1c.ebdj.moteur.ws;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
-import fr.qp1c.ebdj.moteur.ws.wrapper.QuestionFAFBdjDistante;
+import fr.qp1c.ebdj.moteur.ws.wrapper.correction.CorrectionQuestionBdjDistanteDemande;
+import fr.qp1c.ebdj.moteur.ws.wrapper.correction.CorrectionQuestionFAFBdjDistante;
+import fr.qp1c.ebdj.moteur.ws.wrapper.question.QuestionFAFBdjDistante;
+import fr.qp1c.ebdj.moteur.ws.wrapper.question.QuestionSynchroBdjDistanteDemande;
 
 public class SynchroFAFWSHelper extends SynchroWSHelper {
 
@@ -26,40 +27,75 @@ public class SynchroFAFWSHelper extends SynchroWSHelper {
 		super();
 	}
 
-	public List<QuestionFAFBdjDistante> synchroniserQuestionsFAF()
-			throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
+	public List<QuestionFAFBdjDistante> synchroniserQuestionsFAF(Long referenceMaxExistante) {
+		List<QuestionFAFBdjDistante> questions = new ArrayList<>();
 
-		String urlToCall = urlCockpitRest + "/synchroniser/faf/questions";
-		String request = mapper.writeValueAsString(authentificationBdj);
+		try {
 
-		String response = post(urlToCall, request);
+			ObjectMapper mapper = new ObjectMapper();
 
-		List<QuestionFAFBdjDistante> questions = mapper.readValue(response,
-				new TypeReference<List<QuestionFAFBdjDistante>>() {
-				});
+			String urlToCall = urlCockpitRest + "/synchroniser/faf/questions";
+
+			QuestionSynchroBdjDistanteDemande questionSynchroBdjDistanteDemande = new QuestionSynchroBdjDistanteDemande();
+			questionSynchroBdjDistanteDemande.setAuthentificationBdj(authentificationBdj);
+			questionSynchroBdjDistanteDemande.setReference(referenceMaxExistante);
+
+			String request = mapper.writeValueAsString(questionSynchroBdjDistanteDemande);
+
+			String response = post(urlToCall, request);
+
+			LOGGER.info(response);
+
+			questions = mapper.readValue(response, new TypeReference<List<QuestionFAFBdjDistante>>() {
+			});
+
+		} catch (Exception e) {
+			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+		}
 
 		return questions;
 	}
 
+	public List<CorrectionQuestionFAFBdjDistante> synchroniserCorrectionsFAF(Long indexReprise) {
+
+		List<CorrectionQuestionFAFBdjDistante> corrections = new ArrayList<>();
+
+		try {
+
+			ObjectMapper mapper = new ObjectMapper();
+
+			String urlToCall = urlCockpitRest + "/synchroniser/faf/corrections";
+
+			CorrectionQuestionBdjDistanteDemande correctionQuestionSynchroBdjDistanteDemande = new CorrectionQuestionBdjDistanteDemande();
+			correctionQuestionSynchroBdjDistanteDemande.setAuthentificationBdj(authentificationBdj);
+			correctionQuestionSynchroBdjDistanteDemande.setIndex(indexReprise);
+
+			String request = mapper.writeValueAsString(correctionQuestionSynchroBdjDistanteDemande);
+
+			String response = post(urlToCall, request);
+
+			corrections = mapper.readValue(response, new TypeReference<List<CorrectionQuestionFAFBdjDistante>>() {
+			});
+
+		} catch (Exception e) {
+			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+		}
+
+		return corrections;
+	}
+
 	public void synchroniserLecturesFAF(List<Lecture> lectures) {
 
-		// TODO à implementer
+		String urlToCall = urlCockpitRest + "/synchroniser/faf/lectures";
+
+		synchroniserLectures(urlToCall, lectures);
 	}
 
 	public void synchroniserAnomaliesFAF(List<Anomalie> anomalies) {
 
-		// TODO à implementer
+		String urlToCall = urlCockpitRest + "/synchroniser/faf/anomalies";
+
+		synchroniserAnomalies(urlToCall, anomalies);
 	}
 
-	public static void main(String[] args) {
-
-		// try {
-		// SynchroWSHelper synchroWSHelper = new SynchroWSHelper();
-		// synchroWSHelper.synchroniserQuestionsFAF();
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-	}
 }

@@ -1,6 +1,6 @@
 package fr.qp1c.ebdj.moteur.service;
 
-import fr.qp1c.ebdj.moteur.bean.authentification.CleAuthentification;
+import fr.qp1c.ebdj.moteur.ws.wrapper.AuthentificationBdj;
 
 public interface AuthentificationService {
 
@@ -9,7 +9,7 @@ public interface AuthentificationService {
 	 * 
 	 * @return la clé d'activation configurée.
 	 */
-	public CleAuthentification recupererCleActivation();
+	public AuthentificationBdj recupererAuthentificationBdj();
 
 	/**
 	 * Valider la clé d'activation configuré.

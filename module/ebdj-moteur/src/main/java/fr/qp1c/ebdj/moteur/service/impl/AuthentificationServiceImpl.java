@@ -3,11 +3,11 @@ package fr.qp1c.ebdj.moteur.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.moteur.bean.authentification.CleAuthentification;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurParametrageDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurParametrageDaoImpl;
 import fr.qp1c.ebdj.moteur.service.AuthentificationService;
 import fr.qp1c.ebdj.moteur.utils.Utils;
+import fr.qp1c.ebdj.moteur.ws.wrapper.AuthentificationBdj;
 
 public class AuthentificationServiceImpl implements AuthentificationService {
 
@@ -22,13 +22,18 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public CleAuthentification recupererCleActivation() {
+	public AuthentificationBdj recupererAuthentificationBdj() {
 
-		String token = dbConnecteurParametrageDao.recupererCleActivation();
+		String nomBdj = dbConnecteurParametrageDao.recupererParametrage("NOM_BDJ");
+		String cleActivation = dbConnecteurParametrageDao.recupererParametrage("CLE_ACTIVATION");
 
 		String adresseMac = Utils.recupererAdresseMac();
 
-		return new CleAuthentification(token, adresseMac);
+		AuthentificationBdj authentificationBdj = new AuthentificationBdj();
+		authentificationBdj.setNomBdj(nomBdj);
+		authentificationBdj.setCleAuthentification(cleActivation);
+
+		return authentificationBdj;
 	}
 
 	/**
@@ -36,11 +41,10 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 	 */
 	@Override
 	public boolean validerCleActivation() {
-		// TODO Auto-generated method stub
 
 		// Faire un appel à un service rest de la boite pour la valider
 
-		String cleActivation = dbConnecteurParametrageDao.recupererCleActivation();
+		String cleActivation = dbConnecteurParametrageDao.recupererParametrage("CLE_ACTIVATION");
 
 		return false;
 	}
@@ -51,10 +55,10 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 	@Override
 	public void remplacerCleActivation(String ancienneCle, String nouvelleCle) {
 
-		String cleExistante = dbConnecteurParametrageDao.recupererCleActivation();
+		String cleExistante = dbConnecteurParametrageDao.recupererParametrage("CLE_ACTIVATION");
 
 		if (cleExistante.equals(ancienneCle)) {
-			dbConnecteurParametrageDao.modifierCleActivation(nouvelleCle);
+			dbConnecteurParametrageDao.modifierParametrage("CLE_ACTIVATION", nouvelleCle);
 		} else {
 			LOGGER.error("La clé existante ne correspond pas à la clé fournie");
 		}

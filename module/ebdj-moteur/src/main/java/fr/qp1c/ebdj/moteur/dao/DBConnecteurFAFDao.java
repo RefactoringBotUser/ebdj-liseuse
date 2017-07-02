@@ -8,7 +8,7 @@ import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
-import fr.qp1c.ebdj.moteur.ws.wrapper.QuestionFAFBdjDistante;
+import fr.qp1c.ebdj.moteur.ws.wrapper.question.QuestionFAFBdjDistante;
 
 /**
  * Cette interface liste des fonctionnalités possibles permettant le traitement
@@ -83,5 +83,7 @@ public interface DBConnecteurFAFDao {
 	public Long recupererIndexMaxAnomalie();
 
 	public Long recupererIndexMaxLecture();
+
+	public Long recupererReferenceMaxQuestion();
 
 }

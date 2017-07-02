@@ -20,7 +20,7 @@ import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
 import fr.qp1c.ebdj.moteur.utils.db.DBManager;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
-import fr.qp1c.ebdj.moteur.ws.wrapper.QuestionFAFBdjDistante;
+import fr.qp1c.ebdj.moteur.ws.wrapper.question.QuestionFAFBdjDistante;
 
 public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements DBConnecteurFAFDao {
 
@@ -291,5 +291,11 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	@Override
 	public Long recupererIndexMaxLecture() {
 		return recupererIndexMaxLecture("FAF");
+	}
+
+	@Override
+	public Long recupererReferenceMaxQuestion() {
+
+		return recupererReferenceMaxQuestion("FAF");
 	}
 }
