@@ -1,10 +1,14 @@
 package fr.qp1c.ebdj.moteur.dao;
 
+import java.util.List;
 import java.util.Set;
 
-import fr.qp1c.ebdj.moteur.bean.question.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
+import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
+import fr.qp1c.ebdj.moteur.ws.wrapper.QuestionFAFBdjDistante;
 
 /**
  * Cette interface liste des fonctionnalités possibles permettant le traitement
@@ -35,7 +39,7 @@ public interface DBConnecteurFAFDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException;
+	public void jouerQuestion(Long idQuestion, String referenceQuestion, String lecteur) throws DBManagerException;
 
 	/**
 	 * Signaler une anomalie sur une question.
@@ -49,7 +53,8 @@ public interface DBConnecteurFAFDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public void signalerAnomalie(String referenceQuestion, Anomalie anomalie, String lecteur) throws DBManagerException;
+	public void signalerAnomalie(String reference, String version, SignalementAnomalie anomalie, String lecteur)
+			throws DBManagerException;
 
 	/**
 	 * Compter le nombre total de question existante.
@@ -63,6 +68,20 @@ public interface DBConnecteurFAFDao {
 	 * 
 	 * @return le nombre de question jouable.
 	 */
-	public int compterNbQuestionJouee();
+	public int compterNbQuestionLue();
+
+	public void creerQuestion(QuestionFAFBdjDistante questionFafBdjDistante);
+
+	public void desactiverQuestion(String reference);
+
+	public void corrigerQuestion(QuestionFAFBdjDistante questionFafBdjDistante);
+
+	public List<Lecture> listerQuestionsLues(Long indexDebut);
+
+	public List<Anomalie> listerAnomalies(Long indexDebut);
+
+	public Long recupererIndexMaxAnomalie();
+
+	public Long recupererIndexMaxLecture();
 
 }

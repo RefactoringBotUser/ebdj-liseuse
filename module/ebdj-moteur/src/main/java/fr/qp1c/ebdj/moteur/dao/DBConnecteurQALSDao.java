@@ -2,8 +2,8 @@ package fr.qp1c.ebdj.moteur.dao;
 
 import java.util.List;
 
-import fr.qp1c.ebdj.moteur.bean.question.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.question.Question4ALS;
+import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
 
 public interface DBConnecteurQALSDao {
@@ -39,7 +39,8 @@ public interface DBConnecteurQALSDao {
 	 * @param lecteur
 	 * @throws DBManagerException
 	 */
-	public void signalerAnomalie(String referenceTheme, Anomalie anomalie, String lecteur) throws DBManagerException;
+	public void signalerAnomalie(String referenceTheme, String version, SignalementAnomalie anomalie, String lecteur)
+			throws DBManagerException;
 
 	/**
 	 * Compter le nombre total de thème existante.

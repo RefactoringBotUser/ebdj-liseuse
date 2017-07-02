@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.TextAlignment;
@@ -63,17 +62,17 @@ public class HomeController {
 		btnQuestion.setTextAlignment(TextAlignment.CENTER);
 		btnQuestion.setContentDisplay(ContentDisplay.TOP);
 
-		MenuItem menu9PG = new MenuItem("9PG uniquement");
-		MenuItem menu4ALS = new MenuItem("4ALS uniquement");
-		MenuItem menuJD = new MenuItem("JD uniquement");
-		MenuItem menuFAF = new MenuItem("FAF uniquement");
-		MenuItem menuPartieComplete = new MenuItem("PARTIE COMPLETE");
+		// MenuItem menu9PG = new MenuItem("9PG uniquement");
+		// MenuItem menu4ALS = new MenuItem("4ALS uniquement");
+		// MenuItem menuJD = new MenuItem("JD uniquement");
+		// MenuItem menuFAF = new MenuItem("FAF uniquement");
+		// MenuItem menuPartieComplete = new MenuItem("PARTIE COMPLETE");
 
-		btnQuestion.getItems().add(menuPartieComplete);
-		btnQuestion.getItems().add(menu9PG);
-		btnQuestion.getItems().add(menu4ALS);
-		btnQuestion.getItems().add(menuJD);
-		btnQuestion.getItems().add(menuFAF);
+		// btnQuestion.getItems().add(menuPartieComplete);
+		// btnQuestion.getItems().add(menu9PG);
+		// btnQuestion.getItems().add(menu4ALS);
+		// btnQuestion.getItems().add(menuJD);
+		// btnQuestion.getItems().add(menuFAF);
 
 		ImageView imageHomeStats = new ImageView(ImageConstants.IMAGE_HOME_STATS);
 		ImageUtils.reduireImageCustom(imageHomeStats, 150);
@@ -91,11 +90,11 @@ public class HomeController {
 
 		separateur.setVisible(false);
 
-		btn9PG.setVisible(false);
-		btn4ALS.setVisible(false);
-		btnJD.setVisible(false);
-		btnFAF.setVisible(false);
-		btnPartie.setVisible(false);
+		// btn9PG.setVisible(false);
+		// btn4ALS.setVisible(false);
+		// btnJD.setVisible(false);
+		// btnFAF.setVisible(false);
+		// btnPartie.setVisible(false);
 
 		LOGGER.debug("[FIN] Initialisation du panneau home.");
 	}
@@ -193,7 +192,7 @@ public class HomeController {
 
 		launcher.afficherEcranPartieComplete();
 
-		masquerSousMenuQuestion();
+		// masquerSousMenuQuestion();
 	}
 
 	public Launcher getLauncher() {

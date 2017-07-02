@@ -5,6 +5,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Utils {
 
 	public static String recupererAdresseMac() {
@@ -32,6 +34,13 @@ public class Utils {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static String escapeSql(String str) {
+		if (str == null) {
+			return null;
+		}
+		return StringUtils.replace(str, "'", "''");
 	}
 
 }

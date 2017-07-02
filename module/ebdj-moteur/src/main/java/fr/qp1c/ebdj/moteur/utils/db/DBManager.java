@@ -51,7 +51,8 @@ public class DBManager {
 			Class.forName("org.sqlite.JDBC");
 			connection = DriverManager.getConnection("jdbc:sqlite:" + DBConstantes.DB_PATH + DBFileName);
 
-			LOGGER.info("Connexion a " + DBConstantes.DB_PATH + DBFileName + " avec succès");
+			// LOGGER.debug("Connexion a " + DBConstantes.DB_PATH + DBFileName +
+			// " avec succès");
 		} catch (ClassNotFoundException notFoundException) {
 			LOGGER.error("Erreur lors de l'ouverture de la connexion : ", notFoundException);
 		} catch (SQLException sqlException) {

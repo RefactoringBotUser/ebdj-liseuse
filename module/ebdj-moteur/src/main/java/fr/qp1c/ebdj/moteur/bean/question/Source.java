@@ -13,7 +13,7 @@ public class Source {
 
 	private String club;
 
-	private String dateEnvoi;
+	private String dateReception;
 
 	private String dateIntegration;
 
@@ -37,6 +37,17 @@ public class Source {
 		this.club = club;
 	}
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param club
+	 */
+	public Source(String club, String dateReception) {
+		super();
+		this.club = club;
+		this.dateReception = dateReception;
+	}
+
 	// Getters - setters
 
 	public String getClub() {
@@ -47,6 +58,14 @@ public class Source {
 		this.club = club;
 	}
 
+	public String getDateReception() {
+		return dateReception;
+	}
+
+	public void setDateReception(String dateReception) {
+		this.dateReception = dateReception;
+	}
+
 	public String getDateIntegration() {
 		return dateIntegration;
 	}
@@ -55,22 +74,16 @@ public class Source {
 		this.dateIntegration = dateIntegration;
 	}
 
-	public String getDateEnvoi() {
-		return dateEnvoi;
-	}
-
-	public void setDateEnvoi(String dateEnvoi) {
-		this.dateEnvoi = dateEnvoi;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(club);
 		sb.append(" - ");
-		sb.append(dateEnvoi);
-		sb.append(" - ");
-		sb.append(dateIntegration);
+		sb.append(dateReception);
+		if (dateIntegration != null && "".equals(dateIntegration)) {
+			sb.append(" - ");
+			sb.append(dateIntegration);
+		}
 		return sb.toString();
 	}
 

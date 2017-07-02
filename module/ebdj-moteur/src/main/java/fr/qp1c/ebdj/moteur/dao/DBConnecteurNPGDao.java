@@ -2,9 +2,12 @@ package fr.qp1c.ebdj.moteur.dao;
 
 import java.util.List;
 
-import fr.qp1c.ebdj.moteur.bean.question.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
+import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
+import fr.qp1c.ebdj.moteur.ws.wrapper.Question9PGBdjDistante;
 
 /**
  * Cette interface liste des fonctionnalités possibles permettant le traitement
@@ -45,7 +48,7 @@ public interface DBConnecteurNPGDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException;
+	public void jouerQuestion(Long idQuestion, String referenceQuestion, String lecteur) throws DBManagerException;
 
 	/**
 	 * Signaler une anomalie sur une question.
@@ -59,7 +62,8 @@ public interface DBConnecteurNPGDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public void signalerAnomalie(String referenceTheme, Anomalie anomalie, String lecteur) throws DBManagerException;
+	public void signalerAnomalie(String reference, String version, SignalementAnomalie anomalie, String lecteur)
+			throws DBManagerException;
 
 	/**
 	 * Compter le nombre total de question existante.
@@ -80,13 +84,29 @@ public interface DBConnecteurNPGDao {
 	 * 
 	 * @return le nombre de question jouable.
 	 */
-	public int compterNbQuestionJouee();
+	public int compterNbQuestionLue();
 
 	/**
 	 * Compter le nombre total de question jouable.
 	 * 
 	 * @return le nombre de question jouable.
 	 */
-	public int compterNbQuestionJouee(int difficulte);
+	public int compterNbQuestionLue(int difficulte);
+
+	public void creerQuestion(Question9PGBdjDistante question9pgBdjDistante);
+
+	public void desactiverQuestion(String reference);
+
+	public void corrigerQuestion(Question9PGBdjDistante question9pgBdjDistante);
+
+	public List<Anomalie> listerAnomalies(Long indexDebut);
+
+	public List<Lecture> listerQuestionsLues(Long indexDebut);
+
+	public Long recupererIndexMaxAnomalie();
+
+	public Long recupererIndexMaxLecture();
+
+	public Long recupererReferenceMaxQuestion();
 
 }

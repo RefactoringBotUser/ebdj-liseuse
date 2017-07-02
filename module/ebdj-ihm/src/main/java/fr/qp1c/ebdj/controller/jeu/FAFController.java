@@ -306,15 +306,7 @@ public class FAFController {
 		libelleQuestionFAF.setText(questionFAF.getQuestion().replaceAll("  ", " "));
 		reponseFAF.setText(questionFAF.getReponse().toUpperCase());
 		reponseFAF.setTextAlignment(TextAlignment.CENTER);
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Source : ");
-		sb.append(questionFAF.getSource().getClub());
-		sb.append(" - ");
-		sb.append(questionFAF.getReference());
-		sb.append(" - ");
-		sb.append(questionFAF.getSource().getDateEnvoi());
-		questionFAFInfos.setText(sb.toString());
+		questionFAFInfos.setText(questionFAF.getSource().toString());
 
 		LOGGER.debug("[FIN] Affichage carton FAF.");
 	}

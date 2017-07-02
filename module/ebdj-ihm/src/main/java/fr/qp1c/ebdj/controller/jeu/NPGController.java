@@ -470,15 +470,7 @@ public class NPGController {
 		question9PG.setText(questionNPG.getQuestion());
 		reponse9PG.setText(questionNPG.getReponse().toUpperCase());
 		reponse9PG.setTextAlignment(TextAlignment.CENTER);
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Source : ");
-		sb.append(questionNPG.getSource().getClub());
-		sb.append(" - ");
-		sb.append(questionNPG.getReference());
-		sb.append(" - ");
-		sb.append(questionNPG.getSource().getDateEnvoi());
-		question9PGInfos.setText(sb.toString());
+		question9PGInfos.setText(questionNPG.getSource().toString());
 
 		LOGGER.debug("[FIN] Affichage carton 9PG.");
 	}

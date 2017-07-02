@@ -8,8 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.moteur.bean.question.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.question.Question4ALS;
+import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurQALSDao;
 import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
 import fr.qp1c.ebdj.moteur.utils.db.DBManager;
@@ -86,7 +86,8 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 	 * 
 	 */
 	@Override
-	public void signalerAnomalie(String referenceTheme, Anomalie anomalie, String lecteur) throws DBManagerException {
+	public void signalerAnomalie(String reference, String version, SignalementAnomalie anomalie, String lecteur)
+			throws DBManagerException {
 		// TODO Auto-generated method stub
 
 	}

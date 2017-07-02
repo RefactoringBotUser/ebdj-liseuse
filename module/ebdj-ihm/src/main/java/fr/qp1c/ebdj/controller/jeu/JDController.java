@@ -299,15 +299,7 @@ public class JDController {
 		libelleQuestionJD.setText(questionJD.getQuestion());
 		reponseJD.setText(questionJD.getReponse().toUpperCase());
 		reponseJD.setTextAlignment(TextAlignment.CENTER);
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Source : ");
-		sb.append(questionJD.getSource().getClub());
-		sb.append(" - ");
-		sb.append(questionJD.getReference());
-		sb.append(" - ");
-		sb.append(questionJD.getSource().getDateEnvoi());
-		questionJDInfos.setText(sb.toString());
+		questionJDInfos.setText(questionJD.getSource().toString());
 
 		LOGGER.debug("[FIN] Affichage carton JD.");
 	}

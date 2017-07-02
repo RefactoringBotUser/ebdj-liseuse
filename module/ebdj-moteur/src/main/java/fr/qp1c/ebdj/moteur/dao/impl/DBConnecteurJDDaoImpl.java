@@ -9,15 +9,19 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.moteur.bean.question.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
+import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.Source;
+import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
+import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
 import fr.qp1c.ebdj.moteur.utils.db.DBManager;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
+import fr.qp1c.ebdj.moteur.ws.wrapper.QuestionJDBdjDistante;
 
-public class DBConnecteurJDDaoImpl implements DBConnecteurJDDao {
+public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements DBConnecteurJDDao {
 
 	/**
 	 * Default logger.
@@ -37,7 +41,7 @@ public class DBConnecteurJDDaoImpl implements DBConnecteurJDDao {
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,reference,source FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT * FROM QUESTION_JD_JOUEE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id)");
+				"SELECT id,question,reponse,theme,reference,club,dateReception FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
@@ -64,7 +68,9 @@ public class DBConnecteurJDDaoImpl implements DBConnecteurJDDao {
 				question.setReponse(rs.getString("reponse"));
 				question.setReference(rs.getString("reference"));
 
-				Source source = new Source(rs.getString("source"));
+				Source source = new Source();
+				source.setClub(rs.getString("club"));
+				source.setDateReception(rs.getString("dateReception"));
 				question.setSource(source);
 
 				LOGGER.info("Question : " + question);
@@ -82,51 +88,6 @@ public class DBConnecteurJDDaoImpl implements DBConnecteurJDDao {
 		}
 
 		return listeQuestionsAJouer;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException {
-
-		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append("INTO QUESTION_JD_JOUEE VALUES (");
-		query.append(referenceQuestion);
-		query.append(",");
-		// TODO : calculer la date du jour
-		query.append("date du jour");
-		query.append(",'");
-		query.append(lecteur);
-		query.append("');");
-
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-			stmt.execute(query.toString());
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public void signalerAnomalie(String referenceTheme, Anomalie anomalie, String lecteur) throws DBManagerException {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -171,7 +132,7 @@ public class DBConnecteurJDDaoImpl implements DBConnecteurJDDao {
 	 * 
 	 */
 	@Override
-	public int compterNbQuestionJouee() {
+	public int compterNbQuestionLue() {
 
 		int nbQuestionJouee = 0;
 
@@ -179,7 +140,7 @@ public class DBConnecteurJDDaoImpl implements DBConnecteurJDDao {
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT DISTINCT * FROM QUESTION_JD_JOUEE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id) ");
+				"SELECT count(1) FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT DISTINCT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id) ");
 		query.append(";");
 
 		try {
@@ -202,6 +163,127 @@ public class DBConnecteurJDDaoImpl implements DBConnecteurJDDao {
 			throw new DBManagerException();
 		}
 		return nbQuestionJouee;
+	}
+
+	@Override
+	public void creerQuestion(QuestionJDBdjDistante questionJd) {
+		// Création de la requête
+		StringBuilder query = new StringBuilder();
+		query.append(
+				"INSERT INTO QUESTION_JD ('theme','question','reponse','difficulte','reference','club','dateReception','version') VALUES ('");
+		query.append(Utils.escapeSql(questionJd.getTheme()));
+		query.append("','");
+		query.append(Utils.escapeSql(questionJd.getQuestion()));
+		query.append("','");
+		query.append(Utils.escapeSql(questionJd.getReponse()));
+		query.append("',");
+		query.append(questionJd.getDifficulte());
+		query.append(",'");
+		query.append(questionJd.getReference());
+		query.append("','");
+		query.append(Utils.escapeSql(questionJd.getClub()));
+		query.append("','");
+		query.append(questionJd.getDateEnvoi());
+		query.append("',");
+		query.append(questionJd.getVersion());
+		query.append("',1);"); // question active
+
+		try {
+			// Connexion à la base de données SQLite
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
+			Connection connection = dbManager.connect();
+			Statement stmt = connection.createStatement();
+
+			// Executer la requête
+			stmt.executeUpdate(query.toString());
+
+			// Fermeture des connections.
+			stmt.close();
+			dbManager.close(connection);
+		} catch (Exception e) {
+			LOGGER.error("An error has occured :", e);
+			throw new DBManagerException();
+		}
+	}
+
+	@Override
+	public void corrigerQuestion(QuestionJDBdjDistante questionJd) {
+		// Création de la requête
+		StringBuilder query = new StringBuilder();
+		query.append("UPDATE QUESTION_JD SET theme='");
+		query.append(Utils.escapeSql(questionJd.getTheme()));
+		query.append("', question='");
+		query.append(Utils.escapeSql(questionJd.getQuestion()));
+		query.append("', reponse='");
+		query.append(Utils.escapeSql(questionJd.getReponse()));
+		query.append("', difficulte=");
+		query.append(questionJd.getDifficulte());
+		query.append(", club='");
+		query.append(Utils.escapeSql(questionJd.getClub()));
+		query.append("', dateReception='");
+		query.append(questionJd.getDateEnvoi());
+		query.append("', version=");
+		query.append(questionJd.getVersion());
+		query.append("' WHERE reference=");
+		query.append(questionJd.getReference());
+		query.append(";");
+
+		try {
+			// Connexion à la base de données SQLite
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
+			Connection connection = dbManager.connect();
+			Statement stmt = connection.createStatement();
+
+			// Executer la requête
+			stmt.executeUpdate(query.toString());
+
+			// Fermeture des connections.
+			stmt.close();
+			dbManager.close(connection);
+		} catch (Exception e) {
+			LOGGER.error("An error has occured :", e);
+			throw new DBManagerException();
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public void jouerQuestion(Long idQuestion, String referenceQuestion, String lecteur) throws DBManagerException {
+		jouerQuestion("JD", idQuestion, referenceQuestion, lecteur);
+	}
+
+	@Override
+	public void signalerAnomalie(String reference, String version, SignalementAnomalie anomalie, String lecteur)
+			throws DBManagerException {
+		signalerAnomalie("JD", reference, version, anomalie, lecteur);
+	}
+
+	@Override
+	public void desactiverQuestion(String reference) {
+		desactiverQuestion("JD", reference);
+	}
+
+	@Override
+	public List<Lecture> listerQuestionsLues(Long indexDebut) {
+		return listerQuestionsLues("JD", indexDebut);
+	}
+
+	@Override
+	public List<Anomalie> listerAnomalies(Long indexDebut) {
+		return listerAnomalies("JD", indexDebut);
+	}
+
+	@Override
+	public Long recupererIndexMaxAnomalie() {
+		return recupererIndexMaxAnomalie("JD");
+	}
+
+	@Override
+	public Long recupererIndexMaxLecture() {
+		return recupererIndexMaxLecture("JD");
 	}
 
 }
