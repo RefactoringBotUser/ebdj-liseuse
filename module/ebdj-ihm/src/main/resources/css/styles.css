@@ -205,6 +205,29 @@
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
+
+.boutonSynchroniser{
+	-fx-background-color: #008CBA;
+	-fx-background-radius: 20;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.boutonSynchroniser:hover {
+	-fx-background-color: #ff7f50;
+	-fx-background-radius: 20;
+	-fx-border-color:red;
+	-fx-border-radius: 20;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
 .boutonErreurQuestion{
 	-fx-background-color: #008CBA;
 	-fx-background-radius: 20;

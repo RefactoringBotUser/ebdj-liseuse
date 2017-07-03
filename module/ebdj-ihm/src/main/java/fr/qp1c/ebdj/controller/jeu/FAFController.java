@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.loader.LoaderQuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
+import fr.qp1c.ebdj.moteur.dao.DBConnecteurFAFDao;
+import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurFAFDaoImpl;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.TaillePolice;
@@ -162,7 +164,7 @@ public class FAFController {
 	public void jouerNouvelleQuestionFAF() {
 		LOGGER.info("### --> Clic sur \"Nouvelle question FAF\".");
 
-		afficherNouvelleQuestion(questionsFAF.get(nbQuestReel));
+		afficherNouvelleQuestion();
 	}
 
 	@FXML
@@ -225,16 +227,34 @@ public class FAFController {
 	public void remplacerQuestionFAF() {
 		LOGGER.info("### --> Clic sur \"Remplacer la question de FAF\".");
 
-		changerQuestion(questionsFAF.get(nbQuestReel), false);
+		QuestionFAF nouvelleQuestion = donnerNouvelleQuestion();
+
+		changerQuestion(nouvelleQuestion, false);
 
 		listeHistoriqueFAF.get((nbQuestReel - listeHistoriqueFAF.size()) + 1).setNonComptabilise(true);
 	}
 
 	// Méthodes d'affichage
 
-	private void afficherNouvelleQuestion(QuestionFAF nouvelleQuestion) {
+	private void afficherNouvelleQuestion() {
+
+		QuestionFAF nouvelleQuestion = donnerNouvelleQuestion();
 
 		changerQuestion(nouvelleQuestion, true);
+	}
+
+	private QuestionFAF donnerNouvelleQuestion() {
+		LOGGER.debug("[DEBUT] Donner une nouvelle question.");
+
+		QuestionFAF question = questionsFAF.get(nbQuestReel);
+
+		// TODO : gérer la récupération du lecteur
+		DBConnecteurFAFDao dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
+		dbConnecteurFAFDao.jouerQuestion(question.getId(), question.getReference(), "lecteur");
+
+		LOGGER.debug("[FIN] Donner une nouvelle question.");
+
+		return question;
 	}
 
 	private void changerQuestion(QuestionFAF nouvelleQuestion, boolean questionACompter) {

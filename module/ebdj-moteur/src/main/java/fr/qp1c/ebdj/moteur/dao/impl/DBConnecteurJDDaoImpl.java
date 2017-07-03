@@ -63,6 +63,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 
 				// Convertir chaque question
 				QuestionJD question = new QuestionJD();
+				question.setId(rs.getLong("id"));
 				question.setTheme(rs.getString("theme"));
 				question.setQuestion(rs.getString("question"));
 				question.setReponse(rs.getString("reponse"));
@@ -170,7 +171,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"INSERT INTO QUESTION_JD ('theme','question','reponse','difficulte','reference','club','dateReception','version') VALUES ('");
+				"INSERT INTO QUESTION_JD ('theme','question','reponse','difficulte','reference','club','dateReception','version','active') VALUES ('");
 		query.append(Utils.escapeSql(questionJd.getTheme()));
 		query.append("','");
 		query.append(Utils.escapeSql(questionJd.getQuestion()));
@@ -186,7 +187,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 		query.append(questionJd.getDateEnvoi());
 		query.append("',");
 		query.append(questionJd.getVersion());
-		query.append("',1);"); // question active
+		query.append(",1);"); // question active
 
 		try {
 			// Connexion à la base de données SQLite

@@ -4,13 +4,13 @@ public class QuestionNPG extends Question {
 
 	// Attributs
 
-	private String reference;
-
 	private String difficulte;
 
-	private Source source;
+	private Long id;
 
-	private int id;
+	private String reference;
+
+	private Source source;
 
 	// Getters - setters
 
@@ -18,20 +18,28 @@ public class QuestionNPG extends Question {
 		return difficulte;
 	}
 
-	public void setDifficulte(String difficulte) {
-		this.difficulte = difficulte;
+	public Long getId() {
+		return id;
 	}
 
 	public String getReference() {
 		return reference;
 	}
 
-	public void setReference(String reference) {
-		this.reference = reference;
-	}
-
 	public Source getSource() {
 		return source;
+	}
+
+	public void setDifficulte(String difficulte) {
+		this.difficulte = difficulte;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 	public void setSource(Source source) {
@@ -43,6 +51,8 @@ public class QuestionNPG extends Question {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
 		sb.append(" - ");
+		sb.append(id);
+		sb.append(" - ");
 		sb.append(difficulte);
 		sb.append(" - ");
 		sb.append(reference);
@@ -52,11 +62,4 @@ public class QuestionNPG extends Question {
 		return sb.toString();
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 }

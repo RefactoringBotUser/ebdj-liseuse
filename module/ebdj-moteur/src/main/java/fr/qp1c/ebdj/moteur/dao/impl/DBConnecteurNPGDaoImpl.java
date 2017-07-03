@@ -39,7 +39,6 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 */
 	@Override
 	public List<QuestionNPG> listerQuestionsJouable(int nbQuestion) throws DBManagerException {
-
 		return listerQuestionsJouable(nbQuestion, -1);
 	}
 
@@ -49,7 +48,6 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 */
 	@Override
 	public List<QuestionNPG> listerQuestionsJouable(int nbQuestion, int difficulte) throws DBManagerException {
-
 		List<QuestionNPG> listeQuestionsAJouer = new ArrayList<>();
 
 		// Création de la requête
@@ -84,6 +82,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 				// Convertir chaque question
 				QuestionNPG question = new QuestionNPG();
+				question.setId(rs.getLong("id"));
 				question.setDifficulte(rs.getInt("difficulte") + "");
 				question.setQuestion(rs.getString("question"));
 				question.setReponse(rs.getString("reponse"));
@@ -117,7 +116,6 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 */
 	@Override
 	public int compterNbQuestion() {
-
 		return compterNbQuestion(-1);
 	}
 
@@ -267,7 +265,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 		query.append(question9pg.getDateEnvoi());
 		query.append("', version=");
 		query.append(question9pg.getVersion());
-		query.append("' WHERE reference=");
+		query.append(" WHERE reference=");
 		query.append(question9pg.getReference());
 		query.append(";");
 
@@ -295,14 +293,12 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 */
 	@Override
 	public void jouerQuestion(Long idQuestion, String referenceQuestion, String lecteur) throws DBManagerException {
-
 		jouerQuestion("NPG", idQuestion, referenceQuestion, lecteur);
 	}
 
 	@Override
 	public void signalerAnomalie(String reference, String version, SignalementAnomalie anomalie, String lecteur)
 			throws DBManagerException {
-
 		signalerAnomalie("NPG", reference, version, anomalie, lecteur);
 	}
 
@@ -313,31 +309,26 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 	@Override
 	public List<Lecture> listerQuestionsLues(Long indexDebut) {
-
 		return listerQuestionsLues("NPG", indexDebut);
 	}
 
 	@Override
 	public List<Anomalie> listerAnomalies(Long indexDebut) {
-
 		return listerAnomalies("NPG", indexDebut);
 	}
 
 	@Override
 	public Long recupererIndexMaxAnomalie() {
-
 		return recupererIndexMaxAnomalie("NPG");
 	}
 
 	@Override
 	public Long recupererIndexMaxLecture() {
-
 		return recupererIndexMaxLecture("NPG");
 	}
 
 	@Override
 	public Long recupererReferenceMaxQuestion() {
-
 		return recupererReferenceMaxQuestion("NPG");
 	}
 

@@ -27,6 +27,16 @@ public interface DBConnecteurFAFDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
+	public List<QuestionFAF> listerQuestionsJouable(int nbQuestion) throws DBManagerException;
+
+	/**
+	 * Lister les questions jouables.
+	 * 
+	 * @param nbQuestion
+	 * @return la liste des questions jouables.
+	 * @throws DBManagerException
+	 *             en cas d'exception lors de la récupération en BDD.
+	 */
 	public QuestionFAF donnerQuestionsJouable(Set<Integer> categorieAExclure) throws DBManagerException;
 
 	/**

@@ -11,6 +11,8 @@ import fr.qp1c.ebdj.loader.LoaderQuestion9PG;
 import fr.qp1c.ebdj.moteur.bean.Mode9PG;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestion9PG;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
+import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
+import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurNPGDaoImpl;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.TaillePolice;
@@ -399,6 +401,10 @@ public class NPGController {
 			cpt_3++;
 		}
 		questions9PGJouee.add(question);
+
+		// TODO : gérer la récupération du lecteur
+		DBConnecteurNPGDao dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
+		dbConnecteurNPGDao.jouerQuestion(question.getId(), question.getReference(), "lecteur");
 
 		LOGGER.debug("[FIN] Donner une nouvelle question.");
 

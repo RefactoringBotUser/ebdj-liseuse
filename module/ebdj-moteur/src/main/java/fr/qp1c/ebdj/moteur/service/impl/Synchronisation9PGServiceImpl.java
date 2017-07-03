@@ -46,7 +46,8 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 		synchroniserQuestions9PG();
 	}
 
-	private void synchroniserQuestions9PG() {
+	@Override
+	public void synchroniserQuestions9PG() {
 
 		LOGGER.debug("[DEBUT] synchroniserQuestions9PG");
 
@@ -63,7 +64,8 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 		LOGGER.debug("[FIN] synchroniserQuestions9PG");
 	}
 
-	private void synchroniserCorrections9PG() {
+	@Override
+	public void synchroniserCorrections9PG() {
 
 		LOGGER.debug("[DEBUT] synchroniserCorrections9PG");
 
@@ -92,7 +94,8 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 		LOGGER.debug("[FIN] synchroniserCorrections9PG");
 	}
 
-	private void synchroniserAnomalies9PG() {
+	@Override
+	public void synchroniserAnomalies9PG() {
 		LOGGER.debug("[DEBUT] synchroniserAnomalies9PG");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
@@ -112,7 +115,8 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 		LOGGER.debug("[FIN] synchroniserAnomalies9PG");
 	}
 
-	private void synchroniserLectures9PG() {
+	@Override
+	public void synchroniserLectures9PG() {
 		LOGGER.debug("[DEBUT] synchroniserLectures9PG");
 
 		// Retrouver l'index de la derniere lecture synchronisée.

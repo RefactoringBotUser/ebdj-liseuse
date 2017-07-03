@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.loader.LoaderQuestionJD;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionJD;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
+import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
+import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurJDDaoImpl;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.TaillePolice;
@@ -162,7 +164,7 @@ public class JDController {
 	public void jouerNouvelleQuestionJD() {
 		LOGGER.info("### --> Clic sur \"Nouvelle question JD\".");
 
-		afficherNouvelleQuestion(questionsJD.get(nbQuestReel));
+		afficherNouvelleQuestion();
 	}
 
 	@FXML
@@ -224,16 +226,34 @@ public class JDController {
 	public void remplacerQuestionJD() {
 		LOGGER.info("### --> Clic sur \"Remplacer la question de JD\".");
 
-		changerQuestion(questionsJD.get(nbQuestReel), false);
+		QuestionJD nouvelleQuestion = donnerNouvelleQuestion();
+
+		changerQuestion(nouvelleQuestion, false);
 
 		listeHistoriqueJD.get((nbQuestReel - listeHistoriqueJD.size()) + 1).setNonComptabilise(true);
 	}
 
 	// Méthodes d'affichage
 
-	private void afficherNouvelleQuestion(QuestionJD nouvelleQuestion) {
+	private void afficherNouvelleQuestion() {
+
+		QuestionJD nouvelleQuestion = donnerNouvelleQuestion();
 
 		changerQuestion(nouvelleQuestion, true);
+	}
+
+	private QuestionJD donnerNouvelleQuestion() {
+		LOGGER.debug("[DEBUT] Donner une nouvelle question.");
+
+		QuestionJD question = questionsJD.get(nbQuestReel);
+
+		// TODO : gérer la récupération du lecteur
+		DBConnecteurJDDao dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
+		dbConnecteurJDDao.jouerQuestion(question.getId(), question.getReference(), "lecteur");
+
+		LOGGER.debug("[FIN] Donner une nouvelle question.");
+
+		return question;
 	}
 
 	private void changerQuestion(QuestionJD nouvelleQuestion, boolean questionACompter) {

@@ -2,11 +2,15 @@ package fr.qp1c.ebdj.moteur.bean.question;
 
 public class Question {
 
+	// Attributs
+
 	// TODO : #4CAF50 vert #FE2E64 rouge
-	
+
 	private String question;
-	
+
 	private String reponse;
+
+	// Constructeur
 
 	/**
 	 * 
@@ -25,6 +29,8 @@ public class Question {
 		this.reponse = reponse;
 	}
 
+	// Getters / setters
+
 	public String getQuestion() {
 		return question;
 	}
@@ -40,10 +46,10 @@ public class Question {
 	public void setReponse(String reponse) {
 		this.reponse = reponse;
 	}
-	
+
 	@Override
-	public String toString(){
-		StringBuilder sb=new StringBuilder();
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
 		sb.append(question);
 		sb.append(" - ");
 		sb.append(reponse);

@@ -2,9 +2,13 @@ package fr.qp1c.ebdj.moteur.bean.synchro;
 
 public class Correction {
 
+	// Attributs
+
 	private Long typeCorrection;
 
 	private String reference;
+
+	// Getters - setters
 
 	public Long getTypeCorrection() {
 		return typeCorrection;

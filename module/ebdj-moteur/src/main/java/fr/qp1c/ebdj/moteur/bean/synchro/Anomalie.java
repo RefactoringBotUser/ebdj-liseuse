@@ -2,6 +2,8 @@ package fr.qp1c.ebdj.moteur.bean.synchro;
 
 public class Anomalie {
 
+	// Attributs
+
 	private Long reference;
 
 	private Long version;
@@ -13,6 +15,8 @@ public class Anomalie {
 	private String cause;
 
 	private String lecteur;
+
+	// Getters - setters
 
 	public Long getReference() {
 		return reference;

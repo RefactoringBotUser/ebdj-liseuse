@@ -3,6 +3,7 @@ package fr.qp1c.ebdj.moteur.dao.impl;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -28,6 +29,69 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * Default logger.
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurFAFDaoImpl.class);
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public List<QuestionFAF> listerQuestionsJouable(int nbQuestion) throws DBManagerException {
+
+		List<QuestionFAF> listeQuestionsAJouer = new ArrayList<>();
+
+		// Création de la requête
+
+		StringBuilder query = new StringBuilder();
+		query.append(
+				"SELECT id,question,reponse,theme,reference,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id)");
+
+		if (nbQuestion > 0) {
+			query.append(" LIMIT ");
+			query.append(nbQuestion);
+		}
+		query.append(";");
+
+		LOGGER.debug(query.toString());
+
+		try {
+			// Connexion à la base de données SQLite
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
+			Connection connection = dbManager.connect();
+			Statement stmt = connection.createStatement();
+
+			// Executer la requête
+			ResultSet rs = stmt.executeQuery(query.toString());
+			while (rs.next()) {
+
+				// Convertir chaque question
+				QuestionFAF question = new QuestionFAF();
+				question.setId(rs.getLong("id"));
+				question.setTheme(rs.getString("theme"));
+				question.setQuestion(rs.getString("question"));
+				question.setReponse(rs.getString("reponse"));
+				question.setReference(rs.getString("reference"));
+
+				Source source = new Source();
+				source.setClub(rs.getString("club"));
+				source.setDateReception(rs.getString("dateReception"));
+				question.setSource(source);
+
+				LOGGER.info("Question : " + question);
+
+				// Ajouter la question à la liste
+				listeQuestionsAJouer.add(question);
+			}
+
+			// Fermeture des connections.
+			stmt.close();
+			dbManager.close(connection);
+		} catch (Exception e) {
+			LOGGER.error("An error has occured :", e);
+			throw new DBManagerException();
+		}
+
+		return listeQuestionsAJouer;
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -173,9 +237,9 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"INSERT INTO QUESTION_FAF ('categorie','theme','question','reponse','difficulte','reference','club','dateReception','version') VALUES (");
+				"INSERT INTO QUESTION_FAF ('categorie','theme','question','reponse','difficulte','reference','club','dateReception','version','active') VALUES ('");
 		query.append(Utils.escapeSql(questionFaf.getCategorieFAF()));
-		query.append(",'");
+		query.append("','");
 		query.append(Utils.escapeSql(questionFaf.getTheme()));
 		query.append("','");
 		query.append(Utils.escapeSql(questionFaf.getQuestion()));
@@ -191,7 +255,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		query.append(questionFaf.getDateEnvoi());
 		query.append("',");
 		query.append(questionFaf.getVersion());
-		query.append("',1);"); // question active
+		query.append(",1);"); // question active
 
 		try {
 			// Connexion à la base de données SQLite

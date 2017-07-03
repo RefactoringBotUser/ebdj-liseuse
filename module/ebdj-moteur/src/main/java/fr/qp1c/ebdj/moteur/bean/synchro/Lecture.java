@@ -2,11 +2,15 @@ package fr.qp1c.ebdj.moteur.bean.synchro;
 
 public class Lecture {
 
+	// Attributs
+
 	private Long reference;
 
 	private String dateLecture;
 
 	private String lecteur;
+
+	// Getters - setters
 
 	public Long getReference() {
 		return reference;

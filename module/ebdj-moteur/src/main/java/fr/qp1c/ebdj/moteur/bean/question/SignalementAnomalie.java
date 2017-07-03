@@ -2,9 +2,13 @@ package fr.qp1c.ebdj.moteur.bean.question;
 
 public class SignalementAnomalie {
 
+	// Attributs
+
 	private Long typeAnomalie;
 
 	private String cause;
+
+	// Getters - setters
 
 	public Long getTypeAnomalie() {
 		return typeAnomalie;
