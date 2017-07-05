@@ -9,19 +9,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="1600" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.stats.StatistiquesController">
+<BorderPane maxHeight="-Infinity" maxWidth="1600" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.stats.StatistiquesController">
    <center>
       <Accordion BorderPane.alignment="CENTER">
         <panes>
             <TitledPane fx:id="stock" animated="false" styleClass="theme4ALS" text="Stock de questions">
             <content>
-                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS">
+                <BorderPane minHeight="400.0" minWidth="0.0" prefHeight="480.0" prefWidth="800.0" styleClass="zoneCarton4ALS">
                      <top>
                         <TableView maxHeight="300.0" maxWidth="950.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="950.0" BorderPane.alignment="CENTER">
                           <columns>
                             <TableColumn editable="false" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" sortable="false" text="Type de question" />
                             <TableColumn minWidth="0.0" prefWidth="203.0" text="Quantité total" />
                               <TableColumn prefWidth="183.0" text="Quantité jouée" />
+                              <TableColumn prefWidth="183.0" text="Quantité dispo" />
+                              <TableColumn prefWidth="183.0" text="Dernière synchro" />
                           </columns>
                         </TableView>
                      </top>
@@ -30,15 +32,15 @@
             </TitledPane>
           <TitledPane fx:id="synchronisation" animated="false" styleClass="theme4ALS" text="Synchronisation">
             <content>
-                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS">
+                <BorderPane minHeight="400.0" minWidth="0.0" prefHeight="480.0" prefWidth="800.0" styleClass="zoneCarton4ALS">
                      <center>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                            <children>
                               <Button fx:id="btnSynchroniser" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#synchroniser" prefHeight="50.0" prefWidth="300.0" styleClass="boutonSynchroniser"  text="Synchroniser" textAlignment="CENTER" />
-                              <Label fx:id="libelleBarreProgressionPhase" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="200.0" styleClass="libelleBarreProgressionPhase"  textAlignment="CENTER" wrapText="true" />
+                              <Label fx:id="libelleBarreProgressionPhase" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="50.0" styleClass="libelleBarreProgressionPhase"  textAlignment="CENTER" wrapText="true" />
                               <ProgressBar fx:id="barreProgressionPhase" prefWidth="200.0" progress="0.0" BorderPane.alignment="CENTER" />
                               <Pane maxHeight="20.0" minHeight="20.0" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-                              <Label fx:id="libelleBarreProgressionSousPhase" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="200.0" styleClass="libelleBarreProgressionSousPhase"  textAlignment="CENTER" wrapText="true" />
+                              <Label fx:id="libelleBarreProgressionSousPhase" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="50.0" styleClass="libelleBarreProgressionSousPhase"  textAlignment="CENTER" wrapText="true" />
                               <ProgressBar fx:id="barreProgressionSousPhase" prefWidth="200.0" progress="0.0" />
                            </children>
                         </VBox>

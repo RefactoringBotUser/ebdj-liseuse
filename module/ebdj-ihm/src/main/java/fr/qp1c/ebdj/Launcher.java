@@ -87,7 +87,7 @@ public class Launcher extends Application {
 	}
 
 	public void initialiserEcranHome() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("./view/HomeView.fxml"));
+		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("./view/HomeView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 		((HomeController) loader.getController()).setLauncher(this);
 		ecranHome = new Scene(page, 1024, 800);

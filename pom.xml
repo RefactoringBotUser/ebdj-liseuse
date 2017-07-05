@@ -9,17 +9,17 @@
 
 	<name>ebdj-liseuse</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<modules>
-        <module>module/ebdj-moteur</module>
-        <module>module/ebdj-ihm</module>
-    </modules>
+		<module>module/ebdj-moteur</module>
+		<module>module/ebdj-ihm</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
-    	<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<dependencies>

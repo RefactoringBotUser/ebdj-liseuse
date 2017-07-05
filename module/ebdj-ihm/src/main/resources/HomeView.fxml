@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="800" prefHeight="800.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.home.HomeController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="150.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" styleClass="panneauPhase" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuButton fx:id="btnQuestion" mnemonicParsing="false" onAction="#afficherEcranPartieComplete" prefWidth="200.0" styleClass="boutonHome" text="Questions" textAlignment="CENTER">
+                     <tooltip>
+                        <Tooltip text="Afficher l'écran des questionnaires" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </MenuButton>
+                  <Button fx:id="btnStats" mnemonicParsing="false" onAction="#afficherEcranStats" prefWidth="200.0" styleClass="boutonHome" text="Stats" textAlignment="CENTER">
+                     <tooltip>
+                        <Tooltip text="Affficher l'écran de statistiques" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnParametrage" mnemonicParsing="false" onAction="#afficherEcranParametrage" prefWidth="200.0" styleClass="boutonHome" text="Paramétrage" textAlignment="CENTER">
+                     <tooltip>
+                        <Tooltip text="Affficher l'écran de paramétrage" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <Separator fx:id="separateur" prefWidth="200.0" />
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" styleClass="panneauPhase" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btn9PG" mnemonicParsing="false" onAction="#afficherEcran9PG" prefWidth="150.0" styleClass="boutonHome" text="9PG" textAlignment="CENTER">
+                     <tooltip>
+                        <Tooltip text="Affficher l'écran de paramétrage" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                     <Button fx:id="btn4ALS" mnemonicParsing="false" onAction="#afficherEcran4ALS" prefWidth="150.0" styleClass="boutonHome" text="4ALS" textAlignment="CENTER">
+                    <tooltip>
+                        <Tooltip text="Affficher l'écran de paramétrage" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnJD" mnemonicParsing="false" onAction="#afficherEcranJD" prefWidth="150.0" styleClass="boutonHome" text="JD" textAlignment="CENTER">
+                     <tooltip>
+                        <Tooltip text="Affficher l'écran de paramétrage" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnFAF" mnemonicParsing="false" onAction="#afficherEcranFAF" prefWidth="150.0" styleClass="boutonHome" text="FAF" textAlignment="CENTER">
+                     <tooltip>
+                        <Tooltip text="Affficher l'écran de paramétrage" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnPartie" mnemonicParsing="false" onAction="#afficherEcranPartie" prefWidth="150.0" styleClass="boutonHome" text="PARTIE" textAlignment="CENTER">
+                     <tooltip>
+                        <Tooltip text="Affficher l'écran de paramétrage" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

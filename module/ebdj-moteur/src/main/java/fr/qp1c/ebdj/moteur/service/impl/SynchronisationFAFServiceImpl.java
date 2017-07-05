@@ -35,18 +35,7 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 	}
 
 	@Override
-	public void synchroniserFAF() {
-
-		synchroniserAnomaliesFAF();
-
-		synchroniserLecturesFAF();
-
-		synchroniserCorrectionsFAF();
-
-		synchroniserQuestionsFAF();
-	}
-
-	private void synchroniserQuestionsFAF() {
+	public void synchroniserQuestionsFAF() {
 
 		LOGGER.debug("[DEBUT] synchroniserQuestionsFAF");
 
@@ -63,7 +52,8 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 		LOGGER.debug("[FIN] synchroniserQuestionsFAF");
 	}
 
-	private void synchroniserCorrectionsFAF() {
+	@Override
+	public void synchroniserCorrectionsFAF() {
 
 		LOGGER.debug("[DEBUT] synchroniserCorrectionsFAF");
 
@@ -92,7 +82,8 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 		LOGGER.debug("[FIN] synchroniserCorrectionsFAF");
 	}
 
-	private void synchroniserAnomaliesFAF() {
+	@Override
+	public void synchroniserAnomaliesFAF() {
 		LOGGER.debug("[DEBUT] synchroniserAnomaliesFAF");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
@@ -112,7 +103,8 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 		LOGGER.debug("[FIN] synchroniserAnomaliesFAF");
 	}
 
-	private void synchroniserLecturesFAF() {
+	@Override
+	public void synchroniserLecturesFAF() {
 		LOGGER.debug("[DEBUT] synchroniserLecturesFAF");
 
 		// Retrouver l'index de la derniere lecture synchronisée.

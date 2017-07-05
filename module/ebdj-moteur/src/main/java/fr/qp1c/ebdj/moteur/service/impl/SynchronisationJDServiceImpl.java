@@ -35,18 +35,7 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 	}
 
 	@Override
-	public void synchroniserJD() {
-
-		synchroniserAnomaliesJD();
-
-		synchroniserLecturesJD();
-
-		synchroniserCorrectionsJD();
-
-		synchroniserQuestionsJD();
-	}
-
-	private void synchroniserQuestionsJD() {
+	public void synchroniserQuestionsJD() {
 
 		LOGGER.debug("[DEBUT] synchroniserQuestionsJD");
 
@@ -63,7 +52,8 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 		LOGGER.debug("[FIN] synchroniserQuestionsJD");
 	}
 
-	private void synchroniserCorrectionsJD() {
+	@Override
+	public void synchroniserCorrectionsJD() {
 
 		LOGGER.debug("[DEBUT] synchroniserCorrectionsJD");
 
@@ -91,7 +81,8 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 		LOGGER.debug("[FIN] synchroniserCorrectionsJD");
 	}
 
-	private void synchroniserAnomaliesJD() {
+	@Override
+	public void synchroniserAnomaliesJD() {
 		LOGGER.debug("[DEBUT] synchroniserAnomaliesJD");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
@@ -111,7 +102,8 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 		LOGGER.debug("[FIN] synchroniserAnomaliesJD");
 	}
 
-	private void synchroniserLecturesJD() {
+	@Override
+	public void synchroniserLecturesJD() {
 		LOGGER.debug("[DEBUT] synchroniserLecturesJD");
 
 		// Retrouver l'index de la derniere lecture synchronisée.

@@ -61,6 +61,7 @@ public class SynchroWSHelper {
 			os.flush();
 
 			if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED
+					&& conn.getResponseCode() != HttpURLConnection.HTTP_NO_CONTENT
 					&& conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
 				throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
 			}

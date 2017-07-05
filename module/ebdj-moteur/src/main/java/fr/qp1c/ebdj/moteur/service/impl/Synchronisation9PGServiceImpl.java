@@ -35,18 +35,6 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 	}
 
 	@Override
-	public void synchroniser9PG() {
-
-		synchroniserAnomalies9PG();
-
-		synchroniserLectures9PG();
-
-		synchroniserCorrections9PG();
-
-		synchroniserQuestions9PG();
-	}
-
-	@Override
 	public void synchroniserQuestions9PG() {
 
 		LOGGER.debug("[DEBUT] synchroniserQuestions9PG");
