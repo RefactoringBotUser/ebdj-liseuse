@@ -39,7 +39,7 @@ public class UtilisateurPane extends HBox {
 	private VBox carton9PG;
 
 	public UtilisateurPane() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/qp1c/ebdj/view/UtilisateurView.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/UtilisateurView.fxml"));
 
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);

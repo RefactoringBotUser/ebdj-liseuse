@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.Launcher;
 import fr.qp1c.ebdj.loader.LoaderQuestion9PG;
 import fr.qp1c.ebdj.moteur.bean.Mode9PG;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestion9PG;
@@ -139,6 +140,10 @@ public class NPGController {
 
 	@FXML
 	private void initialize() {
+		reinitialiser();
+	}
+
+	public void reinitialiser() {
 		LOGGER.debug("[DEBUT] Initialisation du panneau 9PG.");
 
 		// Chargement des questions.
@@ -333,6 +338,7 @@ public class NPGController {
 
 		ChoiceDialog<String> popupErreur = new ChoiceDialog<>("Question périmée", typesErreur);
 		popupErreur.setTitle("QP1C - E-Boite de jeu");
+		popupErreur.initOwner(Launcher.getStage());
 		popupErreur.setHeaderText("Des commes çà on en veut plus...");
 		popupErreur.setContentText("Motif:");
 

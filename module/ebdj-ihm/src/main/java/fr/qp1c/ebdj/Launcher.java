@@ -25,7 +25,7 @@ public class Launcher extends Application {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
 
-	private Stage stage;
+	private static Stage stage;
 
 	private Scene ecranHome;
 
@@ -78,6 +78,7 @@ public class Launcher extends Application {
 			primaryStage.setMinHeight(800);
 			primaryStage.getIcons().add(new Image(this.getClass().getResource(ImageConstants.LOGO_QP1C).toString()));
 			primaryStage.show();
+			primaryStage.setFullScreen(true);
 
 		} catch (IOException e) {
 			LOGGER.error("Une erreur s'est produite :", e);
@@ -87,41 +88,47 @@ public class Launcher extends Application {
 	}
 
 	public void initialiserEcranHome() throws IOException {
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("./view/HomeView.fxml"));
+		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("/view/HomeView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 		((HomeController) loader.getController()).setLauncher(this);
 		ecranHome = new Scene(page, 1024, 800);
-		ecranHome.getStylesheets().add("./css/styles.css");
+		ecranHome.getStylesheets().add("/css/styles.css");
 	}
 
 	public void initialiserEcranStats() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("./view/stats/StatsView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StatsView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 		((StatistiquesController) loader.getController()).setLauncher(this);
 		ecranStats = new Scene(page, 1024, 800);
-		ecranStats.getStylesheets().add("./css/styles.css");
+		ecranStats.getStylesheets().add("/css/styles.css");
 	}
 
 	public void initialiserEcranParametrage() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("./view/parametrage/ParametrageView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ParametrageView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 		((ParametrageController) loader.getController()).setLauncher(this);
 		ecranParametrage = new Scene(page, 1024, 800);
-		ecranParametrage.getStylesheets().add("./css/styles.css");
+		ecranParametrage.getStylesheets().add("/css/styles.css");
 	}
 
 	public void initialiserEcranPartieComplete() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("./view/jeu/PartieCompleteView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PartieCompleteView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 		((PartieCompleteController) loader.getController()).setLauncher(this);
 		ecranPartieComplete = new Scene(page, 1024, 800);
-		ecranPartieComplete.getStylesheets().add("./css/styles.css");
+		ecranPartieComplete.getStylesheets().add("/css/styles.css");
 	}
 
 	public void afficherEcranPartieComplete() {
 		LOGGER.info("[DEBUT] Affichage de l'écran partie complète.");
 
+		Scene oldScene = stage.getScene();
+		double oldWidth = oldScene.getWidth();
+		double oldHeight = oldScene.getHeight();
+
 		stage.setScene(ecranPartieComplete);
+		stage.setWidth(oldWidth);
+		stage.setHeight(oldHeight);
 		stage.show();
 
 		LOGGER.info("[FIN] Affichage de l'écran partie complète.");
@@ -130,6 +137,12 @@ public class Launcher extends Application {
 	public void afficherEcranStats() {
 		LOGGER.info("[DEBUT] Affichage de l'écran de stats");
 
+		Scene oldScene = stage.getScene();
+		double oldWidth = oldScene.getWidth();
+		double oldHeight = oldScene.getHeight();
+
+		ecranStats.heightProperty().add(oldWidth);
+		ecranStats.widthProperty().add(oldHeight);
 		stage.setScene(ecranStats);
 		stage.show();
 
@@ -139,7 +152,13 @@ public class Launcher extends Application {
 	public void afficherEcranParametrage() {
 		LOGGER.info("[DEBUT] Affichage de l'écran de paramétrage");
 
+		Scene oldScene = stage.getScene();
+		double oldWidth = oldScene.getWidth();
+		double oldHeight = oldScene.getHeight();
+
 		stage.setScene(ecranParametrage);
+		stage.setWidth(oldWidth);
+		stage.setHeight(oldHeight);
 		stage.show();
 
 		LOGGER.info("[FIN] Affichage de l'écran de paramétrage.");
@@ -147,7 +166,14 @@ public class Launcher extends Application {
 
 	public void afficherEcranHome() {
 		LOGGER.info("[DEBUT] Affichage de l'écran accueil");
+
+		Scene oldScene = stage.getScene();
+		double oldWidth = oldScene.getWidth();
+		double oldHeight = oldScene.getHeight();
+
 		stage.setScene(ecranHome);
+		stage.setWidth(oldWidth);
+		stage.setHeight(oldHeight);
 		stage.show();
 
 		LOGGER.info("[FIN] Affichage de l'écran accueil.");
@@ -159,6 +185,10 @@ public class Launcher extends Application {
 		launch(args);
 
 		LOGGER.info("[FIN] Arrêt de l'application E-BDJ.");
+	}
+
+	public static Stage getStage() {
+		return stage;
 	}
 
 }

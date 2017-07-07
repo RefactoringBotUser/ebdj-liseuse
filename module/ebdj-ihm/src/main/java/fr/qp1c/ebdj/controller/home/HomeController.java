@@ -9,7 +9,6 @@ import fr.qp1c.ebdj.utils.ImageUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.TextAlignment;
@@ -22,7 +21,7 @@ public class HomeController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
 	@FXML
-	private MenuButton btnQuestion;
+	private Button btnQuestion;
 
 	@FXML
 	private Button btnStats;

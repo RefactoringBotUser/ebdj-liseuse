@@ -13,34 +13,14 @@
    <center>
       <Accordion BorderPane.alignment="CENTER">
         <panes>
-            <TitledPane fx:id="stock" animated="false" styleClass="theme4ALS" text="Stock de questions">
+            <TitledPane fx:id="parametrage" animated="false" styleClass="themeParametrage" text="Parametrage">
             <content>
                 <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS">
                      <top>
-                        <TableView maxHeight="300.0" maxWidth="950.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="950.0" BorderPane.alignment="CENTER">
-                          <columns>
-                            <TableColumn editable="false" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" sortable="false" text="Type de question" />
-                            <TableColumn minWidth="0.0" prefWidth="203.0" text="Quantité total" />
-                              <TableColumn prefWidth="183.0" text="Quantité jouée" />
-                          </columns>
-                        </TableView>
                      </top>
                 </BorderPane>
               </content>
             </TitledPane>
-          <TitledPane fx:id="synchronisation" animated="false" styleClass="theme4ALS" text="Synchronisation">
-            <content>
-                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS">     
-	              <top>
-	              		<ScrollPane fx:id="panneauQuestionTheme4ALS2" prefWidth="800.0">
-   <content>
-   	                        <TextFlow fx:id="questionTheme4ALS2" layoutX="14.0" layoutY="14.0" maxWidth="1600.00" prefHeight="694.0" prefWidth="1000.0" styleClass="zoneCarton4ALS" />
-   </content>
-	             		</ScrollPane>                  
-	              </top>
-                </BorderPane>
-              </content>
-          </TitledPane>
         </panes>
       </Accordion>
    </center>

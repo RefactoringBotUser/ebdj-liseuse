@@ -27,27 +27,12 @@
                           </columns>
                         </TableView>
                      </top>
+                     <bottom>
+                     	<Button fx:id="btnSynchroniser" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#synchroniser" prefHeight="50.0" prefWidth="300.0" styleClass="boutonSynchroniser"  text="Synchroniser" textAlignment="CENTER" />
+                     </bottom>
                 </BorderPane>
               </content>
             </TitledPane>
-          <TitledPane fx:id="synchronisation" animated="false" styleClass="theme4ALS" text="Synchronisation">
-            <content>
-                <BorderPane minHeight="400.0" minWidth="0.0" prefHeight="480.0" prefWidth="800.0" styleClass="zoneCarton4ALS">
-                     <center>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Button fx:id="btnSynchroniser" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#synchroniser" prefHeight="50.0" prefWidth="300.0" styleClass="boutonSynchroniser"  text="Synchroniser" textAlignment="CENTER" />
-                              <Label fx:id="libelleBarreProgressionPhase" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="50.0" styleClass="libelleBarreProgressionPhase"  textAlignment="CENTER" wrapText="true" />
-                              <ProgressBar fx:id="barreProgressionPhase" prefWidth="200.0" progress="0.0" BorderPane.alignment="CENTER" />
-                              <Pane maxHeight="20.0" minHeight="20.0" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-                              <Label fx:id="libelleBarreProgressionSousPhase" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="50.0" styleClass="libelleBarreProgressionSousPhase"  textAlignment="CENTER" wrapText="true" />
-                              <ProgressBar fx:id="barreProgressionSousPhase" prefWidth="200.0" progress="0.0" />
-                           </children>
-                        </VBox>
-                     </center>
-                </BorderPane>
-              </content>
-          </TitledPane>
         </panes>
       </Accordion>
    </center>

@@ -1,6 +1,7 @@
 package fr.qp1c.ebdj.controller.jeu;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,10 @@ import fr.qp1c.ebdj.view.component.UtilisateurPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -54,10 +58,10 @@ public class PartieCompleteController {
 		FXMLLoader loader = new FXMLLoader();
 
 		try {
-			panneauNPG = (BorderPane) loader.load(getClass().getResource("../../view/jeu/NPGView.fxml"));
-			panneau4ALS = (BorderPane) loader.load(getClass().getResource("../../view/jeu/4ALSView.fxml"));
-			panneauJD = (BorderPane) loader.load(getClass().getResource("../../view/jeu/JDView.fxml"));
-			panneauFAF = (BorderPane) loader.load(getClass().getResource("../../view/jeu/FAFView.fxml"));
+			panneauNPG = (BorderPane) loader.load(getClass().getResource("/view/NPGView.fxml"));
+			panneau4ALS = (BorderPane) loader.load(getClass().getResource("/view/4ALSView.fxml"));
+			panneauJD = (BorderPane) loader.load(getClass().getResource("/view/JDView.fxml"));
+			panneauFAF = (BorderPane) loader.load(getClass().getResource("/view/FAFView.fxml"));
 
 		} catch (IOException e) {
 			LOGGER.error("Une erreur s'est produite :", e);
@@ -117,7 +121,19 @@ public class PartieCompleteController {
 	public void retournerEcranHome() {
 		LOGGER.info("### --> Clic sur \"Ecran HOME\".");
 
-		launcher.afficherEcranHome();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("QP1C - E-BDJ");
+		// Ne pas remplir l'entete
+		alert.setHeaderText(null);
+		alert.setContentText("Voulez-vous quitter la partie ?");
+		alert.initOwner(Launcher.getStage());
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			launcher.afficherEcranHome();
+		} else {
+			// ... user chose CANCEL or closed the dialog
+		}
 	}
 
 	public Launcher getLauncher() {
