@@ -156,7 +156,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 			// Executer la requête
 			ResultSet rs = stmt.executeQuery(query.toString());
 			if (rs.next()) {
-				nbQuestion = rs.getInt(0);
+				nbQuestion = rs.getInt(1);
 			}
 
 			// Fermeture des connections.
@@ -194,10 +194,12 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 			Connection connection = dbManager.connect();
 			Statement stmt = connection.createStatement();
 
+			LOGGER.debug(query.toString());
+
 			// Executer la requête
 			ResultSet rs = stmt.executeQuery(query.toString());
 			if (rs.next()) {
-				nbQuestionJouee = rs.getInt(0);
+				nbQuestionJouee = rs.getInt(1);
 			}
 
 			// Fermeture des connections.

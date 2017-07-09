@@ -39,6 +39,14 @@ public class PartieCompleteController {
 
 	private BorderPane panneauFAF;
 
+	private NPGController controllerNPG;
+
+	private QALSController controller4ALS;
+
+	private JDController controllerJD;
+
+	private FAFController controllerFAF;
+
 	@FXML
 	private UtilisateurPane utilisateurPane;
 
@@ -59,9 +67,13 @@ public class PartieCompleteController {
 
 		try {
 			panneauNPG = (BorderPane) loader.load(getClass().getResource("/view/NPGView.fxml"));
+			controllerNPG = loader.getController();
 			panneau4ALS = (BorderPane) loader.load(getClass().getResource("/view/4ALSView.fxml"));
+			controller4ALS = loader.getController();
 			panneauJD = (BorderPane) loader.load(getClass().getResource("/view/JDView.fxml"));
+			controllerJD = loader.getController();
 			panneauFAF = (BorderPane) loader.load(getClass().getResource("/view/FAFView.fxml"));
+			controllerFAF = loader.getController();
 
 		} catch (IOException e) {
 			LOGGER.error("Une erreur s'est produite :", e);
@@ -88,6 +100,7 @@ public class PartieCompleteController {
 		content.getChildren().clear();
 		content.setCenter(panneauNPG);
 		BorderPane.setAlignment(content, Pos.TOP_CENTER);
+
 	}
 
 	@FXML

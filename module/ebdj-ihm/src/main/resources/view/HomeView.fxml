@@ -38,7 +38,7 @@
                </children>
             </HBox>
             <Separator fx:id="separateur" prefWidth="200.0" />
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" styleClass="panneauPhase" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0" styleClass="panneauPhase" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btn9PG" mnemonicParsing="false" onAction="#afficherEcran9PG" prefWidth="150.0" styleClass="boutonHome" text="9PG" textAlignment="CENTER">
                      <tooltip>

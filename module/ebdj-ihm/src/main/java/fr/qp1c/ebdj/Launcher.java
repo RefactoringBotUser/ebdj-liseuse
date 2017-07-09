@@ -1,6 +1,9 @@
 package fr.qp1c.ebdj;
 
 import java.io.IOException;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +14,15 @@ import fr.qp1c.ebdj.controller.parametrage.ParametrageController;
 import fr.qp1c.ebdj.controller.stats.StatistiquesController;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Launcher extends Application {
@@ -59,26 +66,30 @@ public class Launcher extends Application {
 			// Création de la scène (=parametrage).
 			this.initialiserEcranParametrage();
 
-			// scene.widthProperty().addListener(new ChangeListener<Number>() {
-			// @Override public void changed(ObservableValue<? extends Number>
-			// observableValue, Number oldSceneWidth, Number newSceneWidth) {
-			// System.out.println("Width: " + newSceneWidth);
-			// }
-			// });
-			// scene.heightProperty().addListener(new ChangeListener<Number>() {
-			// @Override public void changed(ObservableValue<? extends Number>
-			// observableValue, Number oldSceneHeight, Number newSceneHeight) {
-			// System.out.println("Height: " + newSceneHeight);
-			// }
-			// });
+			ecranHome.widthProperty().addListener(new ChangeListener<Number>() {
+
+				@Override
+				public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth,
+						Number newSceneWidth) {
+					System.out.println("Width: " + newSceneWidth);
+				}
+			});
+			ecranHome.heightProperty().addListener(new ChangeListener<Number>() {
+
+				@Override
+				public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight,
+						Number newSceneHeight) {
+					System.out.println("Height: " + newSceneHeight);
+				}
+			});
 
 			// Initialisation de la stage principale
 			primaryStage.setScene(ecranHome);
-			primaryStage.setMinWidth(1000);
-			primaryStage.setMinHeight(800);
+			// primaryStage.setFullScreen(true);
 			primaryStage.getIcons().add(new Image(this.getClass().getResource(ImageConstants.LOGO_QP1C).toString()));
+			// primaryStage.setFullScreen(true);
+
 			primaryStage.show();
-			primaryStage.setFullScreen(true);
 
 		} catch (IOException e) {
 			LOGGER.error("Une erreur s'est produite :", e);
@@ -91,7 +102,10 @@ public class Launcher extends Application {
 		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("/view/HomeView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 		((HomeController) loader.getController()).setLauncher(this);
-		ecranHome = new Scene(page, 1024, 800);
+
+		// get screensize of monitor
+		Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+		ecranHome = new Scene(page, screenSize.getWidth(), screenSize.getHeight());
 		ecranHome.getStylesheets().add("/css/styles.css");
 	}
 
@@ -99,7 +113,10 @@ public class Launcher extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StatsView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 		((StatistiquesController) loader.getController()).setLauncher(this);
-		ecranStats = new Scene(page, 1024, 800);
+
+		// get screensize of monitor
+		Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+		ecranStats = new Scene(page, screenSize.getWidth(), screenSize.getHeight());
 		ecranStats.getStylesheets().add("/css/styles.css");
 	}
 
@@ -107,7 +124,10 @@ public class Launcher extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ParametrageView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 		((ParametrageController) loader.getController()).setLauncher(this);
-		ecranParametrage = new Scene(page, 1024, 800);
+
+		// get screensize of monitor
+		Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+		ecranParametrage = new Scene(page, screenSize.getWidth(), screenSize.getHeight());
 		ecranParametrage.getStylesheets().add("/css/styles.css");
 	}
 
@@ -115,20 +135,30 @@ public class Launcher extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PartieCompleteView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 		((PartieCompleteController) loader.getController()).setLauncher(this);
-		ecranPartieComplete = new Scene(page, 1024, 800);
+
+		// get screensize of monitor
+		Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+		ecranPartieComplete = new Scene(page, screenSize.getWidth(), screenSize.getHeight());
 		ecranPartieComplete.getStylesheets().add("/css/styles.css");
 	}
 
 	public void afficherEcranPartieComplete() {
 		LOGGER.info("[DEBUT] Affichage de l'écran partie complète.");
 
+		// double oldWidth = stage.getHeight();
+		// double oldHeight = stage.getWidth();
+
+		// boolean fullScreen = stage.isFullScreen();
+		// System.out.println(oldWidth + " " + oldHeight + " " + fullScreen);
+
 		Scene oldScene = stage.getScene();
 		double oldWidth = oldScene.getWidth();
-		double oldHeight = oldScene.getHeight();
+		double oldHeight = oldScene.getHeight() + 22;
 
 		stage.setScene(ecranPartieComplete);
 		stage.setWidth(oldWidth);
 		stage.setHeight(oldHeight);
+		// stage.setFullScreen(true);
 		stage.show();
 
 		LOGGER.info("[FIN] Affichage de l'écran partie complète.");
@@ -139,11 +169,12 @@ public class Launcher extends Application {
 
 		Scene oldScene = stage.getScene();
 		double oldWidth = oldScene.getWidth();
-		double oldHeight = oldScene.getHeight();
+		double oldHeight = oldScene.getHeight() + 22;
 
-		ecranStats.heightProperty().add(oldWidth);
-		ecranStats.widthProperty().add(oldHeight);
 		stage.setScene(ecranStats);
+		stage.setWidth(oldWidth);
+		stage.setHeight(oldHeight);
+		// stage.setFullScreen(true);
 		stage.show();
 
 		LOGGER.info("[FIN] Affichage de l'écran de stats.");
@@ -154,11 +185,12 @@ public class Launcher extends Application {
 
 		Scene oldScene = stage.getScene();
 		double oldWidth = oldScene.getWidth();
-		double oldHeight = oldScene.getHeight();
+		double oldHeight = oldScene.getHeight() + 22;
 
 		stage.setScene(ecranParametrage);
 		stage.setWidth(oldWidth);
 		stage.setHeight(oldHeight);
+		// stage.setFullScreen(true);
 		stage.show();
 
 		LOGGER.info("[FIN] Affichage de l'écran de paramétrage.");
@@ -169,26 +201,36 @@ public class Launcher extends Application {
 
 		Scene oldScene = stage.getScene();
 		double oldWidth = oldScene.getWidth();
-		double oldHeight = oldScene.getHeight();
+		double oldHeight = oldScene.getHeight() + 22;
 
 		stage.setScene(ecranHome);
 		stage.setWidth(oldWidth);
 		stage.setHeight(oldHeight);
+		// stage.setFullScreen(true);
 		stage.show();
 
 		LOGGER.info("[FIN] Affichage de l'écran accueil.");
 	}
 
+	public static Stage getStage() {
+		return stage;
+	}
+
 	public static void main(String[] args) {
 		LOGGER.info("[DEBUT] Démarrage de l'application E-BDJ.");
+
+		try {
+
+			URL iconURL = new URL(Launcher.class.getResource(ImageConstants.LOGO_QP1C).toString());
+			java.awt.Image image = new ImageIcon(iconURL).getImage();
+			com.apple.eawt.Application.getApplication().setDockIconImage(image);
+		} catch (Exception e) {
+			// Won't work on Windows or Linux.
+		}
 
 		launch(args);
 
 		LOGGER.info("[FIN] Arrêt de l'application E-BDJ.");
-	}
-
-	public static Stage getStage() {
-		return stage;
 	}
 
 }

@@ -114,12 +114,12 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM THEME_QALS T_QALS WHERE ");
+		query.append("SELECT count(1) FROM THEME_QALS T_QALS");
 
 		if (categorie > 0) {
-			query.append(" T_QALS.categorie='");
+			query.append(" WHERE T_QALS.categorie=");
 			query.append(categorie);
-			query.append("' ");
+			query.append(" ");
 		}
 
 		query.append(";");
@@ -133,7 +133,7 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 			// Executer la requête
 			ResultSet rs = stmt.executeQuery(query.toString());
 			if (rs.next()) {
-				nbQuestionJouee = rs.getInt(0);
+				nbQuestionJouee = rs.getInt(1);
 			}
 
 			// Fermeture des connections.
@@ -169,7 +169,7 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM THEME_QALS T_QALS WHERE NOT EXISTS(SELECT DISTINCT * FROM THEME_QALS_JOUEE T_QALS_J WHERE T_QALS.id=T_QALS_J.theme_id) ");
+				"SELECT count(1) FROM THEME_QALS T_QALS WHERE NOT EXISTS(SELECT DISTINCT * FROM THEME_QALS_LECTURE T_QALS_J WHERE T_QALS.id=T_QALS_J.theme_id) ");
 
 		if (categorie > 0) {
 			query.append(" AND T_QALS.categorie='");
@@ -188,7 +188,7 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 			// Executer la requête
 			ResultSet rs = stmt.executeQuery(query.toString());
 			if (rs.next()) {
-				nbQuestionJouee = rs.getInt(0);
+				nbQuestionJouee = rs.getInt(1);
 			}
 
 			// Fermeture des connections.

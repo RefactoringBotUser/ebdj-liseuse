@@ -9,33 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="1600" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.stats.StatistiquesController">
-   <center>
-      <Accordion BorderPane.alignment="CENTER">
-        <panes>
-            <TitledPane fx:id="stock" animated="false" styleClass="theme4ALS" text="Stock de questions">
-            <content>
-                <BorderPane minHeight="400.0" minWidth="0.0" prefHeight="480.0" prefWidth="800.0" styleClass="zoneCarton4ALS">
-                     <top>
-                        <TableView maxHeight="300.0" maxWidth="950.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="950.0" BorderPane.alignment="CENTER">
-                          <columns>
-                            <TableColumn editable="false" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" sortable="false" text="Type de question" />
-                            <TableColumn minWidth="0.0" prefWidth="203.0" text="Quantité total" />
-                              <TableColumn prefWidth="183.0" text="Quantité jouée" />
-                              <TableColumn prefWidth="183.0" text="Quantité dispo" />
-                              <TableColumn prefWidth="183.0" text="Dernière synchro" />
-                          </columns>
-                        </TableView>
-                     </top>
-                     <bottom>
-                     	<Button fx:id="btnSynchroniser" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#synchroniser" prefHeight="50.0" prefWidth="300.0" styleClass="boutonSynchroniser"  text="Synchroniser" textAlignment="CENTER" />
-                     </bottom>
-                </BorderPane>
-              </content>
-            </TitledPane>
-        </panes>
-      </Accordion>
-   </center>
+<BorderPane fx:id="panneauStats" maxHeight="-Infinity" maxWidth="1600" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.stats.StatistiquesController">
    <top>
       <BorderPane prefHeight="60.0" prefWidth="60.0" BorderPane.alignment="CENTER">
          <left>
@@ -52,4 +26,62 @@
          </left>
       </BorderPane>
    </top>
+   <center>
+      <Accordion fx:id="stockAccordion" BorderPane.alignment="CENTER" prefHeight="300.0">
+        <panes>
+            <TitledPane fx:id="stockSynthese" animated="false" styleClass="stock" text="Stock de questions">
+            <content>
+                <BorderPane minHeight="280.0" minWidth="0.0" prefHeight="280.0" prefWidth="800.0" styleClass="zoneStock">
+                     <top>
+                        <VBox alignment="CENTER">
+                           <children>
+                     <TableView fx:id="tableauStockSynthese" maxHeight="300.0" maxWidth="950.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="950.0" >
+                          <columns>
+                            <TableColumn fx:id="tabSGColType" editable="false" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" sortable="false" text="Type de question" />
+                            <TableColumn fx:id="tabSGColQuantiteTotale" editable="false" prefWidth="203.0" sortable="false" text="Quantité totale" />
+                            <TableColumn fx:id="tabSGColQuantiteDisponible" editable="false" prefWidth="183.0" sortable="false" text="Quantité dispo" />
+                           	<TableColumn fx:id="tabSGColQuantiteJouee" editable="false" prefWidth="183.0" sortable="false" text="Quantité jouée" />
+                            </columns>
+                        </TableView>
+                     				<Button fx:id="btnSynchroniser" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#synchroniser" prefHeight="50.0" prefWidth="300.0" styleClass="boutonSynchroniser" text="Synchroniser" textAlignment="CENTER">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </top>
+                </BorderPane>
+              </content>
+            </TitledPane>
+            <TitledPane fx:id="stock4ALS" animated="false" styleClass="stock" text="Stock 4ALS par thème">
+            <content>
+                <BorderPane minHeight="400.0" minWidth="0.0" prefHeight="280.0" prefWidth="800.0" styleClass="zoneStock">
+                     <top></top>
+                </BorderPane>
+              </content>
+            </TitledPane>
+            <TitledPane fx:id="stockFAF" animated="false" styleClass="stock" text="Stock FAF par thème">
+            <content>
+                <BorderPane minHeight="400.0" minWidth="0.0" prefHeight="480.0" prefWidth="800.0" styleClass="zoneStock">
+                     <top>
+                        <VBox alignment="CENTER">
+                           <children>
+                     <TableView fx:id="tableauStockFAF" maxHeight="300.0" maxWidth="950.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="950.0" >
+                          <columns>
+                            <TableColumn fx:id="tabSFColType" editable="false" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" sortable="false" text="Thème de FAF" />
+                            <TableColumn fx:id="tabSFColQuantiteTotale" editable="false" prefWidth="203.0" sortable="false" text="Quantité totale" />
+                            <TableColumn fx:id="tabSFColQuantiteDisponible" editable="false" prefWidth="183.0" sortable="false" text="Quantité dispo" />
+                           	<TableColumn fx:id="tabSFColQuantiteJouee" editable="false" prefWidth="183.0" sortable="false" text="Quantité jouée" />
+                            </columns>
+                        </TableView>
+                           </children>
+                        </VBox>
+                     </top>
+                </BorderPane>
+              </content>
+            </TitledPane>
+        </panes>
+      </Accordion>
+   </center>
 </BorderPane>

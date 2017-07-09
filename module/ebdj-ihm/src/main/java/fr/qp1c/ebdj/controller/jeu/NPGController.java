@@ -482,7 +482,8 @@ public class NPGController {
 		question9PG.setText(questionNPG.getQuestion());
 		reponse9PG.setText(questionNPG.getReponse().toUpperCase());
 		reponse9PG.setTextAlignment(TextAlignment.CENTER);
-		question9PGInfos.setText(questionNPG.getSource().toString());
+		// TODO formatter la référence de la question
+		question9PGInfos.setText(questionNPG.getSource() + " - " + questionNPG.getReference());
 
 		LOGGER.debug("[FIN] Affichage carton 9PG.");
 	}
