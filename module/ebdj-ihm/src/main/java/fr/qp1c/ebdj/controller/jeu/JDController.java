@@ -12,6 +12,7 @@ import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionJD;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurJDDaoImpl;
+import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.TaillePolice;
@@ -183,7 +184,7 @@ public class JDController {
 
 			cartonJD.setStyle("-fx-background-color: #ffe808;");
 
-			afficherCartonJD(derniereQuestionJD, niveau);
+			afficherCartonJD(derniereQuestionJD);
 
 			numQuestionAffiche = nbQuestReel;
 		}
@@ -270,7 +271,7 @@ public class JDController {
 		historiserQuestionJD(nouvelleQuestion);
 
 		// Mise à jour de l'affichage
-		afficherCartonJD(nouvelleQuestion, niveau);
+		afficherCartonJD(nouvelleQuestion);
 		afficherNbQuestion();
 
 		derniereQuestionJD = nouvelleQuestion;
@@ -280,7 +281,7 @@ public class JDController {
 		LOGGER.debug("[DEBUT] Affichage question depuis l'historique.");
 
 		// Mise à jour de l'affichage
-		afficherCartonJD(question.getQuestion(), question.getNiveau());
+		afficherCartonJD(question.getQuestion());
 
 		// Désactivation du bouton "Nouvelle question"
 		btnNouvelleQuestionJD.setVisible(false);
@@ -312,14 +313,15 @@ public class JDController {
 		LOGGER.debug("[FIN] Affichage du nombre de question.");
 	}
 
-	private void afficherCartonJD(QuestionJD questionJD, int niveau) {
+	private void afficherCartonJD(QuestionJD questionJD) {
 		LOGGER.debug("[DEBUT] Affichage carton JD.");
 
 		themeJD.setText(questionJD.getTheme());
 		libelleQuestionJD.setText(questionJD.getQuestion());
 		reponseJD.setText(questionJD.getReponse().toUpperCase());
 		reponseJD.setTextAlignment(TextAlignment.CENTER);
-		questionJDInfos.setText(questionJD.getSource().toString());
+		questionJDInfos.setText(
+				Utils.formaterReference(questionJD.getReference()) + " - " + questionJD.getSource().toString());
 
 		LOGGER.debug("[FIN] Affichage carton JD.");
 	}
@@ -334,7 +336,6 @@ public class JDController {
 			HistoriqueQuestionJD histo = new HistoriqueQuestionJD();
 			histo.setNbQuestion(nbQuest);
 			histo.setNbQuestionReel(nbQuestReel);
-			histo.setNiveau(niveau);
 			histo.setQuestion(questionJD);
 
 			listeHistoriqueJD.add(0, histo);

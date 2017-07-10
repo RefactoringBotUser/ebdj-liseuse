@@ -43,4 +43,11 @@ public class Utils {
 		return StringUtils.replace(str, "'", "''");
 	}
 
+	public static String formaterReference(String reference) {
+
+		// TODO à finaliser
+
+		return "Ref. " + reference;
+	}
+
 }

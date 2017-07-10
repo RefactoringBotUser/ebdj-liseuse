@@ -2,8 +2,6 @@ package fr.qp1c.ebdj.moteur.bean.historique;
 
 public abstract class HistoriqueQuestion {
 
-	private int niveau;
-
 	private int nbQuestion;
 
 	private int nbQuestionReel;
@@ -16,14 +14,6 @@ public abstract class HistoriqueQuestion {
 
 	public void setNonComptabilise(boolean nonComptabilise) {
 		this.nonComptabilise = nonComptabilise;
-	}
-
-	public int getNiveau() {
-		return niveau;
-	}
-
-	public void setNiveau(int niveau) {
-		this.niveau = niveau;
 	}
 
 	public int getNbQuestion() {
@@ -48,8 +38,6 @@ public abstract class HistoriqueQuestion {
 		sb.append(nbQuestion);
 		sb.append(" - ");
 		sb.append(nbQuestionReel);
-		sb.append(" - ");
-		sb.append(niveau);
 		return sb.toString();
 	}
 

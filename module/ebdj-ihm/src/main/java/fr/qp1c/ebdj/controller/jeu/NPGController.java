@@ -14,6 +14,7 @@ import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestion9PG;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurNPGDaoImpl;
+import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.TaillePolice;
@@ -483,7 +484,7 @@ public class NPGController {
 		reponse9PG.setText(questionNPG.getReponse().toUpperCase());
 		reponse9PG.setTextAlignment(TextAlignment.CENTER);
 		// TODO formatter la référence de la question
-		question9PGInfos.setText(questionNPG.getSource() + " - " + questionNPG.getReference());
+		question9PGInfos.setText(Utils.formaterReference(questionNPG.getReference()) + " - " + questionNPG.getSource());
 
 		LOGGER.debug("[FIN] Affichage carton 9PG.");
 	}

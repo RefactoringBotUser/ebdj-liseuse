@@ -12,6 +12,7 @@ import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurFAFDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurFAFDaoImpl;
+import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.TaillePolice;
@@ -33,6 +34,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
+/**
+ * 
+ * 
+ * @author NICO
+ *
+ */
 public class FAFController {
 
 	/**
@@ -86,7 +93,7 @@ public class FAFController {
 	@FXML
 	private VBox cartonFAF;
 
-	// Données 9PG.
+	// Données FAF.
 
 	// Nombre de questions officiellement joué.
 	private int nbQuest = 0;
@@ -94,15 +101,15 @@ public class FAFController {
 	// Nombre de questions réel (inclus erreur et remplacement).
 	private int nbQuestReel = 0;
 
-	private int niveau = 0;
+	private int numQuestionAffiche = 0;
+
+	// private int niveau = 0;
 
 	private List<QuestionFAF> questionsFAF = new ArrayList<>();
 
 	private QuestionFAF derniereQuestionFAF;
 
 	private boolean affichageHistoriqueEnCours = false;
-
-	private int numQuestionAffiche = 0;
 
 	@FXML
 	private void initialize() {
@@ -183,7 +190,7 @@ public class FAFController {
 
 			cartonFAF.setStyle("-fx-background-color: #ffe808;");
 
-			afficherCartonFAF(derniereQuestionFAF, niveau);
+			afficherCartonFAF(derniereQuestionFAF);
 
 			numQuestionAffiche = nbQuestReel;
 		}
@@ -237,10 +244,13 @@ public class FAFController {
 	// Méthodes d'affichage
 
 	private void afficherNouvelleQuestion() {
+		LOGGER.debug("[DEBUT] Afficher la nouvelle question.");
 
 		QuestionFAF nouvelleQuestion = donnerNouvelleQuestion();
 
 		changerQuestion(nouvelleQuestion, true);
+
+		LOGGER.debug("[FIN] Afficher la nouvelle question.");
 	}
 
 	private QuestionFAF donnerNouvelleQuestion() {
@@ -258,6 +268,7 @@ public class FAFController {
 	}
 
 	private void changerQuestion(QuestionFAF nouvelleQuestion, boolean questionACompter) {
+		LOGGER.debug("[DEBUT] Changer de question.");
 
 		// Calcul du nombre de question joué
 		if (questionACompter) {
@@ -271,17 +282,19 @@ public class FAFController {
 		historiserQuestionFAF(nouvelleQuestion);
 
 		// Mise à jour de l'affichage
-		afficherCartonFAF(nouvelleQuestion, niveau);
+		afficherCartonFAF(nouvelleQuestion);
 		afficherNbQuestion();
 
 		derniereQuestionFAF = nouvelleQuestion;
+
+		LOGGER.debug("[FIN] Changer de question.");
 	}
 
 	private void afficherQuestionHistorique(HistoriqueQuestionFAF question) {
 		LOGGER.debug("[DEBUT] Affichage question depuis l'historique.");
 
 		// Mise à jour de l'affichage
-		afficherCartonFAF(question.getQuestion(), question.getNiveau());
+		afficherCartonFAF(question.getQuestion());
 
 		// Désactivation du bouton "Nouvelle question"
 		btnNouvelleQuestionFAF.setVisible(false);
@@ -305,7 +318,7 @@ public class FAFController {
 		if (nbQuest == 1) {
 			nbQuestion.setText(nbQuest + " question jouée");
 		} else {
-			if (nbQuest >= 25) {
+			if (nbQuest >= 8) {
 				nbQuestion.setStyle("-fx-background-color: #FE2E64;");
 			}
 			nbQuestion.setText(nbQuest + " questions jouées");
@@ -317,7 +330,7 @@ public class FAFController {
 		return questionFAF.getQuestion().split(" ").length;
 	}
 
-	private void afficherCartonFAF(QuestionFAF questionFAF, int niveau) {
+	private void afficherCartonFAF(QuestionFAF questionFAF) {
 		LOGGER.debug("[DEBUT] Affichage carton FAF.");
 
 		String nbMots = " (" + compterNombreDeMots(questionFAF) + " mots)";
@@ -326,7 +339,8 @@ public class FAFController {
 		libelleQuestionFAF.setText(questionFAF.getQuestion().replaceAll("  ", " "));
 		reponseFAF.setText(questionFAF.getReponse().toUpperCase());
 		reponseFAF.setTextAlignment(TextAlignment.CENTER);
-		questionFAFInfos.setText(questionFAF.getSource().toString());
+		questionFAFInfos.setText(
+				Utils.formaterReference(questionFAF.getReference()) + " - " + questionFAF.getSource().toString());
 
 		LOGGER.debug("[FIN] Affichage carton FAF.");
 	}
@@ -341,7 +355,6 @@ public class FAFController {
 			HistoriqueQuestionFAF histo = new HistoriqueQuestionFAF();
 			histo.setNbQuestion(nbQuest);
 			histo.setNbQuestionReel(nbQuestReel);
-			histo.setNiveau(niveau);
 			histo.setQuestion(questionFAF);
 
 			listeHistoriqueFAF.add(0, histo);
@@ -359,6 +372,7 @@ public class FAFController {
 	}
 
 	public void modifierTaille(TaillePolice taille) {
+		LOGGER.debug("[DEBUT] Modifier la taille.");
 		switch (taille) {
 		case PETIT:
 			definirTailleCartonFAF(14);
@@ -371,6 +385,8 @@ public class FAFController {
 			break;
 
 		}
+
+		LOGGER.debug("[FIN] Modifier la taille.");
 	}
 
 	private void definirTailleCartonFAF(int taille) {
