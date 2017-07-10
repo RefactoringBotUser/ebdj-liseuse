@@ -41,7 +41,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,reference,club,dateReception FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id)");
+				"SELECT id,question,reponse,theme,reference,club,dateReception FROM QUESTION_JD Q_JD WHERE EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");

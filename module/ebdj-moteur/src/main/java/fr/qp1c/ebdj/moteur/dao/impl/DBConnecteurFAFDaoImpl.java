@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 
@@ -162,6 +164,85 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * 
 	 */
 	@Override
+	public Map<String, Long> compterParCategorie() {
+
+		Map<String, Long> inventaireParCategorie = new HashMap<>();
+
+		// Création de la requête
+
+		StringBuilder query = new StringBuilder();
+		query.append("SELECT categorie, count(1) FROM QUESTION_FAF GROUP BY categorie order by categorie;");
+
+		try {
+			// Connexion à la base de données SQLite
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
+			Connection connection = dbManager.connect();
+			Statement stmt = connection.createStatement();
+
+			// Executer la requête
+			ResultSet rs = stmt.executeQuery(query.toString());
+			while (rs.next()) {
+				String categorie = rs.getString(1);
+				Long nbQuestion = rs.getLong(2);
+
+				inventaireParCategorie.put(categorie, nbQuestion);
+			}
+
+			// Fermeture des connections.
+			stmt.close();
+			dbManager.close(connection);
+		} catch (Exception e) {
+			LOGGER.error("An error has occured :", e);
+			throw new DBManagerException();
+		}
+		return inventaireParCategorie;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public Map<String, Long> compterParCategorieLue() {
+
+		Map<String, Long> inventaireParCategorie = new HashMap<>();
+
+		// Création de la requête
+
+		StringBuilder query = new StringBuilder();
+		query.append(
+				"SELECT categorie, count(1) FROM QUESTION_FAF Q_FAF WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id) GROUP BY categorie order by categorie;");
+
+		try {
+			// Connexion à la base de données SQLite
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
+			Connection connection = dbManager.connect();
+			Statement stmt = connection.createStatement();
+
+			// Executer la requête
+			ResultSet rs = stmt.executeQuery(query.toString());
+			while (rs.next()) {
+				String categorie = rs.getString(1);
+				Long nbQuestion = rs.getLong(2);
+
+				inventaireParCategorie.put(categorie, nbQuestion);
+			}
+
+			// Fermeture des connections.
+			stmt.close();
+			dbManager.close(connection);
+		} catch (Exception e) {
+			LOGGER.error("An error has occured :", e);
+			throw new DBManagerException();
+		}
+		return inventaireParCategorie;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
 	public int compterNbQuestion() {
 
 		int nbQuestion = 0;
@@ -207,7 +288,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT DISTINCT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id) ");
+				"SELECT count(1) FROM QUESTION_FAF Q_FAF WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id) ");
 		query.append(";");
 
 		try {

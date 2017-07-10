@@ -21,6 +21,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -111,7 +112,7 @@ public class Launcher extends Application {
 
 	public void initialiserEcranStats() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StatsView.fxml"));
-		BorderPane page = (BorderPane) loader.load();
+		VBox page = (VBox) loader.load();
 		((StatistiquesController) loader.getController()).setLauncher(this);
 
 		// get screensize of monitor

@@ -1,6 +1,9 @@
 package fr.qp1c.ebdj.moteur.service;
 
+import java.util.List;
+
 import fr.qp1c.ebdj.moteur.bean.stats.StatsBDJ;
+import fr.qp1c.ebdj.moteur.bean.stats.StatsCategorieFAF;
 
 public interface StatistiqueService {
 
@@ -11,5 +14,7 @@ public interface StatistiqueService {
 	 * 
 	 */
 	public StatsBDJ calculerStatistique();
+
+	public List<StatsCategorieFAF> calculerStatsCategorieFAF();
 
 }

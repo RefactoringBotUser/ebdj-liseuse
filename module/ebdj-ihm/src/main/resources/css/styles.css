@@ -272,6 +272,42 @@
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
+.boutonFermer{
+	-fx-background-color: #008CBA;
+	-fx-border-color:#008CBA;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.boutonFermer:selected {
+	-fx-background-color: black;
+	-fx-border-color:black;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.boutonFermer:hover {
+	-fx-background-color: #ff7f50;
+	-fx-background-radius: 10;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-border-color:red;
+	-fx-border-radius: 10;
+}
+
 .themeJD, .themeFAF  {
 	-fx-font-family: "Venacti";
 	-fx-font-size: 22px;

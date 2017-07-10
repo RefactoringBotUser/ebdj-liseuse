@@ -169,7 +169,7 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM THEME_QALS T_QALS WHERE NOT EXISTS(SELECT DISTINCT * FROM THEME_QALS_LECTURE T_QALS_J WHERE T_QALS.id=T_QALS_J.theme_id) ");
+				"SELECT count(1) FROM THEME_QALS T_QALS WHERE EXISTS(SELECT DISTINCT * FROM THEME_QALS_LECTURE T_QALS_J WHERE T_QALS.id=T_QALS_J.theme_id) ");
 
 		if (categorie > 0) {
 			query.append(" AND T_QALS.categorie='");

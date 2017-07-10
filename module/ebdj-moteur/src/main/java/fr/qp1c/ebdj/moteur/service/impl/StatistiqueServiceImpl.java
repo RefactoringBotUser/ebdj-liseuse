@@ -1,6 +1,15 @@
 package fr.qp1c.ebdj.moteur.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.qp1c.ebdj.moteur.bean.stats.StatsBDJ;
+import fr.qp1c.ebdj.moteur.bean.stats.StatsCategorieFAF;
 import fr.qp1c.ebdj.moteur.bean.stats.StatsQuestions;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurFAFDao;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
@@ -13,6 +22,11 @@ import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurQALSDaoImpl;
 import fr.qp1c.ebdj.moteur.service.StatistiqueService;
 
 public class StatistiqueServiceImpl implements StatistiqueService {
+
+	/**
+	 * Default logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(SynchronisationJDServiceImpl.class);
 
 	private DBConnecteurNPGDao connecterNPGDao = new DBConnecteurNPGDaoImpl();
 
@@ -36,6 +50,8 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 		statsQuestions9PG_1.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(1));
 		statsQuestions9PG_1.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(1));
 		stats.setStats9PG_1(statsQuestions9PG_1);
+
+		LOGGER.debug(statsQuestions9PG_1.toString());
 
 		StatsQuestions statsQuestions9PG_2 = new StatsQuestions();
 		statsQuestions9PG_2.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(2));
@@ -69,6 +85,29 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 		stats.setStatsFAF(statsQuestionsFAF);
 
 		return stats;
+	}
+
+	@Override
+	public List<StatsCategorieFAF> calculerStatsCategorieFAF() {
+
+		List<StatsCategorieFAF> statsCategorieFAF = new ArrayList<>();
+
+		Map<String, Long> categoriesFAF = connecterFAFDao.compterParCategorie();
+		Map<String, Long> categoriesFAFJoues = connecterFAFDao.compterParCategorieLue();
+
+		for (Entry<String, Long> categorieFAF : categoriesFAF.entrySet()) {
+			StatsCategorieFAF stats = new StatsCategorieFAF();
+			stats.setCategorie(categorieFAF.getKey());
+			stats.setNbQuestionsTotal(categorieFAF.getValue().intValue());
+
+			if (categoriesFAFJoues.containsKey(categorieFAF.getKey())) {
+				stats.setNbQuestionsJouees(categoriesFAFJoues.get(categorieFAF.getKey()).intValue());
+			}
+
+			statsCategorieFAF.add(stats);
+		}
+
+		return statsCategorieFAF;
 	}
 
 }

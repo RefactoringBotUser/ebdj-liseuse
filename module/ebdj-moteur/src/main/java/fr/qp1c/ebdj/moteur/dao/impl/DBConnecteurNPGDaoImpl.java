@@ -178,7 +178,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT DISTINCT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.id=Q_9PG_J.question_id) ");
+				"SELECT count(1) FROM QUESTION_NPG Q_9PG WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.id=Q_9PG_J.question_id) ");
 
 		if (difficulte > 0) {
 			query.append(" AND Q_9PG.difficulte='");

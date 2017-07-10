@@ -1,6 +1,7 @@
 package fr.qp1c.ebdj.moteur.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
@@ -79,6 +80,10 @@ public interface DBConnecteurFAFDao {
 	 * @return le nombre de question jouable.
 	 */
 	public int compterNbQuestionLue();
+
+	public Map<String, Long> compterParCategorie();
+
+	public Map<String, Long> compterParCategorieLue();
 
 	public void creerQuestion(QuestionFAFBdjDistante questionFafBdjDistante);
 
