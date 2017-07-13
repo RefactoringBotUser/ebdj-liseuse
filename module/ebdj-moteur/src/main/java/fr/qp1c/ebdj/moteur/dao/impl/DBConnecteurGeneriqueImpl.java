@@ -290,4 +290,49 @@ public class DBConnecteurGeneriqueImpl {
 		}
 	}
 
+	protected int compterNbQuestion(String query) {
+
+		int nbQuestion = 0;
+
+		try {
+			// Connexion à la base de données SQLite
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
+			Connection connection = dbManager.connect();
+			Statement stmt = connection.createStatement();
+
+			// Executer la requête
+			ResultSet rs = stmt.executeQuery(query);
+			if (rs.next()) {
+				nbQuestion = rs.getInt(1);
+			}
+
+			// Fermeture des connections.
+			stmt.close();
+			dbManager.close(connection);
+		} catch (Exception e) {
+			LOGGER.error("An error has occured :", e);
+			throw new DBManagerException();
+		}
+		return nbQuestion;
+	}
+
+	protected void executerUpdateOuInsert(String requete) {
+		try {
+			// Connexion à la base de données SQLite
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
+			Connection connection = dbManager.connect();
+			Statement stmt = connection.createStatement();
+
+			// Executer la requête
+			stmt.executeUpdate(requete);
+
+			// Fermeture des connections.
+			stmt.close();
+			dbManager.close(connection);
+		} catch (Exception e) {
+			LOGGER.error("An error has occured :", e);
+			throw new DBManagerException();
+		}
+	}
+
 }

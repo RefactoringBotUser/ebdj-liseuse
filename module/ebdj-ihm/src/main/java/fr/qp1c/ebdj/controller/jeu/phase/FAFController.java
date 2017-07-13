@@ -1,4 +1,4 @@
-package fr.qp1c.ebdj.controller.jeu;
+package fr.qp1c.ebdj.controller.jeu.phase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurFAFDaoImpl;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
+import fr.qp1c.ebdj.view.Style;
 import fr.qp1c.ebdj.view.TaillePolice;
 import fr.qp1c.ebdj.view.component.HistoriqueFAFListCell;
 import javafx.collections.FXCollections;
@@ -113,10 +114,24 @@ public class FAFController {
 
 	@FXML
 	private void initialize() {
+		reinitialiser();
+	}
+
+	public void reinitialiser() {
 		LOGGER.debug("[DEBUT] Initialisation du panneau FAF.");
 
 		// Chargement des questions.
 		questionsFAF = LoaderQuestionFAF.chargerQuestions();
+
+		listeHistoriqueFAF.clear();
+
+		// Nombre de questions officiellement joué.
+		nbQuest = 0;
+
+		// Nombre de questions réel (inclus erreur et remplacement).
+		nbQuestReel = 0;
+
+		numQuestionAffiche = 0;
 
 		// Création de l'historique des questions du 9PG
 		histoQuestion.setEditable(false);
@@ -150,14 +165,6 @@ public class FAFController {
 		btnReprendreFAF.setVisible(false);
 		btnReprendreFAF.setDisable(true);
 
-		// btnNouvelleQuestionFAF.setContentDisplay(ContentDisplay.LEFT);
-		// btnNouvelleQuestionFAF.setGraphicTextGap(10);
-		// btnNouvelleQuestionFAF.setGraphic(reprendre);
-		//
-		// btnRemplacerQuestionFAF.setContentDisplay(ContentDisplay.RIGHT);
-		// btnRemplacerQuestionFAF.setGraphicTextGap(10);
-		// btnRemplacerQuestionFAF.setGraphic(iconeRemplacement);
-
 		modifierTaille(TaillePolice.GRAND);
 
 		jouerNouvelleQuestionFAF();
@@ -188,7 +195,7 @@ public class FAFController {
 
 			btnRemplacerQuestionFAF.setDisable(false);
 
-			cartonFAF.setStyle("-fx-background-color: #ffe808;");
+			cartonFAF.setStyle(Style.FOND_CARTON);
 
 			afficherCartonFAF(derniereQuestionFAF);
 
@@ -305,7 +312,7 @@ public class FAFController {
 		btnReprendreFAF.setDisable(false);
 
 		// Modifcation de la couleur de fond du carton du FAF.
-		cartonFAF.setStyle("-fx-background-color: #D8D8D8;");
+		cartonFAF.setStyle(Style.FOND_CARTON_HISTORIQUE);
 
 		numQuestionAffiche = question.getNbQuestionReel();
 

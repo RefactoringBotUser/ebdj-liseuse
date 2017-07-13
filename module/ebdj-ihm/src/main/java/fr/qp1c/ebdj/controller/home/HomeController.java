@@ -5,13 +5,11 @@ import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.Launcher;
 import fr.qp1c.ebdj.utils.ImageConstants;
-import fr.qp1c.ebdj.utils.ImageUtils;
+import fr.qp1c.ebdj.view.TypePartie;
+import fr.qp1c.ebdj.view.component.BoutonBdj;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Separator;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.TextAlignment;
 
 public class HomeController {
 
@@ -54,46 +52,18 @@ public class HomeController {
 
 		LOGGER.debug("[DEBUT] Initialisation du panneau home.");
 
-		ImageView imageHomeQuestion = new ImageView(ImageConstants.IMAGE_HOME_QUESTION);
-		ImageUtils.reduireImageCustom(imageHomeQuestion, 150);
+		// Création du bouton "Question"
+		BoutonBdj.customiserBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION);
 
-		btnQuestion.setGraphic(imageHomeQuestion);
-		btnQuestion.setTextAlignment(TextAlignment.CENTER);
-		btnQuestion.setContentDisplay(ContentDisplay.TOP);
+		// Création du bouton "Stats"
+		BoutonBdj.customiserBouton150(btnStats, ImageConstants.IMAGE_HOME_STATS);
 
-		// MenuItem menu9PG = new MenuItem("9PG uniquement");
-		// MenuItem menu4ALS = new MenuItem("4ALS uniquement");
-		// MenuItem menuJD = new MenuItem("JD uniquement");
-		// MenuItem menuFAF = new MenuItem("FAF uniquement");
-		// MenuItem menuPartieComplete = new MenuItem("PARTIE COMPLETE");
-
-		// btnQuestion.getItems().add(menuPartieComplete);
-		// btnQuestion.getItems().add(menu9PG);
-		// btnQuestion.getItems().add(menu4ALS);
-		// btnQuestion.getItems().add(menuJD);
-		// btnQuestion.getItems().add(menuFAF);
-
-		ImageView imageHomeStats = new ImageView(ImageConstants.IMAGE_HOME_STATS);
-		ImageUtils.reduireImageCustom(imageHomeStats, 150);
-
-		btnStats.setGraphic(imageHomeStats);
-		btnStats.setTextAlignment(TextAlignment.CENTER);
-		btnStats.setContentDisplay(ContentDisplay.TOP);
-
-		ImageView imageHomeParametrage = new ImageView(ImageConstants.IMAGE_HOME_PARAMETRAGE);
-		ImageUtils.reduireImageCustom(imageHomeParametrage, 150);
-
-		btnParametrage.setGraphic(imageHomeParametrage);
-		btnParametrage.setTextAlignment(TextAlignment.CENTER);
-		btnParametrage.setContentDisplay(ContentDisplay.TOP);
+		// Création du bouton "Paramétrage"
+		BoutonBdj.customiserBouton150(btnParametrage, ImageConstants.IMAGE_HOME_PARAMETRAGE);
 
 		separateur.setVisible(false);
 
-		// btn9PG.setVisible(false);
-		// btn4ALS.setVisible(false);
-		// btnJD.setVisible(false);
-		// btnFAF.setVisible(false);
-		// btnPartie.setVisible(false);
+		masquerSousMenuQuestion();
 
 		LOGGER.debug("[FIN] Initialisation du panneau home.");
 	}
@@ -112,8 +82,6 @@ public class HomeController {
 		launcher.afficherEcranStats();
 
 		masquerSousMenuQuestion();
-
-		LOGGER.error("Non implémenté !");
 	}
 
 	@FXML
@@ -123,10 +91,48 @@ public class HomeController {
 		launcher.afficherEcranParametrage();
 
 		masquerSousMenuQuestion();
-
-		LOGGER.error("Non implémenté !");
 	}
 
+	@FXML
+	public void afficherEcran9PG() {
+		LOGGER.info("### --> Clic sur \"9PG\"");
+
+		launcher.afficherEcranQuestions(TypePartie.NPG);
+	}
+
+	@FXML
+	public void afficherEcran4ALS() {
+		LOGGER.info("### --> Clic sur \"4ALS\"");
+
+		launcher.afficherEcranQuestions(TypePartie.QALS);
+	}
+
+	@FXML
+	public void afficherEcranJD() {
+		LOGGER.info("### --> Clic sur \"JD\"");
+
+		launcher.afficherEcranQuestions(TypePartie.JD);
+	}
+
+	@FXML
+	public void afficherEcranFAF() {
+		LOGGER.info("### --> Clic sur \"FAF\"");
+
+		launcher.afficherEcranQuestions(TypePartie.FAF);
+	}
+
+	@FXML
+	public void afficherEcranPartie() {
+		LOGGER.info("### --> Clic sur \"Partie\"");
+
+		launcher.afficherEcranQuestions(TypePartie.PARTIE);
+	}
+
+	/**
+	 * Afficher le sous-menu permettant de selectionner le type de
+	 * questionnaire.
+	 * 
+	 */
 	private void afficherSousMenuQuestion() {
 
 		btn9PG.setVisible(true);
@@ -138,7 +144,11 @@ public class HomeController {
 		btnQuestion.setDisable(true);
 	}
 
-	private void masquerSousMenuQuestion() {
+	/**
+	 * Masquer le sous-menu permettant de sélectionner le type de questionnaire.
+	 * 
+	 */
+	public void masquerSousMenuQuestion() {
 
 		btn9PG.setVisible(false);
 		btn4ALS.setVisible(false);
@@ -149,50 +159,7 @@ public class HomeController {
 		btnQuestion.setDisable(false);
 	}
 
-	@FXML
-	public void afficherEcran9PG() {
-		LOGGER.info("### --> Clic sur \"9PG\"");
-
-		masquerSousMenuQuestion();
-
-		LOGGER.error("Non implémenté !");
-	}
-
-	@FXML
-	public void afficherEcran4ALS() {
-		LOGGER.info("### --> Clic sur \"4ALS\"");
-
-		masquerSousMenuQuestion();
-
-		LOGGER.error("Non implémenté !");
-	}
-
-	@FXML
-	public void afficherEcranJD() {
-		LOGGER.info("### --> Clic sur \"JD\"");
-
-		masquerSousMenuQuestion();
-
-		LOGGER.error("Non implémenté !");
-	}
-
-	@FXML
-	public void afficherEcranFAF() {
-		LOGGER.info("### --> Clic sur \"FAF\"");
-
-		masquerSousMenuQuestion();
-
-		LOGGER.error("Non implémenté !");
-	}
-
-	@FXML
-	public void afficherEcranPartie() {
-		LOGGER.info("### --> Clic sur \"Partie\"");
-
-		launcher.afficherEcranPartieComplete();
-
-		// masquerSousMenuQuestion();
-	}
+	// Getters - setters
 
 	public Launcher getLauncher() {
 		return launcher;

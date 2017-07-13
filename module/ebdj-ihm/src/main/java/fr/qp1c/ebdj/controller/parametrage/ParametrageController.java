@@ -41,6 +41,8 @@ public class ParametrageController {
 		launcher.afficherEcranHome();
 	}
 
+	// Getters - setters
+
 	public Launcher getLauncher() {
 		return launcher;
 	}

@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionJD;
+import fr.qp1c.ebdj.utils.StringUtilities;
+import fr.qp1c.ebdj.view.Style;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -26,38 +28,34 @@ public class HistoriqueJDListCell extends ListCell<HistoriqueQuestionJD> {
 	@Override
 	public void updateItem(HistoriqueQuestionJD item, boolean empty) {
 		LOGGER.debug("[DEBUT] Maj de l'entrée de l'historique : {} ", item);
-		super.updateItem(item, empty);
 
-		// if null, display nothing
-		if (empty || item == null) {
-			setText(null);
-			setGraphic(null);
-		} else {
-			setText(null);
+		if (item != null) {
+			super.updateItem(item, empty);
 
-			String nbQuestionString = String.valueOf(item.getNbQuestion()) + " -";
-			if (item.getNbQuestion() < 10) {
-				nbQuestionString = " " + nbQuestionString;
+			// if null, display nothing
+			if (empty || item == null) {
+				setText(null);
+				setGraphic(null);
+			} else {
+				setText(null);
+
+				Label nbQuestion = new Label(StringUtilities.formaterNumeroQuestion(item.getNbQuestion()));
+				Label reponse = new Label(item.getQuestion().getReponse().toUpperCase());
+
+				final HBox hbox = new HBox();
+				hbox.setSpacing(5);
+
+				if (item.isNonComptabilise()) {
+					nbQuestion.setStyle(Style.ANOMALIE_HISTORIQUE);
+					reponse.setStyle(Style.ANOMALIE_HISTORIQUE);
+				}
+
+				hbox.getChildren().addAll(nbQuestion, reponse);
+				hbox.setOnMouseClicked(clickHandler);
+				hbox.setUserData(item);
+				setGraphic(hbox);
 			}
-
-			Label nbQuestion = new Label(nbQuestionString);
-
-			Label reponse = new Label(item.getQuestion().getReponse().toUpperCase());
-
-			final HBox hbox = new HBox();
-			hbox.setSpacing(5);
-
-			if (item.isNonComptabilise()) {
-				nbQuestion.setStyle("-fx-text-fill: red;");
-				reponse.setStyle("-fx-text-fill: red;");
-			}
-
-			hbox.getChildren().addAll(nbQuestion, reponse);
-			hbox.setOnMouseClicked(clickHandler);
-			hbox.setUserData(item);
-			setGraphic(hbox);
 		}
-
 		LOGGER.debug("[FIN] Maj de l'entrée de l'historique.");
 	}
 }

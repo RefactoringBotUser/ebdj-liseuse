@@ -29,6 +29,11 @@ public class Chronometre extends Label {
 		chronometre.stop();
 	}
 
+	public void restart() {
+		stop();
+		start();
+	}
+
 	private void initialiser() {
 		chronometre = new Timeline(new KeyFrame(Duration.seconds(0), new EventHandler<ActionEvent>() {
 			@Override

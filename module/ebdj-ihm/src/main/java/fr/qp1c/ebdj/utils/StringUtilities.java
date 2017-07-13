@@ -47,4 +47,12 @@ public class StringUtilities {
 
 		return sb.toString();
 	}
+
+	public static String formaterNumeroQuestion(int nbQuestion) {
+		String nbQuestionString = String.valueOf(nbQuestion) + " -";
+		if (nbQuestion < 10) {
+			nbQuestionString = " " + nbQuestionString;
+		}
+		return nbQuestionString;
+	}
 }

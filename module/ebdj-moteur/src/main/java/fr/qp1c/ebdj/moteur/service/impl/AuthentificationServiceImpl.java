@@ -23,6 +23,7 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 	 */
 	@Override
 	public AuthentificationBdj recupererAuthentificationBdj() {
+		LOGGER.debug("[DEBUT] Récuperer les informations d'authentification.");
 
 		String nomBdj = dbConnecteurParametrageDao.recupererParametrage("NOM_BDJ");
 		String cleActivation = dbConnecteurParametrageDao.recupererParametrage("CLE_ACTIVATION");
@@ -32,6 +33,8 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 		AuthentificationBdj authentificationBdj = new AuthentificationBdj();
 		authentificationBdj.setNomBdj(nomBdj);
 		authentificationBdj.setCleAuthentification(cleActivation);
+
+		LOGGER.debug("[FIN] Récuperer les informations d'authentification.");
 
 		return authentificationBdj;
 	}

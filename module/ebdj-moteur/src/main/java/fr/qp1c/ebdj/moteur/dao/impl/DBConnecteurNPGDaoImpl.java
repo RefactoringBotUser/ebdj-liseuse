@@ -132,8 +132,6 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	@Override
 	public int compterNbQuestion(int difficulte) {
 
-		int nbQuestion = 0;
-
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
@@ -147,32 +145,11 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		query.append(";");
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				nbQuestion = rs.getInt(1);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return nbQuestion;
+		return compterNbQuestion(query.toString());
 	}
 
 	@Override
 	public int compterNbQuestionLue(int difficulte) {
-
-		int nbQuestionJouee = 0;
 
 		// Création de la requête
 
@@ -188,28 +165,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		query.append(";");
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			LOGGER.debug(query.toString());
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				nbQuestionJouee = rs.getInt(1);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return nbQuestionJouee;
+		return compterNbQuestion(query.toString());
 	}
 
 	@Override
@@ -233,22 +189,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 		query.append(question9pg.getVersion());
 		query.append(",1);"); // question active
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			stmt.executeUpdate(query.toString());
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
+		executerUpdateOuInsert(query.toString());
 	}
 
 	@Override
@@ -271,22 +212,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 		query.append(question9pg.getReference());
 		query.append(";");
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			stmt.executeUpdate(query.toString());
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
+		executerUpdateOuInsert(query.toString());
 	}
 
 	/**

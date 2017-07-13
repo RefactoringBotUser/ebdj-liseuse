@@ -1,4 +1,4 @@
-package fr.qp1c.ebdj.controller.jeu;
+package fr.qp1c.ebdj.controller.jeu.phase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,8 +95,6 @@ public class JDController {
 	// Nombre de questions réel (inclus erreur et remplacement).
 	private int nbQuestReel = 0;
 
-	private int niveau = 0;
-
 	private List<QuestionJD> questionsJD = new ArrayList<>();
 
 	private QuestionJD derniereQuestionJD;
@@ -107,10 +105,26 @@ public class JDController {
 
 	@FXML
 	private void initialize() {
+		reinitialiser();
+	}
+
+	public void reinitialiser() {
 		LOGGER.debug("[DEBUT] Initialisation du panneau JD.");
 
 		// Chargement des questions.
 		questionsJD = LoaderQuestionJD.chargerQuestions();
+
+		listeHistoriqueJD.clear();
+
+		// Données 9PG.
+
+		// Nombre de questions officiellement joué.
+		nbQuest = 0;
+
+		// Nombre de questions réel (inclus erreur et remplacement).
+		nbQuestReel = 0;
+
+		numQuestionAffiche = 0;
 
 		// Création de l'historique des questions du 9PG
 		histoQuestion.setEditable(false);
@@ -145,14 +159,6 @@ public class JDController {
 		btnReprendreJD.setDisable(true);
 
 		modifierTaille(TaillePolice.GRAND);
-
-		// btnNouvelleQuestionJD.setContentDisplay(ContentDisplay.LEFT);
-		// btnNouvelleQuestionJD.setGraphicTextGap(10);
-		// btnNouvelleQuestionJD.setGraphic(reprendre);
-		//
-		// btnRemplacerQuestionJD.setContentDisplay(ContentDisplay.RIGHT);
-		// btnRemplacerQuestionJD.setGraphicTextGap(10);
-		// btnRemplacerQuestionJD.setGraphic(iconeRemplacement);
 
 		jouerNouvelleQuestionJD();
 

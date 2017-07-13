@@ -41,7 +41,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,reference,club,dateReception FROM QUESTION_JD Q_JD WHERE EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id)");
+				"SELECT id,question,reponse,theme,reference,club,dateReception FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
@@ -98,34 +98,12 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	@Override
 	public int compterNbQuestion() {
 
-		int nbQuestion = 0;
-
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM QUESTION_JD Q_JD");
-		query.append(";");
+		query.append("SELECT count(1) FROM QUESTION_JD Q_JD;");
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				nbQuestion = rs.getInt(1);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return nbQuestion;
+		return compterNbQuestion(query.toString());
 	}
 
 	/**
@@ -135,35 +113,13 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	@Override
 	public int compterNbQuestionLue() {
 
-		int nbQuestionJouee = 0;
-
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT DISTINCT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id) ");
-		query.append(";");
+				"SELECT count(1) FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT DISTINCT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id);");
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				nbQuestionJouee = rs.getInt(1);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return nbQuestionJouee;
+		return compterNbQuestion(query.toString());
 	}
 
 	@Override
@@ -189,22 +145,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 		query.append(questionJd.getVersion());
 		query.append(",1);"); // question active
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			stmt.executeUpdate(query.toString());
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
+		executerUpdateOuInsert(query.toString());
 	}
 
 	@Override
@@ -229,22 +170,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 		query.append(questionJd.getReference());
 		query.append(";");
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			stmt.executeUpdate(query.toString());
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
+		executerUpdateOuInsert(query.toString());
 	}
 
 	/**

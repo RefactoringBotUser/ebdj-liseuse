@@ -2,7 +2,6 @@ package fr.qp1c.ebdj.controller.stats;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -347,13 +346,6 @@ public class StatistiquesController {
 				barreProgressionPhase.setProgress(0.25);
 				barreProgressionSousPhase.setProgress(0.0);
 
-				try {
-					TimeUnit.SECONDS.sleep(3);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
 				Synchronisation4ALSService synchronisation4alsService = new Synchronisation4ALSServiceImpl();
 				synchronisation4alsService.synchroniserAnomalies4ALS();
 				barreProgressionSousPhase.setProgress(0.1);
@@ -382,12 +374,6 @@ public class StatistiquesController {
 
 				synchronisationJdService.synchroniserLecturesJD();
 				barreProgressionSousPhase.setProgress(0.4);
-				try {
-					TimeUnit.SECONDS.sleep(1);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				updateLibelleBarreProgressionSousPhase("Téléchargement des questions.");
 
 				synchronisationJdService.synchroniserQuestionsJD();

@@ -1,4 +1,4 @@
-package fr.qp1c.ebdj.controller.jeu;
+package fr.qp1c.ebdj.controller.jeu.phase;
 
 import java.util.Locale;
 import java.util.Map;
@@ -138,6 +138,10 @@ public class QALSController {
 		panneauQuestionTheme4ALS4.setFitToWidth(true);
 
 		LOGGER.debug("[FIN] Initialisation du panneau 4ALS.");
+	}
+
+	public void reinitialiser() {
+
 	}
 
 	public void afficher4ALS(ObservableList list, Question4ALS theme4ALS) {

@@ -1,4 +1,4 @@
-package fr.qp1c.ebdj.controller.jeu;
+package fr.qp1c.ebdj.controller.jeu.phase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,6 +152,26 @@ public class NPGController {
 		questions9PG_2 = LoaderQuestion9PG.chargerQuestions2Etoiles();
 		questions9PG_3 = LoaderQuestion9PG.chargerQuestions3Etoiles();
 
+		questions9PGJouee = new ArrayList<>();
+
+		listeHistorique9PG.clear();
+
+		numQuestionAffiche = 0;
+
+		// Nombre de questions officiellement joué.
+		nbQuest = 0;
+
+		// Nombre de questions réel (inclus erreur et remplacement).
+		nbQuestReel = 0;
+
+		niveau = 0;
+
+		cpt_1 = 0;
+
+		cpt_2 = 0;
+
+		cpt_3 = 0;
+
 		// Création de l'historique des questions du 9PG
 		histoQuestion.setEditable(false);
 		histoQuestion.setItems(listeHistorique9PG);
@@ -183,14 +203,6 @@ public class NPGController {
 
 		btnReprendre9PG.setVisible(false);
 		btnReprendre9PG.setDisable(true);
-
-		// btnNouvelleQuestion9PG.setContentDisplay(ContentDisplay.LEFT);
-		// btnNouvelleQuestion9PG.setGraphicTextGap(10);
-		// btnNouvelleQuestion9PG.setGraphic(reprendre);
-		//
-		// btnRemplacerQuestion9PG.setContentDisplay(ContentDisplay.RIGHT);
-		// btnRemplacerQuestion9PG.setGraphicTextGap(10);
-		// btnRemplacerQuestion9PG.setGraphic(iconeRemplacement);
 
 		// Lancer en mode 1,2,3
 		changerNiveau123();
@@ -238,6 +250,9 @@ public class NPGController {
 		mode9PG = Mode9PG.MODE_123;
 
 		btn123.setSelected(true);
+		btn123.setDisable(false);
+		btn23.setDisable(false);
+		btn3.setDisable(false);
 
 		afficherNouvelleQuestion();
 
@@ -420,6 +435,7 @@ public class NPGController {
 	}
 
 	private void changerQuestion(QuestionNPG nouvelleQuestion, boolean questionACompter) {
+		LOGGER.debug("[DEBUT] Changer de question.");
 
 		// Calcul du nombre de question joué
 		if (questionACompter) {
@@ -437,6 +453,8 @@ public class NPGController {
 		afficherNbQuestion();
 
 		derniereQuestion9PG = nouvelleQuestion;
+
+		LOGGER.debug("[FIN] Changer de question.");
 	}
 
 	private void afficherQuestionHistorique(HistoriqueQuestion9PG question) {
