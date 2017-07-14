@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.controller.home.HomeController;
 import fr.qp1c.ebdj.controller.jeu.TypePartieController;
 import fr.qp1c.ebdj.controller.parametrage.ParametrageController;
+import fr.qp1c.ebdj.controller.popup.PopUpErreur;
 import fr.qp1c.ebdj.controller.stats.StatistiquesController;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.view.Libelle;
@@ -86,6 +87,7 @@ public class Launcher extends Application {
 			primaryStage.show();
 		} catch (IOException e) {
 			LOGGER.error("Une erreur s'est produite :", e);
+			PopUpErreur.afficherPopUp(e);
 		}
 
 		LOGGER.info("[FIN] Start");

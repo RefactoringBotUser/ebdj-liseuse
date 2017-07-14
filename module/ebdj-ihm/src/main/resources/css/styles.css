@@ -71,7 +71,7 @@
 	-fx-border-radius: 10;
 }
 
-.boutonSelectionnerUtilisateur{
+.boutonSelectionnerLecteur{
 	-fx-background-color: #008CBA;
 	-fx-border-color:#008CBA;
 	-fx-font-family: "Venacti";
@@ -83,7 +83,7 @@
 	-fx-border-radius: 10;
 }
 
-.boutonSelectionnerUtilisateur:selected {
+.boutonSelectionnerLecteur:selected {
 	-fx-background-color: black;
 	-fx-border-color:black;
 	-fx-font-family: "Venacti";
@@ -95,7 +95,7 @@
 	-fx-border-radius: 10;
 }
 
-.boutonSelectionnerUtilisateur:hover {
+.boutonSelectionnerLecteur:hover {
 	-fx-background-color: #ff7f50;
 	-fx-background-radius: 10;
 	-fx-font-family: "Venacti";
@@ -106,7 +106,6 @@
 	-fx-border-color:red;
 	-fx-border-radius: 10;
 }
-
 
 .boutonParametrer{
 	-fx-background-color: #008CBA;
@@ -144,8 +143,6 @@
 	-fx-border-radius: 10;
 }
 
-
-
 .boutonHome{
 	-fx-background-color: #008CBA;
 	-fx-border-color:#008CBA;
@@ -181,7 +178,6 @@
 	-fx-border-color:red;
 	-fx-border-radius: 10;
 }
-
 
 .boutonNouvelleQuestion{
 	-fx-background-color: #008CBA;
@@ -345,7 +341,7 @@
 	-fx-padding: 10 5 10 5;
 }
 
-.utilisateur{
+.panneauLecteur{
 	-fx-background-color: #4CAF50;
 	-fx-font-family: "Venacti";
 	-fx-font-size: 16px;
@@ -354,7 +350,7 @@
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
-.chronometre{
+.panneauChronometre{
 	-fx-background-color: #4CAF50;
 	-fx-font-family: "Venacti";
 	-fx-font-size: 16px;
@@ -381,7 +377,6 @@
 }
 
 .labelHistoriqueQuestion {
-	
 	-fx-border-color: #D8D8D8;
 	-fx-font: 16px "Venacti";
 	-fx-font-weight: bold;
@@ -401,12 +396,69 @@
 	-fx-font-style:italic;
 	-fx-text-fill: black;
 }
-.panneauPhase, .panneau9PG, .panneauNiveau9PG, .panneauJD{
+.panneauPhase, .panneau9PG, .panneauNiveau9PG, .panneauJD, .popUp{
 	-fx-background-color: white;
 }
 
-.theme4ALS
-{
+.popUp:header *.header-panel{
+    -fx-background-color: #008CBA;
+}
+
+.popUp:header *.header-panel *.label{
+	-fx-font-family: "Venacti";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+	-fx-text-fill: white;
+}
+
+.popUp  *.label,*.textarea{
+	-fx-font-family: "Venacti";
+    -fx-font-size: 14px;
+	-fx-text-fill: black;
+}
+
+.popUp > *.button-bar > *.container{
+    -fx-background-color: white;
+}
+
+.popUp  *.button{
+	-fx-background-color: #008CBA;
+	-fx-border-color:#008CBA;
+	-fx-font-family: "Venacti";
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.popUp  *.button:selected {
+	-fx-background-color: black;
+	-fx-border-color:black;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+
+.popUp *.button:hover {
+	-fx-background-color: #ff7f50;
+	-fx-border-color:red;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
+ 
+.theme4ALS {
 	-fx-skin: "com.sun.javafx.scene.control.skin.TitledPaneSkin";    
 	-fx-font-family: "Venacti";
 	-fx-font-size: 18px;
@@ -414,62 +466,49 @@
 	-fx-text-fill: white;
 }
 
-.theme4ALS > .title 
-{
-
+.theme4ALS > .title {
 	-fx-background-color: #008CBA;
--fx-background-insets: 0, 1, 2;
--fx-background-radius: 10 10 10 10, 8 8 8 8, 6 6 6 6;
--fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
+	-fx-background-insets: 0, 1, 2;
+	-fx-background-radius: 10 10 10 10, 8 8 8 8, 6 6 6 6;
+	-fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
 }
 
-.theme4ALS:focused > .title 
-{
-	
--fx-background-radius: 10 10 0 0, 8 8 0 0, 6 6 0 0;
+.theme4ALS:focused > .title {
+	-fx-background-radius: 10 10 0 0, 8 8 0 0, 6 6 0 0;
 	-fx-background-color:black;
 }
 
-.theme4ALS > .title > .arrow-button 
-{
--fx-background-color: null;
--fx-background-insets: 0;
--fx-background-radius: 0;
--fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
+.theme4ALS > .title > .arrow-button {
+	-fx-background-color: null;
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+	-fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
 }
 
-.theme4ALS > .title > .arrow-button .arrow 
-{
--fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
--fx-background-insets: 1 0 -1 0, 0;
--fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
--fx-shape: "M 0 0 h 7 l -3.5 4 z";
+.theme4ALS > .title > .arrow-button .arrow  {
+	-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+	-fx-background-insets: 1 0 -1 0, 0;
+	-fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
+	-fx-shape: "M 0 0 h 7 l -3.5 4 z";
 }
 
-.theme4ALS:collapsed > .title > .arrow-button .arrow 
-{
--fx-rotate: -90;
+.theme4ALS:collapsed > .title > .arrow-button .arrow {
+	-fx-rotate: -90;
 }
 
-.theme4ALS > *.content 
-{
--fx-background-color:
--fx-box-border,
-linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,      derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
--fx-background-insets: 0, 0 1 1 1;
--fx-padding: 0.167em;
+.theme4ALS > *.content {
+	-fx-background-color:
+	-fx-box-border,
+	linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,      derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
+	-fx-background-insets: 0, 0 1 1 1;
+	-fx-padding: 0.167em;
  }
 
-.theme4ALS:focused > .title > .arrow-button .arrow 
-{
--fx-background-color: white;
+.theme4ALS:focused > .title > .arrow-button .arrow {
+	-fx-background-color: white;
 }
 
-
-
-
-.stock
-{
+.stock{
 	-fx-skin: "com.sun.javafx.scene.control.skin.TitledPaneSkin";    
 	-fx-font-family: "Venacti";
 	-fx-font-size: 18px;
@@ -477,53 +516,44 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 	-fx-text-fill: white;
 }
 
-.stock > .title 
-{
-
+.stock > .title {
 	-fx-background-color: #008CBA;
--fx-background-insets: 0, 1, 2;
--fx-background-radius: 10 10 10 10, 8 8 8 8, 6 6 6 6;
--fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
+	-fx-background-insets: 0, 1, 2;
+	-fx-background-radius: 10 10 10 10, 8 8 8 8, 6 6 6 6;
+	-fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
 }
 
-.stock:focused > .title 
-{
-	
--fx-background-radius: 10 10 0 0, 8 8 0 0, 6 6 0 0;
+.stock:focused > .title {
+	-fx-background-radius: 10 10 0 0, 8 8 0 0, 6 6 0 0;
 	-fx-background-color:black;
 }
 
-.stock > .title > .arrow-button 
-{
--fx-background-color: null;
--fx-background-insets: 0;
--fx-background-radius: 0;
--fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
+.stock > .title > .arrow-button {
+	-fx-background-color: null;
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+	-fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
 }
 
-.stock > .title > .arrow-button .arrow 
-{
--fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
--fx-background-insets: 1 0 -1 0, 0;
--fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
--fx-shape: "M 0 0 h 7 l -3.5 4 z";
+.stock > .title > .arrow-button .arrow {
+	-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+	-fx-background-insets: 1 0 -1 0, 0;
+	-fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
+	-fx-shape: "M 0 0 h 7 l -3.5 4 z";
 }
 
-.stock:collapsed > .title > .arrow-button .arrow 
-{
--fx-rotate: -90;
+.stock:collapsed > .title > .arrow-button .arrow {
+	-fx-rotate: -90;
 }
 
-.stock > *.content 
-{
--fx-background-color:
--fx-box-border,
-linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,      derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
--fx-background-insets: 0, 0 1 1 1;
--fx-padding: 0.167em;
+.stock > *.content {
+	-fx-background-color:
+	-fx-box-border,
+	linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%, derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
+	-fx-background-insets: 0, 0 1 1 1;
+	-fx-padding: 0.167em;
  }
 
-.stock:focused > .title > .arrow-button .arrow 
-{
--fx-background-color: white;
+.stock:focused > .title > .arrow-button .arrow {
+	-fx-background-color: white;
 }

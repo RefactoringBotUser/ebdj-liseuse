@@ -2,12 +2,11 @@ package fr.qp1c.ebdj.controller.jeu.phase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.Launcher;
+import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.LoaderQuestion9PG;
 import fr.qp1c.ebdj.moteur.bean.Mode9PG;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestion9PG;
@@ -15,8 +14,6 @@ import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurNPGDaoImpl;
 import fr.qp1c.ebdj.moteur.utils.Utils;
-import fr.qp1c.ebdj.utils.ImageConstants;
-import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.TaillePolice;
 import fr.qp1c.ebdj.view.component.Historique9PGListCell;
 import javafx.collections.FXCollections;
@@ -25,7 +22,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -345,34 +341,15 @@ public class NPGController {
 	public void signalerErreurQuestion9PG() {
 		LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de 9PG\".");
 
-		List<String> typesErreur = new ArrayList<>();
-		typesErreur.add("Question périmée");
-		typesErreur.add("Question mal rédigée");
-		typesErreur.add("Réponse incomplète");
-		typesErreur.add("Réponse fausse");
-		typesErreur.add("Autre problème");
+		PopUpAnomalieQuestion.afficherPopUp();
 
-		ChoiceDialog<String> popupErreur = new ChoiceDialog<>("Question périmée", typesErreur);
-		popupErreur.setTitle("QP1C - E-Boite de jeu");
-		popupErreur.initOwner(Launcher.getStage());
-		popupErreur.setHeaderText("Des commes çà on en veut plus...");
-		popupErreur.setContentText("Motif:");
+		// TODO : récupérer le type d'anomalie et le commentaire
 
-		ImageView imagePopup = new ImageView(ImageConstants.IMAGE_POPUP);
-		ImageUtils.reduireImage(imagePopup);
-		popupErreur.setGraphic(imagePopup);
+		LOGGER.info("Type d'anomalie sur la question : ");
+		LOGGER.info("Num question affiche            : " + numQuestionAffiche);
 
-		// Traditional way to get the response value.
-		Optional<String> result = popupErreur.showAndWait();
-		if (result.isPresent()) {
-			LOGGER.info("Type d'anomalie sur la question : " + result.get());
-			LOGGER.info("Num question affiche            : " + numQuestionAffiche);
-
-			listeHistorique9PG.get(listeHistorique9PG.size() - numQuestionAffiche).setNonComptabilise(true);
-			histoQuestion.refresh();
-
-			// TODO mettre en anomalie la question
-		}
+		listeHistorique9PG.get(listeHistorique9PG.size() - numQuestionAffiche).setNonComptabilise(true);
+		histoQuestion.refresh();
 	}
 
 	@FXML

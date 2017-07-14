@@ -2,19 +2,17 @@ package fr.qp1c.ebdj.controller.jeu.phase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.LoaderQuestionJD;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionJD;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurJDDaoImpl;
 import fr.qp1c.ebdj.moteur.utils.Utils;
-import fr.qp1c.ebdj.utils.ImageConstants;
-import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.TaillePolice;
 import fr.qp1c.ebdj.view.component.HistoriqueJDListCell;
 import javafx.collections.FXCollections;
@@ -23,11 +21,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -200,33 +196,13 @@ public class JDController {
 	public void signalerErreurQuestionJD() {
 		LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de JD\".");
 
-		List<String> typesErreur = new ArrayList<>();
-		typesErreur.add("Question périmée");
-		typesErreur.add("Question mal rédigée");
-		typesErreur.add("Réponse incomplète");
-		typesErreur.add("Réponse fausse");
-		typesErreur.add("Autre problème");
+		PopUpAnomalieQuestion.afficherPopUp();
 
-		ChoiceDialog<String> popupErreur = new ChoiceDialog<>("Question périmée", typesErreur);
-		popupErreur.setTitle("QP1C - E-Boite de jeu");
-		popupErreur.setHeaderText("Plus jamais comme celà...");
-		popupErreur.setContentText("Motif:");
+		listeHistoriqueJD.get(listeHistoriqueJD.size() - numQuestionAffiche).setNonComptabilise(true);
+		histoQuestion.refresh();
 
-		ImageView imagePopup = new ImageView(ImageConstants.IMAGE_POPUP);
-		ImageUtils.reduireImage(imagePopup);
-		popupErreur.setGraphic(imagePopup);
+		// TODO mettre en anomalie la question
 
-		// Traditional way to get the response value.
-		Optional<String> result = popupErreur.showAndWait();
-		if (result.isPresent()) {
-			LOGGER.info("Type d'anomalie sur la question : " + result.get());
-			LOGGER.info(" Num question affiche           : " + numQuestionAffiche);
-
-			listeHistoriqueJD.get(listeHistoriqueJD.size() - numQuestionAffiche).setNonComptabilise(true);
-			histoQuestion.refresh();
-
-			// TODO mettre en anomalie la question
-		}
 	}
 
 	@FXML

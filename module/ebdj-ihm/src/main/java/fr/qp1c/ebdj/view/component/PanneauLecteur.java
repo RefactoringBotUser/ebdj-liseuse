@@ -8,11 +8,13 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.controller.popup.PopUpErreur;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurLecteurDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurLecteurDaoImpl;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
+import fr.qp1c.ebdj.view.Libelle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceDialog;
@@ -52,6 +54,7 @@ public class PanneauLecteur extends HBox {
 		try {
 			fxmlLoader.load();
 		} catch (IOException exception) {
+			PopUpErreur.afficherPopUp(exception);
 			throw new RuntimeException(exception);
 		}
 
@@ -78,7 +81,7 @@ public class PanneauLecteur extends HBox {
 		}
 
 		ChoiceDialog<String> popupErreur = new ChoiceDialog<>("Par défaut", libelleLecteurs);
-		popupErreur.setTitle("QP1C - E-Boite de jeu");
+		popupErreur.setTitle(Libelle.TITRE);
 		popupErreur.setHeaderText("Sélectionner l'utilisateur...");
 		popupErreur.setContentText("Utilisateur:");
 
@@ -93,7 +96,7 @@ public class PanneauLecteur extends HBox {
 
 			if (!"Par défaut".equals(result.get())) {
 				libelleLecteur.setText(result.get());
-				libelleLecteur.getStyleClass().add("utilisateur");
+				libelleLecteur.getStyleClass().add("panneauLecteur");
 
 				btnSelectionnerLecteur.setSelected(true);
 			} else {

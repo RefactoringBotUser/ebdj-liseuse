@@ -1,7 +1,6 @@
 package fr.qp1c.ebdj.controller.jeu;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,8 @@ import fr.qp1c.ebdj.controller.jeu.phase.FAFController;
 import fr.qp1c.ebdj.controller.jeu.phase.JDController;
 import fr.qp1c.ebdj.controller.jeu.phase.NPGController;
 import fr.qp1c.ebdj.controller.jeu.phase.QALSController;
+import fr.qp1c.ebdj.controller.popup.PopUpErreur;
+import fr.qp1c.ebdj.controller.popup.PopUpFinPartie;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.TypePartie;
@@ -19,10 +20,7 @@ import fr.qp1c.ebdj.view.component.PanneauLecteur;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -115,6 +113,7 @@ public class TypePartieController {
 			controllerNPG = loader.getController();
 		} catch (IOException e) {
 			LOGGER.error("Une erreur s'est produite :", e);
+			PopUpErreur.afficherPopUp(e);
 		}
 	}
 
@@ -125,6 +124,7 @@ public class TypePartieController {
 			controller4ALS = loader.getController();
 		} catch (IOException e) {
 			LOGGER.error("Une erreur s'est produite :", e);
+			PopUpErreur.afficherPopUp(e);
 		}
 	}
 
@@ -135,6 +135,7 @@ public class TypePartieController {
 			controllerJD = loader.getController();
 		} catch (IOException e) {
 			LOGGER.error("Une erreur s'est produite :", e);
+			PopUpErreur.afficherPopUp(e);
 		}
 	}
 
@@ -146,6 +147,7 @@ public class TypePartieController {
 
 		} catch (IOException e) {
 			LOGGER.error("Une erreur s'est produite :", e);
+			PopUpErreur.afficherPopUp(e);
 		}
 	}
 
@@ -283,18 +285,8 @@ public class TypePartieController {
 	public void retournerEcranHome() {
 		LOGGER.info("### --> Clic sur \"Ecran HOME\".");
 
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("QP1C - E-BDJ");
-		// Ne pas remplir l'entete
-		alert.setHeaderText(null);
-		alert.setContentText("Voulez-vous quitter la partie ?");
-		alert.initOwner(Launcher.getStage());
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+		if (PopUpFinPartie.afficherPopUp()) {
 			launcher.afficherEcranHome();
-		} else {
-			// ... user chose CANCEL or closed the dialog
 		}
 	}
 
