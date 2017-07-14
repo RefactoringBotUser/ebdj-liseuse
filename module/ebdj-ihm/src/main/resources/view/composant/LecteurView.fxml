@@ -7,15 +7,15 @@
 
 <fx:root fx:id="zoneParametrage" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-		<ToggleButton fx:id="btnSelectionnerUilisateur" onAction="#selectionnerUtilisateur" styleClass="boutonSelectionnerUtilisateur" textAlignment="CENTER" toggleGroup="$utilisateur">
+		<ToggleButton fx:id="btnSelectionnerLecteur" onAction="#selectionnerLecteur" styleClass="boutonSelectionnerLecteur" textAlignment="CENTER" toggleGroup="$lecteur">
 	         <HBox.margin>
 	            <Insets left="15.0" />
 	         </HBox.margin>
 	         <toggleGroup>
-				<ToggleGroup fx:id="utilisateur" />
+				<ToggleGroup fx:id="lecteur" />
 			</toggleGroup>
 	      </ToggleButton>
-		<Label fx:id="libelleUtilisateur" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="200.0" >
+		<Label fx:id="libelleLecteur" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="200.0" >
          <HBox.margin>
             <Insets left="10.0" />
          </HBox.margin>

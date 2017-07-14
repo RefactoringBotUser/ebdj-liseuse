@@ -107,7 +107,7 @@ public class Launcher extends Application {
 	}
 
 	private void initialiserEcranHome() throws IOException {
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("/view/HomeView.fxml"));
+		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("/view/home/HomeView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 
 		homeControler = ((HomeController) loader.getController());
@@ -117,7 +117,7 @@ public class Launcher extends Application {
 	}
 
 	private void initialiserEcranStats() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StatsView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/stats/StatsView.fxml"));
 		VBox page = (VBox) loader.load();
 		((StatistiquesController) loader.getController()).setLauncher(this);
 
@@ -125,7 +125,7 @@ public class Launcher extends Application {
 	}
 
 	private void initialiserEcranParametrage() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ParametrageView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/parametrage/ParametrageView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 		((ParametrageController) loader.getController()).setLauncher(this);
 
@@ -133,7 +133,7 @@ public class Launcher extends Application {
 	}
 
 	private void initialiserEcranQuestions() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TypePartieView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/TypePartieView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 
 		typePartieController = (TypePartieController) loader.getController();

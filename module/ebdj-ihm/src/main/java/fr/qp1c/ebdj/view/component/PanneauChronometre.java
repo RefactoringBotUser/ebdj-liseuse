@@ -9,13 +9,13 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-public class Chronometre extends Label {
+public class PanneauChronometre extends Label {
 
 	private int duree;
 
 	private Timeline chronometre;
 
-	public Chronometre() {
+	public PanneauChronometre() {
 		initialiser();
 		start();
 	}

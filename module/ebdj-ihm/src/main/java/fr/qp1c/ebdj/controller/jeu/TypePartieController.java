@@ -14,8 +14,8 @@ import fr.qp1c.ebdj.controller.jeu.phase.QALSController;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.TypePartie;
-import fr.qp1c.ebdj.view.component.Chronometre;
-import fr.qp1c.ebdj.view.component.UtilisateurPane;
+import fr.qp1c.ebdj.view.component.PanneauChronometre;
+import fr.qp1c.ebdj.view.component.PanneauLecteur;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -40,10 +40,10 @@ public class TypePartieController {
 	private BorderPane content;
 
 	@FXML
-	private UtilisateurPane utilisateurPane;
+	private PanneauLecteur panneauLecteur;
 
 	@FXML
-	private Chronometre chronometre;
+	private PanneauChronometre panneauChronometre;
 
 	@FXML
 	private Button btnHome;
@@ -110,7 +110,7 @@ public class TypePartieController {
 
 	private void initialiser9PG() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NPGView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/phase/NPGView.fxml"));
 			panneauNPG = (BorderPane) loader.load();
 			controllerNPG = loader.getController();
 		} catch (IOException e) {
@@ -120,7 +120,7 @@ public class TypePartieController {
 
 	private void initialiser4ALS() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/4ALSView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/phase/4ALSView.fxml"));
 			panneau4ALS = (BorderPane) loader.load();
 			controller4ALS = loader.getController();
 		} catch (IOException e) {
@@ -130,7 +130,7 @@ public class TypePartieController {
 
 	private void initialiserJD() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/JDView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/phase/JDView.fxml"));
 			panneauJD = (BorderPane) loader.load();
 			controllerJD = loader.getController();
 		} catch (IOException e) {
@@ -140,7 +140,7 @@ public class TypePartieController {
 
 	private void initialiserFAF() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FAFView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/phase/FAFView.fxml"));
 			panneauFAF = (BorderPane) loader.load();
 			controllerFAF = loader.getController();
 
@@ -168,8 +168,8 @@ public class TypePartieController {
 			LOGGER.debug("Réinitialisation du FAF.");
 			controllerFAF.reinitialiser();
 		}
-		if (chronometre != null) {
-			chronometre.restart();
+		if (panneauChronometre != null) {
+			panneauChronometre.restart();
 		}
 
 		LOGGER.debug("[FIN] Réinitialisation de l'écran.");
@@ -177,7 +177,6 @@ public class TypePartieController {
 
 	// Gestion des évenements
 
-	@FXML
 	public void selectionnerVuePhase9PG() {
 		LOGGER.info("### --> Clic sur \"Affichage vue 9PG\".");
 
@@ -190,7 +189,6 @@ public class TypePartieController {
 		selectionnerVue(panneauNPG);
 	}
 
-	@FXML
 	public void selectionnerVuePartie() {
 		LOGGER.info("### --> Clic sur \"Affichage vue Partie\".");
 
@@ -203,7 +201,6 @@ public class TypePartieController {
 		selectionnerVue(panneauNPG);
 	}
 
-	@FXML
 	public void selectionnerVuePhase4ALS() {
 		LOGGER.info("### --> Clic sur \"Affichage vue 4ALS\".");
 
@@ -216,7 +213,6 @@ public class TypePartieController {
 		selectionnerVue(panneau4ALS);
 	}
 
-	@FXML
 	public void selectionnerVuePhaseJD() {
 		LOGGER.info("### --> Clic sur \"Affichage vue JD\".");
 
@@ -229,7 +225,6 @@ public class TypePartieController {
 		selectionnerVue(panneauJD);
 	}
 
-	@FXML
 	public void selectionnerVuePhaseFAF() {
 		LOGGER.info("### --> Clic sur \"Affichage vue FAF\".");
 
@@ -237,6 +232,42 @@ public class TypePartieController {
 		btn4ALS.setVisible(false);
 		btnJD.setVisible(false);
 		btnFAF.setVisible(true);
+		btnFAF.setSelected(true);
+
+		selectionnerVue(panneauFAF);
+	}
+
+	@FXML
+	public void afficherVuePhase9PG() {
+		LOGGER.info("### --> Clic sur \"Affichage vue 9PG\".");
+
+		btn9PG.setSelected(true);
+
+		selectionnerVue(panneauNPG);
+	}
+
+	@FXML
+	public void afficherVuePhase4ALS() {
+		LOGGER.info("### --> Clic sur \"Affichage vue 4ALS\".");
+
+		btn4ALS.setSelected(true);
+
+		selectionnerVue(panneau4ALS);
+	}
+
+	@FXML
+	public void afficherVuePhaseJD() {
+		LOGGER.info("### --> Clic sur \"Affichage vue JD\".");
+
+		btnJD.setSelected(true);
+
+		selectionnerVue(panneauJD);
+	}
+
+	@FXML
+	public void afficherVuePhaseFAF() {
+		LOGGER.info("### --> Clic sur \"Affichage vue FAF\".");
+
 		btnFAF.setSelected(true);
 
 		selectionnerVue(panneauFAF);

@@ -4,7 +4,7 @@ public class Lecteur {
 
 	// Attributs
 
-	private int id;
+	private Long id;
 
 	private String nom;
 
@@ -21,11 +21,11 @@ public class Lecteur {
 
 	// Getters - setters
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -46,7 +46,7 @@ public class Lecteur {
 	}
 
 	public String formatterNomUtilisateur() {
-		return nom + " " + prenom;
+		return prenom + " " + nom;
 	}
 
 	public String getReference() {
