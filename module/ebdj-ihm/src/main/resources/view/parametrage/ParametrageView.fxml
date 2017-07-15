@@ -10,24 +10,10 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="1600" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.parametrage.ParametrageController">
-   <center>
-      <Accordion BorderPane.alignment="CENTER">
-        <panes>
-            <TitledPane fx:id="parametrage" animated="false" styleClass="themeParametrage" text="Parametrage">
-            <content>
-                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS">
-                     <top>
-                     </top>
-                </BorderPane>
-              </content>
-            </TitledPane>
-        </panes>
-      </Accordion>
-   </center>
    <top>
       <BorderPane prefHeight="60.0" prefWidth="60.0" BorderPane.alignment="CENTER">
          <left>
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="60.0" styleClass="panneauPhase" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="60.0" styleClass="panneauMenu" BorderPane.alignment="CENTER">
                <children>
                
               				<Button fx:id="btnHome" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#retournerEcranHome" styleClass="boutonHome" textAlignment="CENTER">
@@ -40,4 +26,18 @@
          </left>
       </BorderPane>
    </top>
+    <center>
+      <Accordion BorderPane.alignment="CENTER">
+        <panes>
+            <TitledPane fx:id="parametrage" animated="false" styleClass="parametrage" text="Parametrage">
+            <content>
+                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS">
+                     <top>
+                     </top>
+                </BorderPane>
+              </content>
+            </TitledPane>
+        </panes>
+      </Accordion>
+   </center>
 </BorderPane>

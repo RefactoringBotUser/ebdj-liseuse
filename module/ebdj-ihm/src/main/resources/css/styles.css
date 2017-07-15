@@ -1,41 +1,4 @@
-.boutonPhase{
-	-fx-background-color: #008CBA;
-	-fx-border-color:#008CBA;
-	-fx-font-family: "Venacti";
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonPhase:selected {
-	-fx-background-color: black;
-	-fx-border-color:black;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonPhase:hover {
-	-fx-background-color: #ff7f50;
-	-fx-border-color:red;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonMode9PG{
+.boutonPhase, .boutonMode9PG, .boutonSelectionnerLecteur, .boutonParametrer, .boutonHome, .boutonFermer {
 	-fx-background-color: #008CBA;
 	-fx-border-color:#008CBA;
 	-fx-font-family: "Venacti";
@@ -47,139 +10,17 @@
 	-fx-border-radius: 10;
 }
 
-.boutonMode9PG:selected {
+.boutonPhase:selected, .boutonMode9PG:selected, .boutonSelectionnerLecteur:selected, .boutonParametrer:selected, .boutonHome:selected, .boutonFermer:selected   {
 	-fx-background-color: black;
 	-fx-border-color:black;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
 }
 
-.boutonMode9PG:hover {
+.boutonPhase:hover, .boutonMode9PG:hover, .boutonSelectionnerLecteur:hover, .boutonParametrer:hover, .boutonHome:hover, .boutonFermer:hover {
 	-fx-background-color: #ff7f50;
-	-fx-background-radius: 10;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 	-fx-border-color:red;
-	-fx-border-radius: 10;
 }
 
-.boutonSelectionnerLecteur{
-	-fx-background-color: #008CBA;
-	-fx-border-color:#008CBA;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonSelectionnerLecteur:selected {
-	-fx-background-color: black;
-	-fx-border-color:black;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonSelectionnerLecteur:hover {
-	-fx-background-color: #ff7f50;
-	-fx-background-radius: 10;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-border-color:red;
-	-fx-border-radius: 10;
-}
-
-.boutonParametrer{
-	-fx-background-color: #008CBA;
-	-fx-border-color:#008CBA;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonParametrer:selected {
-	-fx-background-color: black;
-	-fx-border-color:black;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonParametrer:hover {
-	-fx-background-color: #ff7f50;
-	-fx-background-radius: 10;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-border-color:red;
-	-fx-border-radius: 10;
-}
-
-.boutonHome{
-	-fx-background-color: #008CBA;
-	-fx-border-color:#008CBA;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonHome:selected {
-	-fx-background-color: black;
-	-fx-border-color:black;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonHome:hover {
-	-fx-background-color: #ff7f50;
-	-fx-background-radius: 10;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-border-color:red;
-	-fx-border-radius: 10;
-}
-
-.boutonNouvelleQuestion{
+.boutonNouvelleQuestion, .boutonSynchroniser, .boutonErreurQuestion{
 	-fx-background-color: #008CBA;
 	-fx-background-radius: 20;
 	-fx-font-family: "Venacti";
@@ -189,42 +30,13 @@
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
-.boutonNouvelleQuestion:hover {
+.boutonNouvelleQuestion:hover, .boutonSynchroniser:hover {
 	-fx-background-color: #ff7f50;
-	-fx-background-radius: 20;
 	-fx-border-color:red;
 	-fx-border-radius: 20;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 24px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
-
-.boutonSynchroniser{
-	-fx-background-color: #008CBA;
-	-fx-background-radius: 20;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 24px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
-
-.boutonSynchroniser:hover {
-	-fx-background-color: #ff7f50;
-	-fx-background-radius: 20;
-	-fx-border-color:red;
-	-fx-border-radius: 20;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 24px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
-
-.boutonErreurQuestion{
+.boutonErreurQuestion, .boutonRemplacementQuestion{
 	-fx-background-color: #008CBA;
 	-fx-background-radius: 20;
 	-fx-font-family: "Venacti";
@@ -234,74 +46,10 @@
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
-.boutonErreurQuestion:hover{
+.boutonErreurQuestion:hover, .boutonRemplacementQuestion:hover{
 	-fx-background-color: #ff7f50;
-	-fx-background-radius: 20;
 	-fx-border-color:red;
 	-fx-border-radius: 20;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 20px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
-
-.boutonRemplacementQuestion{	
-	-fx-background-color: #008CBA;
-	-fx-background-radius: 20;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 20px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
-
-.boutonRemplacementQuestion:hover{
-	-fx-background-color: #ff7f50;
-	-fx-background-radius: 20;
-	-fx-border-color:red;
-	-fx-border-radius: 20;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 20px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
-
-.boutonFermer{
-	-fx-background-color: #008CBA;
-	-fx-border-color:#008CBA;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonFermer:selected {
-	-fx-background-color: black;
-	-fx-border-color:black;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
-}
-
-.boutonFermer:hover {
-	-fx-background-color: #ff7f50;
-	-fx-background-radius: 10;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-border-color:red;
-	-fx-border-radius: 10;
 }
 
 .themeJD, .themeFAF  {
@@ -326,31 +74,13 @@
 }
 
 .question9PGInfos, .questionJDInfos, .questionFAFInfos {
-	-fx-font: 14px "Venacti";
+	-fx-font-family: "Venacti";
+	-fx-font-size: 14px;
 	-fx-font-style:italic;
 	-fx-text-fill: black;
 }
 
-.nbQuestion{
-	-fx-background-color: #4CAF50;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-padding: 10 5 10 5;
-}
-
-.panneauLecteur{
-	-fx-background-color: #4CAF50;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
-
-.panneauChronometre{
+.nbQuestion, .panneauChronometre, .panneauLecteur{
 	-fx-background-color: #4CAF50;
 	-fx-font-family: "Venacti";
 	-fx-font-size: 16px;
@@ -396,7 +126,8 @@
 	-fx-font-style:italic;
 	-fx-text-fill: black;
 }
-.panneauPhase, .panneau9PG, .panneauNiveau9PG, .panneauJD, .popUp{
+
+.panneauPhase,.panneauMenu, .panneau9PG, .panneauNiveau9PG, .panneauJD, .popUp{
 	-fx-background-color: white;
 }
 
@@ -425,7 +156,6 @@
 	-fx-background-color: #008CBA;
 	-fx-border-color:#008CBA;
 	-fx-font-family: "Venacti";
-	-fx-font-family: "Venacti";
 	-fx-font-size: 16px;
 	-fx-font-weight: bold;
 	-fx-text-fill: white;
@@ -437,28 +167,14 @@
 .popUp  *.button:selected {
 	-fx-background-color: black;
 	-fx-border-color:black;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
 }
 
 .popUp *.button:hover {
 	-fx-background-color: #ff7f50;
 	-fx-border-color:red;
-	-fx-font-family: "Venacti";
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-	-fx-background-radius: 10;
-	-fx-border-radius: 10;
 }
  
-.theme4ALS {
+.theme4ALS, .stock, .parametrage  {
 	-fx-skin: "com.sun.javafx.scene.control.skin.TitledPaneSkin";    
 	-fx-font-family: "Venacti";
 	-fx-font-size: 18px;
@@ -466,37 +182,41 @@
 	-fx-text-fill: white;
 }
 
-.theme4ALS > .title {
+.theme4ALS > .title, .stock > .title, .parametrage > .title {
 	-fx-background-color: #008CBA;
 	-fx-background-insets: 0, 1, 2;
 	-fx-background-radius: 10 10 10 10, 8 8 8 8, 6 6 6 6;
 	-fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
 }
 
-.theme4ALS:focused > .title {
+.theme4ALS:focused > .title, .stock:focused > .title, .parametrage:focused > .title{
 	-fx-background-radius: 10 10 0 0, 8 8 0 0, 6 6 0 0;
 	-fx-background-color:black;
 }
 
-.theme4ALS > .title > .arrow-button {
+.theme4ALS > .title > .arrow-button, .stock > .title > .arrow-button, .parametrage > .title > .arrow-button {
 	-fx-background-color: null;
 	-fx-background-insets: 0;
 	-fx-background-radius: 0;
 	-fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
 }
 
-.theme4ALS > .title > .arrow-button .arrow  {
+.theme4ALS > .title > .arrow-button .arrow, .stock > .title > .arrow-button .arrow, .parametrage > .title > .arrow-button .arrow  {
 	-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
 	-fx-background-insets: 1 0 -1 0, 0;
 	-fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
 	-fx-shape: "M 0 0 h 7 l -3.5 4 z";
 }
 
-.theme4ALS:collapsed > .title > .arrow-button .arrow {
+.theme4ALS:collapsed > .title > .arrow-button .arrow,  .stock:collapsed > .title > .arrow-button .arrow  {
 	-fx-rotate: -90;
 }
 
-.theme4ALS > *.content {
+.theme4ALS:focused > .title > .arrow-button .arrow, .stock:focused > .title > .arrow-button .arrow, .parametrage:focused > .title > .arrow-button .arrow {
+	-fx-background-color: white;
+}
+
+.theme4ALS > *.content, .stock > *.content, .parametrage > *.content  {
 	-fx-background-color:
 	-fx-box-border,
 	linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,      derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
@@ -504,56 +224,3 @@
 	-fx-padding: 0.167em;
  }
 
-.theme4ALS:focused > .title > .arrow-button .arrow {
-	-fx-background-color: white;
-}
-
-.stock{
-	-fx-skin: "com.sun.javafx.scene.control.skin.TitledPaneSkin";    
-	-fx-font-family: "Venacti";
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-}
-
-.stock > .title {
-	-fx-background-color: #008CBA;
-	-fx-background-insets: 0, 1, 2;
-	-fx-background-radius: 10 10 10 10, 8 8 8 8, 6 6 6 6;
-	-fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
-}
-
-.stock:focused > .title {
-	-fx-background-radius: 10 10 0 0, 8 8 0 0, 6 6 0 0;
-	-fx-background-color:black;
-}
-
-.stock > .title > .arrow-button {
-	-fx-background-color: null;
-	-fx-background-insets: 0;
-	-fx-background-radius: 0;
-	-fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
-}
-
-.stock > .title > .arrow-button .arrow {
-	-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-	-fx-background-insets: 1 0 -1 0, 0;
-	-fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
-	-fx-shape: "M 0 0 h 7 l -3.5 4 z";
-}
-
-.stock:collapsed > .title > .arrow-button .arrow {
-	-fx-rotate: -90;
-}
-
-.stock > *.content {
-	-fx-background-color:
-	-fx-box-border,
-	linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%, derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
-	-fx-background-insets: 0, 0 1 1 1;
-	-fx-padding: 0.167em;
- }
-
-.stock:focused > .title > .arrow-button .arrow {
-	-fx-background-color: white;
-}

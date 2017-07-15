@@ -13,6 +13,8 @@ import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurJDDaoImpl;
 import fr.qp1c.ebdj.moteur.utils.Utils;
+import fr.qp1c.ebdj.view.Seuil;
+import fr.qp1c.ebdj.view.Style;
 import fr.qp1c.ebdj.view.TaillePolice;
 import fr.qp1c.ebdj.view.component.HistoriqueJDListCell;
 import javafx.collections.FXCollections;
@@ -156,7 +158,7 @@ public class JDController {
 
 		modifierTaille(TaillePolice.GRAND);
 
-		jouerNouvelleQuestionJD();
+		afficherNouvelleQuestion();
 
 		LOGGER.debug("[FIN] Initialisation du panneau JD.");
 	}
@@ -184,7 +186,7 @@ public class JDController {
 
 			btnRemplacerQuestionJD.setDisable(false);
 
-			cartonJD.setStyle("-fx-background-color: #ffe808;");
+			cartonJD.setStyle(Style.FOND_CARTON);
 
 			afficherCartonJD(derniereQuestionJD);
 
@@ -274,7 +276,7 @@ public class JDController {
 		btnReprendreJD.setDisable(false);
 
 		// Modifcation de la couleur de fond du carton du JD.
-		cartonJD.setStyle("-fx-background-color: #D8D8D8;");
+		cartonJD.setStyle(Style.FOND_CARTON);
 
 		numQuestionAffiche = question.getNbQuestionReel();
 
@@ -287,8 +289,8 @@ public class JDController {
 		if (nbQuest == 1) {
 			nbQuestion.setText(nbQuest + " question jouée");
 		} else {
-			if (nbQuest >= 25) {
-				nbQuestion.setStyle("-fx-background-color: #FE2E64;");
+			if (nbQuest >= Seuil.SEUIL_WARNING_JD) {
+				nbQuestion.setStyle(Style.FOND_WARNING);
 			}
 			nbQuestion.setText(nbQuest + " questions jouées");
 		}

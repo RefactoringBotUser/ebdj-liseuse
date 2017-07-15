@@ -58,10 +58,14 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 		statsQuestions9PG_2.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(2));
 		stats.setStats9PG_2(statsQuestions9PG_2);
 
+		LOGGER.debug(statsQuestions9PG_2.toString());
+
 		StatsQuestions statsQuestions9PG_3 = new StatsQuestions();
 		statsQuestions9PG_3.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(3));
 		statsQuestions9PG_3.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(3));
 		stats.setStats9PG_3(statsQuestions9PG_3);
+
+		LOGGER.debug(statsQuestions9PG_3.toString());
 
 		// Stats 4ALS
 
@@ -70,6 +74,8 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 		statsQuestions4ALS.setNbQuestionsTotal(connecter4ALSDao.compterNbTheme());
 		stats.setStats4ALS(statsQuestions4ALS);
 
+		LOGGER.debug(statsQuestions4ALS.toString());
+
 		// Stats JD
 
 		StatsQuestions statsQuestionsJD = new StatsQuestions();
@@ -77,12 +83,16 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 		statsQuestionsJD.setNbQuestionsTotal(connecterJDDao.compterNbQuestion());
 		stats.setStatsJD(statsQuestionsJD);
 
+		LOGGER.debug(statsQuestionsJD.toString());
+
 		// Stats FAF
 
 		StatsQuestions statsQuestionsFAF = new StatsQuestions();
 		statsQuestionsFAF.setNbQuestionsJouees(connecterFAFDao.compterNbQuestionLue());
 		statsQuestionsFAF.setNbQuestionsTotal(connecterFAFDao.compterNbQuestion());
 		stats.setStatsFAF(statsQuestionsFAF);
+
+		LOGGER.debug(statsQuestionsFAF.toString());
 
 		return stats;
 	}

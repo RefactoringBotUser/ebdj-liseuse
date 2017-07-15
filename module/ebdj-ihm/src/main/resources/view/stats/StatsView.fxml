@@ -13,7 +13,7 @@
        <children>
       <BorderPane prefHeight="60.0" prefWidth="60.0" BorderPane.alignment="CENTER">
          <left>
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="60.0" styleClass="panneauPhase" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="60.0" styleClass="panneauMenu" BorderPane.alignment="CENTER">
                <children>
                
               				<Button fx:id="btnHome" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#retournerEcranHome" styleClass="boutonHome" textAlignment="CENTER">

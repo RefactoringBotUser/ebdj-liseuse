@@ -13,6 +13,7 @@ import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurFAFDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurFAFDaoImpl;
 import fr.qp1c.ebdj.moteur.utils.Utils;
+import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
 import fr.qp1c.ebdj.view.TaillePolice;
 import fr.qp1c.ebdj.view.component.HistoriqueFAFListCell;
@@ -298,8 +299,8 @@ public class FAFController {
 		if (nbQuest == 1) {
 			nbQuestion.setText(nbQuest + " question jouée");
 		} else {
-			if (nbQuest >= 8) {
-				nbQuestion.setStyle("-fx-background-color: #FE2E64;");
+			if (nbQuest >= Seuil.SEUIL_WARNING_FAF) {
+				nbQuestion.setStyle(Style.FOND_WARNING);
 			}
 			nbQuestion.setText(nbQuest + " questions jouées");
 		}
@@ -353,6 +354,7 @@ public class FAFController {
 
 	public void modifierTaille(TaillePolice taille) {
 		LOGGER.debug("[DEBUT] Modifier la taille.");
+
 		switch (taille) {
 		case PETIT:
 			definirTailleCartonFAF(14);
@@ -363,7 +365,6 @@ public class FAFController {
 		case GRAND:
 			definirTailleCartonFAF(22);
 			break;
-
 		}
 
 		LOGGER.debug("[FIN] Modifier la taille.");

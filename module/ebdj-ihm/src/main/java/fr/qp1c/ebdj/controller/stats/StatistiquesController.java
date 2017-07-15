@@ -124,16 +124,6 @@ public class StatistiquesController {
 		stockSynthese.setExpanded(true);
 		stockSynthese.setPrefHeight(200);
 
-		StatistiqueService statistiqueService = new StatistiqueServiceImpl();
-		StatsBDJ statsBDJ = statistiqueService.calculerStatistique();
-
-		donneesTableauSG.add(new StockQuantite("9PG - 1", statsBDJ.getStats9PG_1()));
-		donneesTableauSG.add(new StockQuantite("9PG - 2", statsBDJ.getStats9PG_2()));
-		donneesTableauSG.add(new StockQuantite("9PG - 3", statsBDJ.getStats9PG_3()));
-		donneesTableauSG.add(new StockQuantite("4ALS", statsBDJ.getStats4ALS()));
-		donneesTableauSG.add(new StockQuantite("JD", statsBDJ.getStatsJD()));
-		donneesTableauSG.add(new StockQuantite("FAF", statsBDJ.getStatsFAF()));
-
 		tabSGColType.setCellValueFactory(new PropertyValueFactory<StockQuantite, String>("type"));
 		tabSGColQuantiteTotale.setCellValueFactory(new PropertyValueFactory<StockQuantite, Long>("quantiteTotale"));
 		tabSGColQuantiteDisponible
@@ -141,17 +131,10 @@ public class StatistiquesController {
 		tabSGColQuantiteJouee.setCellValueFactory(new PropertyValueFactory<StockQuantite, Long>("quantiteJouee"));
 
 		tableauStockSynthese.setEditable(false);
-		tableauStockSynthese.setItems(donneesTableauSG);
 
 		// Panneau FAF
 
 		stockFAF.setExpanded(false);
-
-		List<StatsCategorieFAF> statsCategorieFAF = statistiqueService.calculerStatsCategorieFAF();
-
-		for (StatsCategorieFAF statCategorieFAF : statsCategorieFAF) {
-			donneesTableauSF.add(new StockCategorieFAF(statCategorieFAF));
-		}
 
 		tabSFColCategorie.setCellValueFactory(new PropertyValueFactory<StockCategorieFAF, String>("categorie"));
 		tabSFColQuantiteTotale.setCellValueFactory(new PropertyValueFactory<StockCategorieFAF, Long>("quantiteTotale"));
@@ -161,12 +144,59 @@ public class StatistiquesController {
 
 		tableauStockFAF.setEditable(false);
 
+		actualiserContenuTableaux();
+
+		LOGGER.debug("[FIN] Initialisation du panneau stats.");
+	}
+
+	public void actualiserContenuTableaux() {
+
+		LOGGER.debug("[DEBUT] Réactualisation des données.");
+
+		// Refresh des tableaux
+		actualiserContenuTableauStockSynthese();
+		actualiserContenuTableauStockFAF();
+
+		LOGGER.debug("[FIN] Réactualisation des données.");
+	}
+
+	private void actualiserContenuTableauStockSynthese() {
+		StatistiqueService statistiqueService = new StatistiqueServiceImpl();
+
+		// Réactualisation tableau stock
+
+		StatsBDJ statsBDJ = statistiqueService.calculerStatistique();
+
+		donneesTableauSG.clear();
+
+		donneesTableauSG.add(new StockQuantite("9PG - 1", statsBDJ.getStats9PG_1()));
+		donneesTableauSG.add(new StockQuantite("9PG - 2", statsBDJ.getStats9PG_2()));
+		donneesTableauSG.add(new StockQuantite("9PG - 3", statsBDJ.getStats9PG_3()));
+		donneesTableauSG.add(new StockQuantite("4ALS", statsBDJ.getStats4ALS()));
+		donneesTableauSG.add(new StockQuantite("JD", statsBDJ.getStatsJD()));
+		donneesTableauSG.add(new StockQuantite("FAF", statsBDJ.getStatsFAF()));
+
+		tableauStockSynthese.setItems(donneesTableauSG);
+
+		tableauStockSynthese.refresh();
+	}
+
+	private void actualiserContenuTableauStockFAF() {
+		StatistiqueService statistiqueService = new StatistiqueServiceImpl();
+
+		// Réactualisation tableau catégorie FAF
+		List<StatsCategorieFAF> statsCategorieFAF = statistiqueService.calculerStatsCategorieFAF();
+
+		for (StatsCategorieFAF statCategorieFAF : statsCategorieFAF) {
+			donneesTableauSF.add(new StockCategorieFAF(statCategorieFAF));
+		}
+
 		SortedList<StockCategorieFAF> sortedItems = new SortedList<>(donneesTableauSF);
 
 		sortedItems.comparatorProperty().bind(CATEGORIE_FAF_COMPARATOR_WRAPPER);
 		tableauStockFAF.setItems(sortedItems);
 
-		LOGGER.debug("[FIN] Initialisation du panneau stats.");
+		tableauStockFAF.refresh();
 	}
 
 	@FXML
@@ -181,6 +211,8 @@ public class StatistiquesController {
 		LOGGER.info("### --> Clic sur \"Synchroniser\".");
 
 		PopUpSynchronisationQuestion.afficherPopUp();
+
+		actualiserContenuTableaux();
 	}
 
 	public Launcher getLauncher() {

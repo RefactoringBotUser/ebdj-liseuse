@@ -69,7 +69,7 @@
 					</right>
 					<left>
 						<HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0"
-							styleClass="panneauPhase" BorderPane.alignment="CENTER">
+							styleClass="panneauMenu" BorderPane.alignment="CENTER">
 							<children>
 
 								<Button fx:id="btnHome" alignment="CENTER"

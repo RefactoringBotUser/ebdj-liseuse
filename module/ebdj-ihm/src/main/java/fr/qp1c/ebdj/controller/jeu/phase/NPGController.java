@@ -14,6 +14,8 @@ import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurNPGDaoImpl;
 import fr.qp1c.ebdj.moteur.utils.Utils;
+import fr.qp1c.ebdj.view.Seuil;
+import fr.qp1c.ebdj.view.Style;
 import fr.qp1c.ebdj.view.TaillePolice;
 import fr.qp1c.ebdj.view.component.Historique9PGListCell;
 import javafx.collections.FXCollections;
@@ -231,7 +233,7 @@ public class NPGController {
 
 			btnRemplacerQuestion9PG.setDisable(false);
 
-			carton9PG.setStyle("-fx-background-color: #ffe808;");
+			carton9PG.setStyle(Style.FOND_CARTON);
 
 			afficherCarton9PG(derniereQuestion9PG, niveau);
 
@@ -264,7 +266,7 @@ public class NPGController {
 
 			btnRemplacerQuestion9PG.setDisable(false);
 
-			carton9PG.setStyle("-fx-background-color: #ffe808;");
+			carton9PG.setStyle(Style.FOND_CARTON);
 		}
 
 		// modifierTaille(TaillePolice.MOYEN);
@@ -297,7 +299,7 @@ public class NPGController {
 
 			btnRemplacerQuestion9PG.setDisable(false);
 
-			carton9PG.setStyle("-fx-background-color: #ffe808;");
+			carton9PG.setStyle(Style.FOND_CARTON);
 		}
 
 		// modifierTaille(TaillePolice.GRAND);
@@ -331,7 +333,7 @@ public class NPGController {
 
 			btnRemplacerQuestion9PG.setDisable(false);
 
-			carton9PG.setStyle("-fx-background-color: #ffe808;");
+			carton9PG.setStyle(Style.FOND_CARTON);
 		}
 
 		// modifierTaille(TaillePolice.PETIT);
@@ -448,8 +450,8 @@ public class NPGController {
 		btnReprendre9PG.setVisible(true);
 		btnReprendre9PG.setDisable(false);
 
-		// Modifcation de la couleur de fond du carton du 9PG.
-		carton9PG.setStyle("-fx-background-color: #D8D8D8;");
+		// Modification de la couleur de fond du carton du 9PG.
+		carton9PG.setStyle(Style.FOND_CARTON_HISTORIQUE);
 
 		numQuestionAffiche = question.getNbQuestionReel();
 
@@ -462,8 +464,8 @@ public class NPGController {
 		if (nbQuest == 1) {
 			nbQuestion.setText(nbQuest + " question jouée");
 		} else {
-			if (nbQuest >= 25) {
-				nbQuestion.setStyle("-fx-background-color: #FE2E64;");
+			if (nbQuest >= Seuil.SEUIL_WARNING_9PG) {
+				nbQuestion.setStyle(Style.FOND_WARNING);
 			}
 			nbQuestion.setText(nbQuest + " questions jouées");
 		}

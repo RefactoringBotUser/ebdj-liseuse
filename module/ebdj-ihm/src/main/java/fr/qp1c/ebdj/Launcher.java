@@ -51,6 +51,8 @@ public class Launcher extends Application {
 
 	private TypePartieController typePartieController;
 
+	private StatistiquesController statistiquesController;
+
 	private HomeController homeControler;
 
 	@Override
@@ -112,7 +114,7 @@ public class Launcher extends Application {
 		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("/view/home/HomeView.fxml"));
 		BorderPane page = (BorderPane) loader.load();
 
-		homeControler = ((HomeController) loader.getController());
+		homeControler = (HomeController) loader.getController();
 		homeControler.setLauncher(this);
 
 		ecranHome = new SceneBdj(page, Screen.getPrimary().getVisualBounds());
@@ -121,7 +123,9 @@ public class Launcher extends Application {
 	private void initialiserEcranStats() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/stats/StatsView.fxml"));
 		VBox page = (VBox) loader.load();
-		((StatistiquesController) loader.getController()).setLauncher(this);
+
+		statistiquesController = (StatistiquesController) loader.getController();
+		statistiquesController.setLauncher(this);
 
 		ecranStats = new SceneBdj(page, Screen.getPrimary().getVisualBounds());
 	}
@@ -175,6 +179,8 @@ public class Launcher extends Application {
 
 	public void afficherEcranStats() {
 		LOGGER.info("[DEBUT] Affichage de l'écran de stats");
+
+		statistiquesController.actualiserContenuTableaux();
 
 		afficherEcran(ecranStats);
 
