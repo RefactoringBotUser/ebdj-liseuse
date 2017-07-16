@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.bean.exception.BdjException;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
@@ -35,7 +36,7 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 	}
 
 	@Override
-	public void synchroniserQuestions9PG() {
+	public void synchroniserQuestions9PG() throws BdjException {
 
 		LOGGER.debug("[DEBUT] synchroniserQuestions9PG");
 
@@ -53,7 +54,7 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 	}
 
 	@Override
-	public void synchroniserCorrections9PG() {
+	public void synchroniserCorrections9PG() throws BdjException {
 
 		LOGGER.debug("[DEBUT] synchroniserCorrections9PG");
 
@@ -83,7 +84,7 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 	}
 
 	@Override
-	public void synchroniserAnomalies9PG() {
+	public void synchroniserAnomalies9PG() throws BdjException {
 		LOGGER.debug("[DEBUT] synchroniserAnomalies9PG");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
@@ -104,7 +105,7 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 	}
 
 	@Override
-	public void synchroniserLectures9PG() {
+	public void synchroniserLectures9PG() throws BdjException {
 		LOGGER.debug("[DEBUT] synchroniserLectures9PG");
 
 		// Retrouver l'index de la derniere lecture synchronisée.

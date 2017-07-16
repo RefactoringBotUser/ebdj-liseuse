@@ -135,24 +135,28 @@
     -fx-background-color: #008CBA;
 }
 
-.popUp:header *.header-panel *.label{
+.popUpErreur:header *.header-panel{
+    -fx-background-color: red;
+}
+
+.popUp:header *.header-panel *.label, .popUpErreur:header *.header-panel *.label{
 	-fx-font-family: "Venacti";
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 	-fx-text-fill: white;
 }
 
-.popUp  *.label,*.textarea{
+.popUp  *.label,*.textarea,.popUpErreur  *.label,*.textarea{
 	-fx-font-family: "Venacti";
     -fx-font-size: 14px;
 	-fx-text-fill: black;
 }
 
-.popUp > *.button-bar > *.container{
+.popUp > *.button-bar > *.container, .popUpErreur > *.button-bar > *.container{
     -fx-background-color: white;
 }
 
-.popUp  *.button{
+.popUp  *.button,.popUp  *.toggle-button, .popUpErreur  *.button{
 	-fx-background-color: #008CBA;
 	-fx-border-color:#008CBA;
 	-fx-font-family: "Venacti";
@@ -164,12 +168,12 @@
 	-fx-border-radius: 10;
 }
 
-.popUp  *.button:selected {
+.popUp  *.button:selected, .popUp  *.toggle-button:selected,.popUpErreur  *.button:selected {
 	-fx-background-color: black;
 	-fx-border-color:black;
 }
 
-.popUp *.button:hover {
+.popUp *.button:hover,.popUp *.toggle-button:hover, .popUpErreur *.button:hover {
 	-fx-background-color: #ff7f50;
 	-fx-border-color:red;
 }

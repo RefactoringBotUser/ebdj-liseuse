@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.bean.exception.BdjException;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurFAFDao;
@@ -35,7 +36,7 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 	}
 
 	@Override
-	public void synchroniserQuestionsFAF() {
+	public void synchroniserQuestionsFAF() throws BdjException {
 
 		LOGGER.debug("[DEBUT] synchroniserQuestionsFAF");
 
@@ -53,7 +54,7 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 	}
 
 	@Override
-	public void synchroniserCorrectionsFAF() {
+	public void synchroniserCorrectionsFAF() throws BdjException {
 
 		LOGGER.debug("[DEBUT] synchroniserCorrectionsFAF");
 
@@ -83,7 +84,7 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 	}
 
 	@Override
-	public void synchroniserAnomaliesFAF() {
+	public void synchroniserAnomaliesFAF() throws BdjException {
 		LOGGER.debug("[DEBUT] synchroniserAnomaliesFAF");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
@@ -104,7 +105,7 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 	}
 
 	@Override
-	public void synchroniserLecturesFAF() {
+	public void synchroniserLecturesFAF() throws BdjException {
 		LOGGER.debug("[DEBUT] synchroniserLecturesFAF");
 
 		// Retrouver l'index de la derniere lecture synchronisée.

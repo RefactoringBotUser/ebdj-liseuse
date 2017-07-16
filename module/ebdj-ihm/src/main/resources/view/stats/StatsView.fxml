@@ -52,13 +52,6 @@
                 </BorderPane>
               </content>
             </TitledPane>
-            <TitledPane fx:id="stock4ALS" animated="false" styleClass="stock" text="Stock 4ALS par thème">
-            <content>
-                <BorderPane minHeight="440.0" minWidth="0.0" prefHeight="440.0" prefWidth="1200.0" styleClass="zoneStock">
-                     <top></top>
-                </BorderPane>
-              </content>
-            </TitledPane>
             <TitledPane fx:id="stockFAF" animated="false" styleClass="stock" text="Stock FAF par thème">
             <content>
                 <BorderPane minHeight="440.0" minWidth="0.0" prefHeight="440.0" prefWidth="1200.0" styleClass="zoneStock">
@@ -76,6 +69,13 @@
                            </children>
                         </VBox>
                      </top>
+                </BorderPane>
+              </content>
+            </TitledPane>
+            <TitledPane fx:id="stock4ALS" animated="false" styleClass="stock" text="Stock 4ALS par thème">
+            <content>
+                <BorderPane minHeight="440.0" minWidth="0.0" prefHeight="440.0" prefWidth="1200.0" styleClass="zoneStock">
+                     <top></top>
                 </BorderPane>
               </content>
             </TitledPane>

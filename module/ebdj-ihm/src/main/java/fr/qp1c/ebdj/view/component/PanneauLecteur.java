@@ -1,26 +1,20 @@
 package fr.qp1c.ebdj.view.component;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.controller.popup.PopUpErreur;
+import fr.qp1c.ebdj.controller.popup.PopUpLecteur;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurLecteurDao;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurLecteurDaoImpl;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
-import fr.qp1c.ebdj.view.Libelle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -58,11 +52,7 @@ public class PanneauLecteur extends HBox {
 			throw new RuntimeException(exception);
 		}
 
-		ImageView imageUtilisateur = new ImageView(ImageConstants.IMAGE_UTILISATEUR);
-		ImageUtils.reduireImageCustom(imageUtilisateur, 25);
-
-		btnSelectionnerLecteur.setGraphic(imageUtilisateur);
-
+		btnSelectionnerLecteur.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_UTILISATEUR, 25));
 	}
 
 	@FXML
@@ -70,27 +60,7 @@ public class PanneauLecteur extends HBox {
 
 		LOGGER.info("### --> Clic sur \"Selectionner un utilisateur\".");
 
-		DBConnecteurLecteurDao dbConnecteurLecteurDao = new DBConnecteurLecteurDaoImpl();
-		List<Lecteur> lecteurs = dbConnecteurLecteurDao.listerLecteur();
-
-		List<String> libelleLecteurs = new ArrayList<>();
-
-		libelleLecteurs.add("Par défaut");
-		for (Lecteur lecteur : lecteurs) {
-			libelleLecteurs.add(lecteur.formatterNomUtilisateur());
-		}
-
-		ChoiceDialog<String> popupErreur = new ChoiceDialog<>("Par défaut", libelleLecteurs);
-		popupErreur.setTitle(Libelle.TITRE);
-		popupErreur.setHeaderText("Sélectionner l'utilisateur...");
-		popupErreur.setContentText("Utilisateur:");
-
-		ImageView imagePopup = new ImageView(ImageConstants.IMAGE_POPUP);
-		ImageUtils.reduireImage(imagePopup);
-		popupErreur.setGraphic(imagePopup);
-
-		// Traditional way to get the response value.
-		Optional<String> result = popupErreur.showAndWait();
+		Optional<String> result = PopUpLecteur.afficherPopUp();
 		if (result.isPresent()) {
 			LOGGER.info("Utilisateur séléctionné : " + result.get());
 
@@ -103,8 +73,6 @@ public class PanneauLecteur extends HBox {
 				libelleLecteur.setText("");
 				libelleLecteur.getStyleClass().clear();
 				btnSelectionnerLecteur.setSelected(false);
-
-				lecteur = lecteurs.get(0);
 			}
 		}
 	}

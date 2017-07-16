@@ -1,12 +1,14 @@
 package fr.qp1c.ebdj.moteur.service;
 
+import fr.qp1c.ebdj.bean.exception.BdjException;
+
 public interface SynchronisationFAFService {
 
-	void synchroniserCorrectionsFAF();
+	void synchroniserCorrectionsFAF() throws BdjException;
 
-	void synchroniserAnomaliesFAF();
+	void synchroniserAnomaliesFAF() throws BdjException;
 
-	void synchroniserLecturesFAF();
+	void synchroniserLecturesFAF() throws BdjException;
 
-	void synchroniserQuestionsFAF();
+	void synchroniserQuestionsFAF() throws BdjException;
 }

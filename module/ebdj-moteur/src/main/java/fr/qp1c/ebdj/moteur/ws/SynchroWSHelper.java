@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.qp1c.ebdj.bean.exception.BdjException;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.ws.wrapper.AuthentificationBdj;
@@ -43,7 +44,7 @@ public class SynchroWSHelper {
 		authentificationBdj.setCleAuthentification("45fa69e4-1a99-4b02-996e-b1985a05ddbb");
 	}
 
-	protected String post(String urlToCall, String request) {
+	protected String post(String urlToCall, String request) throws MalformedURLException, IOException {
 		String response = null;
 
 		try {
@@ -80,13 +81,15 @@ public class SynchroWSHelper {
 			LOGGER.info("Duree de l'appel : " + (fin - deb) / 100000 + " ms.");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
+			throw e;
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw e;
 		}
 		return response;
 	}
 
-	protected void synchroniserLectures(String urlToCall, List<Lecture> lectures) {
+	protected void synchroniserLectures(String urlToCall, List<Lecture> lectures) throws BdjException {
 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -108,10 +111,11 @@ public class SynchroWSHelper {
 
 		} catch (Exception e) {
 			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			throw new BdjException(e, "SYNCHRO_LECTURE_01");
 		}
 	}
 
-	protected void synchroniserAnomalies(String urlToCall, List<Anomalie> anomalies) {
+	protected void synchroniserAnomalies(String urlToCall, List<Anomalie> anomalies) throws BdjException {
 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -133,6 +137,7 @@ public class SynchroWSHelper {
 
 		} catch (Exception e) {
 			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			throw new BdjException(e, "SYNCHRO_ANOMALIE_01");
 		}
 	}
 

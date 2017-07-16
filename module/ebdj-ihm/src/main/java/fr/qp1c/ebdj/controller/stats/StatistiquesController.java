@@ -28,7 +28,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class StatistiquesController {
@@ -110,10 +109,7 @@ public class StatistiquesController {
 	private void initialize() {
 		LOGGER.debug("[DEBUT] Initialisation du panneau stats.");
 
-		ImageView imageHome = new ImageView(ImageConstants.IMAGE_HOME);
-		ImageUtils.reduireImageCustom(imageHome, 25);
-
-		btnHome.setGraphic(imageHome);
+		btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_HOME, 25));
 
 		// Sélection de l'onglet Stock synthèse
 
@@ -131,6 +127,11 @@ public class StatistiquesController {
 		tabSGColQuantiteJouee.setCellValueFactory(new PropertyValueFactory<StockQuantite, Long>("quantiteJouee"));
 
 		tableauStockSynthese.setEditable(false);
+
+		// Panneau 4ALS
+
+		// TODO : Implementer la gestion du stock des 4ALS.
+		stock4ALS.setVisible(false);
 
 		// Panneau FAF
 

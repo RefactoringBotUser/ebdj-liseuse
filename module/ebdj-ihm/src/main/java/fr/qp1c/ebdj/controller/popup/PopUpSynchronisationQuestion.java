@@ -1,6 +1,7 @@
 package fr.qp1c.ebdj.controller.popup;
 
 import fr.qp1c.ebdj.Launcher;
+import fr.qp1c.ebdj.bean.exception.BdjException;
 import fr.qp1c.ebdj.moteur.service.Synchronisation4ALSService;
 import fr.qp1c.ebdj.moteur.service.Synchronisation9PGService;
 import fr.qp1c.ebdj.moteur.service.SynchronisationFAFService;
@@ -9,6 +10,7 @@ import fr.qp1c.ebdj.moteur.service.impl.Synchronisation4ALSServiceImpl;
 import fr.qp1c.ebdj.moteur.service.impl.Synchronisation9PGServiceImpl;
 import fr.qp1c.ebdj.moteur.service.impl.SynchronisationFAFServiceImpl;
 import fr.qp1c.ebdj.moteur.service.impl.SynchronisationJDServiceImpl;
+import fr.qp1c.ebdj.view.Libelle;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -31,6 +33,8 @@ public class PopUpSynchronisationQuestion {
 
 	private static ProgressBar barreProgressionSousPhase;
 
+	private static boolean status = true;
+
 	public PopUpSynchronisationQuestion() {
 
 	}
@@ -38,7 +42,7 @@ public class PopUpSynchronisationQuestion {
 	public static boolean afficherPopUp() {
 		// Create the custom dialog.
 		Dialog<Pair<String, String>> dialog = new Dialog<>();
-		dialog.setTitle("QP1C - E-Boite de jeu");
+		dialog.setTitle(Libelle.TITRE);
 		dialog.setHeaderText("Synchronisation de la boite de jeu");
 		dialog.initOwner(Launcher.getStage());
 		dialog.initModality(Modality.APPLICATION_MODAL);
@@ -63,8 +67,6 @@ public class PopUpSynchronisationQuestion {
 		dialog.getDialogPane().getButtonTypes().addAll(btnCloseType);
 		dialog.getDialogPane().lookupButton(btnCloseType).setStyle("boutonFermer");
 
-		System.out.println("Synchroniser !");
-
 		libelleBarreProgressionPhase.setText("Synchronisation non démarrée.");
 		libelleBarreProgressionSousPhase.setText("");
 
@@ -88,105 +90,130 @@ public class PopUpSynchronisationQuestion {
 				dialog.getDialogPane().lookupButton(btnCloseType).disableProperty().setValue(true);
 
 				// Synchronisation des 9PGS
+				try {
+					updateLibelleBarreProgressionPhase("Synchronisation des questions de 9PG");
+					updateLibelleBarreProgressionSousPhase("Transfert des anomalies.");
 
-				updateLibelleBarreProgressionPhase("Synchronisation des questions de 9PG");
-				updateLibelleBarreProgressionSousPhase("Transfert des anomalies.");
+					barreProgressionPhase.setProgress(0.0);
+					barreProgressionSousPhase.setProgress(0.0);
 
-				barreProgressionPhase.setProgress(0.0);
-				barreProgressionSousPhase.setProgress(0.0);
+					Synchronisation9PGService synchronisation9pgService = new Synchronisation9PGServiceImpl();
+					synchronisation9pgService.synchroniserAnomalies9PG();
+					barreProgressionSousPhase.setProgress(0.1);
+					updateLibelleBarreProgressionSousPhase("Transfert des lectures.");
 
-				Synchronisation9PGService synchronisation9pgService = new Synchronisation9PGServiceImpl();
-				synchronisation9pgService.synchroniserAnomalies9PG();
-				barreProgressionSousPhase.setProgress(0.1);
-				updateLibelleBarreProgressionSousPhase("Transfert des lectures.");
+					synchronisation9pgService.synchroniserLectures9PG();
+					barreProgressionSousPhase.setProgress(0.4);
+					updateLibelleBarreProgressionSousPhase("Téléchargement des questions.");
 
-				synchronisation9pgService.synchroniserLectures9PG();
-				barreProgressionSousPhase.setProgress(0.4);
-				updateLibelleBarreProgressionSousPhase("Téléchargement des questions.");
+					synchronisation9pgService.synchroniserQuestions9PG();
+					barreProgressionSousPhase.setProgress(0.9);
+					updateLibelleBarreProgressionSousPhase("Téléchargement des corrections.");
 
-				synchronisation9pgService.synchroniserQuestions9PG();
-				barreProgressionSousPhase.setProgress(0.9);
-				updateLibelleBarreProgressionSousPhase("Téléchargement des corrections.");
+					synchronisation9pgService.synchroniserCorrections9PG();
+					barreProgressionSousPhase.setProgress(1.0);
+					updateLibelleBarreProgressionPhase("Synchronisation de la phase de 9PG terminée.");
+					updateLibelleBarreProgressionSousPhase("");
 
-				synchronisation9pgService.synchroniserCorrections9PG();
-				barreProgressionSousPhase.setProgress(1.0);
-				updateLibelleBarreProgressionPhase("Synchronisation de la phase de 9PG terminée.");
-				updateLibelleBarreProgressionSousPhase("");
+					// Synchronisation des 4ALS
 
-				// Synchronisation des 4ALS
+					barreProgressionPhase.setProgress(0.25);
+					barreProgressionSousPhase.setProgress(0.0);
 
-				barreProgressionPhase.setProgress(0.25);
-				barreProgressionSousPhase.setProgress(0.0);
+					Synchronisation4ALSService synchronisation4alsService = new Synchronisation4ALSServiceImpl();
+					synchronisation4alsService.synchroniserAnomalies4ALS();
+					barreProgressionSousPhase.setProgress(0.1);
+					updateLibelleBarreProgressionSousPhase("Transfert des lectures.");
 
-				Synchronisation4ALSService synchronisation4alsService = new Synchronisation4ALSServiceImpl();
-				synchronisation4alsService.synchroniserAnomalies4ALS();
-				barreProgressionSousPhase.setProgress(0.1);
-				updateLibelleBarreProgressionSousPhase("Transfert des lectures.");
+					synchronisation4alsService.synchroniserLectures4ALS();
+					barreProgressionSousPhase.setProgress(0.4);
+					updateLibelleBarreProgressionSousPhase("Téléchargement des questions.");
 
-				synchronisation4alsService.synchroniserLectures4ALS();
-				barreProgressionSousPhase.setProgress(0.4);
-				updateLibelleBarreProgressionSousPhase("Téléchargement des questions.");
+					synchronisation4alsService.synchroniserQuestions4ALS();
+					barreProgressionSousPhase.setProgress(0.9);
+					updateLibelleBarreProgressionSousPhase("Téléchargement des corrections.");
 
-				synchronisation4alsService.synchroniserQuestions4ALS();
-				barreProgressionSousPhase.setProgress(0.9);
-				updateLibelleBarreProgressionSousPhase("Téléchargement des corrections.");
+					synchronisation4alsService.synchroniserCorrections4ALS();
+					barreProgressionSousPhase.setProgress(1.0);
 
-				synchronisation4alsService.synchroniserCorrections4ALS();
-				barreProgressionSousPhase.setProgress(1.0);
+					// Synchronisation des JDS
 
-				// Synchronisation des JDS
+					barreProgressionPhase.setProgress(0.50);
+					barreProgressionSousPhase.setProgress(0.0);
 
-				barreProgressionPhase.setProgress(0.50);
-				barreProgressionSousPhase.setProgress(0.0);
+					SynchronisationJDService synchronisationJdService = new SynchronisationJDServiceImpl();
+					synchronisationJdService.synchroniserAnomaliesJD();
+					barreProgressionSousPhase.setProgress(0.1);
+					updateLibelleBarreProgressionSousPhase("Transfert des lectures.");
 
-				SynchronisationJDService synchronisationJdService = new SynchronisationJDServiceImpl();
-				synchronisationJdService.synchroniserAnomaliesJD();
-				barreProgressionSousPhase.setProgress(0.1);
-				updateLibelleBarreProgressionSousPhase("Transfert des lectures.");
+					synchronisationJdService.synchroniserLecturesJD();
+					barreProgressionSousPhase.setProgress(0.4);
+					updateLibelleBarreProgressionSousPhase("Téléchargement des questions.");
 
-				synchronisationJdService.synchroniserLecturesJD();
-				barreProgressionSousPhase.setProgress(0.4);
-				updateLibelleBarreProgressionSousPhase("Téléchargement des questions.");
+					synchronisationJdService.synchroniserQuestionsJD();
+					barreProgressionSousPhase.setProgress(0.9);
+					updateLibelleBarreProgressionSousPhase("Téléchargement des corrections.");
 
-				synchronisationJdService.synchroniserQuestionsJD();
-				barreProgressionSousPhase.setProgress(0.9);
-				updateLibelleBarreProgressionSousPhase("Téléchargement des corrections.");
+					synchronisationJdService.synchroniserCorrectionsJD();
+					barreProgressionSousPhase.setProgress(1.0);
 
-				synchronisationJdService.synchroniserCorrectionsJD();
-				barreProgressionSousPhase.setProgress(1.0);
+					// Synchronisation des FAFS
 
-				// Synchronisation des FAFS
+					barreProgressionPhase.setProgress(0.75);
+					barreProgressionSousPhase.setProgress(0.0);
 
-				barreProgressionPhase.setProgress(0.75);
-				barreProgressionSousPhase.setProgress(0.0);
+					SynchronisationFAFService synchronisationFafService = new SynchronisationFAFServiceImpl();
+					synchronisationFafService.synchroniserAnomaliesFAF();
+					barreProgressionSousPhase.setProgress(0.1);
+					updateLibelleBarreProgressionSousPhase("Transfert des lectures.");
 
-				SynchronisationFAFService synchronisationFafService = new SynchronisationFAFServiceImpl();
-				synchronisationFafService.synchroniserAnomaliesFAF();
-				barreProgressionSousPhase.setProgress(0.1);
-				updateLibelleBarreProgressionSousPhase("Transfert des lectures.");
+					synchronisationFafService.synchroniserLecturesFAF();
+					barreProgressionSousPhase.setProgress(0.4);
+					updateLibelleBarreProgressionSousPhase("Téléchargement des questions.");
 
-				synchronisationFafService.synchroniserLecturesFAF();
-				barreProgressionSousPhase.setProgress(0.4);
-				updateLibelleBarreProgressionSousPhase("Téléchargement des questions.");
+					synchronisationFafService.synchroniserQuestionsFAF();
+					barreProgressionSousPhase.setProgress(0.9);
+					updateLibelleBarreProgressionSousPhase("Téléchargement des corrections.");
 
-				synchronisationFafService.synchroniserQuestionsFAF();
-				barreProgressionSousPhase.setProgress(0.9);
-				updateLibelleBarreProgressionSousPhase("Téléchargement des corrections.");
+					synchronisationFafService.synchroniserCorrectionsFAF();
+					barreProgressionSousPhase.setProgress(1.0);
 
-				synchronisationFafService.synchroniserCorrectionsFAF();
-				barreProgressionSousPhase.setProgress(1.0);
+					updateLibelleBarreProgressionPhase("Synchronisation terminée.");
+					updateLibelleBarreProgressionSousPhase("");
+					barreProgressionSousPhase.visibleProperty().set(false);
 
-				updateLibelleBarreProgressionPhase("Synchronisation terminée.");
-				updateLibelleBarreProgressionSousPhase("");
-				barreProgressionSousPhase.visibleProperty().set(false);
+					barreProgressionPhase.setProgress(1.0);
 
-				barreProgressionPhase.setProgress(1.0);
+					dialog.getDialogPane().lookupButton(btnCloseType).disableProperty().setValue(false);
+				} catch (BdjException e) {
+					Runnable command = new Runnable() {
+						@Override
+						public void run() {
+							PopUpErreur.afficherPopUp(e);
+							status = false;
 
-				dialog.getDialogPane().lookupButton(btnCloseType).disableProperty().setValue(false);
+							updateLibelleBarreProgressionPhase("Echec de la synchronisation.");
+							updateLibelleBarreProgressionSousPhase("");
+							barreProgressionSousPhase.visibleProperty().set(false);
+
+							barreProgressionPhase.setProgress(1.0);
+
+							dialog.getDialogPane().lookupButton(btnCloseType).disableProperty().setValue(false);
+						}
+					};
+					if (Platform.isFxApplicationThread()) {
+						// Nous sommes déjà dans le thread graphique
+						command.run();
+					} else {
+						// Nous ne sommes pas dans le thread graphique
+						// on utilise runLater.
+						Platform.runLater(command);
+					}
+				}
 			}
 		}.start();
 
-		return true;
+		return status;
 	}
 
 	protected static void updateLibelleBarreProgressionSousPhase(String message) {

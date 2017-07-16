@@ -12,8 +12,10 @@ import fr.qp1c.ebdj.controller.jeu.phase.NPGController;
 import fr.qp1c.ebdj.controller.jeu.phase.QALSController;
 import fr.qp1c.ebdj.controller.popup.PopUpErreur;
 import fr.qp1c.ebdj.controller.popup.PopUpFinPartie;
+import fr.qp1c.ebdj.controller.popup.PopUpNiveauPartie;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
+import fr.qp1c.ebdj.view.Niveau;
 import fr.qp1c.ebdj.view.TypePartie;
 import fr.qp1c.ebdj.view.component.PanneauChronometre;
 import fr.qp1c.ebdj.view.component.PanneauLecteur;
@@ -22,7 +24,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 public class TypePartieController {
@@ -89,12 +90,7 @@ public class TypePartieController {
 
 		initialiser();
 
-		// selectionnerVuePhase9PG();
-
-		ImageView imageHome = new ImageView(ImageConstants.IMAGE_HOME);
-		ImageUtils.reduireImageCustom(imageHome, 25);
-
-		btnHome.setGraphic(imageHome);
+		btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_HOME, 25));
 
 		LOGGER.debug("[FIN] Initialisation du panneau phase de jeu.");
 	}
@@ -199,6 +195,8 @@ public class TypePartieController {
 		btn4ALS.setVisible(true);
 		btnJD.setVisible(true);
 		btnFAF.setVisible(true);
+
+		Niveau result = PopUpNiveauPartie.afficherPopUp();
 
 		selectionnerVue(panneauNPG);
 	}

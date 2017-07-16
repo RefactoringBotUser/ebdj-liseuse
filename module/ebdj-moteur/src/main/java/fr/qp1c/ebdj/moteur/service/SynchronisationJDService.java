@@ -1,12 +1,14 @@
 package fr.qp1c.ebdj.moteur.service;
 
+import fr.qp1c.ebdj.bean.exception.BdjException;
+
 public interface SynchronisationJDService {
 
-	void synchroniserCorrectionsJD();
+	void synchroniserCorrectionsJD() throws BdjException;
 
-	void synchroniserAnomaliesJD();
+	void synchroniserAnomaliesJD() throws BdjException;
 
-	void synchroniserLecturesJD();
+	void synchroniserLecturesJD() throws BdjException;
 
-	void synchroniserQuestionsJD();
+	void synchroniserQuestionsJD() throws BdjException;
 }

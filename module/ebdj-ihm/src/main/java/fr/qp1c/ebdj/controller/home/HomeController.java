@@ -61,6 +61,8 @@ public class HomeController {
 		// Création du bouton "Paramétrage"
 		BoutonBdj.customiserBouton150(btnParametrage, ImageConstants.IMAGE_HOME_PARAMETRAGE);
 
+		// TODO : Archiver les questions par partie
+
 		separateur.setVisible(false);
 
 		masquerSousMenuQuestion();

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.qp1c.ebdj.bean.exception.BdjException;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.ws.wrapper.correction.CorrectionQuestion9PGBdjDistante;
@@ -27,7 +28,7 @@ public class Synchro9PGWSHelper extends SynchroWSHelper {
 		super();
 	}
 
-	public List<Question9PGBdjDistante> synchroniserQuestions9PG(Long referenceMaxExistante) {
+	public List<Question9PGBdjDistante> synchroniserQuestions9PG(Long referenceMaxExistante) throws BdjException {
 		List<Question9PGBdjDistante> questions = new ArrayList<>();
 
 		try {
@@ -51,12 +52,13 @@ public class Synchro9PGWSHelper extends SynchroWSHelper {
 
 		} catch (Exception e) {
 			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			throw new BdjException(e, "SYNCHRO_9PG_01");
 		}
 
 		return questions;
 	}
 
-	public List<CorrectionQuestion9PGBdjDistante> synchroniserCorrections9PG(Long indexReprise) {
+	public List<CorrectionQuestion9PGBdjDistante> synchroniserCorrections9PG(Long indexReprise) throws BdjException {
 
 		List<CorrectionQuestion9PGBdjDistante> corrections = new ArrayList<>();
 
@@ -79,19 +81,20 @@ public class Synchro9PGWSHelper extends SynchroWSHelper {
 
 		} catch (Exception e) {
 			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			throw new BdjException(e, "SYNCHRO_9PG_02");
 		}
 
 		return corrections;
 	}
 
-	public void synchroniserLectures9PG(List<Lecture> lectures) {
+	public void synchroniserLectures9PG(List<Lecture> lectures) throws BdjException {
 
 		String urlToCall = urlCockpitRest + "/synchroniser/9pg/lectures";
 
 		synchroniserLectures(urlToCall, lectures);
 	}
 
-	public void synchroniserAnomalies9PG(List<Anomalie> anomalies) {
+	public void synchroniserAnomalies9PG(List<Anomalie> anomalies) throws BdjException {
 
 		String urlToCall = urlCockpitRest + "/synchroniser/9pg/anomalies";
 

@@ -26,7 +26,7 @@ public class PopUpErreur {
 
 		DialogPane dialogPane = alert.getDialogPane();
 		dialogPane.getStylesheets().add("/css/styles.css");
-		dialogPane.getStyleClass().add("popUp");
+		dialogPane.getStyleClass().add("popUpErreur");
 
 		// Create expandable Exception.
 		StringWriter sw = new StringWriter();

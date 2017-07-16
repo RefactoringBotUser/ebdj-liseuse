@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.bean.exception.BdjException;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
@@ -35,7 +36,7 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 	}
 
 	@Override
-	public void synchroniserQuestionsJD() {
+	public void synchroniserQuestionsJD() throws BdjException {
 
 		LOGGER.debug("[DEBUT] synchroniserQuestionsJD");
 
@@ -53,7 +54,7 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 	}
 
 	@Override
-	public void synchroniserCorrectionsJD() {
+	public void synchroniserCorrectionsJD() throws BdjException {
 
 		LOGGER.debug("[DEBUT] synchroniserCorrectionsJD");
 
@@ -82,7 +83,7 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 	}
 
 	@Override
-	public void synchroniserAnomaliesJD() {
+	public void synchroniserAnomaliesJD() throws BdjException {
 		LOGGER.debug("[DEBUT] synchroniserAnomaliesJD");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
@@ -103,7 +104,7 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 	}
 
 	@Override
-	public void synchroniserLecturesJD() {
+	public void synchroniserLecturesJD() throws BdjException {
 		LOGGER.debug("[DEBUT] synchroniserLecturesJD");
 
 		// Retrouver l'index de la derniere lecture synchronisée.

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.qp1c.ebdj.bean.exception.BdjException;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.ws.wrapper.correction.CorrectionQuestionBdjDistanteDemande;
@@ -27,7 +28,7 @@ public class SynchroFAFWSHelper extends SynchroWSHelper {
 		super();
 	}
 
-	public List<QuestionFAFBdjDistante> synchroniserQuestionsFAF(Long referenceMaxExistante) {
+	public List<QuestionFAFBdjDistante> synchroniserQuestionsFAF(Long referenceMaxExistante) throws BdjException {
 		List<QuestionFAFBdjDistante> questions = new ArrayList<>();
 
 		try {
@@ -51,12 +52,13 @@ public class SynchroFAFWSHelper extends SynchroWSHelper {
 
 		} catch (Exception e) {
 			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			throw new BdjException(e, "SYNCHRO_FAF_01");
 		}
 
 		return questions;
 	}
 
-	public List<CorrectionQuestionFAFBdjDistante> synchroniserCorrectionsFAF(Long indexReprise) {
+	public List<CorrectionQuestionFAFBdjDistante> synchroniserCorrectionsFAF(Long indexReprise) throws BdjException {
 
 		List<CorrectionQuestionFAFBdjDistante> corrections = new ArrayList<>();
 
@@ -79,19 +81,20 @@ public class SynchroFAFWSHelper extends SynchroWSHelper {
 
 		} catch (Exception e) {
 			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			throw new BdjException(e, "SYNCHRO_FAF_02");
 		}
 
 		return corrections;
 	}
 
-	public void synchroniserLecturesFAF(List<Lecture> lectures) {
+	public void synchroniserLecturesFAF(List<Lecture> lectures) throws BdjException {
 
 		String urlToCall = urlCockpitRest + "/synchroniser/faf/lectures";
 
 		synchroniserLectures(urlToCall, lectures);
 	}
 
-	public void synchroniserAnomaliesFAF(List<Anomalie> anomalies) {
+	public void synchroniserAnomaliesFAF(List<Anomalie> anomalies) throws BdjException {
 
 		String urlToCall = urlCockpitRest + "/synchroniser/faf/anomalies";
 

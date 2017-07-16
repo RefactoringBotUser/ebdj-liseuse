@@ -8,7 +8,6 @@ import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 
 public class ParametrageController {
 
@@ -26,10 +25,12 @@ public class ParametrageController {
 	private void initialize() {
 		LOGGER.debug("[DEBUT] Initialisation du panneau paramétrage.");
 
-		ImageView imageHome = new ImageView(ImageConstants.IMAGE_HOME);
-		ImageUtils.reduireImageCustom(imageHome, 25);
+		btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_HOME, 25));
 
-		btnHome.setGraphic(imageHome);
+		// TODO : régler : nom de la base de données, clé de la boite de jeu,
+		// url BDJ distante, liste lecteur + préférences taille...)
+
+		// Afficher le numéro de version de l'application
 
 		LOGGER.debug("[FIN] Initialisation du panneau paramétrage.");
 	}

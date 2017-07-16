@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.Launcher;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
+import fr.qp1c.ebdj.view.Libelle;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.image.ImageView;
 import javafx.util.Pair;
 
 public class PopUpAnomalieQuestion {
@@ -35,7 +35,7 @@ public class PopUpAnomalieQuestion {
 		typesErreur.add("Autre problème");
 
 		ChoiceDialog<String> popupErreur = new ChoiceDialog<>("Question périmée", typesErreur);
-		popupErreur.setTitle("QP1C - E-Boite de jeu");
+		popupErreur.setTitle(Libelle.TITRE);
 		popupErreur.initOwner(Launcher.getStage());
 		popupErreur.setHeaderText("Des commes çà on en veut plus...");
 		popupErreur.setContentText("Motif:");
@@ -44,9 +44,7 @@ public class PopUpAnomalieQuestion {
 		dialogPane.getStylesheets().add("/css/styles.css");
 		dialogPane.getStyleClass().add("popUp");
 
-		ImageView imagePopup = new ImageView(ImageConstants.IMAGE_POPUP);
-		ImageUtils.reduireImage(imagePopup);
-		popupErreur.setGraphic(imagePopup);
+		popupErreur.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_POPUP));
 
 		// Traditional way to get the response value.
 		Optional<String> result = popupErreur.showAndWait();

@@ -62,22 +62,14 @@ public class Historique9PGListCell extends ListCell<HistoriqueQuestion9PG> {
 				Label iconLabelVideDemi1 = new Label();
 				Label iconLabelVideDemi2 = new Label();
 
-				ImageView imageEtoile1 = new ImageView(ImageConstants.IMAGE_ETOILE);
-				ImageView imageEtoile2 = new ImageView(ImageConstants.IMAGE_ETOILE);
-				ImageView imageEtoile3 = new ImageView(ImageConstants.IMAGE_ETOILE);
 				ImageView imageVide = new ImageView(ImageConstants.IMAGE_VIDE);
 				ImageView imageDemiVide = new ImageView(ImageConstants.IMAGE_DEMI_VIDE);
 				imageDemiVide.setFitHeight(12);
 				imageDemiVide.setFitWidth(4);
 
-				ImageUtils.iconiserImage(imageEtoile1);
-				ImageUtils.iconiserImage(imageEtoile2);
-				ImageUtils.iconiserImage(imageEtoile3);
-
-				iconLabel1.setGraphic(imageEtoile1);
-				iconLabel2.setGraphic(imageEtoile2);
-				iconLabel3.setGraphic(imageEtoile3);
-
+				iconLabel1.setGraphic(ImageUtils.iconiserImage(ImageConstants.IMAGE_ETOILE));
+				iconLabel2.setGraphic(ImageUtils.iconiserImage(ImageConstants.IMAGE_ETOILE));
+				iconLabel3.setGraphic(ImageUtils.iconiserImage(ImageConstants.IMAGE_ETOILE));
 				iconLabelVide1.setGraphic(imageVide);
 				iconLabelVide2.setGraphic(imageVide);
 				iconLabelVideDemi1.setGraphic(imageDemiVide);

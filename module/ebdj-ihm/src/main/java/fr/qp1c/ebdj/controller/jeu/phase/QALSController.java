@@ -173,11 +173,9 @@ public class QALSController {
 		final HBox hbox = new HBox();
 		hbox.setSpacing(15);
 
-		ImageView logo = new ImageView(image);
-		ImageUtils.reduireImageCustom(logo, 34);
+		ImageView logo = ImageUtils.reduireImage(image, 34);
 
-		ImageView demiVide = new ImageView(ImageConstants.IMAGE_DEMI_VIDE);
-		ImageUtils.iconiserImage(demiVide);
+		ImageView demiVide = ImageUtils.iconiserImage(ImageConstants.IMAGE_DEMI_VIDE);
 
 		hbox.getChildren().addAll(logo, /** new Button("Joué"), */
 				demiVide);

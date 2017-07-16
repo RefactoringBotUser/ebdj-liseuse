@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.qp1c.ebdj.bean.exception.BdjException;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.ws.wrapper.correction.CorrectionQuestionBdjDistanteDemande;
@@ -27,7 +28,7 @@ public class SynchroJDWSHelper extends SynchroWSHelper {
 		super();
 	}
 
-	public List<QuestionJDBdjDistante> synchroniserQuestionsJD(Long referenceMaxExistante) {
+	public List<QuestionJDBdjDistante> synchroniserQuestionsJD(Long referenceMaxExistante) throws BdjException {
 		List<QuestionJDBdjDistante> questions = new ArrayList<>();
 
 		try {
@@ -51,12 +52,13 @@ public class SynchroJDWSHelper extends SynchroWSHelper {
 
 		} catch (Exception e) {
 			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			throw new BdjException(e, "SYNCHRO_JD_01");
 		}
 
 		return questions;
 	}
 
-	public List<CorrectionQuestionJDBdjDistante> synchroniserCorrectionsJD(Long indexReprise) {
+	public List<CorrectionQuestionJDBdjDistante> synchroniserCorrectionsJD(Long indexReprise) throws BdjException {
 
 		List<CorrectionQuestionJDBdjDistante> corrections = new ArrayList<>();
 
@@ -79,19 +81,20 @@ public class SynchroJDWSHelper extends SynchroWSHelper {
 
 		} catch (Exception e) {
 			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			throw new BdjException(e, "SYNCHRO_JD_02");
 		}
 
 		return corrections;
 	}
 
-	public void synchroniserLecturesJD(List<Lecture> lectures) {
+	public void synchroniserLecturesJD(List<Lecture> lectures) throws BdjException {
 
 		String urlToCall = urlCockpitRest + "/synchroniser/jd/lectures";
 
 		synchroniserLectures(urlToCall, lectures);
 	}
 
-	public void synchroniserAnomaliesJD(List<Anomalie> anomalies) {
+	public void synchroniserAnomaliesJD(List<Anomalie> anomalies) throws BdjException {
 
 		String urlToCall = urlCockpitRest + "/synchroniser/jd/anomalies";
 
