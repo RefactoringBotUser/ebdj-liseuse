@@ -1,17 +1,12 @@
 package fr.qp1c.ebdj.controller.jeu.phase;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
-import fr.qp1c.ebdj.loader.LoaderQuestionFAF;
+import fr.qp1c.ebdj.loader.MoteurFAF;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurFAFDao;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurFAFDaoImpl;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
@@ -93,19 +88,9 @@ public class FAFController {
 
 	// Données FAF.
 
-	// Nombre de questions officiellement joué.
-	private int nbQuest = 0;
-
-	// Nombre de questions réel (inclus erreur et remplacement).
-	private int nbQuestReel = 0;
+	private MoteurFAF moteurFAF;
 
 	private int numQuestionAffiche = 0;
-
-	// private int niveau = 0;
-
-	private List<QuestionFAF> questionsFAF = new ArrayList<>();
-
-	private QuestionFAF derniereQuestionFAF;
 
 	private boolean affichageHistoriqueEnCours = false;
 
@@ -117,16 +102,9 @@ public class FAFController {
 	public void reinitialiser() {
 		LOGGER.debug("[DEBUT] Initialisation du panneau FAF.");
 
-		// Chargement des questions.
-		questionsFAF = LoaderQuestionFAF.chargerQuestions();
+		moteurFAF = new MoteurFAF();
 
 		listeHistoriqueFAF.clear();
-
-		// Nombre de questions officiellement joué.
-		nbQuest = 0;
-
-		// Nombre de questions réel (inclus erreur et remplacement).
-		nbQuestReel = 0;
 
 		numQuestionAffiche = 0;
 
@@ -164,8 +142,6 @@ public class FAFController {
 
 		modifierTaille(TaillePolice.GRAND);
 
-		jouerNouvelleQuestionFAF();
-
 		LOGGER.debug("[FIN] Initialisation du panneau FAF.");
 	}
 
@@ -175,7 +151,7 @@ public class FAFController {
 	public void jouerNouvelleQuestionFAF() {
 		LOGGER.info("### --> Clic sur \"Nouvelle question FAF\".");
 
-		afficherNouvelleQuestion();
+		changerQuestion(true);
 	}
 
 	@FXML
@@ -194,9 +170,9 @@ public class FAFController {
 
 			cartonFAF.setStyle(Style.FOND_CARTON);
 
-			afficherCartonFAF(derniereQuestionFAF);
+			afficherCartonFAF(moteurFAF.getDerniereQuestionFAF());
 
-			numQuestionAffiche = nbQuestReel;
+			numQuestionAffiche = moteurFAF.getNbQuestReel();
 		}
 	}
 
@@ -215,49 +191,17 @@ public class FAFController {
 	public void remplacerQuestionFAF() {
 		LOGGER.info("### --> Clic sur \"Remplacer la question de FAF\".");
 
-		QuestionFAF nouvelleQuestion = donnerNouvelleQuestion();
+		changerQuestion(false);
 
-		changerQuestion(nouvelleQuestion, false);
-
-		listeHistoriqueFAF.get((nbQuestReel - listeHistoriqueFAF.size()) + 1).setNonComptabilise(true);
+		listeHistoriqueFAF.get((moteurFAF.getNbQuestReel() - listeHistoriqueFAF.size()) + 1).setNonComptabilise(true);
 	}
 
 	// Méthodes d'affichage
 
-	private void afficherNouvelleQuestion() {
-		LOGGER.debug("[DEBUT] Afficher la nouvelle question.");
-
-		QuestionFAF nouvelleQuestion = donnerNouvelleQuestion();
-
-		changerQuestion(nouvelleQuestion, true);
-
-		LOGGER.debug("[FIN] Afficher la nouvelle question.");
-	}
-
-	private QuestionFAF donnerNouvelleQuestion() {
-		LOGGER.debug("[DEBUT] Donner une nouvelle question.");
-
-		QuestionFAF question = questionsFAF.get(nbQuestReel);
-
-		// TODO : gérer la récupération du lecteur
-		DBConnecteurFAFDao dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
-		dbConnecteurFAFDao.jouerQuestion(question.getId(), question.getReference(), "lecteur");
-
-		LOGGER.debug("[FIN] Donner une nouvelle question.");
-
-		return question;
-	}
-
-	private void changerQuestion(QuestionFAF nouvelleQuestion, boolean questionACompter) {
+	private void changerQuestion(boolean questionACompter) {
 		LOGGER.debug("[DEBUT] Changer de question.");
 
-		// Calcul du nombre de question joué
-		if (questionACompter) {
-			calculerNbQuestion();
-
-		}
-		calculerNbQuestionReel();
-		numQuestionAffiche = nbQuestReel;
+		QuestionFAF nouvelleQuestion = moteurFAF.changerQuestion(questionACompter);
 
 		// Historiser la nouvelle question
 		historiserQuestionFAF(nouvelleQuestion);
@@ -265,8 +209,6 @@ public class FAFController {
 		// Mise à jour de l'affichage
 		afficherCartonFAF(nouvelleQuestion);
 		afficherNbQuestion();
-
-		derniereQuestionFAF = nouvelleQuestion;
 
 		LOGGER.debug("[FIN] Changer de question.");
 	}
@@ -296,13 +238,13 @@ public class FAFController {
 	private void afficherNbQuestion() {
 		LOGGER.debug("[DEBUT] Affichage du nombre de question.");
 
-		if (nbQuest == 1) {
-			nbQuestion.setText(nbQuest + " question jouée");
+		if (moteurFAF.getNbQuest() == 1) {
+			nbQuestion.setText(moteurFAF.getNbQuest() + " question jouée");
 		} else {
-			if (nbQuest >= Seuil.SEUIL_WARNING_FAF) {
+			if (moteurFAF.getNbQuest() >= Seuil.SEUIL_WARNING_FAF) {
 				nbQuestion.setStyle(Style.FOND_WARNING);
 			}
-			nbQuestion.setText(nbQuest + " questions jouées");
+			nbQuestion.setText(moteurFAF.getNbQuest() + " questions jouées");
 		}
 		LOGGER.debug("[FIN] Affichage du nombre de question.");
 	}
@@ -334,22 +276,14 @@ public class FAFController {
 		if (questionFAF != null) {
 
 			HistoriqueQuestionFAF histo = new HistoriqueQuestionFAF();
-			histo.setNbQuestion(nbQuest);
-			histo.setNbQuestionReel(nbQuestReel);
+			histo.setNbQuestion(moteurFAF.getNbQuest());
+			histo.setNbQuestionReel(moteurFAF.getNbQuestReel());
 			histo.setQuestion(questionFAF);
 
 			listeHistoriqueFAF.add(0, histo);
 		}
 
 		LOGGER.debug("[FIN] Historisation de la question FAF.");
-	}
-
-	private void calculerNbQuestion() {
-		nbQuest++;
-	}
-
-	private void calculerNbQuestionReel() {
-		nbQuestReel++;
 	}
 
 	public void modifierTaille(TaillePolice taille) {

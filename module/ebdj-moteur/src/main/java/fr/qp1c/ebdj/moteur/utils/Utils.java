@@ -4,6 +4,8 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -48,6 +50,17 @@ public class Utils {
 		// TODO à finaliser
 
 		return "Ref. " + reference;
+	}
+
+	public static String formatDate() {
+		LocalDateTime now = LocalDateTime.now();
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+		String formatDateTime = now.format(formatter);
+
+		return formatDateTime;
+
 	}
 
 }

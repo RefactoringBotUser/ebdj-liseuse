@@ -1,17 +1,12 @@
 package fr.qp1c.ebdj.controller.jeu.phase;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
-import fr.qp1c.ebdj.loader.LoaderQuestionJD;
+import fr.qp1c.ebdj.loader.MoteurJD;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionJD;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurJDDaoImpl;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
@@ -87,15 +82,7 @@ public class JDController {
 
 	// Données 9PG.
 
-	// Nombre de questions officiellement joué.
-	private int nbQuest = 0;
-
-	// Nombre de questions réel (inclus erreur et remplacement).
-	private int nbQuestReel = 0;
-
-	private List<QuestionJD> questionsJD = new ArrayList<>();
-
-	private QuestionJD derniereQuestionJD;
+	private MoteurJD moteurJD;
 
 	private boolean affichageHistoriqueEnCours = false;
 
@@ -109,18 +96,9 @@ public class JDController {
 	public void reinitialiser() {
 		LOGGER.debug("[DEBUT] Initialisation du panneau JD.");
 
-		// Chargement des questions.
-		questionsJD = LoaderQuestionJD.chargerQuestions();
+		moteurJD = new MoteurJD();
 
 		listeHistoriqueJD.clear();
-
-		// Données 9PG.
-
-		// Nombre de questions officiellement joué.
-		nbQuest = 0;
-
-		// Nombre de questions réel (inclus erreur et remplacement).
-		nbQuestReel = 0;
 
 		numQuestionAffiche = 0;
 
@@ -158,8 +136,6 @@ public class JDController {
 
 		modifierTaille(TaillePolice.GRAND);
 
-		afficherNouvelleQuestion();
-
 		LOGGER.debug("[FIN] Initialisation du panneau JD.");
 	}
 
@@ -169,7 +145,7 @@ public class JDController {
 	public void jouerNouvelleQuestionJD() {
 		LOGGER.info("### --> Clic sur \"Nouvelle question JD\".");
 
-		afficherNouvelleQuestion();
+		changerQuestion(true);
 	}
 
 	@FXML
@@ -188,9 +164,9 @@ public class JDController {
 
 			cartonJD.setStyle(Style.FOND_CARTON);
 
-			afficherCartonJD(derniereQuestionJD);
+			afficherCartonJD(moteurJD.getDerniereQuestionJD());
 
-			numQuestionAffiche = nbQuestReel;
+			numQuestionAffiche = moteurJD.getNbQuestReel();
 		}
 	}
 
@@ -211,45 +187,16 @@ public class JDController {
 	public void remplacerQuestionJD() {
 		LOGGER.info("### --> Clic sur \"Remplacer la question de JD\".");
 
-		QuestionJD nouvelleQuestion = donnerNouvelleQuestion();
+		changerQuestion(false);
 
-		changerQuestion(nouvelleQuestion, false);
-
-		listeHistoriqueJD.get((nbQuestReel - listeHistoriqueJD.size()) + 1).setNonComptabilise(true);
+		listeHistoriqueJD.get((moteurJD.getNbQuestReel() - listeHistoriqueJD.size()) + 1).setNonComptabilise(true);
 	}
 
 	// Méthodes d'affichage
 
-	private void afficherNouvelleQuestion() {
+	private void changerQuestion(boolean questionACompter) {
 
-		QuestionJD nouvelleQuestion = donnerNouvelleQuestion();
-
-		changerQuestion(nouvelleQuestion, true);
-	}
-
-	private QuestionJD donnerNouvelleQuestion() {
-		LOGGER.debug("[DEBUT] Donner une nouvelle question.");
-
-		QuestionJD question = questionsJD.get(nbQuestReel);
-
-		// TODO : gérer la récupération du lecteur
-		DBConnecteurJDDao dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
-		dbConnecteurJDDao.jouerQuestion(question.getId(), question.getReference(), "lecteur");
-
-		LOGGER.debug("[FIN] Donner une nouvelle question.");
-
-		return question;
-	}
-
-	private void changerQuestion(QuestionJD nouvelleQuestion, boolean questionACompter) {
-
-		// Calcul du nombre de question joué
-		if (questionACompter) {
-			calculerNbQuestion();
-
-		}
-		calculerNbQuestionReel();
-		numQuestionAffiche = nbQuestReel;
+		QuestionJD nouvelleQuestion = moteurJD.changerQuestion(questionACompter);
 
 		// Historiser la nouvelle question
 		historiserQuestionJD(nouvelleQuestion);
@@ -257,8 +204,6 @@ public class JDController {
 		// Mise à jour de l'affichage
 		afficherCartonJD(nouvelleQuestion);
 		afficherNbQuestion();
-
-		derniereQuestionJD = nouvelleQuestion;
 	}
 
 	private void afficherQuestionHistorique(HistoriqueQuestionJD question) {
@@ -286,13 +231,13 @@ public class JDController {
 	private void afficherNbQuestion() {
 		LOGGER.debug("[DEBUT] Affichage du nombre de question.");
 
-		if (nbQuest == 1) {
-			nbQuestion.setText(nbQuest + " question jouée");
+		if (moteurJD.getNbQuest() == 1) {
+			nbQuestion.setText(moteurJD.getNbQuest() + " question jouée");
 		} else {
-			if (nbQuest >= Seuil.SEUIL_WARNING_JD) {
+			if (moteurJD.getNbQuest() >= Seuil.SEUIL_WARNING_JD) {
 				nbQuestion.setStyle(Style.FOND_WARNING);
 			}
-			nbQuestion.setText(nbQuest + " questions jouées");
+			nbQuestion.setText(moteurJD.getNbQuest() + " questions jouées");
 		}
 		LOGGER.debug("[FIN] Affichage du nombre de question.");
 	}
@@ -318,22 +263,14 @@ public class JDController {
 		if (questionJD != null) {
 
 			HistoriqueQuestionJD histo = new HistoriqueQuestionJD();
-			histo.setNbQuestion(nbQuest);
-			histo.setNbQuestionReel(nbQuestReel);
+			histo.setNbQuestion(moteurJD.getNbQuest());
+			histo.setNbQuestionReel(moteurJD.getNbQuestReel());
 			histo.setQuestion(questionJD);
 
 			listeHistoriqueJD.add(0, histo);
 		}
 
 		LOGGER.debug("[FIN] Historisation de la question JD.");
-	}
-
-	private void calculerNbQuestion() {
-		nbQuest++;
-	}
-
-	private void calculerNbQuestionReel() {
-		nbQuestReel++;
 	}
 
 	public void modifierTaille(TaillePolice taille) {

@@ -1,18 +1,12 @@
 package fr.qp1c.ebdj.controller.jeu.phase;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
-import fr.qp1c.ebdj.loader.LoaderQuestion9PG;
-import fr.qp1c.ebdj.moteur.bean.Mode9PG;
+import fr.qp1c.ebdj.loader.MoteurNPG;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestion9PG;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurNPGDaoImpl;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
@@ -107,31 +101,7 @@ public class NPGController {
 
 	// Données 9PG.
 
-	// Nombre de questions officiellement joué.
-	private int nbQuest = 0;
-
-	// Nombre de questions réel (inclus erreur et remplacement).
-	private int nbQuestReel = 0;
-
-	private int niveau = 0;
-
-	private int cpt_1 = 0;
-
-	private int cpt_2 = 0;
-
-	private int cpt_3 = 0;
-
-	private Mode9PG mode9PG;
-
-	private List<QuestionNPG> questions9PGJouee = new ArrayList<>();
-
-	private List<QuestionNPG> questions9PG_1 = new ArrayList<>();
-
-	private List<QuestionNPG> questions9PG_2 = new ArrayList<>();
-
-	private List<QuestionNPG> questions9PG_3 = new ArrayList<>();
-
-	private QuestionNPG derniereQuestion9PG;
+	private MoteurNPG moteur9PG;
 
 	private boolean affichageHistoriqueEnCours = false;
 
@@ -145,30 +115,11 @@ public class NPGController {
 	public void reinitialiser() {
 		LOGGER.debug("[DEBUT] Initialisation du panneau 9PG.");
 
-		// Chargement des questions.
-		questions9PG_1 = LoaderQuestion9PG.chargerQuestions1Etoile();
-		questions9PG_2 = LoaderQuestion9PG.chargerQuestions2Etoiles();
-		questions9PG_3 = LoaderQuestion9PG.chargerQuestions3Etoiles();
-
-		questions9PGJouee = new ArrayList<>();
+		moteur9PG = new MoteurNPG();
 
 		listeHistorique9PG.clear();
 
 		numQuestionAffiche = 0;
-
-		// Nombre de questions officiellement joué.
-		nbQuest = 0;
-
-		// Nombre de questions réel (inclus erreur et remplacement).
-		nbQuestReel = 0;
-
-		niveau = 0;
-
-		cpt_1 = 0;
-
-		cpt_2 = 0;
-
-		cpt_3 = 0;
 
 		// Création de l'historique des questions du 9PG
 		histoQuestion.setEditable(false);
@@ -202,9 +153,6 @@ public class NPGController {
 		btnReprendre9PG.setVisible(false);
 		btnReprendre9PG.setDisable(true);
 
-		// Lancer en mode 1,2,3
-		changerNiveau123();
-
 		modifierTaille(TaillePolice.GRAND);
 
 		LOGGER.debug("[FIN] Initialisation du panneau 9PG.");
@@ -216,7 +164,7 @@ public class NPGController {
 	public void jouerNouvelleQuestion9PG() {
 		LOGGER.info("### --> Clic sur \"Nouvelle question 9PG\".");
 
-		afficherNouvelleQuestion();
+		changerQuestion(true, true);
 	}
 
 	@FXML
@@ -235,9 +183,9 @@ public class NPGController {
 
 			carton9PG.setStyle(Style.FOND_CARTON);
 
-			afficherCarton9PG(derniereQuestion9PG, niveau);
+			afficherCarton9PG(moteur9PG.getDerniereQuestion9PG(), moteur9PG.getNiveau());
 
-			numQuestionAffiche = nbQuestReel;
+			numQuestionAffiche = moteur9PG.getNbQuestReel();
 		}
 	}
 
@@ -245,14 +193,14 @@ public class NPGController {
 	public void changerNiveau123() {
 		LOGGER.info("### --> Clic sur \"Niveau 1-2-3\".");
 
-		mode9PG = Mode9PG.MODE_123;
-
 		btn123.setSelected(true);
 		btn123.setDisable(false);
 		btn23.setDisable(false);
 		btn3.setDisable(false);
 
-		afficherNouvelleQuestion();
+		moteur9PG.changerNiveau123();
+
+		changerQuestion(true, true);
 
 		if (affichageHistoriqueEnCours) {
 
@@ -276,16 +224,11 @@ public class NPGController {
 	public void changerNiveau23() {
 		LOGGER.info("### --> Clic sur \"Niveau 2-3\".");
 
-		// Selection du mode de jeu
-		mode9PG = Mode9PG.MODE_23;
-
 		btn23.setSelected(true);
 		btn123.setDisable(true);
 
-		niveau = 2;
-
-		QuestionNPG nouvelleQuestion = donnerNouvelleQuestion();
-		changerQuestion(nouvelleQuestion, true);
+		moteur9PG.changerNiveau23();
+		changerQuestion(true, false);
 
 		if (affichageHistoriqueEnCours) {
 
@@ -309,17 +252,11 @@ public class NPGController {
 	public void changerNiveau3() {
 		LOGGER.info("### --> Clic sur \"Niveau 3\".");
 
-		// Selection du mode de jeu
-		mode9PG = Mode9PG.MODE_3;
-
 		btn3.setSelected(true);
-
 		btn23.setDisable(true);
 
-		niveau = 3;
-
-		QuestionNPG nouvelleQuestion = donnerNouvelleQuestion();
-		changerQuestion(nouvelleQuestion, true);
+		moteur9PG.changerNiveau3();
+		changerQuestion(true, false);
 
 		if (affichageHistoriqueEnCours) {
 
@@ -358,80 +295,32 @@ public class NPGController {
 	public void remplacerQuestion9PG() {
 		LOGGER.info("### --> Clic sur \"Remplacer la question de 9PG\".");
 
-		QuestionNPG nouvelleQuestion = donnerNouvelleQuestion();
+		changerQuestion(false, false);
 
-		changerQuestion(nouvelleQuestion, false);
-
-		listeHistorique9PG.get((nbQuestReel - listeHistorique9PG.size()) + 1).setNonComptabilise(true);
+		listeHistorique9PG.get((moteur9PG.getNbQuestReel() - listeHistorique9PG.size()) + 1).setNonComptabilise(true);
 	}
 
 	// Méthodes d'affichage
 
-	private void afficherNouvelleQuestion() {
-
-		// Calcul du niveau
-		calculerNiveauQuestion();
-
-		QuestionNPG nouvelleQuestion = donnerNouvelleQuestion();
-
-		changerQuestion(nouvelleQuestion, true);
-	}
-
-	private QuestionNPG donnerNouvelleQuestion() {
-		LOGGER.debug("[DEBUT] Donner une nouvelle question.");
-
-		QuestionNPG question = null;
-
-		if ((niveau == 1 && Mode9PG.MODE_123.equals(mode9PG)) || (niveau == 2 && Mode9PG.MODE_23.equals(mode9PG))
-				|| (niveau == 3 && Mode9PG.MODE_3.equals(mode9PG))) {
-			LOGGER.info("Question à 1 étoile.");
-
-			question = questions9PG_1.get(cpt_1);
-			cpt_1++;
-
-		} else if ((niveau == 2 && Mode9PG.MODE_123.equals(mode9PG))
-				|| (niveau == 3 && Mode9PG.MODE_23.equals(mode9PG))) {
-			LOGGER.info("Question à 2 étoiles.");
-
-			question = questions9PG_2.get(cpt_2);
-			cpt_2++;
-		} else {
-			LOGGER.info("Question à 3 étoiles.");
-
-			question = questions9PG_3.get(cpt_3);
-			cpt_3++;
-		}
-		questions9PGJouee.add(question);
-
-		// TODO : gérer la récupération du lecteur
-		DBConnecteurNPGDao dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
-		dbConnecteurNPGDao.jouerQuestion(question.getId(), question.getReference(), "lecteur");
-
-		LOGGER.debug("[FIN] Donner une nouvelle question.");
-
-		return question;
-
-	}
-
-	private void changerQuestion(QuestionNPG nouvelleQuestion, boolean questionACompter) {
+	private void changerQuestion(boolean questionACompter, boolean calculerNiveau) {
 		LOGGER.debug("[DEBUT] Changer de question.");
 
-		// Calcul du nombre de question joué
-		if (questionACompter) {
-			calculerNbQuestion();
+		QuestionNPG nouvelleQuestion = null;
 
+		if (calculerNiveau) {
+			nouvelleQuestion = moteur9PG.changerQuestionAvecNiveau(questionACompter);
+		} else {
+			nouvelleQuestion = moteur9PG.changerQuestion(questionACompter);
 		}
-		calculerNbQuestionReel();
-		numQuestionAffiche = nbQuestReel;
+
+		numQuestionAffiche = moteur9PG.getNbQuestReel();
 
 		// Historiser la nouvelle question
 		historiserQuestion9PG(nouvelleQuestion);
 
 		// Mise à jour de l'affichage
-		afficherCarton9PG(nouvelleQuestion, niveau);
+		afficherCarton9PG(nouvelleQuestion, moteur9PG.getNiveau());
 		afficherNbQuestion();
-
-		derniereQuestion9PG = nouvelleQuestion;
 
 		LOGGER.debug("[FIN] Changer de question.");
 	}
@@ -461,13 +350,13 @@ public class NPGController {
 	private void afficherNbQuestion() {
 		LOGGER.debug("[DEBUT] Affichage du nombre de question.");
 
-		if (nbQuest == 1) {
-			nbQuestion.setText(nbQuest + " question jouée");
+		if (moteur9PG.getNbQuest() == 1) {
+			nbQuestion.setText(moteur9PG.getNbQuest() + " question jouée");
 		} else {
-			if (nbQuest >= Seuil.SEUIL_WARNING_9PG) {
+			if (moteur9PG.getNbQuest() >= Seuil.SEUIL_WARNING_9PG) {
 				nbQuestion.setStyle(Style.FOND_WARNING);
 			}
-			nbQuestion.setText(nbQuest + " questions jouées");
+			nbQuestion.setText(moteur9PG.getNbQuest() + " questions jouées");
 		}
 		LOGGER.debug("[FIN] Affichage du nombre de question.");
 	}
@@ -514,37 +403,15 @@ public class NPGController {
 		if (question9PG != null) {
 
 			HistoriqueQuestion9PG histo = new HistoriqueQuestion9PG();
-			histo.setNbQuestion(nbQuest);
-			histo.setNbQuestionReel(nbQuestReel);
-			histo.setNiveau(niveau);
+			histo.setNbQuestion(moteur9PG.getNbQuest());
+			histo.setNbQuestionReel(moteur9PG.getNbQuestReel());
+			histo.setNiveau(moteur9PG.getNiveau());
 			histo.setQuestion(question9PG);
 
 			listeHistorique9PG.add(0, histo);
 		}
 
 		LOGGER.debug("[FIN] Historisation de la question 9PG.");
-	}
-
-	private void calculerNbQuestion() {
-		nbQuest++;
-	}
-
-	private void calculerNbQuestionReel() {
-		nbQuestReel++;
-	}
-
-	private void calculerNiveauQuestion() {
-		if (Mode9PG.MODE_123.equals(mode9PG)) {
-			niveau = ((niveau++) % 3) + 1;
-		} else if (Mode9PG.MODE_23.equals(mode9PG)) {
-			if (niveau == 2) {
-				niveau = 3;
-			} else {
-				niveau = 2;
-			}
-		} else if (Mode9PG.MODE_3.equals(mode9PG)) {
-			niveau = 3;
-		}
 	}
 
 	/**

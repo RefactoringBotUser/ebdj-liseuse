@@ -118,7 +118,7 @@
 	-fx-border-color: #D8D8D8;
 }
 
-.listeHistoriqueQuestion .list-cell:even,.list-cell:odd {	
+.listeHistoriqueQuestion .list-cell:even,.listeHistoriqueQuestion .list-cell:odd {	
 	-fx-background-color: #D8D8D8;
 	-fx-border-color: #D8D8D8;
 	-fx-font-family: "Venacti";
@@ -146,7 +146,7 @@
 	-fx-text-fill: white;
 }
 
-.popUp  *.label,*.textarea,.popUpErreur  *.label,*.textarea{
+.popUp  *.label,.popUp  *.textarea,.popUp *.combo-box,.popUpErreur  *.label,.popUpErreur  *.textarea{
 	-fx-font-family: "Venacti";
     -fx-font-size: 14px;
 	-fx-text-fill: black;

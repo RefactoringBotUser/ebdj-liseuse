@@ -153,6 +153,9 @@ public class TypePartieController {
 		if (controllerNPG != null && (TypePartie.NPG.equals(typePartie) || TypePartie.PARTIE.equals(typePartie))) {
 			LOGGER.debug("Réinitialisation du 9PG.");
 			controllerNPG.reinitialiser();
+
+			// Lancer en mode 1,2,3
+			controllerNPG.changerNiveau123();
 		}
 		if (controller4ALS != null && (TypePartie.QALS.equals(typePartie) || TypePartie.PARTIE.equals(typePartie))) {
 			LOGGER.debug("Réinitialisation du 4ALS.");
@@ -161,10 +164,14 @@ public class TypePartieController {
 		if (controllerJD != null && (TypePartie.JD.equals(typePartie) || TypePartie.PARTIE.equals(typePartie))) {
 			LOGGER.debug("Réinitialisation du JD.");
 			controllerJD.reinitialiser();
+
+			controllerJD.jouerNouvelleQuestionJD();
 		}
 		if (controllerFAF != null && (TypePartie.FAF.equals(typePartie) || TypePartie.PARTIE.equals(typePartie))) {
 			LOGGER.debug("Réinitialisation du FAF.");
 			controllerFAF.reinitialiser();
+
+			controllerFAF.jouerNouvelleQuestionFAF();
 		}
 		if (panneauChronometre != null) {
 			panneauChronometre.restart();

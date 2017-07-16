@@ -233,8 +233,7 @@ public class DBConnecteurGeneriqueImpl {
 		query.append(",");
 		query.append(referenceQuestion);
 		query.append(",'");
-		// TODO : calculer la date du jour
-		query.append("2017-07-02 00:00:00");
+		query.append(Utils.formatDate());
 		query.append("','");
 		query.append(lecteur);
 		query.append("');");
