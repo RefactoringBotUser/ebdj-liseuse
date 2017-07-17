@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.controller.jeu.TypePartieController;
 import fr.qp1c.ebdj.controller.popup.PopUpErreur;
 import fr.qp1c.ebdj.controller.popup.PopUpLecteur;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
@@ -39,6 +40,8 @@ public class PanneauLecteur extends HBox {
 
 	private Lecteur lecteur;
 
+	private TypePartieController typePartieController;
+
 	public PanneauLecteur() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/composant/LecteurView.fxml"));
 
@@ -53,6 +56,10 @@ public class PanneauLecteur extends HBox {
 		}
 
 		btnSelectionnerLecteur.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_UTILISATEUR, 25));
+	}
+
+	public void setTypePartieController(TypePartieController typePartieController) {
+		this.typePartieController = typePartieController;
 	}
 
 	@FXML
@@ -74,6 +81,14 @@ public class PanneauLecteur extends HBox {
 				libelleLecteur.getStyleClass().clear();
 				btnSelectionnerLecteur.setSelected(false);
 			}
+
+			// TODO : Récupérer le bon lecteur
+
+			Lecteur lecteur = new Lecteur();
+			lecteur.setNom("GENDRON");
+			lecteur.setPrenom("Nicolas");
+
+			typePartieController.definirLecteur(lecteur);
 		}
 	}
 

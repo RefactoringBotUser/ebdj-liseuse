@@ -7,7 +7,7 @@ import fr.qp1c.ebdj.Launcher;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.Libelle;
-import fr.qp1c.ebdj.view.Niveau;
+import fr.qp1c.ebdj.view.NiveauPartie;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -28,7 +28,7 @@ public class PopUpNiveauPartie {
 	public PopUpNiveauPartie() {
 	}
 
-	public static Niveau afficherPopUp() {
+	public static NiveauPartie afficherPopUp() {
 
 		Dialog<String> dialog = new Dialog<>();
 		dialog.setTitle(Libelle.TITRE);
@@ -71,12 +71,12 @@ public class PopUpNiveauPartie {
 		dialog.showAndWait();
 
 		if (btnFacile.isSelected()) {
-			return Niveau.FACILE;
+			return NiveauPartie.FACILE;
 		} else if (btnDifficile.isSelected()) {
-			return Niveau.DIFFICILE;
+			return NiveauPartie.DIFFICILE;
 		}
 
-		return Niveau.MOYEN;
+		return NiveauPartie.MOYEN;
 	}
 
 }

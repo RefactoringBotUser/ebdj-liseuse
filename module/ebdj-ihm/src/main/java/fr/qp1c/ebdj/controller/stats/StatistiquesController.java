@@ -188,6 +188,8 @@ public class StatistiquesController {
 		// Réactualisation tableau catégorie FAF
 		List<StatsCategorieFAF> statsCategorieFAF = statistiqueService.calculerStatsCategorieFAF();
 
+		donneesTableauSF.clear();
+
 		for (StatsCategorieFAF statCategorieFAF : statsCategorieFAF) {
 			donneesTableauSF.add(new StockCategorieFAF(statCategorieFAF));
 		}

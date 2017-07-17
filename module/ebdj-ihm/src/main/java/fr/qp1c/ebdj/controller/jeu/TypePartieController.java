@@ -13,9 +13,10 @@ import fr.qp1c.ebdj.controller.jeu.phase.QALSController;
 import fr.qp1c.ebdj.controller.popup.PopUpErreur;
 import fr.qp1c.ebdj.controller.popup.PopUpFinPartie;
 import fr.qp1c.ebdj.controller.popup.PopUpNiveauPartie;
+import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
-import fr.qp1c.ebdj.view.Niveau;
+import fr.qp1c.ebdj.view.NiveauPartie;
 import fr.qp1c.ebdj.view.TypePartie;
 import fr.qp1c.ebdj.view.component.PanneauChronometre;
 import fr.qp1c.ebdj.view.component.PanneauLecteur;
@@ -100,6 +101,15 @@ public class TypePartieController {
 		initialiser4ALS();
 		initialiserJD();
 		initialiserFAF();
+
+		panneauLecteur.setTypePartieController(this);
+	}
+
+	public void definirLecteur(Lecteur lecteur) {
+		controllerNPG.definirLecteur(lecteur);
+		controller4ALS.definirLecteur(lecteur);
+		controllerJD.definirLecteur(lecteur);
+		controllerFAF.definirLecteur(lecteur);
 	}
 
 	private void initialiser9PG() {
@@ -150,31 +160,44 @@ public class TypePartieController {
 	public void reinitialiser(TypePartie typePartie) {
 		LOGGER.debug("[DEBUT] Réinitialisation de l'écran.");
 
-		if (controllerNPG != null && (TypePartie.NPG.equals(typePartie) || TypePartie.PARTIE.equals(typePartie))) {
+		NiveauPartie niveauPartie = PopUpNiveauPartie.afficherPopUp();
+
+		if (controllerNPG != null) {
 			LOGGER.debug("Réinitialisation du 9PG.");
 			controllerNPG.reinitialiser();
-
-			// Lancer en mode 1,2,3
-			controllerNPG.changerNiveau123();
+			controllerNPG.definirNiveauPartie(niveauPartie);
 		}
-		if (controller4ALS != null && (TypePartie.QALS.equals(typePartie) || TypePartie.PARTIE.equals(typePartie))) {
+		if (controller4ALS != null) {
 			LOGGER.debug("Réinitialisation du 4ALS.");
 			controller4ALS.reinitialiser();
+			controller4ALS.definirNiveauPartie(niveauPartie);
 		}
-		if (controllerJD != null && (TypePartie.JD.equals(typePartie) || TypePartie.PARTIE.equals(typePartie))) {
+		if (controllerJD != null) {
 			LOGGER.debug("Réinitialisation du JD.");
 			controllerJD.reinitialiser();
-
-			controllerJD.jouerNouvelleQuestionJD();
+			controllerJD.definirNiveauPartie(niveauPartie);
 		}
-		if (controllerFAF != null && (TypePartie.FAF.equals(typePartie) || TypePartie.PARTIE.equals(typePartie))) {
+		if (controllerFAF != null) {
 			LOGGER.debug("Réinitialisation du FAF.");
 			controllerFAF.reinitialiser();
-
-			controllerFAF.jouerNouvelleQuestionFAF();
+			controllerFAF.definirNiveauPartie(niveauPartie);
 		}
 		if (panneauChronometre != null) {
 			panneauChronometre.restart();
+		}
+
+		if (TypePartie.NPG.equals(typePartie) || TypePartie.PARTIE.equals(typePartie)) {
+
+			// Lancer en mode 1,2,3
+			controllerNPG.changerNiveau123();
+		} else if (TypePartie.QALS.equals(typePartie)) {
+
+		} else if (TypePartie.JD.equals(typePartie)) {
+
+			controllerJD.jouerNouvelleQuestionJD();
+		} else if (TypePartie.FAF.equals(typePartie)) {
+
+			controllerFAF.jouerNouvelleQuestionFAF();
 		}
 
 		LOGGER.debug("[FIN] Réinitialisation de l'écran.");
@@ -202,8 +225,6 @@ public class TypePartieController {
 		btn4ALS.setVisible(true);
 		btnJD.setVisible(true);
 		btnFAF.setVisible(true);
-
-		Niveau result = PopUpNiveauPartie.afficherPopUp();
 
 		selectionnerVue(panneauNPG);
 	}
@@ -268,6 +289,8 @@ public class TypePartieController {
 
 		btnJD.setSelected(true);
 
+		controllerJD.jouerNouvelleQuestionJD();
+
 		selectionnerVue(panneauJD);
 	}
 
@@ -276,6 +299,8 @@ public class TypePartieController {
 		LOGGER.info("### --> Clic sur \"Affichage vue FAF\".");
 
 		btnFAF.setSelected(true);
+
+		controllerFAF.jouerNouvelleQuestionFAF();
 
 		selectionnerVue(panneauFAF);
 	}

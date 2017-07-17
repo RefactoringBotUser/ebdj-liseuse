@@ -6,8 +6,10 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.MoteurNPG;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestion9PG;
+import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.moteur.utils.Utils;
+import fr.qp1c.ebdj.view.NiveauPartie;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
 import fr.qp1c.ebdj.view.TaillePolice;
@@ -444,5 +446,13 @@ public class NPGController {
 		question9PG.setStyle("-fx-font-size:" + taille + "px");
 		reponse9PG.setStyle("-fx-font-size:" + taille + "px");
 		question9PGInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
+	}
+
+	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		moteur9PG.definirNiveauPartie(niveauPartie);
+	}
+
+	public void definirLecteur(Lecteur lecteur) {
+		moteur9PG.definirLecteur(lecteur);
 	}
 }

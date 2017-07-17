@@ -6,8 +6,10 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.MoteurFAF;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionFAF;
+import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
 import fr.qp1c.ebdj.moteur.utils.Utils;
+import fr.qp1c.ebdj.view.NiveauPartie;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
 import fr.qp1c.ebdj.view.TaillePolice;
@@ -309,5 +311,13 @@ public class FAFController {
 		libelleQuestionFAF.setStyle("-fx-font-size:" + taille + "px");
 		reponseFAF.setStyle("-fx-font-size:" + taille + "px");
 		questionFAFInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
+	}
+
+	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		moteurFAF.definirNiveauPartie(niveauPartie);
+	}
+
+	public void definirLecteur(Lecteur lecteur) {
+		moteurFAF.definirLecteur(lecteur);
 	}
 }

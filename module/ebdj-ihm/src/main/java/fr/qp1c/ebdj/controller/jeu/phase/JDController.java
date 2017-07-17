@@ -6,8 +6,10 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.MoteurJD;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionJD;
+import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
 import fr.qp1c.ebdj.moteur.utils.Utils;
+import fr.qp1c.ebdj.view.NiveauPartie;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
 import fr.qp1c.ebdj.view.TaillePolice;
@@ -293,5 +295,13 @@ public class JDController {
 		libelleQuestionJD.setStyle("-fx-font-size:" + taille + "px");
 		reponseJD.setStyle("-fx-font-size:" + taille + "px");
 		questionJDInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
+	}
+
+	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		moteurJD.definirNiveauPartie(niveauPartie);
+	}
+
+	public void definirLecteur(Lecteur lecteur) {
+		moteurJD.definirLecteur(lecteur);
 	}
 }

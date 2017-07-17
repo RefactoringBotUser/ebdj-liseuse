@@ -6,10 +6,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.loader.LoaderQuestionJD;
+import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurJDDaoImpl;
+import fr.qp1c.ebdj.view.NiveauPartie;
 
 public class MoteurJD {
 
@@ -28,6 +29,14 @@ public class MoteurJD {
 
 	private QuestionJD derniereQuestionJD;
 
+	// Contraintes
+
+	private NiveauPartie niveauPartie;
+
+	// Tracker
+
+	private Lecteur lecteur;
+
 	public MoteurJD() {
 
 		// Chargement des questions.
@@ -42,6 +51,14 @@ public class MoteurJD {
 		nbQuestReel = 0;
 	}
 
+	public void definirLecteur(Lecteur lecteur) {
+		this.lecteur = lecteur;
+	}
+
+	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		this.niveauPartie = niveauPartie;
+	}
+
 	private QuestionJD donnerNouvelleQuestion() {
 		LOGGER.debug("[DEBUT] Donner une nouvelle question.");
 
@@ -49,7 +66,7 @@ public class MoteurJD {
 
 		// TODO : gérer la récupération du lecteur
 		DBConnecteurJDDao dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
-		dbConnecteurJDDao.jouerQuestion(question.getId(), question.getReference(), "lecteur");
+		dbConnecteurJDDao.jouerQuestion(question.getId(), question.getReference(), lecteur.formatterNomUtilisateur());
 
 		LOGGER.debug("[FIN] Donner une nouvelle question.");
 

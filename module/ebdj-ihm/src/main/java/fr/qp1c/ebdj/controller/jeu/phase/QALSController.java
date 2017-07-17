@@ -7,10 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.loader.LoaderQuestion4ALS;
+import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.Question;
 import fr.qp1c.ebdj.moteur.bean.question.Question4ALS;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
+import fr.qp1c.ebdj.view.NiveauPartie;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -144,6 +146,10 @@ public class QALSController {
 
 	}
 
+	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+
+	}
+
 	public void afficher4ALS(ObservableList list, Question4ALS theme4ALS) {
 
 		Font fontR = Font.font("Venacti", FontWeight.BOLD, 18);
@@ -181,6 +187,10 @@ public class QALSController {
 				demiVide);
 
 		return hbox;
+	}
+
+	public void definirLecteur(Lecteur lecteur) {
+
 	}
 
 }

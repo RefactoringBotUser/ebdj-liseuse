@@ -1,6 +1,6 @@
 package fr.qp1c.ebdj.view;
 
-public enum Niveau {
+public enum NiveauPartie {
 
 	FACILE, MOYEN, DIFFICILE;
 }
