@@ -6,12 +6,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.Mode9PG;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurNPGDaoImpl;
-import fr.qp1c.ebdj.view.NiveauPartie;
 
 public class MoteurNPG {
 
@@ -118,17 +118,34 @@ public class MoteurNPG {
 			question = questions9PG_1.get(cpt_1);
 			cpt_1++;
 
+			if (question != null) {
+				questions9PG_1.addAll(LoaderQuestion9PG.chargerQuestions1Etoile());
+				question = questions9PG_1.get(cpt_1);
+				cpt_1++;
+			}
 		} else if ((niveau == 2 && Mode9PG.MODE_123.equals(mode9PG))
 				|| (niveau == 3 && Mode9PG.MODE_23.equals(mode9PG))) {
 			LOGGER.info("Question à 2 étoiles.");
 
 			question = questions9PG_2.get(cpt_2);
 			cpt_2++;
+
+			if (question != null) {
+				questions9PG_2.addAll(LoaderQuestion9PG.chargerQuestions2Etoiles());
+				question = questions9PG_2.get(cpt_2);
+				cpt_2++;
+			}
 		} else {
 			LOGGER.info("Question à 3 étoiles.");
 
 			question = questions9PG_3.get(cpt_3);
 			cpt_3++;
+
+			if (question != null) {
+				questions9PG_3.addAll(LoaderQuestion9PG.chargerQuestions3Etoiles());
+				question = questions9PG_3.get(cpt_3);
+				cpt_3++;
+			}
 		}
 		questions9PGJouee.add(question);
 

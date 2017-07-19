@@ -1,4 +1,4 @@
-package fr.qp1c.ebdj.view;
+package fr.qp1c.ebdj.model;
 
 public enum TypePartie {
 

@@ -3,15 +3,26 @@ package fr.qp1c.ebdj.moteur.bean.question;
 public class QuestionFAF extends Question {
 
 	// Attributs
+
 	private String reference;
 
 	private Source source;
 
 	private String theme;
 
+	private String categorie;
+
 	private Long id;
 
 	// Getters - setters
+
+	public String getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(String categorie) {
+		this.categorie = categorie;
+	}
 
 	public String getTheme() {
 		return theme;
@@ -53,6 +64,8 @@ public class QuestionFAF extends Question {
 		sb.append(id);
 		sb.append(" - ");
 		sb.append(theme);
+		sb.append(" - ");
+		sb.append(categorie);
 		sb.append(" - ");
 		sb.append(reference);
 		sb.append(" - ");

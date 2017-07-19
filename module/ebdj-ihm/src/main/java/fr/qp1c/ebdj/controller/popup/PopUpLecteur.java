@@ -1,20 +1,30 @@
 package fr.qp1c.ebdj.controller.popup;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.Launcher;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurLecteurDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurLecteurDaoImpl;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.Libelle;
-import javafx.scene.control.ChoiceDialog;
+import javafx.geometry.Pos;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.util.Callback;
 
 public class PopUpLecteur {
 
@@ -26,22 +36,27 @@ public class PopUpLecteur {
 	public PopUpLecteur() {
 	}
 
-	public static Optional<String> afficherPopUp() {
+	public static Optional<Lecteur> afficherPopUp() {
 
 		DBConnecteurLecteurDao dbConnecteurLecteurDao = new DBConnecteurLecteurDaoImpl();
 		List<Lecteur> lecteurs = dbConnecteurLecteurDao.listerLecteur();
 
-		List<String> libelleLecteurs = new ArrayList<>();
+		Lecteur lecteurParDefaut = new Lecteur();
+		lecteurParDefaut.setId(Long.valueOf(-1));
+		lecteurParDefaut.setPrenom("Lecteur par défaut");
 
-		libelleLecteurs.add("Par défaut");
-		for (Lecteur lecteur : lecteurs) {
-			libelleLecteurs.add(lecteur.formatterNomUtilisateur());
-		}
+		lecteurs.add(0, lecteurParDefaut);
 
-		ChoiceDialog<String> popupLecteur = new ChoiceDialog<>("Par défaut", libelleLecteurs);
+		Dialog<Lecteur> popupLecteur = new Dialog<>();
+
+		// "Par défaut", libelleLecteurs);
 		popupLecteur.setTitle(Libelle.TITRE);
 		popupLecteur.setHeaderText("Sélectionner l'utilisateur...");
 		popupLecteur.setContentText("Utilisateur:");
+		popupLecteur.initOwner(Launcher.getStage());
+		popupLecteur.initModality(Modality.APPLICATION_MODAL);
+		popupLecteur.setHeight(200);
+		popupLecteur.setWidth(500);
 
 		// TODO : Afficher logo la selection du lecteur
 		popupLecteur.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_POPUP));
@@ -50,11 +65,47 @@ public class PopUpLecteur {
 		dialogPane.getStylesheets().add("/css/styles.css");
 		dialogPane.getStyleClass().add("popUp");
 
+		ButtonType btnGoType = new ButtonType("Selectionner", ButtonData.OK_DONE);
+		dialogPane.getButtonTypes().addAll(btnGoType);
+		dialogPane.lookupButton(btnGoType).setStyle("boutonFermer");
+
+		HBox box = new HBox();
+		box.setAlignment(Pos.TOP_CENTER);
+		box.getChildren().add(new Label("Utilisateur : "));
+
+		ComboBox<Lecteur> cmb = new ComboBox<>();
+		cmb.getItems().addAll(lecteurs);
+		cmb.getSelectionModel().select(0);
+
+		cmb.setCellFactory(new Callback<ListView<Lecteur>, ListCell<Lecteur>>() {
+			@Override
+			public ListCell<Lecteur> call(ListView<Lecteur> p) {
+				return new ListCell<Lecteur>() {
+
+					@Override
+					protected void updateItem(Lecteur item, boolean empty) {
+						super.updateItem(item, empty);
+
+						if (item == null || empty) {
+							setGraphic(null);
+						} else {
+							setText(item.formatterNomUtilisateur());
+						}
+					}
+				};
+			}
+		});
+
+		box.getChildren().add(cmb);
+
+		popupLecteur.getDialogPane().setContent(box);
+		popupLecteur.showAndWait();
+
 		// Traditional way to get the response value.
-		Optional<String> result = popupLecteur.showAndWait();
-		if (result.isPresent()) {
-			LOGGER.info("Utilisateur séléctionné : " + result.get());
-			return Optional.ofNullable(result.get());
+		Lecteur result = cmb.getValue();
+		if (result != null && result.getId() > 0) {
+			LOGGER.info("Utilisateur séléctionné : " + result.formatterNomUtilisateur());
+			return Optional.ofNullable(result);
 		}
 
 		return Optional.ofNullable(null);

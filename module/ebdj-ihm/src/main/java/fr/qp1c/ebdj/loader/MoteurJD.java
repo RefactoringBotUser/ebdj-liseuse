@@ -6,11 +6,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurJDDaoImpl;
-import fr.qp1c.ebdj.view.NiveauPartie;
 
 public class MoteurJD {
 

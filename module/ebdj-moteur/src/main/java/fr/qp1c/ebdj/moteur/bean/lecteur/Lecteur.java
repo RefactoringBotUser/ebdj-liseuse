@@ -56,4 +56,9 @@ public class Lecteur {
 	public void setReference(String reference) {
 		this.reference = reference;
 	}
+
+	@Override
+	public String toString() {
+		return formatterNomUtilisateur();
+	}
 }

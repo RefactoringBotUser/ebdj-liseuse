@@ -45,7 +45,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,reference,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id)");
+				"SELECT id,question,reponse,theme,categorie,reference,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
@@ -68,6 +68,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 				// Convertir chaque question
 				QuestionFAF question = new QuestionFAF();
 				question.setId(rs.getLong("id"));
+				question.setCategorie(rs.getString("categorie"));
 				question.setTheme(rs.getString("theme"));
 				question.setQuestion(rs.getString("question"));
 				question.setReponse(rs.getString("reponse"));

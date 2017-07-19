@@ -13,11 +13,11 @@ import fr.qp1c.ebdj.controller.jeu.phase.QALSController;
 import fr.qp1c.ebdj.controller.popup.PopUpErreur;
 import fr.qp1c.ebdj.controller.popup.PopUpFinPartie;
 import fr.qp1c.ebdj.controller.popup.PopUpNiveauPartie;
+import fr.qp1c.ebdj.model.NiveauPartie;
+import fr.qp1c.ebdj.model.TypePartie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
-import fr.qp1c.ebdj.view.NiveauPartie;
-import fr.qp1c.ebdj.view.TypePartie;
 import fr.qp1c.ebdj.view.component.PanneauChronometre;
 import fr.qp1c.ebdj.view.component.PanneauLecteur;
 import javafx.fxml.FXML;
@@ -97,12 +97,12 @@ public class TypePartieController {
 	}
 
 	private void initialiser() {
-		initialiser9PG();
-		initialiser4ALS();
-		initialiserJD();
-		initialiserFAF();
+		initialiserPanneauLecteur();
+		initialiser9PG(panneauLecteur.getLecteur());
+		initialiser4ALS(panneauLecteur.getLecteur());
+		initialiserJD(panneauLecteur.getLecteur());
+		initialiserFAF(panneauLecteur.getLecteur());
 
-		panneauLecteur.setTypePartieController(this);
 	}
 
 	public void definirLecteur(Lecteur lecteur) {
@@ -112,7 +112,12 @@ public class TypePartieController {
 		controllerFAF.definirLecteur(lecteur);
 	}
 
-	private void initialiser9PG() {
+	private void initialiserPanneauLecteur() {
+		panneauLecteur.setTypePartieController(this);
+		panneauLecteur.selectionnerLecteurParDefaut();
+	}
+
+	private void initialiser9PG(Lecteur lecteur) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/phase/NPGView.fxml"));
 			panneauNPG = (BorderPane) loader.load();
@@ -123,7 +128,7 @@ public class TypePartieController {
 		}
 	}
 
-	private void initialiser4ALS() {
+	private void initialiser4ALS(Lecteur lecteur) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/phase/4ALSView.fxml"));
 			panneau4ALS = (BorderPane) loader.load();
@@ -134,7 +139,7 @@ public class TypePartieController {
 		}
 	}
 
-	private void initialiserJD() {
+	private void initialiserJD(Lecteur lecteur) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/phase/JDView.fxml"));
 			panneauJD = (BorderPane) loader.load();
@@ -145,12 +150,11 @@ public class TypePartieController {
 		}
 	}
 
-	private void initialiserFAF() {
+	private void initialiserFAF(Lecteur lecteur) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/phase/FAFView.fxml"));
 			panneauFAF = (BorderPane) loader.load();
 			controllerFAF = loader.getController();
-
 		} catch (IOException e) {
 			LOGGER.error("Une erreur s'est produite :", e);
 			PopUpErreur.afficherPopUp(e);
@@ -162,41 +166,45 @@ public class TypePartieController {
 
 		NiveauPartie niveauPartie = PopUpNiveauPartie.afficherPopUp();
 
+		Lecteur lecteur = panneauLecteur.getLecteur();
+
 		if (controllerNPG != null) {
 			LOGGER.debug("Réinitialisation du 9PG.");
 			controllerNPG.reinitialiser();
 			controllerNPG.definirNiveauPartie(niveauPartie);
+			controllerNPG.definirLecteur(lecteur);
 		}
 		if (controller4ALS != null) {
 			LOGGER.debug("Réinitialisation du 4ALS.");
 			controller4ALS.reinitialiser();
 			controller4ALS.definirNiveauPartie(niveauPartie);
+			controller4ALS.definirLecteur(lecteur);
 		}
 		if (controllerJD != null) {
 			LOGGER.debug("Réinitialisation du JD.");
 			controllerJD.reinitialiser();
 			controllerJD.definirNiveauPartie(niveauPartie);
+			controllerJD.definirLecteur(lecteur);
 		}
 		if (controllerFAF != null) {
 			LOGGER.debug("Réinitialisation du FAF.");
 			controllerFAF.reinitialiser();
 			controllerFAF.definirNiveauPartie(niveauPartie);
+			controllerFAF.definirLecteur(lecteur);
 		}
 		if (panneauChronometre != null) {
 			panneauChronometre.restart();
 		}
 
 		if (TypePartie.NPG.equals(typePartie) || TypePartie.PARTIE.equals(typePartie)) {
-
 			// Lancer en mode 1,2,3
 			controllerNPG.changerNiveau123();
+
 		} else if (TypePartie.QALS.equals(typePartie)) {
 
 		} else if (TypePartie.JD.equals(typePartie)) {
-
 			controllerJD.jouerNouvelleQuestionJD();
 		} else if (TypePartie.FAF.equals(typePartie)) {
-
 			controllerFAF.jouerNouvelleQuestionFAF();
 		}
 

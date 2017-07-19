@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.Launcher;
+import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.Libelle;
-import fr.qp1c.ebdj.view.NiveauPartie;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -46,6 +46,8 @@ public class PopUpNiveauPartie {
 
 		ButtonType btnGoType = new ButtonType("Jouer !", ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().addAll(btnGoType);
+
+		// TODO remplacer style
 		dialog.getDialogPane().lookupButton(btnGoType).setStyle("boutonFermer");
 
 		final ToggleGroup group = new ToggleGroup();

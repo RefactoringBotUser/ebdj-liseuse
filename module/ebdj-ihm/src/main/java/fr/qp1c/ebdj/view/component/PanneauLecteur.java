@@ -58,41 +58,54 @@ public class PanneauLecteur extends HBox {
 		btnSelectionnerLecteur.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_UTILISATEUR, 25));
 	}
 
-	public void setTypePartieController(TypePartieController typePartieController) {
-		this.typePartieController = typePartieController;
-	}
-
 	@FXML
 	public void selectionnerLecteur() {
 
 		LOGGER.info("### --> Clic sur \"Selectionner un utilisateur\".");
 
-		Optional<String> result = PopUpLecteur.afficherPopUp();
+		Optional<Lecteur> result = PopUpLecteur.afficherPopUp();
 		if (result.isPresent()) {
 			LOGGER.info("Utilisateur séléctionné : " + result.get());
 
-			if (!"Par défaut".equals(result.get())) {
-				libelleLecteur.setText(result.get());
-				libelleLecteur.getStyleClass().add("panneauLecteur");
-
-				btnSelectionnerLecteur.setSelected(true);
+			if ("Par défaut".equals(result.get())) {
+				selectionnerLecteurParDefaut();
 			} else {
-				libelleLecteur.setText("");
-				libelleLecteur.getStyleClass().clear();
-				btnSelectionnerLecteur.setSelected(false);
+				selectionnerLecteurPersonnalise(result.get());
 			}
-
-			// TODO : Récupérer le bon lecteur
-
-			Lecteur lecteur = new Lecteur();
-			lecteur.setNom("GENDRON");
-			lecteur.setPrenom("Nicolas");
-
-			typePartieController.definirLecteur(lecteur);
 		}
 	}
 
+	public void selectionnerLecteurParDefaut() {
+		LOGGER.debug("[DEBUT] Selection du lecteur par défaut.");
+
+		libelleLecteur.setText("");
+		libelleLecteur.getStyleClass().clear();
+		btnSelectionnerLecteur.setSelected(false);
+
+		this.lecteur = new Lecteur();
+		this.lecteur.setNom("INCONNU");
+
+		LOGGER.debug("[FIN] Selection du lecteur par défaut.");
+	}
+
+	public void selectionnerLecteurPersonnalise(Lecteur lecteur) {
+		LOGGER.debug("[DEBUT] Selection du lecteur personnalisé.");
+
+		libelleLecteur.setText(lecteur.formatterNomUtilisateur());
+		libelleLecteur.getStyleClass().add("panneauLecteur");
+		btnSelectionnerLecteur.setSelected(true);
+		this.lecteur = lecteur;
+
+		typePartieController.definirLecteur(this.lecteur);
+
+		LOGGER.debug("[FIN] Selection du lecteur personnalisé.");
+	}
+
 	// Getters - setters
+
+	public void setTypePartieController(TypePartieController typePartieController) {
+		this.typePartieController = typePartieController;
+	}
 
 	public Lecteur getLecteur() {
 		return lecteur;
