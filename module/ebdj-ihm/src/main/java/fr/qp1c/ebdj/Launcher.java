@@ -9,7 +9,9 @@ import fr.qp1c.ebdj.controller.home.HomeController;
 import fr.qp1c.ebdj.controller.jeu.TypePartieController;
 import fr.qp1c.ebdj.controller.parametrage.ParametrageController;
 import fr.qp1c.ebdj.controller.popup.PopUpErreur;
+import fr.qp1c.ebdj.controller.popup.PopUpNiveauPartie;
 import fr.qp1c.ebdj.controller.stats.StatistiquesController;
+import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.model.TypePartie;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.view.Libelle;
@@ -151,8 +153,15 @@ public class Launcher extends Application {
 	public void afficherEcranQuestions(TypePartie typePartie) {
 		LOGGER.info("[DEBUT] Affichage de l'écran partie.");
 
+		NiveauPartie niveauPartie = PopUpNiveauPartie.afficherPopUp();
+
+		if (niveauPartie == null) {
+			// Sortir si abandon.
+			return;
+		}
+
 		// Réinitialisation de l'écran
-		typePartieController.reinitialiser(typePartie);
+		typePartieController.reinitialiser(typePartie, niveauPartie);
 
 		switch (typePartie) {
 		case NPG:

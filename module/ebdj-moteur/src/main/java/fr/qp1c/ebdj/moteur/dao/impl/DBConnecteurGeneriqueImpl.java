@@ -203,22 +203,7 @@ public class DBConnecteurGeneriqueImpl {
 		query.append(reference);
 		query.append(";"); // question active
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			stmt.executeUpdate(query.toString());
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
+		executerUpdateOuInsert(query.toString());
 	}
 
 	public void jouerQuestion(String type, Long idQuestion, String referenceQuestion, String lecteur)
@@ -238,20 +223,7 @@ public class DBConnecteurGeneriqueImpl {
 		query.append(lecteur);
 		query.append("');");
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-			stmt.execute(query.toString());
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
+		executerUpdateOuInsert(query.toString());
 	}
 
 	public void signalerAnomalie(String type, String reference, String version, SignalementAnomalie anomalie,
@@ -271,22 +243,7 @@ public class DBConnecteurGeneriqueImpl {
 		query.append(Utils.escapeSql(lecteur));
 		query.append("');");
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			stmt.executeUpdate(query.toString());
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
+		executerUpdateOuInsert(query.toString());
 	}
 
 	protected int compterNbQuestion(String query) {

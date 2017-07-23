@@ -1,5 +1,7 @@
 package fr.qp1c.ebdj.controller.popup;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,15 +72,19 @@ public class PopUpNiveauPartie {
 		box.getChildren().add(btnDifficile);
 
 		dialog.getDialogPane().setContent(box);
-		dialog.showAndWait();
+		Optional<String> result = dialog.showAndWait();
 
-		if (btnFacile.isSelected()) {
-			return NiveauPartie.FACILE;
-		} else if (btnDifficile.isSelected()) {
-			return NiveauPartie.DIFFICILE;
+		if (result.isPresent()) {
+			if (btnFacile.isSelected()) {
+				return NiveauPartie.FACILE;
+			} else if (btnMoyen.isSelected()) {
+				return NiveauPartie.MOYEN;
+			} else if (btnDifficile.isSelected()) {
+				return NiveauPartie.DIFFICILE;
+			}
 		}
 
-		return NiveauPartie.MOYEN;
+		return null;
 	}
 
 }

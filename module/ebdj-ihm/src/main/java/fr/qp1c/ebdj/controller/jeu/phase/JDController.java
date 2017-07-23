@@ -136,6 +136,8 @@ public class JDController {
 		btnReprendreJD.setVisible(false);
 		btnReprendreJD.setDisable(true);
 
+		nbQuestion.setStyle(Style.FOND_NORMAL);
+
 		modifierTaille(TaillePolice.GRAND);
 
 		LOGGER.debug("[FIN] Initialisation du panneau JD.");

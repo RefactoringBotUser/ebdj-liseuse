@@ -10,4 +10,6 @@ public class Style {
 
 	public static final String FOND_WARNING = "-fx-background-color: #FE2E64;";
 
+	public static final String FOND_NORMAL = "-fx-background-color: #4CAF50;";
+
 }

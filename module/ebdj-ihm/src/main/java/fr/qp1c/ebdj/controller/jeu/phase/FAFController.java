@@ -142,6 +142,8 @@ public class FAFController {
 		btnReprendreFAF.setVisible(false);
 		btnReprendreFAF.setDisable(true);
 
+		nbQuestion.setStyle(Style.FOND_NORMAL);
+
 		modifierTaille(TaillePolice.GRAND);
 
 		LOGGER.debug("[FIN] Initialisation du panneau FAF.");

@@ -12,7 +12,6 @@ import fr.qp1c.ebdj.controller.jeu.phase.NPGController;
 import fr.qp1c.ebdj.controller.jeu.phase.QALSController;
 import fr.qp1c.ebdj.controller.popup.PopUpErreur;
 import fr.qp1c.ebdj.controller.popup.PopUpFinPartie;
-import fr.qp1c.ebdj.controller.popup.PopUpNiveauPartie;
 import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.model.TypePartie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
@@ -161,10 +160,8 @@ public class TypePartieController {
 		}
 	}
 
-	public void reinitialiser(TypePartie typePartie) {
+	public void reinitialiser(TypePartie typePartie, NiveauPartie niveauPartie) {
 		LOGGER.debug("[DEBUT] Réinitialisation de l'écran.");
-
-		NiveauPartie niveauPartie = PopUpNiveauPartie.afficherPopUp();
 
 		Lecteur lecteur = panneauLecteur.getLecteur();
 

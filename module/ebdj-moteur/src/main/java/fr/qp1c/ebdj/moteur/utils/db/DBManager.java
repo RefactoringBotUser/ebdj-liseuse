@@ -1,5 +1,6 @@
 package fr.qp1c.ebdj.moteur.utils.db;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class DBManager {
 	/**
 	 * Le nom du fichier de base de données.
 	 */
-	private String DBFileName = "";
+	private String dBFileName = "";
 
 	// Constructeur
 
@@ -34,7 +35,7 @@ public class DBManager {
 	 *            le nom du fichier de la base de données
 	 */
 	public DBManager(String dBFileName) {
-		DBFileName = dBFileName;
+		this.dBFileName = dBFileName;
 	}
 
 	// Méthodes
@@ -49,7 +50,13 @@ public class DBManager {
 
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:" + DBConstantes.DB_PATH + DBFileName);
+
+			File f = new File(".");
+			LOGGER.error("Chemin correspondant à la base de données :" + f.getAbsolutePath());
+
+			String urlDb = "jdbc:sqlite:" + f.getAbsolutePath() + "/db/" + dBFileName;
+
+			connection = DriverManager.getConnection(urlDb);
 
 			// LOGGER.debug("Connexion a " + DBConstantes.DB_PATH + DBFileName +
 			// " avec succès");

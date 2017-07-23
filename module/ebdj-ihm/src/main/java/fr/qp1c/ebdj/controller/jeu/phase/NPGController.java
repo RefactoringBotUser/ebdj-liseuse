@@ -157,6 +157,8 @@ public class NPGController {
 
 		modifierTaille(TaillePolice.GRAND);
 
+		nbQuestion.setStyle(Style.FOND_NORMAL);
+
 		LOGGER.debug("[FIN] Initialisation du panneau 9PG.");
 	}
 

@@ -38,9 +38,9 @@ public class SynchroWSHelper {
 	protected AuthentificationBdj authentificationBdj;
 
 	public SynchroWSHelper() {
-		urlCockpitRest = "http://localhost:8080/";
+		urlCockpitRest = "http://localhost:9000/";
 		authentificationBdj = new AuthentificationBdj();
-		authentificationBdj.setNomBdj("TEST");
+		authentificationBdj.setNomBdj("E-BDJ - PILOTE");
 		authentificationBdj.setCleAuthentification("45fa69e4-1a99-4b02-996e-b1985a05ddbb");
 	}
 
