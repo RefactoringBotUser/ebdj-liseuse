@@ -15,8 +15,6 @@ import fr.qp1c.ebdj.controller.popup.PopUpFinPartie;
 import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.model.TypePartie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
-import fr.qp1c.ebdj.utils.ImageConstants;
-import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.component.PanneauChronometre;
 import fr.qp1c.ebdj.view.component.PanneauLecteur;
 import javafx.fxml.FXML;
@@ -90,7 +88,9 @@ public class TypePartieController {
 
 		initialiser();
 
-		btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_HOME, 25));
+		// btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_HOME,
+		// 25));
+		btnHome.setText("Quitter la partie");
 
 		LOGGER.debug("[FIN] Initialisation du panneau phase de jeu.");
 	}

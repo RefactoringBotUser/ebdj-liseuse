@@ -36,8 +36,7 @@ public class PopUpLecteur {
 	public PopUpLecteur() {
 	}
 
-	public static Optional<Lecteur> afficherPopUp() {
-
+	private static List<Lecteur> listerLecteurs() {
 		DBConnecteurLecteurDao dbConnecteurLecteurDao = new DBConnecteurLecteurDaoImpl();
 		List<Lecteur> lecteurs = dbConnecteurLecteurDao.listerLecteur();
 
@@ -47,16 +46,16 @@ public class PopUpLecteur {
 
 		lecteurs.add(0, lecteurParDefaut);
 
-		Dialog<Lecteur> popupLecteur = new Dialog<>();
+		return lecteurs;
+	}
 
-		// "Par défaut", libelleLecteurs);
-		popupLecteur.setTitle(Libelle.TITRE);
-		popupLecteur.setHeaderText("Sélectionner l'utilisateur...");
-		popupLecteur.setContentText("Utilisateur:");
+	public static Optional<Lecteur> afficherPopUp() {
+
+		Dialog<Lecteur> popupLecteur = new Dialog<>();
 		popupLecteur.initOwner(Launcher.getStage());
 		popupLecteur.initModality(Modality.APPLICATION_MODAL);
-		popupLecteur.setHeight(200);
-		popupLecteur.setWidth(500);
+		popupLecteur.setTitle(Libelle.TITRE);
+		popupLecteur.setHeaderText("Sélection du lecteur");
 
 		// TODO : Afficher logo la selection du lecteur
 		popupLecteur.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_POPUP));
@@ -65,16 +64,16 @@ public class PopUpLecteur {
 		dialogPane.getStylesheets().add("/css/styles.css");
 		dialogPane.getStyleClass().add("popUp");
 
-		ButtonType btnGoType = new ButtonType("Selectionner", ButtonData.OK_DONE);
-		dialogPane.getButtonTypes().addAll(btnGoType);
-		dialogPane.lookupButton(btnGoType).setStyle("boutonFermer");
+		ButtonType btnSelectionType = new ButtonType("Selectionner", ButtonData.OK_DONE);
+		dialogPane.getButtonTypes().addAll(btnSelectionType);
+		dialogPane.lookupButton(btnSelectionType).setStyle("boutonFermer");
 
 		HBox box = new HBox();
 		box.setAlignment(Pos.TOP_CENTER);
-		box.getChildren().add(new Label("Utilisateur : "));
+		box.getChildren().add(new Label("Lecteur : "));
 
 		ComboBox<Lecteur> cmb = new ComboBox<>();
-		cmb.getItems().addAll(lecteurs);
+		cmb.getItems().addAll(listerLecteurs());
 		cmb.getSelectionModel().select(0);
 
 		cmb.setCellFactory(new Callback<ListView<Lecteur>, ListCell<Lecteur>>() {
@@ -104,7 +103,7 @@ public class PopUpLecteur {
 		// Traditional way to get the response value.
 		Lecteur result = cmb.getValue();
 		if (result != null && result.getId() > 0) {
-			LOGGER.info("Utilisateur séléctionné : " + result.formatterNomUtilisateur());
+			LOGGER.info("Lecteur séléctionné : " + result.formatterNomUtilisateur());
 			return Optional.ofNullable(result);
 		}
 

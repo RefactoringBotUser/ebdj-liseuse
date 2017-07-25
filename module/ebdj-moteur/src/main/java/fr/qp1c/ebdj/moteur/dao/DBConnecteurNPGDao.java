@@ -62,7 +62,7 @@ public interface DBConnecteurNPGDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public void signalerAnomalie(String reference, String version, SignalementAnomalie anomalie, String lecteur)
+	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur)
 			throws DBManagerException;
 
 	/**

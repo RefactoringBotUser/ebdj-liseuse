@@ -60,7 +60,21 @@ public class Utils {
 		String formatDateTime = now.format(formatter);
 
 		return formatDateTime;
+	}
 
+	public static String formaterDate(String date) {
+		String result = "";
+
+		if (date != null && date.length() >= 10) {
+			// 2017-07-20
+			result += date.substring(8, 10);
+			result += "/";
+			result += date.substring(5, 7);
+			result += "/";
+			result += date.substring(0, 4);
+		}
+
+		return result;
 	}
 
 }

@@ -4,26 +4,26 @@ public class SignalementAnomalie {
 
 	// Attributs
 
-	private Long typeAnomalie;
+	private TypeAnomalie typeAnomalie;
 
-	private String cause;
+	private String description;
 
 	// Getters - setters
 
-	public Long getTypeAnomalie() {
+	public TypeAnomalie getTypeAnomalie() {
 		return typeAnomalie;
 	}
 
-	public void setTypeAnomalie(Long typeAnomalie) {
+	public void setTypeAnomalie(TypeAnomalie typeAnomalie) {
 		this.typeAnomalie = typeAnomalie;
 	}
 
-	public String getCause() {
-		return cause;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setCause(String cause) {
-		this.cause = cause;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

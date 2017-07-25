@@ -6,9 +6,11 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.MoteurFAF;
 import fr.qp1c.ebdj.model.NiveauPartie;
+import fr.qp1c.ebdj.model.TypePartie;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
+import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
@@ -184,11 +186,15 @@ public class FAFController {
 	public void signalerErreurQuestionFAF() {
 		LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de FAF\".");
 
-		PopUpAnomalieQuestion.afficherPopUp();
-		listeHistoriqueFAF.get(listeHistoriqueFAF.size() - numQuestionAffiche).setNonComptabilise(true);
-		histoQuestion.refresh();
+		SignalementAnomalie signalementAnomalie = PopUpAnomalieQuestion.afficherPopUp(TypePartie.FAF);
 
-		// TODO mettre en anomalie la question
+		if (signalementAnomalie != null) {
+
+			moteurFAF.signalerAnomalie(signalementAnomalie);
+			listeHistoriqueFAF.get(listeHistoriqueFAF.size() - numQuestionAffiche).setNonComptabilise(true);
+			histoQuestion.refresh();
+		}
+
 	}
 
 	@FXML

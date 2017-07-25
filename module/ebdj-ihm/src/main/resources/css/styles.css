@@ -1,4 +1,4 @@
-.boutonPhase, .boutonMode9PG, .boutonSelectionnerLecteur, .boutonParametrer, .boutonHome, .boutonFermer {
+.boutonPhase, .boutonMode9PG, .boutonSelectionnerLecteur, .boutonParametrer, .boutonHome, .boutonFermer, .boutonJouer {
 	-fx-background-color: #008CBA;
 	-fx-border-color:#008CBA;
 	-fx-font-family: "Venacti";
@@ -9,13 +9,24 @@
 	-fx-background-radius: 10;
 	-fx-border-radius: 10;
 }
+.boutonQuitterPartie {
+	-fx-background-color: red;
+	-fx-border-color:red;
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+}
 
-.boutonPhase:selected, .boutonMode9PG:selected, .boutonSelectionnerLecteur:selected, .boutonParametrer:selected, .boutonHome:selected, .boutonFermer:selected   {
+.boutonPhase:selected, .boutonMode9PG:selected, .boutonSelectionnerLecteur:selected, .boutonParametrer:selected, .boutonHome:selected,.boutonQuitterPartie:selected, .boutonFermer:selected, .boutonJouer:selected   {
 	-fx-background-color: black;
 	-fx-border-color:black;
 }
 
-.boutonPhase:hover, .boutonMode9PG:hover, .boutonSelectionnerLecteur:hover, .boutonParametrer:hover, .boutonHome:hover, .boutonFermer:hover {
+.boutonPhase:hover, .boutonMode9PG:hover, .boutonSelectionnerLecteur:hover, .boutonParametrer:hover, .boutonHome:hover, .boutonQuitterPartie:hover, .boutonFermer:hover, .boutonJouer:hover {
 	-fx-background-color: #ff7f50;
 	-fx-border-color:red;
 }

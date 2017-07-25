@@ -45,7 +45,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,categorie,reference,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id)");
+				"SELECT id,question,reponse,theme,categorie,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
@@ -73,6 +73,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 				question.setQuestion(rs.getString("question"));
 				question.setReponse(rs.getString("reponse"));
 				question.setReference(rs.getString("reference"));
+				question.setVersion(rs.getLong("version"));
 
 				Source source = new Source();
 				source.setClub(rs.getString("club"));
@@ -335,7 +336,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	}
 
 	@Override
-	public void signalerAnomalie(String reference, String version, SignalementAnomalie anomalie, String lecteur)
+	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur)
 			throws DBManagerException {
 		signalerAnomalie("FAF", reference, version, anomalie, lecteur);
 	}

@@ -226,20 +226,22 @@ public class DBConnecteurGeneriqueImpl {
 		executerUpdateOuInsert(query.toString());
 	}
 
-	public void signalerAnomalie(String type, String reference, String version, SignalementAnomalie anomalie,
+	public void signalerAnomalie(String type, String reference, Long version, SignalementAnomalie anomalie,
 			String lecteur) throws DBManagerException {
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append("INSERT INTO QUESTION_" + type
-				+ "_ANOMALIE ('reference','version','type_anomalie','cause','lecteur') VALUES ('");
+				+ "_ANOMALIE ('reference','version','date_anomalie','type_anomalie','cause','lecteur') VALUES ('");
 		query.append(reference);
-		query.append("','");
+		query.append("',");
 		query.append(version);
+		query.append(",'");
+		query.append(Utils.formatDate());
 		query.append("','");
 		query.append(anomalie.getTypeAnomalie());
-		query.append("',");
-		query.append(Utils.escapeSql(anomalie.getCause()));
-		query.append(",'");
+		query.append("','");
+		query.append(Utils.escapeSql(anomalie.getDescription()));
+		query.append("','");
 		query.append(Utils.escapeSql(lecteur));
 		query.append("');");
 

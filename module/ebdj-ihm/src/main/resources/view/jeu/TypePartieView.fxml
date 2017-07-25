@@ -10,21 +10,15 @@
 <?import javafx.scene.layout.*?>
 <?import fr.qp1c.ebdj.view.component.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="800" minWidth="800" prefHeight="800.0" prefWidth="1024.0"
-	style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.jeu.TypePartieController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="800" prefHeight="800.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.jeu.TypePartieController">
 	<top>
 		<VBox prefHeight="55.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
 			<children>
 				<BorderPane>
 					<center>
-						<HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0"
-							styleClass="panneauPhase" BorderPane.alignment="CENTER">
+						<HBox alignment="CENTER" prefHeight="50.0" prefWidth="224.0" styleClass="panneauPhase" BorderPane.alignment="CENTER">
 							<children>
-								<ToggleButton fx:id="btn9PG" mnemonicParsing="false"
-									onAction="#afficherVuePhase9PG" prefWidth="100.0" selected="true"
-									styleClass="boutonPhase" text="9PG" textAlignment="CENTER">
+								<ToggleButton fx:id="btn9PG" mnemonicParsing="false" onAction="#afficherVuePhase9PG" prefWidth="100.0" selected="true" styleClass="boutonPhase" text="9PG" textAlignment="CENTER">
 									<toggleGroup>
 										<ToggleGroup fx:id="phase" />
 									</toggleGroup>
@@ -32,26 +26,17 @@
 										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 									</HBox.margin>
 								</ToggleButton>
-								<ToggleButton fx:id="btn4ALS" contentDisplay="CENTER"
-									mnemonicParsing="false" onAction="#afficherVuePhase4ALS"
-									prefWidth="100.0" styleClass="boutonPhase" text="4ALS"
-									textAlignment="CENTER" toggleGroup="$phase">
+								<ToggleButton fx:id="btn4ALS" contentDisplay="CENTER" mnemonicParsing="false" onAction="#afficherVuePhase4ALS" prefWidth="100.0" styleClass="boutonPhase" text="4ALS" textAlignment="CENTER" toggleGroup="$phase">
 									<HBox.margin>
 										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 									</HBox.margin>
 								</ToggleButton>
-								<ToggleButton fx:id="btnJD" contentDisplay="CENTER"
-									mnemonicParsing="false" onAction="#afficherVuePhaseJD"
-									prefWidth="100.0" styleClass="boutonPhase" text="JD"
-									textAlignment="CENTER" toggleGroup="$phase">
+								<ToggleButton fx:id="btnJD" contentDisplay="CENTER" mnemonicParsing="false" onAction="#afficherVuePhaseJD" prefWidth="100.0" styleClass="boutonPhase" text="JD" textAlignment="CENTER" toggleGroup="$phase">
 									<HBox.margin>
 										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 									</HBox.margin>
 								</ToggleButton>
-								<ToggleButton fx:id="btnFAF" contentDisplay="CENTER"
-									mnemonicParsing="false" onAction="#afficherVuePhaseFAF"
-									prefWidth="100.0" styleClass="boutonPhase" text="FAF"
-									textAlignment="CENTER" toggleGroup="$phase">
+								<ToggleButton fx:id="btnFAF" contentDisplay="CENTER" mnemonicParsing="false" onAction="#afficherVuePhaseFAF" prefWidth="100.0" styleClass="boutonPhase" text="FAF" textAlignment="CENTER" toggleGroup="$phase">
 									<HBox.margin>
 										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 									</HBox.margin>
@@ -60,29 +45,24 @@
 						</HBox>
 					</center>
 					<right>
-						<PanneauChronometre fx:id="panneauChronometre" styleClass="panneauChronometre" alignment="CENTER"
-							prefWidth="200.0">
-							<BorderPane.margin>
-								<Insets bottom="10.0" right="10.0" top="10.0" />
-							</BorderPane.margin>
+					<HBox alignment="CENTER" prefWidth="400.0" BorderPane.alignment="CENTER_RIGHT">
+							<children>
+						<PanneauChronometre fx:id="panneauChronometre" alignment="CENTER" prefWidth="200.0" styleClass="panneauChronometre">
+							
 						</PanneauChronometre>
+						</children>
+						</HBox>
 					</right>
 					<left>
-						<HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0"
-							styleClass="panneauMenu" BorderPane.alignment="CENTER">
+						<HBox alignment="CENTER" prefHeight="50.0" prefWidth="400.0" styleClass="panneauMenu" BorderPane.alignment="CENTER">
 							<children>
 
-								<Button fx:id="btnHome" alignment="CENTER"
-									contentDisplay="CENTER" mnemonicParsing="false" onAction="#retournerEcranHome"
-									styleClass="boutonHome" textAlignment="CENTER">
+								<Button fx:id="btnHome" alignment="CENTER" contentDisplay="CENTER" maxWidth="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#retournerEcranHome" prefWidth="150.0" styleClass="boutonQuitterPartie" textAlignment="CENTER">
 									<HBox.margin>
 										<Insets left="15.0" />
 									</HBox.margin>
 								</Button>
 								<PanneauLecteur fx:id="panneauLecteur" prefWidth="300">
-									<BorderPane.margin>
-										<Insets bottom="10.0" right="10.0" top="10.0" />
-									</BorderPane.margin>
 								</PanneauLecteur>
 							</children>
 						</HBox>

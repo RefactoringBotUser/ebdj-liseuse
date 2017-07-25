@@ -21,6 +21,10 @@ public class ImageUtils {
 		return reduireImage(image, 40);
 	}
 
+	public static ImageView creerImage(String image) {
+		return new ImageView(image);
+	}
+
 	public static ImageView reduireImage(Image image, int size) {
 		ImageView imageView = new ImageView(image);
 		reduireImageCustom(imageView, size);

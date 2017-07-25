@@ -6,9 +6,11 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.MoteurJD;
 import fr.qp1c.ebdj.model.NiveauPartie;
+import fr.qp1c.ebdj.model.TypePartie;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionJD;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
+import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
@@ -178,13 +180,15 @@ public class JDController {
 	public void signalerErreurQuestionJD() {
 		LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de JD\".");
 
-		PopUpAnomalieQuestion.afficherPopUp();
+		SignalementAnomalie signalementAnomalie = PopUpAnomalieQuestion.afficherPopUp(TypePartie.JD);
 
-		listeHistoriqueJD.get(listeHistoriqueJD.size() - numQuestionAffiche).setNonComptabilise(true);
-		histoQuestion.refresh();
+		if (signalementAnomalie != null) {
 
-		// TODO mettre en anomalie la question
+			moteurJD.signalerAnomalie(signalementAnomalie);
 
+			listeHistoriqueJD.get(listeHistoriqueJD.size() - numQuestionAffiche).setNonComptabilise(true);
+			histoQuestion.refresh();
+		}
 	}
 
 	@FXML

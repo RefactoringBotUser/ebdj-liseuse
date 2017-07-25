@@ -6,9 +6,11 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.MoteurNPG;
 import fr.qp1c.ebdj.model.NiveauPartie;
+import fr.qp1c.ebdj.model.TypePartie;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestion9PG;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
+import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
@@ -284,15 +286,18 @@ public class NPGController {
 	public void signalerErreurQuestion9PG() {
 		LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de 9PG\".");
 
-		PopUpAnomalieQuestion.afficherPopUp();
+		SignalementAnomalie signalementAnomalie = PopUpAnomalieQuestion.afficherPopUp(TypePartie.NPG);
 
-		// TODO : récupérer le type d'anomalie et le commentaire
+		if (signalementAnomalie != null) {
 
-		LOGGER.info("Type d'anomalie sur la question : ");
-		LOGGER.info("Num question affiche            : " + numQuestionAffiche);
+			moteur9PG.signalerAnomalie(signalementAnomalie);
 
-		listeHistorique9PG.get(listeHistorique9PG.size() - numQuestionAffiche).setNonComptabilise(true);
-		histoQuestion.refresh();
+			LOGGER.debug("Num question affiche            : " + numQuestionAffiche);
+
+			listeHistorique9PG.get(listeHistorique9PG.size() - numQuestionAffiche).setNonComptabilise(true);
+			histoQuestion.refresh();
+		}
+
 	}
 
 	@FXML
@@ -375,6 +380,8 @@ public class NPGController {
 		reponse9PG.setTextAlignment(TextAlignment.CENTER);
 		// TODO formatter la référence de la question
 		question9PGInfos.setText(Utils.formaterReference(questionNPG.getReference()) + " - " + questionNPG.getSource());
+
+		System.out.println("--> " + questionNPG.getSource());
 
 		LOGGER.debug("[FIN] Affichage carton 9PG.");
 	}

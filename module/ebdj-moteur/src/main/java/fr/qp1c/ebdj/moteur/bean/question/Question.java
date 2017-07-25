@@ -10,6 +10,8 @@ public class Question {
 
 	private String reponse;
 
+	private Long version;
+
 	// Constructeur
 
 	/**
@@ -47,12 +49,22 @@ public class Question {
 		this.reponse = reponse;
 	}
 
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(question);
 		sb.append(" - ");
 		sb.append(reponse);
+		sb.append(" - ");
+		sb.append(version);
 		return sb.toString();
 	}
 }

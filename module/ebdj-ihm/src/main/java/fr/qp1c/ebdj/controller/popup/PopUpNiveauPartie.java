@@ -7,16 +7,18 @@ import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.Launcher;
 import fr.qp1c.ebdj.model.NiveauPartie;
+import fr.qp1c.ebdj.utils.DialogUtils;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.Libelle;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 
@@ -33,53 +35,73 @@ public class PopUpNiveauPartie {
 	public static NiveauPartie afficherPopUp() {
 
 		Dialog<String> dialog = new Dialog<>();
-		dialog.setTitle(Libelle.TITRE);
-		dialog.setHeaderText("Niveau des questions");
 		dialog.initOwner(Launcher.getStage());
 		dialog.initModality(Modality.APPLICATION_MODAL);
-		dialog.setHeight(200);
-		dialog.setWidth(500);
+		dialog.setTitle(Libelle.TITRE);
+		dialog.setHeaderText("Niveau du questionnaire");
+		dialog.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_POPUP));
 
 		DialogPane dialogPane = dialog.getDialogPane();
 		dialogPane.getStylesheets().add("/css/styles.css");
 		dialogPane.getStyleClass().add("popUp");
+		dialogPane.setMinHeight(500);
+		dialogPane.setMinWidth(900);
 
-		dialog.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_POPUP));
+		Button btnFacile = new Button("FACILE", ImageUtils.creerImage("/images/niveau/niveau_facile.png"));
+		btnFacile.setContentDisplay(ContentDisplay.TOP);
+		btnFacile.setGraphicTextGap(10);
+		btnFacile.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				System.out.println("Niveau FACILE");
+				dialog.setResult("FACILE");
+			}
+		});
 
-		ButtonType btnGoType = new ButtonType("Jouer !", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(btnGoType);
+		Button btnMoyen = new Button("MOYEN", ImageUtils.creerImage("/images/niveau/niveau_moyen.png"));
+		btnMoyen.setContentDisplay(ContentDisplay.TOP);
+		btnMoyen.setGraphicTextGap(10);
+		btnMoyen.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				System.out.println("Niveau MOYEN");
+				dialog.setResult("MOYEN");
+			}
+		});
 
-		// TODO remplacer style
-		dialog.getDialogPane().lookupButton(btnGoType).setStyle("boutonFermer");
-
-		final ToggleGroup group = new ToggleGroup();
-
-		ToggleButton btnFacile = new ToggleButton("Facile");
-		ToggleButton btnMoyen = new ToggleButton("Moyen");
-		btnMoyen.setSelected(true);
-		ToggleButton btnDifficile = new ToggleButton("Difficile");
-
-		btnFacile.setToggleGroup(group);
-		btnMoyen.setToggleGroup(group);
-		btnDifficile.setToggleGroup(group);
+		Button btnDifficile = new Button("DIFFICILE", ImageUtils.creerImage("/images/niveau/niveau_difficile.png"));
+		btnDifficile.setContentDisplay(ContentDisplay.TOP);
+		btnDifficile.setGraphicTextGap(10);
+		btnDifficile.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				System.out.println("Niveau DIFFICILE");
+				dialog.setResult("DIFFICILE");
+			}
+		});
 
 		HBox box = new HBox();
-		box.setAlignment(Pos.TOP_CENTER);
+		box.setAlignment(Pos.CENTER);
 		box.getChildren().add(btnFacile);
-		box.getChildren().add(ImageUtils.iconiserImage(ImageConstants.IMAGE_DEMI_VIDE));
+		box.getChildren().add(ImageUtils.iconiserImage(ImageConstants.IMAGE_VIDE));
 		box.getChildren().add(btnMoyen);
-		box.getChildren().add(ImageUtils.iconiserImage(ImageConstants.IMAGE_DEMI_VIDE));
+		box.getChildren().add(ImageUtils.iconiserImage(ImageConstants.IMAGE_VIDE));
 		box.getChildren().add(btnDifficile);
 
 		dialog.getDialogPane().setContent(box);
+
+		Platform.runLater(() -> {
+			DialogUtils.centrer(dialog);
+		});
+
 		Optional<String> result = dialog.showAndWait();
 
 		if (result.isPresent()) {
-			if (btnFacile.isSelected()) {
+			if ("FACILE".equals(result.get())) {
 				return NiveauPartie.FACILE;
-			} else if (btnMoyen.isSelected()) {
+			} else if ("MOYEN".equals(result.get())) {
 				return NiveauPartie.MOYEN;
-			} else if (btnDifficile.isSelected()) {
+			} else if ("DIFFICILE".equals(result.get())) {
 				return NiveauPartie.DIFFICILE;
 			}
 		}

@@ -10,6 +10,7 @@ import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.Mode9PG;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
+import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurNPGDaoImpl;
 
@@ -156,6 +157,13 @@ public class MoteurNPG {
 
 		return question;
 
+	}
+
+	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
+
+		DBConnecteurNPGDao dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
+		dbConnecteurNPGDao.signalerAnomalie(derniereQuestion9PG.getReference(), derniereQuestion9PG.getVersion(),
+				signalementAnomalie, lecteur.formatterNomUtilisateur());
 	}
 
 	private void calculerNbQuestion() {

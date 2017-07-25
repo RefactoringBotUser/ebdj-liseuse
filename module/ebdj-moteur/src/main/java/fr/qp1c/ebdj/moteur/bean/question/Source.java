@@ -1,5 +1,7 @@
 package fr.qp1c.ebdj.moteur.bean.question;
 
+import fr.qp1c.ebdj.moteur.utils.Utils;
+
 /**
  * Cette classe modélise la source d'une question ou d'un thème de
  * questionnaire. Elle a pour but d'assurer la tracabilité d'une question.
@@ -79,10 +81,10 @@ public class Source {
 		StringBuilder sb = new StringBuilder();
 		sb.append(club);
 		sb.append(" - ");
-		sb.append(dateReception);
+		sb.append(Utils.formaterDate(dateReception));
 		if (dateIntegration != null && "".equals(dateIntegration)) {
 			sb.append(" - ");
-			sb.append(dateIntegration);
+			sb.append(Utils.formaterDate(dateIntegration));
 		}
 		return sb.toString();
 	}

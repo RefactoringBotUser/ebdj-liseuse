@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
+import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurFAFDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurFAFDaoImpl;
 
@@ -111,6 +112,13 @@ public class MoteurFAF {
 		LOGGER.debug("[FIN] Changer de question.");
 
 		return nouvelleQuestion;
+	}
+
+	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
+
+		DBConnecteurFAFDao dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
+		dbConnecteurFAFDao.signalerAnomalie(derniereQuestionFAF.getReference(), derniereQuestionFAF.getVersion(),
+				signalementAnomalie, lecteur.formatterNomUtilisateur());
 	}
 
 	private void calculerNbQuestion() {

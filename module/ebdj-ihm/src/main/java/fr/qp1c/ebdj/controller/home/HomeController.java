@@ -40,6 +40,9 @@ public class HomeController {
 	private Button btnFAF;
 
 	@FXML
+	private Button btnPhase;
+
+	@FXML
 	private Button btnPartie;
 
 	@FXML
@@ -137,11 +140,12 @@ public class HomeController {
 	 */
 	private void afficherSousMenuQuestion() {
 
-		btn9PG.setVisible(true);
-		btn4ALS.setVisible(true);
-		btnJD.setVisible(true);
-		btnFAF.setVisible(true);
+		btn9PG.setVisible(false);
+		btn4ALS.setVisible(false);
+		btnJD.setVisible(false);
+		btnFAF.setVisible(false);
 		btnPartie.setVisible(true);
+		btnPhase.setVisible(true);
 
 		btnQuestion.setDisable(true);
 	}
@@ -157,6 +161,7 @@ public class HomeController {
 		btnJD.setVisible(false);
 		btnFAF.setVisible(false);
 		btnPartie.setVisible(false);
+		btnPhase.setVisible(false);
 
 		btnQuestion.setDisable(false);
 	}

@@ -54,7 +54,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,difficulte,reference,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.id=Q_9PG_J.question_id)");
+				"SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.id=Q_9PG_J.question_id)");
 
 		if (difficulte > 0) {
 			query.append(" AND Q_9PG.difficulte='");
@@ -87,6 +87,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 				question.setQuestion(rs.getString("question"));
 				question.setReponse(rs.getString("reponse"));
 				question.setReference(rs.getString("reference"));
+				question.setVersion(rs.getLong("version"));
 
 				Source source = new Source();
 				source.setClub(rs.getString("club"));
@@ -225,7 +226,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	}
 
 	@Override
-	public void signalerAnomalie(String reference, String version, SignalementAnomalie anomalie, String lecteur)
+	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur)
 			throws DBManagerException {
 		signalerAnomalie("NPG", reference, version, anomalie, lecteur);
 	}
