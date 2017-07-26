@@ -11,6 +11,7 @@ import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestion9PG;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.question.TypePhase;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
@@ -379,7 +380,8 @@ public class NPGController {
 		reponse9PG.setText(questionNPG.getReponse().toUpperCase());
 		reponse9PG.setTextAlignment(TextAlignment.CENTER);
 		// TODO formatter la référence de la question
-		question9PGInfos.setText(Utils.formaterReference(questionNPG.getReference()) + " - " + questionNPG.getSource());
+		question9PGInfos.setText(
+				Utils.formaterReference(questionNPG.getReference(), TypePhase.NPG) + " - " + questionNPG.getSource());
 
 		System.out.println("--> " + questionNPG.getSource());
 
@@ -391,16 +393,22 @@ public class NPGController {
 
 		if (niveau == 1) {
 			niveau1.setVisible(false);
+			// niveau2.setFitWidth(0.0);
 			niveau2.setVisible(true);
 			niveau3.setVisible(false);
+			niveau3.setFitWidth(0.0);
 		} else if (niveau == 2) {
 			niveau1.setVisible(true);
 			niveau2.setVisible(true);
+			niveau2.setFitWidth(40.0);
 			niveau3.setVisible(false);
+			niveau3.setFitWidth(0.0);
 		} else if (niveau == 3) {
 			niveau1.setVisible(true);
 			niveau2.setVisible(true);
+			niveau2.setFitWidth(40.0);
 			niveau3.setVisible(true);
+			niveau3.setFitWidth(40.0);
 		}
 
 		LOGGER.debug("[FIN] Affichage niveau question.");

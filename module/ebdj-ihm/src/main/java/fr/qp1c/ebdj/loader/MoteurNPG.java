@@ -76,6 +76,8 @@ public class MoteurNPG {
 
 		cpt_3 = 0;
 
+		niveauPartie = NiveauPartie.MOYEN;
+
 		// Lancer en mode 1,2,3
 		changerNiveau123();
 	}
@@ -116,36 +118,25 @@ public class MoteurNPG {
 				|| (niveau == 3 && Mode9PG.MODE_3.equals(mode9PG))) {
 			LOGGER.info("Question à 1 étoile.");
 
-			question = questions9PG_1.get(cpt_1);
-			cpt_1++;
-
-			if (question != null) {
-				questions9PG_1.addAll(LoaderQuestion9PG.chargerQuestions1Etoile());
-				question = questions9PG_1.get(cpt_1);
-				cpt_1++;
+			if (NiveauPartie.DIFFICILE.equals(niveauPartie)) {
+				question = donnerQuestionA2Points();
+			} else {
+				question = donnerQuestionA1Point();
 			}
+
 		} else if ((niveau == 2 && Mode9PG.MODE_123.equals(mode9PG))
 				|| (niveau == 3 && Mode9PG.MODE_23.equals(mode9PG))) {
 			LOGGER.info("Question à 2 étoiles.");
 
-			question = questions9PG_2.get(cpt_2);
-			cpt_2++;
+			question = donnerQuestionA2Points();
 
-			if (question != null) {
-				questions9PG_2.addAll(LoaderQuestion9PG.chargerQuestions2Etoiles());
-				question = questions9PG_2.get(cpt_2);
-				cpt_2++;
-			}
 		} else {
 			LOGGER.info("Question à 3 étoiles.");
 
-			question = questions9PG_3.get(cpt_3);
-			cpt_3++;
-
-			if (question != null) {
-				questions9PG_3.addAll(LoaderQuestion9PG.chargerQuestions3Etoiles());
-				question = questions9PG_3.get(cpt_3);
-				cpt_3++;
+			if (NiveauPartie.FACILE.equals(niveauPartie)) {
+				question = donnerQuestionA2Points();
+			} else {
+				question = donnerQuestionA3Points();
 			}
 		}
 		questions9PGJouee.add(question);
@@ -157,6 +148,54 @@ public class MoteurNPG {
 
 		return question;
 
+	}
+
+	private QuestionNPG donnerQuestionA1Point() {
+
+		// Charger de nouvelles questions si il en manque
+		if (questions9PG_1.size() <= cpt_1) {
+
+			// TODO : vérifier que le chargement a été efficace
+			questions9PG_1.addAll(LoaderQuestion9PG.chargerQuestions1Etoile());
+		}
+
+		// Récupérer la question à jouer
+		QuestionNPG question = questions9PG_1.get(cpt_1);
+		cpt_1++;
+
+		return question;
+	}
+
+	private QuestionNPG donnerQuestionA2Points() {
+
+		// Charger de nouvelles questions si il en manque
+		if (questions9PG_2.size() <= cpt_2) {
+
+			// TODO : vérifier que le chargement a été efficace
+			questions9PG_2.addAll(LoaderQuestion9PG.chargerQuestions2Etoiles());
+		}
+
+		// Récupérer la question à jouer
+		QuestionNPG question = questions9PG_2.get(cpt_2);
+		cpt_2++;
+
+		return question;
+	}
+
+	private QuestionNPG donnerQuestionA3Points() {
+
+		// Charger de nouvelles questions si il en manque
+		if (questions9PG_3.size() <= cpt_3) {
+
+			// TODO : vérifier que le chargement a été efficace
+			questions9PG_3.addAll(LoaderQuestion9PG.chargerQuestions3Etoiles());
+		}
+
+		// Récupérer la question à jouer
+		QuestionNPG question = questions9PG_3.get(cpt_3);
+		cpt_3++;
+
+		return question;
 	}
 
 	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {

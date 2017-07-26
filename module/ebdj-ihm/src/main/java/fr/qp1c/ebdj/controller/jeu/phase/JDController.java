@@ -11,6 +11,7 @@ import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionJD;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
 import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.question.TypePhase;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
@@ -257,8 +258,8 @@ public class JDController {
 		libelleQuestionJD.setText(questionJD.getQuestion());
 		reponseJD.setText(questionJD.getReponse().toUpperCase());
 		reponseJD.setTextAlignment(TextAlignment.CENTER);
-		questionJDInfos.setText(
-				Utils.formaterReference(questionJD.getReference()) + " - " + questionJD.getSource().toString());
+		questionJDInfos.setText(Utils.formaterReference(questionJD.getReference(), TypePhase.JD) + " - "
+				+ questionJD.getSource().toString());
 
 		LOGGER.debug("[FIN] Affichage carton JD.");
 	}

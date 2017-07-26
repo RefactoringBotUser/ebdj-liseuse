@@ -11,6 +11,7 @@ import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.question.TypePhase;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
@@ -272,8 +273,8 @@ public class FAFController {
 		libelleQuestionFAF.setText(questionFAF.getQuestion().replaceAll("  ", " "));
 		reponseFAF.setText(questionFAF.getReponse().toUpperCase());
 		reponseFAF.setTextAlignment(TextAlignment.CENTER);
-		questionFAFInfos.setText(
-				Utils.formaterReference(questionFAF.getReference()) + " - " + questionFAF.getSource().toString());
+		questionFAFInfos.setText(Utils.formaterReference(questionFAF.getReference(), TypePhase.FAF) + " - "
+				+ questionFAF.getSource().toString());
 
 		LOGGER.debug("[FIN] Affichage carton FAF.");
 	}

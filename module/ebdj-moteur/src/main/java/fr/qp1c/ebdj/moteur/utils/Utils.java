@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 
 import org.apache.commons.lang3.StringUtils;
 
+import fr.qp1c.ebdj.moteur.bean.question.TypePhase;
+
 public class Utils {
 
 	public static String recupererAdresseMac() {
@@ -45,11 +47,20 @@ public class Utils {
 		return StringUtils.replace(str, "'", "''");
 	}
 
-	public static String formaterReference(String reference) {
+	public static String formaterReference(String reference, TypePhase typePhase) {
 
-		// TODO à finaliser
+		switch (typePhase) {
 
-		return "Ref. " + reference;
+		case NPG:
+			return "Q_9PG_" + StringUtilities.pad(5, '0', reference);
+		case QALS:
+			return "Q_4ALS_" + StringUtilities.pad(4, '0', reference);
+		case JD:
+			return "Q_JD_" + StringUtilities.pad(5, '0', reference);
+		case FAF:
+			return "Q_FAF_" + StringUtilities.pad(5, '0', reference);
+		}
+		return null;
 	}
 
 	public static String formatDate() {
