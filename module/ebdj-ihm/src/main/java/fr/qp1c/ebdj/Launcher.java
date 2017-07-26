@@ -207,7 +207,7 @@ public class Launcher extends Application {
 	public void afficherEcranHome() {
 		LOGGER.info("[DEBUT] Affichage de l'écran accueil");
 
-		homeControler.masquerSousMenuQuestion();
+		homeControler.masquerSousMenuTypeQuestionnaire();
 
 		afficherEcran(ecranHome);
 

@@ -1,6 +1,6 @@
 .boutonPhase, .boutonMode9PG, .boutonSelectionnerLecteur, .boutonParametrer, .boutonHome, .boutonFermer, .boutonJouer {
 	-fx-background-color: #008CBA;
-	-fx-border-color:#008CBA;
+	-fx-border-color: #008CBA;
 	-fx-font-family: "Venacti";
 	-fx-font-size: 16px;
 	-fx-font-weight: bold;
@@ -91,6 +91,14 @@
 	-fx-text-fill: black;
 }
 
+.labelOu {
+	-fx-font-family: "Venacti";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: black;
+	-fx-background-color: white;
+}
+
 .nbQuestion, .panneauChronometre, .panneauLecteur{
 	-fx-background-color: #4CAF50;
 	-fx-font-family: "Venacti";
@@ -138,8 +146,17 @@
 	-fx-text-fill: black;
 }
 
-.panneauPhase,.panneauMenu, .panneau9PG, .panneauNiveau9PG, .panneauJD, .popUp{
+.panneauPhase,.panneauMenu, .panneau9PG, .panneauNiveau9PG, .panneauJD, .popUp {
 	-fx-background-color: white;
+	-fx-border-color:white;
+}
+
+.panneauPhaseBordure {
+	-fx-background-color: white;
+	-fx-background-radius: 10;
+	-fx-border-color: #D8D8D8;
+	-fx-border-radius: 10;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
 .popUp:header *.header-panel{

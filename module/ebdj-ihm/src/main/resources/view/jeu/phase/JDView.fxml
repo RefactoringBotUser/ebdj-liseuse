@@ -51,8 +51,8 @@
         <VBox fx:id="cartonJD" alignment="TOP_CENTER" prefWidth="100.0" styleClass="zoneCartonJD"  BorderPane.alignment="CENTER">
            <children>
               <Label fx:id="themeJD" alignment="CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="50.0" styleClass="themeJD"  textAlignment="CENTER" wrapText="true" />
-              <Label fx:id="libelleQuestionJD" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="275.0" styleClass="questionJD"  textAlignment="JUSTIFY" wrapText="true" />
-              <Label fx:id="reponseJD" alignment="TOP_CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="75.0" prefWidth="500.0" styleClass="reponseJD"  textAlignment="CENTER" wrapText="true" />
+              <Label fx:id="libelleQuestionJD" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="275.0"  prefWidth="850.0" maxWidth="850.0" styleClass="questionJD"  textAlignment="JUSTIFY" wrapText="true" />
+              <Label fx:id="reponseJD" alignment="TOP_CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="125.0" prefWidth="500.0" maxWidth="850.0" styleClass="reponseJD"  textAlignment="CENTER" wrapText="true" />
  			  <Separator />
               <Label fx:id="questionJDInfos" prefHeight="60.0" styleClass="questionJDInfos"  />
            </children>

@@ -9,7 +9,9 @@ import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.view.component.BoutonBdj;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Separator;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.VBox;
 
 public class HomeController {
 
@@ -19,7 +21,7 @@ public class HomeController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
 	@FXML
-	private Button btnQuestion;
+	private ToggleButton btnQuestion;
 
 	@FXML
 	private Button btnStats;
@@ -40,13 +42,16 @@ public class HomeController {
 	private Button btnFAF;
 
 	@FXML
-	private Button btnPhase;
+	private ToggleButton btnPhase;
 
 	@FXML
-	private Button btnPartie;
+	private ToggleButton btnPartie;
 
 	@FXML
-	private Separator separateur;
+	private Label labelOu;
+
+	@FXML
+	private VBox btnPanneauTypePartie;
 
 	private Launcher launcher;
 
@@ -56,7 +61,7 @@ public class HomeController {
 		LOGGER.debug("[DEBUT] Initialisation du panneau home.");
 
 		// Création du bouton "Question"
-		BoutonBdj.customiserBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION);
+		BoutonBdj.customiserToggleBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION);
 
 		// Création du bouton "Stats"
 		BoutonBdj.customiserBouton150(btnStats, ImageConstants.IMAGE_HOME_STATS);
@@ -66,18 +71,9 @@ public class HomeController {
 
 		// TODO : Archiver les questions par partie
 
-		separateur.setVisible(false);
-
-		masquerSousMenuQuestion();
+		masquerSousMenuTypeQuestionnaire();
 
 		LOGGER.debug("[FIN] Initialisation du panneau home.");
-	}
-
-	@FXML
-	public void afficherEcranPartieComplete() {
-		LOGGER.info("### --> Clic sur \"Partie complète\"");
-
-		afficherSousMenuQuestion();
 	}
 
 	@FXML
@@ -86,7 +82,7 @@ public class HomeController {
 
 		launcher.afficherEcranStats();
 
-		masquerSousMenuQuestion();
+		masquerSousMenuTypeQuestionnaire();
 	}
 
 	@FXML
@@ -95,7 +91,23 @@ public class HomeController {
 
 		launcher.afficherEcranParametrage();
 
-		masquerSousMenuQuestion();
+		masquerSousMenuTypeQuestionnaire();
+	}
+
+	@FXML
+	public void afficherEcranPartieComplete() {
+		LOGGER.info("### --> Clic sur \"Une partie complète\"");
+
+		afficherSousMenuTypeQuestionnaire();
+	}
+
+	@FXML
+	public void selectionnerPhase() {
+		LOGGER.info("### --> Clic sur \"Une phase de jeu uniquement\"");
+
+		btnPhase.setSelected(true);
+
+		afficherSousMenuPhase();
 	}
 
 	@FXML
@@ -138,32 +150,48 @@ public class HomeController {
 	 * questionnaire.
 	 * 
 	 */
-	private void afficherSousMenuQuestion() {
-
-		btn9PG.setVisible(false);
-		btn4ALS.setVisible(false);
-		btnJD.setVisible(false);
-		btnFAF.setVisible(false);
+	private void afficherSousMenuTypeQuestionnaire() {
 		btnPartie.setVisible(true);
+		labelOu.setVisible(true);
 		btnPhase.setVisible(true);
 
-		btnQuestion.setDisable(true);
+		masquerSousMenuPhase();
+
+		btnQuestion.setSelected(true);
+
+		btnPanneauTypePartie.setVisible(true);
+	}
+
+	private void afficherSousMenuPhase() {
+		btn9PG.setVisible(true);
+		btn4ALS.setVisible(true);
+		btnJD.setVisible(true);
+		btnFAF.setVisible(true);
 	}
 
 	/**
 	 * Masquer le sous-menu permettant de sélectionner le type de questionnaire.
 	 * 
 	 */
-	public void masquerSousMenuQuestion() {
+	public void masquerSousMenuTypeQuestionnaire() {
+		btnPartie.setVisible(false);
+		labelOu.setVisible(false);
+		btnPhase.setVisible(false);
 
+		masquerSousMenuPhase();
+
+		btnQuestion.setSelected(false);
+
+		btnPhase.setSelected(false);
+
+		btnPanneauTypePartie.setVisible(false);
+	}
+
+	public void masquerSousMenuPhase() {
 		btn9PG.setVisible(false);
 		btn4ALS.setVisible(false);
 		btnJD.setVisible(false);
 		btnFAF.setVisible(false);
-		btnPartie.setVisible(false);
-		btnPhase.setVisible(false);
-
-		btnQuestion.setDisable(false);
 	}
 
 	// Getters - setters

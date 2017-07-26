@@ -101,8 +101,8 @@
                     </HBox> 
                  </center>
               </BorderPane>
-              <Label fx:id="question9PG" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="200.0" styleClass="question9PG"  textAlignment="CENTER" wrapText="true" />
-              <Label fx:id="reponse9PG" alignment="TOP_CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="150.0" styleClass="reponse9PG"  textAlignment="CENTER" wrapText="true" />
+              <Label fx:id="question9PG" alignment="CENTER" contentDisplay="CENTER" minHeight="200.0" prefHeight="200.0" prefWidth="850.0" maxWidth="850.0" styleClass="question9PG" textAlignment="CENTER" wrapText="true" />
+              <Label fx:id="reponse9PG" alignment="TOP_CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="200.0" prefWidth="850.0" maxWidth="850.0" styleClass="reponse9PG" textAlignment="CENTER" wrapText="true" />
  			  <Separator />
               <Label fx:id="question9PGInfos" prefHeight="60.0" styleClass="question9PGInfos"  />
            </children>

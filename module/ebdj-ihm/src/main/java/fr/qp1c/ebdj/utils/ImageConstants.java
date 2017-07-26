@@ -15,6 +15,8 @@ public final class ImageConstants {
 
 	public static final String ICONE_PARAMETRAGE = "/images/commun/parametrage.png";
 
+	public static final String ICONE_QUITTER_PARTIE = "/images/commun/quitter_partie.png";
+
 	// Images pour le jeu
 
 	public static final String ETOILE = "/images/jeu/etoile.png";
@@ -54,6 +56,8 @@ public final class ImageConstants {
 	public static final Image IMAGE_PARAMETRAGE;
 
 	public static final Image IMAGE_HOME;
+
+	public static final Image IMAGE_QUITTER_PARTIE;
 
 	public static final Image IMAGE_HOME_QUESTION;
 
@@ -97,6 +101,8 @@ public final class ImageConstants {
 		IMAGE_HOME = new Image(ImageConstants.ICONE_HOME);
 
 		IMAGE_HOME_QUESTION = new Image(ImageConstants.ICONE_HOME_QUESTION);
+
+		IMAGE_QUITTER_PARTIE = new Image(ImageConstants.ICONE_QUITTER_PARTIE);
 
 		IMAGE_HOME_STATS = new Image(ImageConstants.ICONE_HOME_STATS);
 

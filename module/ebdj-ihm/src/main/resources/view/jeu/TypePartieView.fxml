@@ -16,7 +16,7 @@
 			<children>
 				<BorderPane>
 					<center>
-						<HBox alignment="CENTER" prefHeight="50.0" prefWidth="224.0" styleClass="panneauPhase" BorderPane.alignment="CENTER">
+						<HBox fx:id="hboxPhase" alignment="CENTER" prefHeight="50.0" prefWidth="224.0" styleClass="panneauPhase" BorderPane.alignment="CENTER">
 							<children>
 								<ToggleButton fx:id="btn9PG" mnemonicParsing="false" onAction="#afficherVuePhase9PG" prefWidth="100.0" selected="true" styleClass="boutonPhase" text="9PG" textAlignment="CENTER">
 									<toggleGroup>
@@ -45,19 +45,21 @@
 						</HBox>
 					</center>
 					<right>
-					<HBox alignment="CENTER" prefWidth="400.0" BorderPane.alignment="CENTER_RIGHT">
-							<children>
-						<PanneauChronometre fx:id="panneauChronometre" alignment="CENTER" prefWidth="200.0" styleClass="panneauChronometre">
-							
-						</PanneauChronometre>
+					<HBox alignment="CENTER_RIGHT" prefWidth="450.0" styleClass="panneauMenu">
+						<children>
+							<PanneauChronometre fx:id="panneauChronometre" alignment="CENTER" prefWidth="200.0" styleClass="panneauChronometre">
+							<HBox.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+							</HBox.margin>
+							</PanneauChronometre>
+							<Pane prefHeight="40.0" prefWidth="10.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" />
 						</children>
 						</HBox>
 					</right>
 					<left>
-						<HBox alignment="CENTER" prefHeight="50.0" prefWidth="400.0" styleClass="panneauMenu" BorderPane.alignment="CENTER">
+						<HBox alignment="CENTER" prefHeight="50.0" prefWidth="450.0" styleClass="panneauMenu" BorderPane.alignment="CENTER">
 							<children>
-
-								<Button fx:id="btnHome" alignment="CENTER" contentDisplay="CENTER" maxWidth="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#retournerEcranHome" prefWidth="150.0" styleClass="boutonQuitterPartie" textAlignment="CENTER">
+								<Button fx:id="btnHome" alignment="CENTER_LEFT" maxWidth="170.0" minWidth="170.0" mnemonicParsing="false" onAction="#retournerEcranHome" prefWidth="150.0" styleClass="boutonQuitterPartie" textAlignment="CENTER">
 									<HBox.margin>
 										<Insets left="15.0" />
 									</HBox.margin>

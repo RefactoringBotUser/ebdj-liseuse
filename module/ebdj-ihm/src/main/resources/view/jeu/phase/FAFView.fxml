@@ -51,8 +51,8 @@
         <VBox fx:id="cartonFAF" alignment="TOP_CENTER" prefWidth="100.0" styleClass="zoneCartonFAF"  BorderPane.alignment="CENTER">
            <children>
               <Label fx:id="themeFAF" alignment="CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="50.0" styleClass="themeFAF"  textAlignment="CENTER" wrapText="true" />
-              <Label fx:id="libelleQuestionFAF" alignment="CENTER" contentDisplay="CENTER" minHeight="275.0" prefHeight="275.0" styleClass="questionFAF"  textAlignment="JUSTIFY" wrapText="true" />
-              <Label fx:id="reponseFAF" alignment="TOP_CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="75.0" styleClass="reponseFAF"  textAlignment="CENTER" wrapText="true" />
+              <Label fx:id="libelleQuestionFAF" alignment="CENTER" contentDisplay="CENTER" minHeight="275.0" prefHeight="275.0" prefWidth="850.0" maxWidth="850.0" styleClass="questionFAF"  textAlignment="JUSTIFY" wrapText="true" />
+              <Label fx:id="reponseFAF" alignment="TOP_CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="125.0" prefWidth="500.0" maxWidth="850.0" styleClass="reponseFAF"  textAlignment="CENTER" wrapText="true" />
  			  <Separator />
               <Label fx:id="questionFAFInfos" prefHeight="60.0" styleClass="questionFAFInfos"  />
            </children>

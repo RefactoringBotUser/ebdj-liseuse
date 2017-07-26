@@ -63,6 +63,8 @@ public class PopUpLecteur {
 		DialogPane dialogPane = popupLecteur.getDialogPane();
 		dialogPane.getStylesheets().add("/css/styles.css");
 		dialogPane.getStyleClass().add("popUp");
+		dialogPane.setMinHeight(200);
+		dialogPane.setMinWidth(350);
 
 		ButtonType btnSelectionType = new ButtonType("Selectionner", ButtonData.OK_DONE);
 		dialogPane.getButtonTypes().addAll(btnSelectionType);
@@ -70,13 +72,19 @@ public class PopUpLecteur {
 
 		HBox box = new HBox();
 		box.setAlignment(Pos.TOP_CENTER);
-		box.getChildren().add(new Label("Lecteur : "));
+		Label labelLecteur = new Label("Lecteur : ");
+		labelLecteur.setPrefHeight(40);
+		labelLecteur.setPrefWidth(75);
 
-		ComboBox<Lecteur> cmb = new ComboBox<>();
-		cmb.getItems().addAll(listerLecteurs());
-		cmb.getSelectionModel().select(0);
+		box.getChildren().add(labelLecteur);
 
-		cmb.setCellFactory(new Callback<ListView<Lecteur>, ListCell<Lecteur>>() {
+		ComboBox<Lecteur> listeLecteur = new ComboBox<>();
+		listeLecteur.getItems().addAll(listerLecteurs());
+		listeLecteur.getSelectionModel().select(0);
+		listeLecteur.setPrefHeight(40);
+		listeLecteur.setPrefWidth(275);
+
+		listeLecteur.setCellFactory(new Callback<ListView<Lecteur>, ListCell<Lecteur>>() {
 			@Override
 			public ListCell<Lecteur> call(ListView<Lecteur> p) {
 				return new ListCell<Lecteur>() {
@@ -95,13 +103,13 @@ public class PopUpLecteur {
 			}
 		});
 
-		box.getChildren().add(cmb);
+		box.getChildren().add(listeLecteur);
 
 		popupLecteur.getDialogPane().setContent(box);
 		popupLecteur.showAndWait();
 
 		// Traditional way to get the response value.
-		Lecteur result = cmb.getValue();
+		Lecteur result = listeLecteur.getValue();
 		if (result != null && result.getId() > 0) {
 			LOGGER.info("Lecteur séléctionné : " + result.formatterNomUtilisateur());
 			return Optional.ofNullable(result);

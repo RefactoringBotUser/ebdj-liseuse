@@ -15,14 +15,19 @@ import fr.qp1c.ebdj.controller.popup.PopUpFinPartie;
 import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.model.TypePartie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
+import fr.qp1c.ebdj.utils.ImageConstants;
+import fr.qp1c.ebdj.utils.ImageUtils;
 import fr.qp1c.ebdj.view.component.PanneauChronometre;
 import fr.qp1c.ebdj.view.component.PanneauLecteur;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.TextAlignment;
 
 public class TypePartieController {
 
@@ -47,6 +52,9 @@ public class TypePartieController {
 
 	@FXML
 	private ToggleButton btnParametrer;
+
+	@FXML
+	private HBox hboxPhase;
 
 	@FXML
 	private ToggleButton btn9PG;
@@ -84,15 +92,15 @@ public class TypePartieController {
 
 	@FXML
 	private void initialize() {
-		LOGGER.debug("[DEBUT] Initialisation du panneau phase de jeu.");
+		LOGGER.debug("[DEBUT] Initialisation du panneau quitter la partie.");
 
 		initialiser();
 
-		// btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_HOME,
-		// 25));
+		btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_QUITTER_PARTIE, 20));
 		btnHome.setText("Quitter la partie");
+		btnHome.setTextAlignment(TextAlignment.CENTER);
 
-		LOGGER.debug("[FIN] Initialisation du panneau phase de jeu.");
+		LOGGER.debug("[FIN] Initialisation du panneau quitter la partie.");
 	}
 
 	private void initialiser() {
@@ -164,6 +172,7 @@ public class TypePartieController {
 		LOGGER.debug("[DEBUT] Réinitialisation de l'écran.");
 
 		Lecteur lecteur = panneauLecteur.getLecteur();
+		panneauLecteur.selectionnerLecteurParDefaut();
 
 		if (controllerNPG != null) {
 			LOGGER.debug("Réinitialisation du 9PG.");
@@ -215,21 +224,21 @@ public class TypePartieController {
 
 		btn9PG.setVisible(true);
 		btn9PG.setSelected(true);
+		btn9PG.setMaxWidth(100.0);
+		btn9PG.setText("9PG");
 		btn4ALS.setVisible(false);
+		btn4ALS.setMaxWidth(0.0);
+		btn4ALS.setText("");
 		btnJD.setVisible(false);
+		btnJD.setMaxWidth(0.0);
+		btnJD.setText("");
 		btnFAF.setVisible(false);
+		btnFAF.setMaxWidth(0.0);
+		btnFAF.setText("");
 
-		selectionnerVue(panneauNPG);
-	}
-
-	public void selectionnerVuePartie() {
-		LOGGER.info("### --> Clic sur \"Affichage vue Partie\".");
-
-		btn9PG.setVisible(true);
-		btn9PG.setSelected(true);
-		btn4ALS.setVisible(true);
-		btnJD.setVisible(true);
-		btnFAF.setVisible(true);
+		hboxPhase.setMargin(btn4ALS, new Insets(0.0, 0.0, 0.0, 0.0));
+		hboxPhase.setMargin(btnJD, new Insets(0.0, 0.0, 0.0, 0.0));
+		hboxPhase.setMargin(btnFAF, new Insets(0.0, 0.0, 0.0, 0.0));
 
 		selectionnerVue(panneauNPG);
 	}
@@ -238,10 +247,22 @@ public class TypePartieController {
 		LOGGER.info("### --> Clic sur \"Affichage vue 4ALS\".");
 
 		btn9PG.setVisible(false);
+		btn9PG.setMaxWidth(0.0);
+		btn9PG.setText("");
 		btn4ALS.setVisible(true);
 		btn4ALS.setSelected(true);
+		btn4ALS.setMaxWidth(100.0);
+		btn4ALS.setText("4ALS");
 		btnJD.setVisible(false);
+		btnJD.setMaxWidth(0.0);
+		btnJD.setText("");
 		btnFAF.setVisible(false);
+		btnFAF.setMaxWidth(0.0);
+		btnFAF.setText("");
+
+		hboxPhase.setMargin(btn9PG, new Insets(0.0, 0.0, 0.0, 0.0));
+		hboxPhase.setMargin(btnJD, new Insets(0.0, 0.0, 0.0, 0.0));
+		hboxPhase.setMargin(btnFAF, new Insets(0.0, 0.0, 0.0, 0.0));
 
 		selectionnerVue(panneau4ALS);
 	}
@@ -250,10 +271,22 @@ public class TypePartieController {
 		LOGGER.info("### --> Clic sur \"Affichage vue JD\".");
 
 		btn9PG.setVisible(false);
+		btn9PG.setMaxWidth(0.0);
+		btn9PG.setText("");
 		btn4ALS.setVisible(false);
+		btn4ALS.setMaxWidth(0.0);
+		btn4ALS.setText("");
 		btnJD.setVisible(true);
 		btnJD.setSelected(true);
+		btnJD.setMaxWidth(100.0);
+		btnJD.setText("JD");
 		btnFAF.setVisible(false);
+		btnFAF.setMaxWidth(0.0);
+		btnFAF.setText("");
+
+		hboxPhase.setMargin(btn9PG, new Insets(0.0, 0.0, 0.0, 0.0));
+		hboxPhase.setMargin(btn4ALS, new Insets(0.0, 0.0, 0.0, 0.0));
+		hboxPhase.setMargin(btnFAF, new Insets(0.0, 0.0, 0.0, 0.0));
 
 		selectionnerVue(panneauJD);
 	}
@@ -262,12 +295,47 @@ public class TypePartieController {
 		LOGGER.info("### --> Clic sur \"Affichage vue FAF\".");
 
 		btn9PG.setVisible(false);
+		btn9PG.setMaxWidth(0.0);
+		btn9PG.setText("");
 		btn4ALS.setVisible(false);
+		btn4ALS.setMaxWidth(0.0);
+		btn4ALS.setText("");
 		btnJD.setVisible(false);
+		btnJD.setMaxWidth(0.0);
+		btnJD.setText("");
 		btnFAF.setVisible(true);
 		btnFAF.setSelected(true);
+		btnFAF.setMaxWidth(100.0);
+		btnFAF.setText("FAF");
+		hboxPhase.setMargin(btn9PG, new Insets(0.0, 0.0, 0.0, 0.0));
+		hboxPhase.setMargin(btn4ALS, new Insets(0.0, 0.0, 0.0, 0.0));
+		hboxPhase.setMargin(btnJD, new Insets(0.0, 0.0, 0.0, 0.0));
 
 		selectionnerVue(panneauFAF);
+	}
+
+	public void selectionnerVuePartie() {
+		LOGGER.info("### --> Clic sur \"Affichage vue Partie\".");
+
+		btn9PG.setVisible(true);
+		btn9PG.setSelected(true);
+		btn9PG.setMaxWidth(100.0);
+		btn9PG.setText("9PG");
+		btn4ALS.setVisible(true);
+		btn4ALS.setMaxWidth(100.0);
+		btn4ALS.setText("4ALS");
+		btnJD.setVisible(true);
+		btnJD.setMaxWidth(100.0);
+		btnJD.setText("JD");
+		btnFAF.setVisible(true);
+		btnFAF.setMaxWidth(100.0);
+		btnFAF.setText("FAF");
+		hboxPhase.setMargin(btn9PG, new Insets(10.0, 10.0, 10.0, 10.0));
+		hboxPhase.setMargin(btn4ALS, new Insets(10.0, 10.0, 10.0, 10.0));
+		hboxPhase.setMargin(btnJD, new Insets(10.0, 10.0, 10.0, 10.0));
+		hboxPhase.setMargin(btnFAF, new Insets(10.0, 10.0, 10.0, 10.0));
+
+		selectionnerVue(panneauNPG);
 	}
 
 	@FXML
