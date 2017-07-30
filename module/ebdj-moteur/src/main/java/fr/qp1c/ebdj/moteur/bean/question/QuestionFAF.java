@@ -12,6 +12,10 @@ public class QuestionFAF extends Question {
 
 	private String categorie;
 
+	private Long categorieRef;
+
+	private Long difficulte;
+
 	private Long id;
 
 	// Getters - setters
@@ -56,6 +60,14 @@ public class QuestionFAF extends Question {
 		this.id = id;
 	}
 
+	public Long getDifficulte() {
+		return difficulte;
+	}
+
+	public void setDifficulte(Long difficulte) {
+		this.difficulte = difficulte;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -67,11 +79,21 @@ public class QuestionFAF extends Question {
 		sb.append(" - ");
 		sb.append(categorie);
 		sb.append(" - ");
+		sb.append(difficulte);
+		sb.append(" - ");
 		sb.append(reference);
 		sb.append(" - ");
 		sb.append(source);
 
 		return sb.toString();
+	}
+
+	public Long getCategorieRef() {
+		return categorieRef;
+	}
+
+	public void setCategorieRef(Long categorieRef) {
+		this.categorieRef = categorieRef;
 	}
 
 }

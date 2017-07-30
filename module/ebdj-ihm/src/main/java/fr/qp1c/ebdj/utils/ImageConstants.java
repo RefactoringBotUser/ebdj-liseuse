@@ -37,6 +37,8 @@ public final class ImageConstants {
 
 	public static final String ICONE_HOME_QUESTION = "/images/home/question.png";
 
+	public static final String ICONE_HOME_QUESTION_SELECTED = "/images/home/question_selected.png";
+
 	public static final String ICONE_HOME_STATS = "/images/home/stats.png";
 
 	public static final String ICONE_HOME_PARAMETRAGE = "/images/home/parametrage.png";
@@ -60,6 +62,8 @@ public final class ImageConstants {
 	public static final Image IMAGE_QUITTER_PARTIE;
 
 	public static final Image IMAGE_HOME_QUESTION;
+
+	public static final Image IMAGE_HOME_QUESTION_SELECTED;
 
 	public static final Image IMAGE_HOME_STATS;
 
@@ -101,6 +105,8 @@ public final class ImageConstants {
 		IMAGE_HOME = new Image(ImageConstants.ICONE_HOME);
 
 		IMAGE_HOME_QUESTION = new Image(ImageConstants.ICONE_HOME_QUESTION);
+
+		IMAGE_HOME_QUESTION_SELECTED = new Image(ImageConstants.ICONE_HOME_QUESTION_SELECTED);
 
 		IMAGE_QUITTER_PARTIE = new Image(ImageConstants.ICONE_QUITTER_PARTIE);
 

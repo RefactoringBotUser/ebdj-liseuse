@@ -26,13 +26,11 @@ public class MoteurFAF {
 	// Nombre de questions réel (inclus erreur et remplacement).
 	private int nbQuestReel = 0;
 
-	// private int niveau = 0;
-
 	private List<QuestionFAF> questionsFAF = new ArrayList<>();
 
 	private QuestionFAF derniereQuestionFAF;
 
-	private List<String> categoriesJouees;
+	private List<Long> categoriesJouees;
 
 	// Contraintes
 
@@ -47,7 +45,7 @@ public class MoteurFAF {
 	public MoteurFAF() {
 
 		// Chargement des questions.
-		questionsFAF = LoaderQuestionFAF.chargerQuestions();
+		questionsFAF = new ArrayList<>();
 
 		// Nombre de questions officiellement joué.
 		nbQuest = 0;
@@ -56,6 +54,8 @@ public class MoteurFAF {
 		nbQuestReel = 0;
 
 		categoriesJouees = new ArrayList<>();
+
+		this.niveauPartie = NiveauPartie.MOYEN;
 	}
 
 	public void definirLecteur(Lecteur lecteur) {
@@ -67,17 +67,26 @@ public class MoteurFAF {
 	}
 
 	private QuestionFAF donnerNouvelleQuestionInedite() {
-		// TODO finir de charger les questions
-		if (questionsFAF.size() == nbQuestReel) {
-			questionsFAF.addAll(LoaderQuestionFAF.chargerQuestions());
-		}
-		QuestionFAF question = questionsFAF.get(nbQuestReel);
 
-		if (categoriesJouees.contains(question.getCategorie())) {
-			// question = donnerNouvelleQuestionInedite();
-		}
+		QuestionFAF questionFAF = null;
 
-		return question;
+		if (nbQuest % 2 == 0) {
+
+			Long niveauMin = Long.valueOf(1);
+			Long niveauMax = Long.valueOf(4);
+
+			if (NiveauPartie.DIFFICILE.equals(niveauPartie)) {
+				niveauMax = Long.valueOf(3);
+			} else if (NiveauPartie.FACILE.equals(niveauPartie)) {
+				niveauMin = Long.valueOf(2);
+			}
+			questionFAF = LoaderQuestionFAF.chargerQuestions(categoriesJouees, niveauMin, niveauMax);
+		} else {
+			questionFAF = LoaderQuestionFAF.chargerQuestions(categoriesJouees, derniereQuestionFAF.getDifficulte());
+		}
+		questionsFAF.add(questionFAF);
+
+		return questionFAF;
 	}
 
 	private QuestionFAF donnerNouvelleQuestion() {
@@ -85,7 +94,7 @@ public class MoteurFAF {
 
 		QuestionFAF question = donnerNouvelleQuestionInedite();
 
-		categoriesJouees.add(question.getCategorie());
+		categoriesJouees.add(question.getCategorieRef());
 
 		DBConnecteurFAFDao dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
 		dbConnecteurFAFDao.jouerQuestion(question.getId(), question.getReference(), lecteur.formatterNomUtilisateur());

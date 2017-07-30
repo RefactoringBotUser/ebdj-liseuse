@@ -158,6 +158,7 @@ public class HomeController {
 		masquerSousMenuPhase();
 
 		btnQuestion.setSelected(true);
+		BoutonBdj.customiserToggleBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION_SELECTED);
 
 		btnPanneauTypePartie.setVisible(true);
 	}
@@ -181,6 +182,8 @@ public class HomeController {
 		masquerSousMenuPhase();
 
 		btnQuestion.setSelected(false);
+
+		BoutonBdj.customiserToggleBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION);
 
 		btnPhase.setSelected(false);
 

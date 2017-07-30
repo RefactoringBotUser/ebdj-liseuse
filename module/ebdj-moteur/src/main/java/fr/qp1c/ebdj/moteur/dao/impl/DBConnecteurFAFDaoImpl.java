@@ -2,12 +2,12 @@ package fr.qp1c.ebdj.moteur.dao.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.StringJoiner;
 
 import org.slf4j.Logger;
@@ -45,7 +45,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,categorie,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id)");
+				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
@@ -64,23 +64,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 			// Executer la requête
 			ResultSet rs = stmt.executeQuery(query.toString());
 			while (rs.next()) {
-
-				// Convertir chaque question
-				QuestionFAF question = new QuestionFAF();
-				question.setId(rs.getLong("id"));
-				question.setCategorie(rs.getString("categorie"));
-				question.setTheme(rs.getString("theme"));
-				question.setQuestion(rs.getString("question"));
-				question.setReponse(rs.getString("reponse"));
-				question.setReference(rs.getString("reference"));
-				question.setVersion(rs.getLong("version"));
-
-				Source source = new Source();
-				source.setClub(rs.getString("club"));
-				source.setDateReception(rs.getString("dateReception"));
-				question.setSource(source);
-
-				LOGGER.info("Question : " + question);
+				QuestionFAF question = convertirQuestionFAF(rs);
 
 				// Ajouter la question à la liste
 				listeQuestionsAJouer.add(question);
@@ -97,12 +81,35 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		return listeQuestionsAJouer;
 	}
 
+	private QuestionFAF convertirQuestionFAF(ResultSet rs) throws SQLException {
+		// Convertir chaque question
+		QuestionFAF question = new QuestionFAF();
+		question.setId(rs.getLong("id"));
+		question.setCategorie(rs.getString("categorie"));
+		question.setCategorieRef(rs.getLong("categorieRef"));
+		question.setTheme(rs.getString("theme"));
+		question.setQuestion(rs.getString("question"));
+		question.setReponse(rs.getString("reponse"));
+		question.setReference(rs.getString("reference"));
+		question.setDifficulte(rs.getLong("difficulte"));
+		question.setVersion(rs.getLong("version"));
+
+		Source source = new Source();
+		source.setClub(rs.getString("club"));
+		source.setDateReception(rs.getString("dateReception"));
+		question.setSource(source);
+
+		LOGGER.info("Question : " + question);
+		return question;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * 
 	 */
 	@Override
-	public QuestionFAF donnerQuestionsJouable(Set<Integer> categorieAExclure) throws DBManagerException {
+	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax)
+			throws DBManagerException {
 
 		QuestionFAF question = null;
 
@@ -110,18 +117,20 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,reference,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id)");
+				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id) AND difficulte>="
+						+ niveauMin + " AND difficulte<=" + niveauMax + "");
 
-		if (categorieAExclure != null) {
-			query.append(" AND Q_FAF.categorie IN '");
-			StringJoiner clauseIn = new StringJoiner(",", "(", ")");
+		if (categoriesAExclure != null && categoriesAExclure.size() > 0) {
+			query.append(" AND Q_FAF.categorieRef NOT IN (");
+			StringJoiner clauseIn = new StringJoiner(",", "", "");
 
-			for (Integer categorie : categorieAExclure) {
+			for (Long categorie : categoriesAExclure) {
 				clauseIn.add(categorie.toString());
 			}
 			query.append(clauseIn);
+			query.append(')');
 		}
-		query.append(";");
+		query.append(" LIMIT 1;");
 
 		LOGGER.debug(query.toString());
 
@@ -133,19 +142,67 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 			// Executer la requête
 			ResultSet rs = stmt.executeQuery(query.toString());
-			while (rs.next()) {
+			if (rs.next()) {
 
 				// Convertir chaque question
-				question = new QuestionFAF();
-				question.setTheme(rs.getString("theme"));
-				question.setQuestion(rs.getString("question"));
-				question.setReponse(rs.getString("reponse"));
-				question.setReference(rs.getString("reference"));
+				question = convertirQuestionFAF(rs);
 
-				Source source = new Source();
-				source.setClub(rs.getString("club"));
-				source.setDateReception(rs.getString("dateReception"));
-				question.setSource(source);
+				LOGGER.info("Question : " + question);
+			}
+
+			// Fermeture des connections.
+			stmt.close();
+			dbManager.close(connection);
+		} catch (Exception e) {
+			LOGGER.error("An error has occured :", e);
+			throw new DBManagerException();
+		}
+
+		return question;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveau) throws DBManagerException {
+
+		QuestionFAF question = null;
+
+		// Création de la requête
+
+		StringBuilder query = new StringBuilder();
+		query.append(
+				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id) AND difficulte="
+						+ niveau + "");
+
+		if (categoriesAExclure != null && categoriesAExclure.size() > 0) {
+			query.append(" AND Q_FAF.categorieRef NOT IN (");
+			StringJoiner clauseIn = new StringJoiner(",", "", "");
+
+			for (Long categorie : categoriesAExclure) {
+				clauseIn.add(categorie.toString());
+			}
+			query.append(clauseIn);
+			query.append(')');
+		}
+		query.append(" LIMIT 1;");
+
+		LOGGER.debug(query.toString());
+
+		try {
+			// Connexion à la base de données SQLite
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
+			Connection connection = dbManager.connect();
+			Statement stmt = connection.createStatement();
+
+			// Executer la requête
+			ResultSet rs = stmt.executeQuery(query.toString());
+			if (rs.next()) {
+
+				// Convertir chaque question
+				question = convertirQuestionFAF(rs);
 
 				LOGGER.info("Question : " + question);
 			}

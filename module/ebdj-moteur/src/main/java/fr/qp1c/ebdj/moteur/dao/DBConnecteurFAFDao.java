@@ -2,7 +2,6 @@ package fr.qp1c.ebdj.moteur.dao;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
@@ -38,7 +37,10 @@ public interface DBConnecteurFAFDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public QuestionFAF donnerQuestionsJouable(Set<Integer> categorieAExclure) throws DBManagerException;
+	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax)
+			throws DBManagerException;
+
+	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveau) throws DBManagerException;
 
 	/**
 	 * Marquer une question comme jouée.
