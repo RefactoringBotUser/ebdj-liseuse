@@ -41,7 +41,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,reference,version,club,dateReception FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id)");
+				"SELECT id,question,reponse,theme,reference,version,club,dateReception FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.reference=Q_JD_J.reference)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
@@ -118,7 +118,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM QUESTION_JD Q_JD WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.id=Q_JD_J.question_id);");
+				"SELECT count(1) FROM QUESTION_JD Q_JD WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.reference=Q_JD_J.reference);");
 
 		return compterNbQuestion(query.toString());
 	}
@@ -167,7 +167,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 		query.append(questionJd.getDateEnvoi());
 		query.append("', version=");
 		query.append(questionJd.getVersion());
-		query.append("' WHERE reference=");
+		query.append(" WHERE reference=");
 		query.append(questionJd.getReference());
 		query.append(";");
 
@@ -179,8 +179,8 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	 * 
 	 */
 	@Override
-	public void jouerQuestion(Long idQuestion, String referenceQuestion, String lecteur) throws DBManagerException {
-		jouerQuestion("JD", idQuestion, referenceQuestion, lecteur);
+	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException {
+		jouerQuestion("JD", referenceQuestion, lecteur);
 	}
 
 	@Override

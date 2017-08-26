@@ -48,7 +48,7 @@ public interface DBConnecteurNPGDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public void jouerQuestion(Long idQuestion, String referenceQuestion, String lecteur) throws DBManagerException;
+	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException;
 
 	/**
 	 * Signaler une anomalie sur une question.

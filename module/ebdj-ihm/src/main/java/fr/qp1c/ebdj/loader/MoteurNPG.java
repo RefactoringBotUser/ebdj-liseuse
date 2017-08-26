@@ -142,7 +142,7 @@ public class MoteurNPG {
 		questions9PGJouee.add(question);
 
 		DBConnecteurNPGDao dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
-		dbConnecteurNPGDao.jouerQuestion(question.getId(), question.getReference(), lecteur.formatterNomUtilisateur());
+		dbConnecteurNPGDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
 		LOGGER.debug("[FIN] Donner une nouvelle question.");
 

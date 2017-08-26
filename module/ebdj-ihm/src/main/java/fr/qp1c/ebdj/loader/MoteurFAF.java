@@ -97,7 +97,7 @@ public class MoteurFAF {
 		categoriesJouees.add(question.getCategorieRef());
 
 		DBConnecteurFAFDao dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
-		dbConnecteurFAFDao.jouerQuestion(question.getId(), question.getReference(), lecteur.formatterNomUtilisateur());
+		dbConnecteurFAFDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
 		LOGGER.debug("[FIN] Donner une nouvelle question.");
 

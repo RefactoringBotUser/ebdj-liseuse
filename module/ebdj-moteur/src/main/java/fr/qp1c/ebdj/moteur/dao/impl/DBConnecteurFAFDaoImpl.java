@@ -45,7 +45,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id)");
+				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
@@ -117,7 +117,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id) AND difficulte>="
+				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte>="
 						+ niveauMin + " AND difficulte<=" + niveauMax + "");
 
 		if (categoriesAExclure != null && categoriesAExclure.size() > 0) {
@@ -174,7 +174,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id) AND difficulte="
+				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte="
 						+ niveau + "");
 
 		if (categoriesAExclure != null && categoriesAExclure.size() > 0) {
@@ -270,7 +270,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT categorie, count(1) FROM QUESTION_FAF Q_FAF WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id) GROUP BY categorie order by categorie;");
+				"SELECT categorie, count(1) FROM QUESTION_FAF Q_FAF WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) GROUP BY categorie order by categorie;");
 
 		try {
 			// Connexion à la base de données SQLite
@@ -323,7 +323,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM QUESTION_FAF Q_FAF WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.id=Q_FAF_J.question_id);");
+				"SELECT count(1) FROM QUESTION_FAF Q_FAF WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference);");
 
 		return compterNbQuestion(query.toString());
 	}
@@ -333,9 +333,11 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"INSERT INTO QUESTION_FAF ('categorie','theme','question','reponse','difficulte','reference','club','dateReception','version','active') VALUES ('");
+				"INSERT INTO QUESTION_FAF ('categorie','categorieRef','theme','question','reponse','difficulte','reference','club','dateReception','version','active') VALUES ('");
 		query.append(Utils.escapeSql(questionFaf.getCategorieFAF()));
-		query.append("','");
+		query.append("',");
+		query.append(questionFaf.getCategorieFAFRef());
+		query.append(",'");
 		query.append(Utils.escapeSql(questionFaf.getTheme()));
 		query.append("','");
 		query.append(Utils.escapeSql(questionFaf.getQuestion()));
@@ -360,8 +362,10 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	public void corrigerQuestion(QuestionFAFBdjDistante questionFaf) {
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
-		query.append("UPDATE QUESTION_FAF SET categorie=");
+		query.append("UPDATE QUESTION_FAF SET categorie='");
 		query.append(questionFaf.getCategorieFAF());
+		query.append("', categorieRef=");
+		query.append(questionFaf.getCategorieFAFRef());
 		query.append(", theme='");
 		query.append(Utils.escapeSql(questionFaf.getTheme()));
 		query.append("', question='");
@@ -376,7 +380,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		query.append(questionFaf.getDateEnvoi());
 		query.append("', version=");
 		query.append(questionFaf.getVersion());
-		query.append("' WHERE reference=");
+		query.append(" WHERE reference=");
 		query.append(questionFaf.getReference());
 		query.append(";");
 
@@ -388,8 +392,8 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * 
 	 */
 	@Override
-	public void jouerQuestion(Long idQuestion, String referenceQuestion, String lecteur) throws DBManagerException {
-		jouerQuestion("FAF", idQuestion, referenceQuestion, lecteur);
+	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException {
+		jouerQuestion("FAF", referenceQuestion, lecteur);
 	}
 
 	@Override

@@ -54,7 +54,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.id=Q_9PG_J.question_id)");
+				"SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference)");
 
 		if (difficulte > 0) {
 			query.append(" AND Q_9PG.difficulte='");
@@ -156,7 +156,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM QUESTION_NPG Q_9PG WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.id=Q_9PG_J.question_id) ");
+				"SELECT count(1) FROM QUESTION_NPG Q_9PG WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference) ");
 
 		if (difficulte > 0) {
 			query.append(" AND Q_9PG.difficulte='");
@@ -221,8 +221,8 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * 
 	 */
 	@Override
-	public void jouerQuestion(Long idQuestion, String referenceQuestion, String lecteur) throws DBManagerException {
-		jouerQuestion("NPG", idQuestion, referenceQuestion, lecteur);
+	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException {
+		jouerQuestion("NPG", referenceQuestion, lecteur);
 	}
 
 	@Override

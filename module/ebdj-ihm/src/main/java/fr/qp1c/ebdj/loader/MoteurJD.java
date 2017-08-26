@@ -67,7 +67,7 @@ public class MoteurJD {
 
 		// TODO : gérer la récupération du lecteur
 		DBConnecteurJDDao dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
-		dbConnecteurJDDao.jouerQuestion(question.getId(), question.getReference(), lecteur.formatterNomUtilisateur());
+		dbConnecteurJDDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
 		LOGGER.debug("[FIN] Donner une nouvelle question.");
 

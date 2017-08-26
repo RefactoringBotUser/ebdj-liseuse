@@ -206,16 +206,12 @@ public class DBConnecteurGeneriqueImpl {
 		executerUpdateOuInsert(query.toString());
 	}
 
-	public void jouerQuestion(String type, Long idQuestion, String referenceQuestion, String lecteur)
-			throws DBManagerException {
+	public void jouerQuestion(String type, String referenceQuestion, String lecteur) throws DBManagerException {
 
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("INSERT INTO QUESTION_" + type
-				+ "_LECTURE ('question_id','reference','date_lecture','lecteur') VALUES (");
-		query.append(idQuestion);
-		query.append(",");
+		query.append("INSERT INTO QUESTION_" + type + "_LECTURE ('reference','date_lecture','lecteur') VALUES (");
 		query.append(referenceQuestion);
 		query.append(",'");
 		query.append(Utils.formatDate());

@@ -6,6 +6,8 @@ public class QuestionFAFBdjDistante {
 
 	private String categorieFAF;
 
+	private Long categorieFAFRef;
+
 	private String question;
 
 	private String reponse;
@@ -100,6 +102,14 @@ public class QuestionFAFBdjDistante {
 
 	public void setVersion(Long version) {
 		this.version = version;
+	}
+
+	public Long getCategorieFAFRef() {
+		return categorieFAFRef;
+	}
+
+	public void setCategorieFAFRef(Long categorieFAFRef) {
+		this.categorieFAFRef = categorieFAFRef;
 	}
 
 }
