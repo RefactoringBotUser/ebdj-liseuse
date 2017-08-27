@@ -215,9 +215,22 @@ public class Launcher extends Application {
 	}
 
 	private void afficherEcran(Scene scene) {
+
+		int addHeight = 0;
+		int addWidth = 0;
+
+		// Fixbug : rétrecissement de la fenetre
+
+		if (System.getProperties().getProperty("os.name").toLowerCase().contains("mac os")) {
+			addHeight = 22;
+		} else if (System.getProperties().getProperty("os.name").toLowerCase().contains("windows")) {
+			addHeight = 38;
+			addWidth = 16;
+		}
+
 		Scene oldScene = stage.getScene();
-		double oldWidth = oldScene.getWidth();
-		double oldHeight = oldScene.getHeight() + 22;
+		double oldWidth = oldScene.getWidth() + addWidth;
+		double oldHeight = oldScene.getHeight() + addHeight;
 
 		stage.setScene(scene);
 		stage.setWidth(oldWidth);

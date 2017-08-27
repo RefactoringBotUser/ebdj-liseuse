@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.moteur.bean.question.Question;
-import fr.qp1c.ebdj.moteur.bean.question.Question4ALS;
+import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
 
 public class LoaderQuestion4ALS {
 
@@ -20,24 +20,24 @@ public class LoaderQuestion4ALS {
 	 * 
 	 * @return
 	 */
-	public static Map<String, Question4ALS> chargerQuestions() {
+	public static Map<String, Theme4ALS> chargerQuestions() {
 		LOGGER.debug("[DEBUT] Chargement des questions de 4ALS.");
 
-		Map<String, Question4ALS> questions4ALS = new HashMap<>();
+		Map<String, Theme4ALS> themes4ALS = new HashMap<>();
 
-		questions4ALS.put("1", donnerTheme1());
-		questions4ALS.put("2", donnerTheme2());
-		questions4ALS.put("3", donnerTheme3());
-		questions4ALS.put("4", donnerTheme4());
+		themes4ALS.put("1", donnerTheme1());
+		themes4ALS.put("2", donnerTheme2());
+		themes4ALS.put("3", donnerTheme3());
+		themes4ALS.put("4", donnerTheme4());
 
 		LOGGER.debug("[FIN] Chargement des questions de 4ALS.");
 
-		return questions4ALS;
+		return themes4ALS;
 	}
 
-	public static Question4ALS donnerTheme1() {
+	public static Theme4ALS donnerTheme1() {
 
-		Question4ALS theme = new Question4ALS();
+		Theme4ALS theme = new Theme4ALS();
 
 		Map<String, Question> questionsTheme = new HashMap<>();
 		theme.setTheme("Îles et archipels de l’océan Indien");
@@ -83,9 +83,9 @@ public class LoaderQuestion4ALS {
 		return theme;
 	}
 
-	public static Question4ALS donnerTheme2() {
+	public static Theme4ALS donnerTheme2() {
 
-		Question4ALS theme = new Question4ALS();
+		Theme4ALS theme = new Theme4ALS();
 
 		Map<String, Question> questionsTheme = new HashMap<>();
 		theme.setTheme("Volets et rideaux");
@@ -134,9 +134,9 @@ public class LoaderQuestion4ALS {
 		return theme;
 	}
 
-	public static Question4ALS donnerTheme3() {
+	public static Theme4ALS donnerTheme3() {
 
-		Question4ALS theme = new Question4ALS();
+		Theme4ALS theme = new Theme4ALS();
 
 		Map<String, Question> questionsTheme = new HashMap<>();
 		theme.setTheme("Mariages et divorces au cinéma");
@@ -192,9 +192,9 @@ public class LoaderQuestion4ALS {
 		return theme;
 	}
 
-	public static Question4ALS donnerTheme4() {
+	public static Theme4ALS donnerTheme4() {
 
-		Question4ALS theme = new Question4ALS();
+		Theme4ALS theme = new Theme4ALS();
 
 		Map<String, Question> questionsTheme = new HashMap<>();
 		theme.setTheme("Expressions avec des noms de légumes");

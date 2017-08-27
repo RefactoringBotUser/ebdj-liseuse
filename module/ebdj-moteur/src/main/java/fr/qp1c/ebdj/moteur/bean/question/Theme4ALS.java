@@ -3,7 +3,7 @@ package fr.qp1c.ebdj.moteur.bean.question;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Question4ALS extends Question {
+public class Theme4ALS extends Question {
 
 	// Attributs
 

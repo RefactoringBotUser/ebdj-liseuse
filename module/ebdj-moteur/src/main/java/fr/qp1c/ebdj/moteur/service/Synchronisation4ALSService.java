@@ -10,5 +10,5 @@ public interface Synchronisation4ALSService {
 
 	void synchroniserLectures4ALS() throws BdjException;
 
-	void synchroniserQuestions4ALS() throws BdjException;
+	void synchroniserThemes4ALS() throws BdjException;
 }

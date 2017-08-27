@@ -25,12 +25,12 @@ public class DBConnecteurGeneriqueImpl {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurGeneriqueImpl.class);
 
 	protected Long recupererIndexMaxAnomalie(String type) {
-		return recupererIndexMax("QUESTION_" + type + "_ANOMALIE");
+		return recupererIndexMax(donnerPrefixeTable(type) + "_ANOMALIE");
 
 	}
 
 	protected Long recupererIndexMaxLecture(String type) {
-		return recupererIndexMax("QUESTION_" + type + "_LECTURE");
+		return recupererIndexMax(donnerPrefixeTable(type) + "_LECTURE");
 
 	}
 
@@ -69,15 +69,15 @@ public class DBConnecteurGeneriqueImpl {
 		return indexMax;
 	}
 
-	protected Long recupererReferenceMaxQuestion(String table) {
+	protected Long recupererReferenceMaxQuestion(String type) {
 
 		Long referenceMax = Long.valueOf(0);
 
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT max(reference) FROM QUESTION_");
-		query.append(table);
+		query.append("SELECT max(reference) FROM ");
+		query.append(donnerPrefixeTable(type));
 		query.append(";");
 
 		try {
@@ -102,14 +102,21 @@ public class DBConnecteurGeneriqueImpl {
 		return referenceMax;
 	}
 
+	private String donnerPrefixeTable(String type) {
+		if ("QALS".equals(type)) {
+			return "THEME_" + type;
+		}
+		return "QUESTION_" + type;
+	}
+
 	protected List<Anomalie> listerAnomalies(String type, Long indexDebut) {
 		List<Anomalie> listeAnomalies = new ArrayList<>();
 
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT reference,version,date_anomalie,type_anomalie,cause,lecteur FROM QUESTION_" + type
-				+ "_ANOMALIE WHERE id>");
+		query.append("SELECT reference,version,date_anomalie,type_anomalie,cause,lecteur FROM "
+				+ donnerPrefixeTable(type) + "_ANOMALIE WHERE id>");
 		query.append(indexDebut);
 		query.append(" ORDER BY id ASC;");
 
@@ -157,7 +164,8 @@ public class DBConnecteurGeneriqueImpl {
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT reference, date_lecture, lecteur FROM QUESTION_" + type + "_LECTURE WHERE id>");
+		query.append(
+				"SELECT reference, date_lecture, lecteur FROM FROM " + donnerPrefixeTable(type) + "_LECTURE WHERE id>");
 		query.append(indexDebut);
 		query.append(" ORDER BY id ASC;");
 
@@ -199,7 +207,7 @@ public class DBConnecteurGeneriqueImpl {
 	public void desactiverQuestion(String type, String reference) {
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
-		query.append("UPDATE QUESTION_" + type + " SET active=0 WHERE reference=");
+		query.append("UPDATE " + donnerPrefixeTable(type) + " SET active=0 WHERE reference=");
 		query.append(reference);
 		query.append(";"); // question active
 
@@ -211,7 +219,8 @@ public class DBConnecteurGeneriqueImpl {
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("INSERT INTO QUESTION_" + type + "_LECTURE ('reference','date_lecture','lecteur') VALUES (");
+		query.append(
+				"INSERT INTO " + donnerPrefixeTable(type) + "_LECTURE ('reference','date_lecture','lecteur') VALUES (");
 		query.append(referenceQuestion);
 		query.append(",'");
 		query.append(Utils.formatDate());
@@ -226,7 +235,7 @@ public class DBConnecteurGeneriqueImpl {
 			String lecteur) throws DBManagerException {
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
-		query.append("INSERT INTO QUESTION_" + type
+		query.append("INSERT INTO " + donnerPrefixeTable(type)
 				+ "_ANOMALIE ('reference','version','date_anomalie','type_anomalie','cause','lecteur') VALUES ('");
 		query.append(reference);
 		query.append("',");

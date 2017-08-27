@@ -2,9 +2,12 @@ package fr.qp1c.ebdj.moteur.dao;
 
 import java.util.List;
 
-import fr.qp1c.ebdj.moteur.bean.question.Question4ALS;
 import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
+import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
+import fr.qp1c.ebdj.moteur.ws.wrapper.question.Theme4ALSBdjDistante;
 
 public interface DBConnecteurQALSDao {
 
@@ -13,7 +16,7 @@ public interface DBConnecteurQALSDao {
 	 * 
 	 * @return
 	 */
-	public List<Question4ALS> listerThemeJouable() throws DBManagerException;
+	public List<Theme4ALS> listerThemeJouable() throws DBManagerException;
 
 	/**
 	 * Tirer au sort un thème de 4ALS dans une catégorie donnée.
@@ -22,7 +25,7 @@ public interface DBConnecteurQALSDao {
 	 *            catégorie de thème choisie
 	 * @return le thème de 4ALS
 	 */
-	public Question4ALS donnerTheme(int categorie);
+	public Theme4ALS donnerTheme(int categorie);
 
 	/**
 	 * 
@@ -39,7 +42,7 @@ public interface DBConnecteurQALSDao {
 	 * @param lecteur
 	 * @throws DBManagerException
 	 */
-	public void signalerAnomalie(String referenceTheme, String version, SignalementAnomalie anomalie, String lecteur)
+	public void signalerAnomalie(String referenceTheme, Long version, SignalementAnomalie anomalie, String lecteur)
 			throws DBManagerException;
 
 	/**
@@ -69,4 +72,20 @@ public interface DBConnecteurQALSDao {
 	 * @return le nombre de thème jouable.
 	 */
 	public int compterNbThemeJouee(int categorie);
+
+	public void creerTheme(Theme4ALSBdjDistante theme4alsBdjDistante);
+
+	public void desactiverTheme(String reference);
+
+	public void corrigerTheme(Theme4ALSBdjDistante theme4alsBdjDistante);
+
+	public List<Anomalie> listerAnomalies(Long indexDebut);
+
+	public List<Lecture> listerQuestionsLues(Long indexDebut);
+
+	public Long recupererIndexMaxAnomalie();
+
+	public Long recupererIndexMaxLecture();
+
+	public Long recupererReferenceMaxQuestion();
 }

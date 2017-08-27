@@ -129,7 +129,7 @@ public class PopUpSynchronisationQuestion {
 					barreProgressionSousPhase.setProgress(0.4);
 					updateLibelleBarreProgressionSousPhase("Téléchargement des questions.");
 
-					synchronisation4alsService.synchroniserQuestions4ALS();
+					synchronisation4alsService.synchroniserThemes4ALS();
 					barreProgressionSousPhase.setProgress(0.9);
 					updateLibelleBarreProgressionSousPhase("Téléchargement des corrections.");
 

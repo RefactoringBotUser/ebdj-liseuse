@@ -126,7 +126,6 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 */
 	@Override
 	public int compterNbQuestionLue() {
-
 		return compterNbQuestion(-1);
 	}
 

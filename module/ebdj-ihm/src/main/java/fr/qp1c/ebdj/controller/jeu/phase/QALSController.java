@@ -10,7 +10,7 @@ import fr.qp1c.ebdj.loader.LoaderQuestion4ALS;
 import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.Question;
-import fr.qp1c.ebdj.moteur.bean.question.Question4ALS;
+import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
 import javafx.collections.ObservableList;
@@ -78,12 +78,12 @@ public class QALSController {
 
 		theme4ALS5.setVisible(false);
 
-		Map<String, Question4ALS> themes4ALS = LoaderQuestion4ALS.chargerQuestions();
+		Map<String, Theme4ALS> themes4ALS = LoaderQuestion4ALS.chargerQuestions();
 
-		Question4ALS theme4ALS_1 = themes4ALS.get("1");
-		Question4ALS theme4ALS_2 = themes4ALS.get("2");
-		Question4ALS theme4ALS_3 = themes4ALS.get("3");
-		Question4ALS theme4ALS_4 = themes4ALS.get("4");
+		Theme4ALS theme4ALS_1 = themes4ALS.get("1");
+		Theme4ALS theme4ALS_2 = themes4ALS.get("2");
+		Theme4ALS theme4ALS_3 = themes4ALS.get("3");
+		Theme4ALS theme4ALS_4 = themes4ALS.get("4");
 
 		theme4ALS1.setGraphic(create(ImageConstants.IMAGE_1));
 		theme4ALS1.setText(theme4ALS_1.getTheme());
@@ -150,7 +150,7 @@ public class QALSController {
 
 	}
 
-	public void afficher4ALS(ObservableList list, Question4ALS theme4ALS) {
+	public void afficher4ALS(ObservableList list, Theme4ALS theme4ALS) {
 
 		Font fontR = Font.font("Venacti", FontWeight.BOLD, 18);
 		Font fontQ = new Font("Arial", 18);

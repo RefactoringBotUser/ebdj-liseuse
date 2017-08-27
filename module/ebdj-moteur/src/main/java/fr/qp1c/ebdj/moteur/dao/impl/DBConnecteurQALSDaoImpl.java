@@ -1,21 +1,22 @@
 package fr.qp1c.ebdj.moteur.dao.impl;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.moteur.bean.question.Question4ALS;
 import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
+import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurQALSDao;
-import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
-import fr.qp1c.ebdj.moteur.utils.db.DBManager;
+import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
+import fr.qp1c.ebdj.moteur.ws.wrapper.question.Question4ALSBdjDistante;
+import fr.qp1c.ebdj.moteur.ws.wrapper.question.Theme4ALSBdjDistante;
 
-public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
+public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implements DBConnecteurQALSDao {
 
 	/**
 	 * Default logger.
@@ -27,8 +28,9 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 	 * 
 	 */
 	@Override
-	public List<Question4ALS> listerThemeJouable() throws DBManagerException {
-		// TODO Auto-generated method stub
+	public List<Theme4ALS> listerThemeJouable() throws DBManagerException {
+		// TODO A implementer
+
 		return null;
 	}
 
@@ -37,8 +39,9 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 	 * 
 	 */
 	@Override
-	public Question4ALS donnerTheme(int categorie) {
-		// TODO Auto-generated method stub
+	public Theme4ALS donnerTheme(int categorie) {
+		// TODO A implementer
+
 		// Récupérer 1 theme dans cette catégorie
 
 		// lister les questions de ce theme par ordre de priorité croissante
@@ -52,33 +55,7 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 	 */
 	@Override
 	public void jouerTheme(String referenceTheme, String lecteur) throws DBManagerException {
-
-		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append("INTO THEME_QALS_JOUEE VALUES (");
-		query.append(referenceTheme);
-		query.append(",");
-		// TODO : calculer la date du jour
-		query.append("date du jour");
-		query.append(",'");
-		query.append(lecteur);
-		query.append("');");
-
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-			stmt.execute(query.toString());
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
+		jouerQuestion("QALS", referenceTheme, lecteur);
 	}
 
 	/**
@@ -86,10 +63,9 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 	 * 
 	 */
 	@Override
-	public void signalerAnomalie(String reference, String version, SignalementAnomalie anomalie, String lecteur)
+	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur)
 			throws DBManagerException {
-		// TODO Auto-generated method stub
-
+		signalerAnomalie("QALS", reference, version, anomalie, lecteur);
 	}
 
 	/**
@@ -98,7 +74,6 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 	 */
 	@Override
 	public int compterNbTheme() {
-
 		return compterNbTheme(-1);
 	}
 
@@ -108,8 +83,6 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 	 */
 	@Override
 	public int compterNbTheme(int categorie) {
-
-		int nbQuestionJouee = 0;
 
 		// Création de la requête
 
@@ -124,26 +97,7 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 
 		query.append(";");
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				nbQuestionJouee = rs.getInt(1);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return nbQuestionJouee;
+		return compterNbQuestion(query.toString());
 	}
 
 	/**
@@ -152,7 +106,6 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 	 */
 	@Override
 	public int compterNbThemeJouee() {
-
 		return compterNbThemeJouee(-1);
 	}
 
@@ -162,8 +115,6 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 	 */
 	@Override
 	public int compterNbThemeJouee(int categorie) {
-
-		int nbQuestionJouee = 0;
 
 		// Création de la requête
 
@@ -179,26 +130,120 @@ public class DBConnecteurQALSDaoImpl implements DBConnecteurQALSDao {
 
 		query.append(";");
 
-		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
-			Statement stmt = connection.createStatement();
+		return compterNbQuestion(query.toString());
+	}
 
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				nbQuestionJouee = rs.getInt(1);
-			}
+	@Override
+	public void creerTheme(Theme4ALSBdjDistante theme4als) {
+		StringBuilder query = new StringBuilder();
+		query.append(
+				"INSERT INTO THEME_QALS ('categorie','categorieRef','theme','difficulte','reference','club','dateReception','version','active') VALUES ('");
+		query.append(Utils.escapeSql(theme4als.getCategorie4ALS()));
+		query.append("',");
+		query.append(theme4als.getCategorie4ALSRef());
+		query.append(",'");
+		query.append(Utils.escapeSql(theme4als.getTheme()));
+		query.append("',");
+		query.append(theme4als.getDifficulte());
+		query.append(",'");
+		query.append(theme4als.getReference());
+		query.append("','");
+		query.append(Utils.escapeSql(theme4als.getClub()));
+		query.append("','");
+		query.append(theme4als.getDateEnvoi());
+		query.append("',");
+		query.append(theme4als.getVersion());
+		query.append(",1);"); // question active
 
-			// Fermeture des connections.
-			stmt.close();
-			dbManager.close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
+		executerUpdateOuInsert(query.toString());
+
+		for (Entry<Integer, Question4ALSBdjDistante> question4ALS : theme4als.getQuestions().entrySet()) {
+			StringBuilder queryQuestion = new StringBuilder();
+			queryQuestion.append("INSERT INTO QUESTION_QALS ('seq','question','reponse','theme_ref') VALUES ('");
+			queryQuestion.append(question4ALS.getKey());
+			queryQuestion.append(",'");
+			queryQuestion.append(Utils.escapeSql(question4ALS.getValue().getQuestion()));
+			queryQuestion.append("','");
+			queryQuestion.append(Utils.escapeSql(question4ALS.getValue().getReponse()));
+			queryQuestion.append("',");
+			queryQuestion.append(theme4als.getReference());
+			queryQuestion.append(");");
+
+			executerUpdateOuInsert(queryQuestion.toString());
 		}
-		return nbQuestionJouee;
+	}
+
+	@Override
+	public void desactiverTheme(String reference) {
+		desactiverQuestion("QALS", reference);
+	}
+
+	@Override
+	public void corrigerTheme(Theme4ALSBdjDistante theme4als) {
+
+		// Création de la requête
+		StringBuilder query = new StringBuilder();
+		query.append("UPDATE THEME_QALS SET difficulte=");
+		query.append(theme4als.getDifficulte());
+		query.append(", theme='");
+		query.append(Utils.escapeSql(theme4als.getTheme()));
+		query.append(", club='");
+		query.append(Utils.escapeSql(theme4als.getClub()));
+		query.append("', dateReception='");
+		query.append(theme4als.getDateEnvoi());
+		query.append("', version=");
+		query.append(theme4als.getVersion());
+		query.append(", categorie='");
+		query.append(Utils.escapeSql(theme4als.getCategorie4ALS()));
+		query.append("', categorieRef=");
+		query.append(theme4als.getCategorie4ALSRef());
+		query.append(" WHERE reference=");
+		query.append(theme4als.getReference());
+		query.append(";");
+
+		executerUpdateOuInsert(query.toString());
+
+		executerUpdateOuInsert("delete from QUESTION_QALS WHERE theme_ref=" + theme4als.getReference() + ";");
+
+		for (Entry<Integer, Question4ALSBdjDistante> question4ALS : theme4als.getQuestions().entrySet()) {
+			StringBuilder queryQuestion = new StringBuilder();
+			queryQuestion.append("INSERT INTO QUESTION_QALS ('seq','question','reponse','theme_ref') VALUES ('");
+			queryQuestion.append(question4ALS.getKey());
+			queryQuestion.append(",'");
+			queryQuestion.append(Utils.escapeSql(question4ALS.getValue().getQuestion()));
+			queryQuestion.append("','");
+			queryQuestion.append(Utils.escapeSql(question4ALS.getValue().getReponse()));
+			queryQuestion.append("',");
+			queryQuestion.append(theme4als.getReference());
+			queryQuestion.append(");");
+
+			executerUpdateOuInsert(queryQuestion.toString());
+		}
+	}
+
+	@Override
+	public List<Anomalie> listerAnomalies(Long indexDebut) {
+		return listerAnomalies("QALS", indexDebut);
+	}
+
+	@Override
+	public List<Lecture> listerQuestionsLues(Long indexDebut) {
+		return listerQuestionsLues("QALS", indexDebut);
+	}
+
+	@Override
+	public Long recupererIndexMaxAnomalie() {
+		return recupererIndexMaxAnomalie("QALS");
+	}
+
+	@Override
+	public Long recupererIndexMaxLecture() {
+		return recupererIndexMaxLecture("QALS");
+	}
+
+	@Override
+	public Long recupererReferenceMaxQuestion() {
+		return recupererReferenceMaxQuestion("QALS");
 	}
 
 }
