@@ -52,7 +52,7 @@ public class DBManager {
 			Class.forName("org.sqlite.JDBC");
 
 			File f = new File(".");
-			LOGGER.error("Chemin correspondant à la base de données :" + f.getAbsolutePath());
+			LOGGER.debug("Chemin correspondant à la base de données :" + f.getAbsolutePath());
 
 			String urlDb = "jdbc:sqlite:" + f.getAbsolutePath() + "/db/" + dBFileName;
 

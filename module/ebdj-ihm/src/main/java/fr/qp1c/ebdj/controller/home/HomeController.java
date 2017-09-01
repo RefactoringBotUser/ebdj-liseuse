@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.Launcher;
 import fr.qp1c.ebdj.model.TypePartie;
+import fr.qp1c.ebdj.utils.BoutonUtils;
 import fr.qp1c.ebdj.utils.ImageConstants;
-import fr.qp1c.ebdj.view.component.BoutonBdj;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -61,13 +61,13 @@ public class HomeController {
 		LOGGER.debug("[DEBUT] Initialisation du panneau home.");
 
 		// Création du bouton "Question"
-		BoutonBdj.customiserToggleBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION);
+		BoutonUtils.customiserBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION);
 
 		// Création du bouton "Stats"
-		BoutonBdj.customiserBouton150(btnStats, ImageConstants.IMAGE_HOME_STATS);
+		BoutonUtils.customiserBouton150(btnStats, ImageConstants.IMAGE_HOME_STATS);
 
 		// Création du bouton "Paramétrage"
-		BoutonBdj.customiserBouton150(btnParametrage, ImageConstants.IMAGE_HOME_PARAMETRAGE);
+		BoutonUtils.customiserBouton150(btnParametrage, ImageConstants.IMAGE_HOME_PARAMETRAGE);
 
 		// TODO : Archiver les questions par partie
 
@@ -158,7 +158,7 @@ public class HomeController {
 		masquerSousMenuPhase();
 
 		btnQuestion.setSelected(true);
-		BoutonBdj.customiserToggleBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION_SELECTED);
+		BoutonUtils.customiserBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION_SELECTED);
 
 		btnPanneauTypePartie.setVisible(true);
 	}
@@ -183,14 +183,14 @@ public class HomeController {
 
 		btnQuestion.setSelected(false);
 
-		BoutonBdj.customiserToggleBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION);
+		BoutonUtils.customiserBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION);
 
 		btnPhase.setSelected(false);
 
 		btnPanneauTypePartie.setVisible(false);
 	}
 
-	public void masquerSousMenuPhase() {
+	private void masquerSousMenuPhase() {
 		btn9PG.setVisible(false);
 		btn4ALS.setVisible(false);
 		btnJD.setVisible(false);

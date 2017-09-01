@@ -229,6 +229,9 @@ public class Launcher extends Application {
 		}
 
 		Scene oldScene = stage.getScene();
+
+		System.out.println(oldScene.getWidth() + " / " + oldScene.getHeight());
+
 		double oldWidth = oldScene.getWidth() + addWidth;
 		double oldHeight = oldScene.getHeight() + addHeight;
 
@@ -243,6 +246,7 @@ public class Launcher extends Application {
 	}
 
 	public static void main(String[] args) {
+
 		LOGGER.info("[DEBUT] Démarrage de l'application E-BDJ.");
 
 		/**

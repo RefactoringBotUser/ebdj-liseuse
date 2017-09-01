@@ -8,12 +8,13 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import fr.qp1c.ebdj.view.component.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="1600" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.jeu.phase.QALSController">
    <center>
       <Accordion BorderPane.alignment="CENTER">
         <panes>
-            <TitledPane fx:id="theme4ALS1" animated="false" styleClass="theme4ALS">
+            <TitledPane4ALS fx:id="theme4ALS1" animated="false" styleClass="theme4ALS">
             <content>
                 <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
 	              <top>
@@ -23,8 +24,8 @@
 	              </top>
                 </BorderPane>
               </content>
-            </TitledPane>
-          <TitledPane fx:id="theme4ALS2" animated="false" styleClass="theme4ALS">
+            </TitledPane4ALS>
+          <TitledPane4ALS fx:id="theme4ALS2" animated="false" styleClass="theme4ALS">
             <content>
                 <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
 	              <top>
@@ -34,8 +35,8 @@
 	              </top>
                 </BorderPane>
               </content>
-          </TitledPane>
-          <TitledPane fx:id="theme4ALS3" animated="false" styleClass="theme4ALS">
+          </TitledPane4ALS>
+          <TitledPane4ALS fx:id="theme4ALS3" animated="false" styleClass="theme4ALS">
             <content>
                 <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
 	              <top>
@@ -45,8 +46,8 @@
 	              </top>
                 </BorderPane>
               </content>
-          </TitledPane>
-          <TitledPane fx:id="theme4ALS4" animated="false" styleClass="theme4ALS">
+          </TitledPane4ALS>
+          <TitledPane4ALS fx:id="theme4ALS4" animated="false" styleClass="theme4ALS">
             <content>
                 <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
 	              <top>
@@ -56,8 +57,8 @@
 	              </top>
                 </BorderPane>
               </content>
-          </TitledPane>
-            <TitledPane fx:id="theme4ALS5" animated="false" text="theme5">
+          </TitledPane4ALS>
+            <TitledPane4ALS fx:id="theme4ALS5" animated="false" text="theme5">
             <content>
                 <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
 	              <top>
@@ -67,7 +68,7 @@
 	              </top>
                 </BorderPane>
               </content>
-            </TitledPane>
+            </TitledPane4ALS>
         </panes>
       </Accordion>
    </center>

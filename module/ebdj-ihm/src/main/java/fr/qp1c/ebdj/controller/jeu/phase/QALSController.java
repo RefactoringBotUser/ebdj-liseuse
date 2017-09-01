@@ -13,10 +13,11 @@ import fr.qp1c.ebdj.moteur.bean.question.Question;
 import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;
+import fr.qp1c.ebdj.view.component.BoutonSwitch4ALS;
+import fr.qp1c.ebdj.view.component.TitledPane4ALS;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -34,19 +35,19 @@ public class QALSController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(QALSController.class);
 
 	@FXML
-	private TitledPane theme4ALS1;
+	private TitledPane4ALS theme4ALS1;
 
 	@FXML
-	private TitledPane theme4ALS2;
+	private TitledPane4ALS theme4ALS2;
 
 	@FXML
-	private TitledPane theme4ALS3;
+	private TitledPane4ALS theme4ALS3;
 
 	@FXML
-	private TitledPane theme4ALS4;
+	private TitledPane4ALS theme4ALS4;
 
 	@FXML
-	private TitledPane theme4ALS5;
+	private TitledPane4ALS theme4ALS5;
 
 	@FXML
 	private TextFlow questionTheme4ALS1;
@@ -85,17 +86,42 @@ public class QALSController {
 		Theme4ALS theme4ALS_3 = themes4ALS.get("3");
 		Theme4ALS theme4ALS_4 = themes4ALS.get("4");
 
-		theme4ALS1.setGraphic(create(ImageConstants.IMAGE_1));
+		theme4ALS1.setGraphic(ImageConstants.IMAGE_1);
 		theme4ALS1.setText(theme4ALS_1.getTheme());
+		theme4ALS1.setCollapsible(true);
+		theme4ALS1.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+			if (isNowExpanded) {
+				System.out.println("Titled Pane 1 selected");
+				theme4ALS1.afficherTheme();
+			}
+		});
 
-		theme4ALS2.setGraphic(create(ImageConstants.IMAGE_2));
+		theme4ALS2.setGraphic(ImageConstants.IMAGE_2);
 		theme4ALS2.setText(theme4ALS_2.getTheme());
+		theme4ALS2.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+			if (isNowExpanded) {
+				System.out.println("Titled Pane 2 selected");
+				theme4ALS2.afficherTheme();
+			}
+		});
 
-		theme4ALS3.setGraphic(create(ImageConstants.IMAGE_3));
+		theme4ALS3.setGraphic(ImageConstants.IMAGE_3);
 		theme4ALS3.setText(theme4ALS_3.getTheme());
+		theme4ALS3.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+			if (isNowExpanded) {
+				System.out.println("Titled Pane 3 selected");
+				theme4ALS3.afficherTheme();
+			}
+		});
 
-		theme4ALS4.setGraphic(create(ImageConstants.IMAGE_4));
+		theme4ALS4.setGraphic(ImageConstants.IMAGE_4);
 		theme4ALS4.setText(theme4ALS_4.getTheme());
+		theme4ALS4.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+			if (isNowExpanded) {
+				System.out.println("Titled Pane 4 selected");
+				theme4ALS4.afficherTheme();
+			}
+		});
 
 		// Setting the line spacing between the text objects
 		questionTheme4ALS1.setTextAlignment(TextAlignment.JUSTIFY);
@@ -183,8 +209,7 @@ public class QALSController {
 
 		ImageView demiVide = ImageUtils.iconiserImage(ImageConstants.IMAGE_DEMI_VIDE);
 
-		hbox.getChildren().addAll(logo, /** new Button("Joué"), */
-				demiVide);
+		hbox.getChildren().addAll(logo, new BoutonSwitch4ALS(), demiVide);
 
 		return hbox;
 	}
