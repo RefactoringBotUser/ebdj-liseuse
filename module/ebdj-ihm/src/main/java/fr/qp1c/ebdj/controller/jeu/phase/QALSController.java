@@ -6,28 +6,26 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.controller.jeu.phase.utilisateur.IPreferencesUtilisateurController;
 import fr.qp1c.ebdj.loader.LoaderQuestion4ALS;
 import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.Question;
 import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
 import fr.qp1c.ebdj.utils.ImageConstants;
-import fr.qp1c.ebdj.utils.ImageUtils;
-import fr.qp1c.ebdj.view.component.BoutonSwitch4ALS;
+import fr.qp1c.ebdj.view.TaillePolice;
 import fr.qp1c.ebdj.view.component.TitledPane4ALS;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 
-public class QALSController {
+public class QALSController implements IPreferencesUtilisateurController {
 
 	/**
 	 * Default logger.
@@ -91,7 +89,8 @@ public class QALSController {
 		theme4ALS1.setCollapsible(true);
 		theme4ALS1.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
 			if (isNowExpanded) {
-				System.out.println("Titled Pane 1 selected");
+				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 1\".");
+
 				theme4ALS1.afficherTheme();
 			}
 		});
@@ -100,7 +99,8 @@ public class QALSController {
 		theme4ALS2.setText(theme4ALS_2.getTheme());
 		theme4ALS2.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
 			if (isNowExpanded) {
-				System.out.println("Titled Pane 2 selected");
+				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 2\".");
+
 				theme4ALS2.afficherTheme();
 			}
 		});
@@ -109,7 +109,8 @@ public class QALSController {
 		theme4ALS3.setText(theme4ALS_3.getTheme());
 		theme4ALS3.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
 			if (isNowExpanded) {
-				System.out.println("Titled Pane 3 selected");
+				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 3\".");
+
 				theme4ALS3.afficherTheme();
 			}
 		});
@@ -118,7 +119,8 @@ public class QALSController {
 		theme4ALS4.setText(theme4ALS_4.getTheme());
 		theme4ALS4.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
 			if (isNowExpanded) {
-				System.out.println("Titled Pane 4 selected");
+				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 4\".");
+
 				theme4ALS4.afficherTheme();
 			}
 		});
@@ -141,16 +143,16 @@ public class QALSController {
 		questionTheme4ALS4.setLineSpacing(2.0);
 
 		// Retrieving the observable list of the TextFlow Pane
-		ObservableList list1 = questionTheme4ALS1.getChildren();
+		ObservableList<Node> list1 = questionTheme4ALS1.getChildren();
 		afficher4ALS(list1, theme4ALS_1);
 
-		ObservableList list2 = questionTheme4ALS2.getChildren();
+		ObservableList<Node> list2 = questionTheme4ALS2.getChildren();
 		afficher4ALS(list2, theme4ALS_2);
 
-		ObservableList list3 = questionTheme4ALS3.getChildren();
+		ObservableList<Node> list3 = questionTheme4ALS3.getChildren();
 		afficher4ALS(list3, theme4ALS_3);
 
-		ObservableList list4 = questionTheme4ALS4.getChildren();
+		ObservableList<Node> list4 = questionTheme4ALS4.getChildren();
 		afficher4ALS(list4, theme4ALS_4);
 
 		panneauQuestionTheme4ALS1.setFitToHeight(true);
@@ -172,11 +174,7 @@ public class QALSController {
 
 	}
 
-	public void definirNiveauPartie(NiveauPartie niveauPartie) {
-
-	}
-
-	public void afficher4ALS(ObservableList list, Theme4ALS theme4ALS) {
+	public void afficher4ALS(ObservableList<Node> list, Theme4ALS theme4ALS) {
 
 		Font fontR = Font.font("Venacti", FontWeight.BOLD, 18);
 		Font fontQ = new Font("Arial", 18);
@@ -200,21 +198,21 @@ public class QALSController {
 		}
 	}
 
-	private HBox create(Image image) {
+	@Override
+	public void definirLecteur(Lecteur lecteur) {
+		// TODO Auto-generated method stub
 
-		final HBox hbox = new HBox();
-		hbox.setSpacing(15);
-
-		ImageView logo = ImageUtils.reduireImage(image, 34);
-
-		ImageView demiVide = ImageUtils.iconiserImage(ImageConstants.IMAGE_DEMI_VIDE);
-
-		hbox.getChildren().addAll(logo, new BoutonSwitch4ALS(), demiVide);
-
-		return hbox;
 	}
 
-	public void definirLecteur(Lecteur lecteur) {
+	@Override
+	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void modifierTaille(TaillePolice taille) {
+		// TODO Auto-generated method stub
 
 	}
 

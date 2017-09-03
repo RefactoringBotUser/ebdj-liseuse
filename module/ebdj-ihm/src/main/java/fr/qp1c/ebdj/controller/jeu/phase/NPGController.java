@@ -3,14 +3,15 @@ package fr.qp1c.ebdj.controller.jeu.phase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.controller.jeu.phase.utilisateur.IPreferencesUtilisateurController;
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.MoteurNPG;
 import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.model.TypePartie;
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestion9PG;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.TypePhase;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
@@ -34,7 +35,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
-public class NPGController {
+public class NPGController implements IPreferencesUtilisateurController {
 
 	/**
 	 * Default logger.
@@ -137,7 +138,7 @@ public class NPGController {
 				public void handle(MouseEvent event) {
 					Parent p = (Parent) event.getSource();
 
-					LOGGER.info("Clic sur historique 9PG : {}", p.getUserData());
+					LOGGER.info("### --> Clic sur \"Historique 9PG\" : {}.", p.getUserData());
 
 					afficherQuestionHistorique((HistoriqueQuestion9PG) p.getUserData());
 
@@ -379,13 +380,13 @@ public class NPGController {
 		question9PG.setText(questionNPG.getQuestion());
 		reponse9PG.setText(questionNPG.getReponse().toUpperCase());
 		reponse9PG.setTextAlignment(TextAlignment.CENTER);
-		// TODO formatter la référence de la question
-		question9PGInfos.setText(
-				Utils.formaterReference(questionNPG.getReference(), TypePhase.NPG) + " - " + questionNPG.getSource());
-
-		System.out.println("--> " + questionNPG.getSource());
+		question9PGInfos.setText(formaterQuestion9PGInfos(questionNPG));
 
 		LOGGER.debug("[FIN] Affichage carton 9PG.");
+	}
+
+	private String formaterQuestion9PGInfos(QuestionNPG questionNPG) {
+		return Utils.formaterReference(questionNPG.getReference(), TypePhase.NPG) + " - " + questionNPG.getSource();
 	}
 
 	private void afficherNiveauQuestion(int niveau) {
@@ -420,7 +421,6 @@ public class NPGController {
 		LOGGER.debug("[DEBUT] Historisation de la question 9PG.");
 
 		if (question9PG != null) {
-
 			HistoriqueQuestion9PG histo = new HistoriqueQuestion9PG();
 			histo.setNbQuestion(moteur9PG.getNbQuest());
 			histo.setNbQuestionReel(moteur9PG.getNbQuestReel());
@@ -439,6 +439,7 @@ public class NPGController {
 	 * @param taille
 	 *            liste de taille pré-établi (PETIT, MOYEN ou GRAND)
 	 */
+	@Override
 	public void modifierTaille(TaillePolice taille) {
 		switch (taille) {
 		case PETIT:
@@ -465,10 +466,12 @@ public class NPGController {
 		question9PGInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
 	}
 
+	@Override
 	public void definirNiveauPartie(NiveauPartie niveauPartie) {
 		moteur9PG.definirNiveauPartie(niveauPartie);
 	}
 
+	@Override
 	public void definirLecteur(Lecteur lecteur) {
 		moteur9PG.definirLecteur(lecteur);
 	}

@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.model.NiveauPartie;
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurFAFDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurFAFDaoImpl;
 

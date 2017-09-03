@@ -34,7 +34,10 @@ public class Question {
 	// Getters / setters
 
 	public String getQuestion() {
-		return question;
+		if (question == null) {
+			return null;
+		}
+		return question.replaceAll("  ", " ");
 	}
 
 	public void setQuestion(String question) {

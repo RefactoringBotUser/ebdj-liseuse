@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.Mode9PG;
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurNPGDaoImpl;
 

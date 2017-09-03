@@ -2,7 +2,7 @@ package fr.qp1c.ebdj.moteur.dao;
 
 import java.util.List;
 
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;

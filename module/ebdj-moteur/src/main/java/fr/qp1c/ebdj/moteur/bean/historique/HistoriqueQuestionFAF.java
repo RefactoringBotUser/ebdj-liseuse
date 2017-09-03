@@ -6,6 +6,8 @@ public class HistoriqueQuestionFAF extends HistoriqueQuestion {
 
 	private QuestionFAF question;
 
+	// Getters - setters
+
 	public QuestionFAF getQuestion() {
 		return question;
 	}

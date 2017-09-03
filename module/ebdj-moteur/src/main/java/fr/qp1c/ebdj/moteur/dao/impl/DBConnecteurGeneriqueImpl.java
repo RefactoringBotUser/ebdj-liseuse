@@ -9,12 +9,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
 import fr.qp1c.ebdj.moteur.utils.db.DBManager;
+import fr.qp1c.ebdj.moteur.utils.db.DBUtils;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
 
 public class DBConnecteurGeneriqueImpl {
@@ -223,7 +224,7 @@ public class DBConnecteurGeneriqueImpl {
 				"INSERT INTO " + donnerPrefixeTable(type) + "_LECTURE ('reference','date_lecture','lecteur') VALUES (");
 		query.append(referenceQuestion);
 		query.append(",'");
-		query.append(Utils.formatDate());
+		query.append(Utils.recupererDateHeureCourante());
 		query.append("','");
 		query.append(lecteur);
 		query.append("');");
@@ -241,13 +242,13 @@ public class DBConnecteurGeneriqueImpl {
 		query.append("',");
 		query.append(version);
 		query.append(",'");
-		query.append(Utils.formatDate());
+		query.append(Utils.recupererDateHeureCourante());
 		query.append("','");
 		query.append(anomalie.getTypeAnomalie());
 		query.append("','");
-		query.append(Utils.escapeSql(anomalie.getDescription()));
+		query.append(DBUtils.escapeSql(anomalie.getDescription()));
 		query.append("','");
-		query.append(Utils.escapeSql(lecteur));
+		query.append(DBUtils.escapeSql(lecteur));
 		query.append("');");
 
 		executerUpdateOuInsert(query.toString());

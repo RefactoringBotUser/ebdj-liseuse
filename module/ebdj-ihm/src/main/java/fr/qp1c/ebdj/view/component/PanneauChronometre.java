@@ -1,6 +1,6 @@
 package fr.qp1c.ebdj.view.component;
 
-import fr.qp1c.ebdj.utils.StringUtilities;
+import fr.qp1c.ebdj.moteur.utils.StringUtilities;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

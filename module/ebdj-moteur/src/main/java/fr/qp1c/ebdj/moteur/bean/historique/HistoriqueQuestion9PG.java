@@ -8,6 +8,8 @@ public class HistoriqueQuestion9PG extends HistoriqueQuestion {
 
 	private QuestionNPG question;
 
+	// Getters - setters
+
 	public int getNiveau() {
 		return niveau;
 	}

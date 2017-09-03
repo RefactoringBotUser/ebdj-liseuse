@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.qp1c.ebdj.bean.exception.BdjException;
+import fr.qp1c.ebdj.moteur.bean.exception.BdjException;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.ws.wrapper.correction.CorrectionQuestionBdjDistanteDemande;

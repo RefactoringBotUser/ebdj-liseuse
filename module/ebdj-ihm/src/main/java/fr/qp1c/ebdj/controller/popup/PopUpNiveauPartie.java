@@ -53,7 +53,8 @@ public class PopUpNiveauPartie {
 		btnFacile.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				System.out.println("Niveau FACILE");
+				LOGGER.info("### --> Clic sur \"Niveau FACILE\".");
+
 				dialog.setResult("FACILE");
 			}
 		});
@@ -64,7 +65,8 @@ public class PopUpNiveauPartie {
 		btnMoyen.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				System.out.println("Niveau MOYEN");
+				LOGGER.info("### --> Clic sur \"Niveau MOYEN\".");
+
 				dialog.setResult("MOYEN");
 			}
 		});
@@ -75,7 +77,8 @@ public class PopUpNiveauPartie {
 		btnDifficile.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				System.out.println("Niveau DIFFICILE");
+				LOGGER.info("### --> Clic sur \"Niveau DIFFICILE\".");
+
 				dialog.setResult("DIFFICILE");
 			}
 		});

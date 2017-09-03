@@ -15,12 +15,43 @@
 		<module>module/ebdj-ihm</module>
 	</modules>
 
+	<build>
+		<plugins>
+
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-release-plugin</artifactId>
+		        <version>2.5.3</version>
+		        <configuration>
+		        	<tagNameFormat>v@{project.version}</tagNameFormat>
+          <providerImplementations>
+              <git>jgit</git>
+          </providerImplementations>
+       			</configuration>
+         <dependencies>
+          <dependency>
+              <groupId>org.apache.maven.scm</groupId>
+              <artifactId>maven-scm-provider-jgit</artifactId>
+                    <version>1.9.5</version>
+          </dependency>
+         </dependencies>
+      		</plugin>
+      	</plugins>
+	</build>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+	
+	
+	<scm>
+		<url>https://github.com/ngendron/ebdj-liseuse</url>
+		<connection>scm:git:https://github.com/ngendron/ebdj-liseuse.git</connection>
+		<developerConnection>scm:git:https://github.com/ngendron/ebdj-liseuse.git</developerConnection>
+	</scm>
 
 	<dependencies>
 		<dependency>

@@ -13,15 +13,15 @@ import java.util.StringJoiner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.Source;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurFAFDao;
-import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
 import fr.qp1c.ebdj.moteur.utils.db.DBManager;
+import fr.qp1c.ebdj.moteur.utils.db.DBUtils;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
 import fr.qp1c.ebdj.moteur.ws.wrapper.question.QuestionFAFBdjDistante;
 
@@ -81,28 +81,6 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		return listeQuestionsAJouer;
 	}
 
-	private QuestionFAF convertirQuestionFAF(ResultSet rs) throws SQLException {
-		// Convertir chaque question
-		QuestionFAF question = new QuestionFAF();
-		question.setId(rs.getLong("id"));
-		question.setCategorie(rs.getString("categorie"));
-		question.setCategorieRef(rs.getLong("categorieRef"));
-		question.setTheme(rs.getString("theme"));
-		question.setQuestion(rs.getString("question"));
-		question.setReponse(rs.getString("reponse"));
-		question.setReference(rs.getString("reference"));
-		question.setDifficulte(rs.getLong("difficulte"));
-		question.setVersion(rs.getLong("version"));
-
-		Source source = new Source();
-		source.setClub(rs.getString("club"));
-		source.setDateReception(rs.getString("dateReception"));
-		question.setSource(source);
-
-		LOGGER.info("Question : " + question);
-		return question;
-	}
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -146,8 +124,6 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 				// Convertir chaque question
 				question = convertirQuestionFAF(rs);
-
-				LOGGER.info("Question : " + question);
 			}
 
 			// Fermeture des connections.
@@ -334,21 +310,21 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		StringBuilder query = new StringBuilder();
 		query.append(
 				"INSERT INTO QUESTION_FAF ('categorie','categorieRef','theme','question','reponse','difficulte','reference','club','dateReception','version','active') VALUES ('");
-		query.append(Utils.escapeSql(questionFaf.getCategorieFAF()));
+		query.append(DBUtils.escapeSql(questionFaf.getCategorieFAF()));
 		query.append("',");
 		query.append(questionFaf.getCategorieFAFRef());
 		query.append(",'");
-		query.append(Utils.escapeSql(questionFaf.getTheme()));
+		query.append(DBUtils.escapeSql(questionFaf.getTheme()));
 		query.append("','");
-		query.append(Utils.escapeSql(questionFaf.getQuestion()));
+		query.append(DBUtils.escapeSql(questionFaf.getQuestion()));
 		query.append("','");
-		query.append(Utils.escapeSql(questionFaf.getReponse()));
+		query.append(DBUtils.escapeSql(questionFaf.getReponse()));
 		query.append("',");
 		query.append(questionFaf.getDifficulte());
 		query.append(",'");
 		query.append(questionFaf.getReference());
 		query.append("','");
-		query.append(Utils.escapeSql(questionFaf.getClub()));
+		query.append(DBUtils.escapeSql(questionFaf.getClub()));
 		query.append("','");
 		query.append(questionFaf.getDateEnvoi());
 		query.append("',");
@@ -367,15 +343,15 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		query.append("', categorieRef=");
 		query.append(questionFaf.getCategorieFAFRef());
 		query.append(", theme='");
-		query.append(Utils.escapeSql(questionFaf.getTheme()));
+		query.append(DBUtils.escapeSql(questionFaf.getTheme()));
 		query.append("', question='");
-		query.append(Utils.escapeSql(questionFaf.getQuestion()));
+		query.append(DBUtils.escapeSql(questionFaf.getQuestion()));
 		query.append("', reponse='");
-		query.append(Utils.escapeSql(questionFaf.getReponse()));
+		query.append(DBUtils.escapeSql(questionFaf.getReponse()));
 		query.append("', difficulte=");
 		query.append(questionFaf.getDifficulte());
 		query.append(", club='");
-		query.append(Utils.escapeSql(questionFaf.getClub()));
+		query.append(DBUtils.escapeSql(questionFaf.getClub()));
 		query.append("', dateReception='");
 		query.append(questionFaf.getDateEnvoi());
 		query.append("', version=");
@@ -430,5 +406,28 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	@Override
 	public Long recupererReferenceMaxQuestion() {
 		return recupererReferenceMaxQuestion("FAF");
+	}
+
+	private QuestionFAF convertirQuestionFAF(ResultSet rs) throws SQLException {
+		// Convertir chaque question
+		QuestionFAF question = new QuestionFAF();
+		question.setId(rs.getLong("id"));
+		question.setCategorie(rs.getString("categorie"));
+		question.setCategorieRef(rs.getLong("categorieRef"));
+		question.setTheme(rs.getString("theme"));
+		question.setQuestion(rs.getString("question"));
+		question.setReponse(rs.getString("reponse"));
+		question.setReference(rs.getString("reference"));
+		question.setDifficulte(rs.getLong("difficulte"));
+		question.setVersion(rs.getLong("version"));
+
+		Source source = new Source();
+		source.setClub(rs.getString("club"));
+		source.setDateReception(rs.getString("dateReception"));
+		question.setSource(source);
+
+		LOGGER.debug("Question : " + question);
+
+		return question;
 	}
 }

@@ -1,7 +1,7 @@
 package fr.qp1c.ebdj.controller.popup;
 
 import fr.qp1c.ebdj.Launcher;
-import fr.qp1c.ebdj.bean.exception.BdjException;
+import fr.qp1c.ebdj.moteur.bean.exception.BdjException;
 import fr.qp1c.ebdj.moteur.service.Synchronisation4ALSService;
 import fr.qp1c.ebdj.moteur.service.Synchronisation9PGService;
 import fr.qp1c.ebdj.moteur.service.SynchronisationFAFService;

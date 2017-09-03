@@ -9,15 +9,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.Source;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
-import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
 import fr.qp1c.ebdj.moteur.utils.db.DBManager;
+import fr.qp1c.ebdj.moteur.utils.db.DBUtils;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
 import fr.qp1c.ebdj.moteur.ws.wrapper.question.QuestionJDBdjDistante;
 
@@ -129,17 +129,17 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 		StringBuilder query = new StringBuilder();
 		query.append(
 				"INSERT INTO QUESTION_JD ('theme','question','reponse','difficulte','reference','club','dateReception','version','active') VALUES ('");
-		query.append(Utils.escapeSql(questionJd.getTheme()));
+		query.append(DBUtils.escapeSql(questionJd.getTheme()));
 		query.append("','");
-		query.append(Utils.escapeSql(questionJd.getQuestion()));
+		query.append(DBUtils.escapeSql(questionJd.getQuestion()));
 		query.append("','");
-		query.append(Utils.escapeSql(questionJd.getReponse()));
+		query.append(DBUtils.escapeSql(questionJd.getReponse()));
 		query.append("',");
 		query.append(questionJd.getDifficulte());
 		query.append(",'");
 		query.append(questionJd.getReference());
 		query.append("','");
-		query.append(Utils.escapeSql(questionJd.getClub()));
+		query.append(DBUtils.escapeSql(questionJd.getClub()));
 		query.append("','");
 		query.append(questionJd.getDateEnvoi());
 		query.append("',");
@@ -154,15 +154,15 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append("UPDATE QUESTION_JD SET theme='");
-		query.append(Utils.escapeSql(questionJd.getTheme()));
+		query.append(DBUtils.escapeSql(questionJd.getTheme()));
 		query.append("', question='");
-		query.append(Utils.escapeSql(questionJd.getQuestion()));
+		query.append(DBUtils.escapeSql(questionJd.getQuestion()));
 		query.append("', reponse='");
-		query.append(Utils.escapeSql(questionJd.getReponse()));
+		query.append(DBUtils.escapeSql(questionJd.getReponse()));
 		query.append("', difficulte=");
 		query.append(questionJd.getDifficulte());
 		query.append(", club='");
-		query.append(Utils.escapeSql(questionJd.getClub()));
+		query.append(DBUtils.escapeSql(questionJd.getClub()));
 		query.append("', dateReception='");
 		query.append(questionJd.getDateEnvoi());
 		query.append("', version=");

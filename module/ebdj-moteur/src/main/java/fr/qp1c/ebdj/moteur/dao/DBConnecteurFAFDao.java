@@ -3,8 +3,8 @@ package fr.qp1c.ebdj.moteur.dao;
 import java.util.List;
 import java.util.Map;
 
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;

@@ -30,6 +30,8 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 
 		String adresseMac = Utils.recupererAdresseMac();
 
+		LOGGER.debug("Adresse mac : %s", adresseMac);
+
 		AuthentificationBdj authentificationBdj = new AuthentificationBdj();
 		authentificationBdj.setNomBdj(nomBdj);
 		authentificationBdj.setCleAuthentification(cleActivation);
@@ -48,6 +50,8 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 		// Faire un appel à un service rest de la boite pour la valider
 
 		String cleActivation = dbConnecteurParametrageDao.recupererParametrage("CLE_ACTIVATION");
+
+		LOGGER.debug("Cle activation : %s", cleActivation);
 
 		return false;
 	}

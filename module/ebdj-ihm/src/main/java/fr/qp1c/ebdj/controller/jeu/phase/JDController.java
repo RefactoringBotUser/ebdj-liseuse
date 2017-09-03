@@ -3,14 +3,15 @@ package fr.qp1c.ebdj.controller.jeu.phase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.controller.jeu.phase.utilisateur.IPreferencesUtilisateurController;
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.MoteurJD;
 import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.model.TypePartie;
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionJD;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionJD;
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.TypePhase;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
@@ -32,7 +33,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
-public class JDController {
+public class JDController implements IPreferencesUtilisateurController {
 
 	/**
 	 * Default logger.
@@ -118,7 +119,7 @@ public class JDController {
 				public void handle(MouseEvent event) {
 					Parent p = (Parent) event.getSource();
 
-					LOGGER.info("Clic sur historique JD : {}", p.getUserData());
+					LOGGER.info("### --> Clic sur \"Historique JD\" : {}.", p.getUserData());
 
 					afficherQuestionHistorique((HistoriqueQuestionJD) p.getUserData());
 
@@ -282,6 +283,7 @@ public class JDController {
 		LOGGER.debug("[FIN] Historisation de la question JD.");
 	}
 
+	@Override
 	public void modifierTaille(TaillePolice taille) {
 		switch (taille) {
 		case PETIT:
@@ -293,7 +295,6 @@ public class JDController {
 		case GRAND:
 			definirTailleCartonJD(22);
 			break;
-
 		}
 	}
 
@@ -304,10 +305,12 @@ public class JDController {
 		questionJDInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
 	}
 
+	@Override
 	public void definirNiveauPartie(NiveauPartie niveauPartie) {
 		moteurJD.definirNiveauPartie(niveauPartie);
 	}
 
+	@Override
 	public void definirLecteur(Lecteur lecteur) {
 		moteurJD.definirLecteur(lecteur);
 	}

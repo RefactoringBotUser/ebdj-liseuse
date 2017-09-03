@@ -28,8 +28,7 @@ public class StatsQuestions {
 
 	@Override
 	public String toString() {
-		return "StatsQuestions [nbQuestionsTotal=" + nbQuestionsTotal + ", nbQuestionsJouees=" + nbQuestionsJouees
-				+ "]";
+		return "nbQuestionsTotal=" + nbQuestionsTotal + ", nbQuestionsJouees=" + nbQuestionsJouees;
 	}
 
 }

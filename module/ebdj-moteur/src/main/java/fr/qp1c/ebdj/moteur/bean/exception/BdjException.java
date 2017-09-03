@@ -1,13 +1,21 @@
-package fr.qp1c.ebdj.bean.exception;
+package fr.qp1c.ebdj.moteur.bean.exception;
 
+/**
+ * 
+ * 
+ * @author NICO
+ *
+ */
 public class BdjException extends Exception {
 
 	/**
-	 * 
+	 * Serial UID.
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private String codeInterne;
+
+	//
 
 	public BdjException(String codeInterne) {
 		super();

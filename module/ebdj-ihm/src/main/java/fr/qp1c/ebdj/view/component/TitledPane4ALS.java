@@ -41,9 +41,6 @@ public class TitledPane4ALS extends TitledPane {
 	}
 
 	public void afficherTheme() {
-
-		System.out.println("Affichage theme !!!");
-
 		this.boutonSwith4ALS.selectionner4ALS();
 	}
 }

@@ -1,4 +1,4 @@
-package fr.qp1c.ebdj.moteur.bean.question;
+package fr.qp1c.ebdj.moteur.bean.anomalie;
 
 public class SignalementAnomalie {
 

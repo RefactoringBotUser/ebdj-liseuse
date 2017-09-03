@@ -37,6 +37,8 @@ public class StatistiquesController {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(StatistiquesController.class);
 
+	// Composant(s) JavaFX
+
 	@FXML
 	private Button btnHome;
 
@@ -91,17 +93,20 @@ public class StatistiquesController {
 	@FXML
 	private TableColumn<StockCategorieFAF, Long> tabSFColQuantiteJouee;
 
+	@FXML
+	private Button btnSynchroniser;
+
+	// Autres attributs
+
+	private Launcher launcher;
+
 	private ObservableList<StockQuantite> donneesTableauSG = FXCollections.observableArrayList();
 
 	private ObservableList<StockCategorieFAF> donneesTableauSF = FXCollections.observableArrayList();
 
-	@FXML
-	private Button btnSynchroniser;
-
-	private Launcher launcher;
-
 	private final Comparator<StockCategorieFAF> CATEGORIE_FAF_COMPARATOR = (o1, o2) -> o1.getCategorie()
 			.compareTo(o2.getCategorie());
+
 	private final ObjectProperty<Comparator<? super StockCategorieFAF>> CATEGORIE_FAF_COMPARATOR_WRAPPER = new SimpleObjectProperty<>(
 			CATEGORIE_FAF_COMPARATOR);
 
@@ -133,6 +138,8 @@ public class StatistiquesController {
 		// TODO : Implementer la gestion du stock des 4ALS.
 		stock4ALS.setVisible(false);
 
+		// TODO : Archiver les questions par partie
+
 		// Panneau FAF
 
 		stockFAF.setExpanded(false);
@@ -151,7 +158,6 @@ public class StatistiquesController {
 	}
 
 	public void actualiserContenuTableaux() {
-
 		LOGGER.debug("[DEBUT] Réactualisation des données.");
 
 		// Refresh des tableaux
@@ -162,6 +168,7 @@ public class StatistiquesController {
 	}
 
 	private void actualiserContenuTableauStockSynthese() {
+		LOGGER.debug("[DEBUT] Réactualisation du contenu du tableau stock synthese.");
 		StatistiqueService statistiqueService = new StatistiqueServiceImpl();
 
 		// Réactualisation tableau stock
@@ -180,9 +187,13 @@ public class StatistiquesController {
 		tableauStockSynthese.setItems(donneesTableauSG);
 
 		tableauStockSynthese.refresh();
+
+		LOGGER.debug("[FIN] Réactualisation du contenu du tableau stock synthese.");
 	}
 
 	private void actualiserContenuTableauStockFAF() {
+		LOGGER.debug("[DEBUT] Réactualisation du contenu du tableau stock des FAF.");
+
 		StatistiqueService statistiqueService = new StatistiqueServiceImpl();
 
 		// Réactualisation tableau catégorie FAF
@@ -200,6 +211,8 @@ public class StatistiquesController {
 		tableauStockFAF.setItems(sortedItems);
 
 		tableauStockFAF.refresh();
+
+		LOGGER.debug("[FIN] Réactualisation du contenu du tableau stock des FAF.");
 	}
 
 	@FXML
@@ -217,6 +230,8 @@ public class StatistiquesController {
 
 		actualiserContenuTableaux();
 	}
+
+	// Getters - setters
 
 	public Launcher getLauncher() {
 		return launcher;

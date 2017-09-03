@@ -1,7 +1,5 @@
 package fr.qp1c.ebdj.moteur;
 
-import fr.qp1c.ebdj.moteur.utils.Utils;
-
 public class TestMain {
 
 	public static void main(String[] args) {
@@ -12,7 +10,7 @@ public class TestMain {
 		// SynchronisationFAFService synchronisationFafService = new
 		// SynchronisationFAFServiceImpl();
 
-		System.out.println(Utils.formaterDate("2017-11-23"));
+		// System.out.println(Utils.formaterDate("2017-11-23"));
 	}
 
 }

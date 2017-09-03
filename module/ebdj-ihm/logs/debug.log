@@ -1,0 +1,311 @@
+2017-09-03 10:10:23 [main] INFO fr.qp1c.ebdj.Launcher - [DEBUT] Démarrage de l'application E-BDJ.
+2017-09-03 10:10:24 [JavaFX Application Thread] INFO fr.qp1c.ebdj.Launcher - [DEBUT] Start
+2017-09-03 10:10:24 [JavaFX Application Thread] DEBUG f.q.e.c.home.HomeController - [DEBUT] Initialisation du panneau home.
+2017-09-03 10:10:24 [JavaFX Application Thread] DEBUG f.q.e.c.home.HomeController - [FIN] Initialisation du panneau home.
+2017-09-03 10:10:24 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.TypePartieController - [DEBUT] Initialisation du panneau quitter la partie.
+2017-09-03 10:10:24 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Initialisation du panneau 9PG.
+2017-09-03 10:10:24 [JavaFX Application Thread] DEBUG f.q.e.m.d.i.DBConnecteurNPGDaoImpl - SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference) AND Q_9PG.difficulte='1'  LIMIT 15;
+2017-09-03 10:10:24 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En 1940 quel a été le premier film véritablement parlant de Charlie Chaplin ? - Le dictateur - 1 - 16 - 1 - 34 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : De quel archipel méditerranéen font partie les îles de Port Cros et du Levant ? - Îles d’Hyères ou d’or - 1 - 20 - 1 - 38 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel est le1/3 du 1/4 de 48 ? - 4.0 - 1 - 23 - 1 - 41 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Dans le code des colorants alimentaires que signifie la lettre E ? - Europe - 1 - 26 - 1 - 44 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En 1898 dans quelle ville fut assassinée l’impératrice Sissi ? - Genève - 1 - 29 - 1 - 47 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En médecine, comment qualifie-t-on deux faux jumeaux ? - Dizygotes - 1 - 31 - 1 - 49 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Dans le ciel quel est l’opposé du zénith ? - Le nadir - 1 - 34 - 1 - 52 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : A quelle famille appartiennent les oiseaux coureurs qui ne volent pas ? - Les ratites - 1 - 37 - 1 - 55 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Qui interprétait Pierrot le fou dans le film de François Truffaut ? - J. Paul Belmondo - 1 - 40 - 1 - 58 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel grand lac italien est le plus oriental du pays ? - Lac de Garde - 1 - 43 - 1 - 61 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Au Brésil qu’est-ce qu’un carioca ? - Habitant de Rio de Janeiro - 1 - 46 - 1 - 64 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En 1940 quel a été le premier film véritablement parlant de Charlie Chaplin ? - Le dictateur - 1 - 49 - 1 - 67 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel personnage de Victor Hugo porte le même nom que le dimanche qui suit Pacques ? - Quasimodo - 1 - 52 - 1 - 70 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : De quel archipel méditerranéen font partie les îles de Port Cros et du Levant ? - Îles d’Hyères ou d’or - 1 - 55 - 1 - 73 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel est le1/3 du 1/4 de 48 ? - 4.0 - 1 - 58 - 1 - 76 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.m.d.i.DBConnecteurNPGDaoImpl - SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference) AND Q_9PG.difficulte='2'  LIMIT 15;
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Qui fut le 1er président de la 3 ème République ? - Adolphe Thiers - 1 - 14 - 2 - 32 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En mars 2009, quel département français a été créé par référendum ? - Mayotte - 1 - 17 - 2 - 35 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel chanteur sénégalais sort en 2010 un disque en hommage à Bob Marley ? - Youssou NDour - 1 - 18 - 2 - 36 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En droit quel est le qualificatif d’un bail qui peut aller jusqu’à 99 ans ? - Emphytéotique - 1 - 21 - 2 - 39 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Auprès de quelle île de Malaisie Lapérouse a-t-il fait naufrage ? - Vanikoro - 1 - 24 - 2 - 42 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quels métaux entrent dans la composition du bronze ? - Cuivre + étain - 1 - 27 - 2 - 45 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Dans le langage de la banque que signifie l’acronyme C.A.C (40)? - Cotations assistées en continu - 1 - 32 - 2 - 50 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel dieu indou est représenté avec une tête d’éléphant ? - Ganech, Ganapi - 1 - 35 - 2 - 53 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quelle fourrure est fournie par l’écureuil petit gris de Sibérie ? - Le vair - 1 - 38 - 2 - 56 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel écrivain est l’auteur de La symphonie pastorale ? - André Gide - 1 - 41 - 2 - 59 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel poisson est utilisé pour la préparation du hadock ? - L’églefin - 1 - 44 - 2 - 62 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Qui fut le 1er président de la 3 ème République ? - Adolphe Thiers - 1 - 47 - 2 - 65 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En mars 2009, quel département français a été créé par référendum ? - Mayotte - 1 - 50 - 2 - 68 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel chanteur sénégalais sort en 2010 un disque en hommage à Bob Marley ? - Youssou NDour - 1 - 53 - 2 - 71 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En droit quel est le qualificatif d’un bail qui peut aller jusqu’à 99 ans ? - Emphytéotique - 1 - 56 - 2 - 74 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.m.d.i.DBConnecteurNPGDaoImpl - SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference) AND Q_9PG.difficulte='3'  LIMIT 10;
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel inventeur réalisa en 1.852 le premier vol en dirigeable à vapeur entre Paris et Élancourt ? - Henri Giffard - 1 - 6 - 3 - 24 - SAINT-AMAND-LES-EAUX - 03/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quelle fleur est l’emblème de la Malaisie ? - Ibiscus ou althéa - 1 - 9 - 3 - 27 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Comment nomme-t-on une personne qui chante en s’accompagnant d’une cithare ? - Une citharède - 1 - 12 - 3 - 30 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel adjectif qualifie un aliment ou un remède qui favorise l’expulsion de gaz - Carminatif - 1 - 15 - 3 - 33 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel adjectif qualifie la distance la plus courte à vol d’oiseau entre 2 villes ? - Orthodromique - 1 - 19 - 3 - 37 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel est l'antonyme du mot hallal qualifiant une nourriture permise dans l’Islam ? - Haram - 1 - 22 - 3 - 40 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En droit, quel est l’appellation d’une personne qui obtient de l’autorité compétente ce qu’elle avait demandé ? - Un impétrant - 1 - 25 - 3 - 43 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Dans un film d’animation quelle famille habite 742 Everguiem Terrasse Springfield USA ? - Les Simpson - 1 - 28 - 3 - 46 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quelle chanteuse pop née en 1970 à New York est nommée The Voice depuis 2005 ? - Mariah Carey - 1 - 30 - 3 - 48 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Sur quelle île des Cyclades sont nés Apollon et Artémis ? - Délos - 1 - 33 - 3 - 51 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Initialisation du panneau 9PG.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.QALSController - [DEBUT] Initialisation du panneau 4ALS.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.QALSController - [FIN] Initialisation du panneau 4ALS.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.JDController - [DEBUT] Initialisation du panneau JD.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.m.d.i.DBConnecteurJDDaoImpl - SELECT id,question,reponse,theme,reference,version,club,dateReception FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.reference=Q_JD_J.reference) LIMIT 10;
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Instrument agricole dont l’existence remonte à plus de 6000 ans avant notre ère, j’ai successivement été à traction humaine, animale et motorisée. Je sers à labourer la terre et, pour ce faire, un proverbe recommande qu’il vaut mieux éviter de me mettre devant les bœufs. Je suis... - LA CHARRUE - 2 - 5 - Que suis-je ? - 175 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Général américain élu 18ème président des Etats-Unis pour 2 mandats consécutifs, je me suis illustré au plan militaire en tant que commandant victorieux de l’armée fédérale à la fin de la Guerre de Sécession tandis que ma présidence a surtout été marquée par les scandales et la corruption. Je suis... - (ULYSSES S. ou LE GÉNÉRAL) GRANT - 2 - 6 - Qui suis-je ? - 176 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Pointe de vitesse, accélération soudaine produite sur une courte distance par un coureur au cours ou à l’approche de l’arrivée d’une épreuve de course à pied ou cycliste, je suis désigné par un anglicisme tiré d’un verbe qui signifie se précipiter. Je suis... - LE SPRINT - 2 - 7 - Que suis-je ? - 177 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Etat d'asservissement et d'exploitation d'une personne par une autre, j'ai été pratiqué en tous lieux et de tous temps depuis l'Antiquité et notamment en Amérique avec la traite des noirs avant d'être aboli en France en 1848 et condamné par la Déclaration universelle des droits de l'homme de 1948. Je suis... - L'ESCLAVAGE - 2 - 8 - Que suis-je ? - 178 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Arbre de la famille des rosacées originaire des régions tempérées d'Europe et d'Asie, mon bois est recherché pour l'ébénisterie et la sculpture mais je suis surtout cultivé pour mes fruits piriformes dont les nombreuses variétés sont, entre autres, les « comice », « conférence » ou « williams ». Je suis... - LE POIRIER - 2 - 9 - Que suis-je ? - 179 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Au sens premier, je suis l'ensemble de la correspondance reçue et envoyée par quelqu'un et qui, avec Internet, peut désormais être électronique. Mais je désigne également la rubrique spécialisée d'un journal et, précédé des adjectifs court, moyen ou long, je m'applique aux avions de ligne. Je suis... - <div>LE COURRIER</div> - 2 - 10 - Que suis-je ? - 180 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Personnage de fiction prénommé François, capitaine de dragons, homme de confiance du roi Venceslas, docteur en pataphysique, j'accède au trône d'une Pologne imaginaire et suis le héros des pièces du cycle théâtral que m'a consacré Alfred Jarry. Je suis... - UBU - 2 - 11 - Qui suis-je ? - 181 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Confiserie à base de sucre, de poudre d'amandes, d'orange et de melon confits, recouvert d'un glaçage à l'œuf, je me présente sous la forme d'un petit losange et suis, depuis le 15ème siècle, une spécialité très appréciée de la ville d'Aix-en-Provence. Je suis... - LE CALISSON - 2 - 12 - Que suis-je ? - 182 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Sport dont la première épreuve eut lieu en1868 dans le parc de Saint-Cloud, je me pratique sur piste, en cross sur un parcours accidenté ou sur route sur un engin mécanique à deux roues propulsé à la force des jambes au moyen d'un pédalier. Mes champions sont Anquetil, Mercks, Hinault. Je suis... - LE CYCLISME - 2 - 13 - Que suis-je ? - 183 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:25 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Pratique commerciale ou sociale désignée par un terme anglo-américain, je consiste à vendre des produits à un prix inférieur à celui du marché du fait d’une commercialisation en dessous du prix de revient ou d’un faible coût de la main-d’œuvre employée à la fabrication. Je suis... - LE DUMPING - 2 - 14 - Que suis-je ? - 184 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.JDController - [FIN] Initialisation du panneau JD.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [DEBUT] Initialisation du panneau FAF.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [DEBUT] Modifier la taille.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [FIN] Modifier la taille.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [FIN] Initialisation du panneau FAF.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.TypePartieController - [FIN] Initialisation du panneau quitter la partie.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.s.StatistiquesController - [DEBUT] Initialisation du panneau stats.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.s.StatistiquesController - [DEBUT] Réactualisation des données.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.s.StatistiquesController - [DEBUT] Réactualisation du contenu du tableau stock synthese.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.m.s.i.SynchronisationJDServiceImpl - StatsQuestions [nbQuestionsTotal=2909, nbQuestionsJouees=5]
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.m.s.i.SynchronisationJDServiceImpl - StatsQuestions [nbQuestionsTotal=3134, nbQuestionsJouees=4]
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.m.s.i.SynchronisationJDServiceImpl - StatsQuestions [nbQuestionsTotal=2469, nbQuestionsJouees=1]
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.m.s.i.SynchronisationJDServiceImpl - StatsQuestions [nbQuestionsTotal=0, nbQuestionsJouees=0]
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.m.s.i.SynchronisationJDServiceImpl - StatsQuestions [nbQuestionsTotal=315, nbQuestionsJouees=4]
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.m.s.i.SynchronisationJDServiceImpl - StatsQuestions [nbQuestionsTotal=1244, nbQuestionsJouees=11]
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.s.StatistiquesController - [FIN] Réactualisation du contenu du tableau stock synthese.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.s.StatistiquesController - [DEBUT] Réactualisation du contenu du tableau stock des FAF.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.s.StatistiquesController - [FIN] Réactualisation du contenu du tableau stock des FAF.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.s.StatistiquesController - [FIN] Réactualisation des données.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.s.StatistiquesController - [FIN] Initialisation du panneau stats.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.p.ParametrageController - [DEBUT] Initialisation du panneau paramétrage.
+2017-09-03 10:10:25 [JavaFX Application Thread] DEBUG f.q.e.c.p.ParametrageController - [FIN] Initialisation du panneau paramétrage.
+2017-09-03 10:10:26 [JavaFX Application Thread] DEBUG fr.qp1c.ebdj.Launcher - Height: 960.0
+2017-09-03 10:10:26 [JavaFX Application Thread] INFO fr.qp1c.ebdj.Launcher - [FIN] Start
+2017-09-03 10:10:32 [JavaFX Application Thread] INFO f.q.e.c.home.HomeController - ### --> Clic sur "Une partie complète"
+2017-09-03 10:10:35 [JavaFX Application Thread] INFO f.q.e.c.home.HomeController - ### --> Clic sur "Partie"
+2017-09-03 10:10:35 [JavaFX Application Thread] INFO fr.qp1c.ebdj.Launcher - [DEBUT] Affichage de l'écran partie.
+2017-09-03 10:10:36 [JavaFX Application Thread] DEBUG fr.qp1c.ebdj.utils.DialogUtils - Calcul pour centrer l'écran : largeurEcran=1680.0, hauteurEcran=982.0, positionX=300.0, positionY=253.0
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.c.popup.PopUpNiveauPartie - ### --> Clic sur "Niveau MOYEN".
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.TypePartieController - [DEBUT] Réinitialisation de l'écran.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.TypePartieController - Réinitialisation du 9PG.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Initialisation du panneau 9PG.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.m.d.i.DBConnecteurNPGDaoImpl - SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference) AND Q_9PG.difficulte='1'  LIMIT 15;
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En 1940 quel a été le premier film véritablement parlant de Charlie Chaplin ? - Le dictateur - 1 - 16 - 1 - 34 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : De quel archipel méditerranéen font partie les îles de Port Cros et du Levant ? - Îles d’Hyères ou d’or - 1 - 20 - 1 - 38 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel est le1/3 du 1/4 de 48 ? - 4.0 - 1 - 23 - 1 - 41 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Dans le code des colorants alimentaires que signifie la lettre E ? - Europe - 1 - 26 - 1 - 44 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En 1898 dans quelle ville fut assassinée l’impératrice Sissi ? - Genève - 1 - 29 - 1 - 47 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En médecine, comment qualifie-t-on deux faux jumeaux ? - Dizygotes - 1 - 31 - 1 - 49 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Dans le ciel quel est l’opposé du zénith ? - Le nadir - 1 - 34 - 1 - 52 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : A quelle famille appartiennent les oiseaux coureurs qui ne volent pas ? - Les ratites - 1 - 37 - 1 - 55 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Qui interprétait Pierrot le fou dans le film de François Truffaut ? - J. Paul Belmondo - 1 - 40 - 1 - 58 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel grand lac italien est le plus oriental du pays ? - Lac de Garde - 1 - 43 - 1 - 61 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Au Brésil qu’est-ce qu’un carioca ? - Habitant de Rio de Janeiro - 1 - 46 - 1 - 64 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En 1940 quel a été le premier film véritablement parlant de Charlie Chaplin ? - Le dictateur - 1 - 49 - 1 - 67 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel personnage de Victor Hugo porte le même nom que le dimanche qui suit Pacques ? - Quasimodo - 1 - 52 - 1 - 70 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : De quel archipel méditerranéen font partie les îles de Port Cros et du Levant ? - Îles d’Hyères ou d’or - 1 - 55 - 1 - 73 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel est le1/3 du 1/4 de 48 ? - 4.0 - 1 - 58 - 1 - 76 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.m.d.i.DBConnecteurNPGDaoImpl - SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference) AND Q_9PG.difficulte='2'  LIMIT 15;
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Qui fut le 1er président de la 3 ème République ? - Adolphe Thiers - 1 - 14 - 2 - 32 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En mars 2009, quel département français a été créé par référendum ? - Mayotte - 1 - 17 - 2 - 35 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel chanteur sénégalais sort en 2010 un disque en hommage à Bob Marley ? - Youssou NDour - 1 - 18 - 2 - 36 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En droit quel est le qualificatif d’un bail qui peut aller jusqu’à 99 ans ? - Emphytéotique - 1 - 21 - 2 - 39 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Auprès de quelle île de Malaisie Lapérouse a-t-il fait naufrage ? - Vanikoro - 1 - 24 - 2 - 42 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quels métaux entrent dans la composition du bronze ? - Cuivre + étain - 1 - 27 - 2 - 45 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Dans le langage de la banque que signifie l’acronyme C.A.C (40)? - Cotations assistées en continu - 1 - 32 - 2 - 50 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel dieu indou est représenté avec une tête d’éléphant ? - Ganech, Ganapi - 1 - 35 - 2 - 53 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quelle fourrure est fournie par l’écureuil petit gris de Sibérie ? - Le vair - 1 - 38 - 2 - 56 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel écrivain est l’auteur de La symphonie pastorale ? - André Gide - 1 - 41 - 2 - 59 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel poisson est utilisé pour la préparation du hadock ? - L’églefin - 1 - 44 - 2 - 62 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Qui fut le 1er président de la 3 ème République ? - Adolphe Thiers - 1 - 47 - 2 - 65 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En mars 2009, quel département français a été créé par référendum ? - Mayotte - 1 - 50 - 2 - 68 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel chanteur sénégalais sort en 2010 un disque en hommage à Bob Marley ? - Youssou NDour - 1 - 53 - 2 - 71 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En droit quel est le qualificatif d’un bail qui peut aller jusqu’à 99 ans ? - Emphytéotique - 1 - 56 - 2 - 74 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.m.d.i.DBConnecteurNPGDaoImpl - SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference) AND Q_9PG.difficulte='3'  LIMIT 10;
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel inventeur réalisa en 1.852 le premier vol en dirigeable à vapeur entre Paris et Élancourt ? - Henri Giffard - 1 - 6 - 3 - 24 - SAINT-AMAND-LES-EAUX - 03/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quelle fleur est l’emblème de la Malaisie ? - Ibiscus ou althéa - 1 - 9 - 3 - 27 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Comment nomme-t-on une personne qui chante en s’accompagnant d’une cithare ? - Une citharède - 1 - 12 - 3 - 30 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel adjectif qualifie un aliment ou un remède qui favorise l’expulsion de gaz - Carminatif - 1 - 15 - 3 - 33 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel adjectif qualifie la distance la plus courte à vol d’oiseau entre 2 villes ? - Orthodromique - 1 - 19 - 3 - 37 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quel est l'antonyme du mot hallal qualifiant une nourriture permise dans l’Islam ? - Haram - 1 - 22 - 3 - 40 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : En droit, quel est l’appellation d’une personne qui obtient de l’autorité compétente ce qu’elle avait demandé ? - Un impétrant - 1 - 25 - 3 - 43 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Dans un film d’animation quelle famille habite 742 Everguiem Terrasse Springfield USA ? - Les Simpson - 1 - 28 - 3 - 46 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Quelle chanteuse pop née en 1970 à New York est nommée The Voice depuis 2005 ? - Mariah Carey - 1 - 30 - 3 - 48 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurNPGDaoImpl - Question : Sur quelle île des Cyclades sont nés Apollon et Artémis ? - Délos - 1 - 33 - 3 - 51 - SAINT-AMAND-LES-EAUX - 07/11/2016
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Initialisation du panneau 9PG.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.TypePartieController - Réinitialisation du 4ALS.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.TypePartieController - Réinitialisation du JD.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.JDController - [DEBUT] Initialisation du panneau JD.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.m.d.i.DBConnecteurJDDaoImpl - SELECT id,question,reponse,theme,reference,version,club,dateReception FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.reference=Q_JD_J.reference) LIMIT 10;
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Instrument agricole dont l’existence remonte à plus de 6000 ans avant notre ère, j’ai successivement été à traction humaine, animale et motorisée. Je sers à labourer la terre et, pour ce faire, un proverbe recommande qu’il vaut mieux éviter de me mettre devant les bœufs. Je suis... - LA CHARRUE - 2 - 5 - Que suis-je ? - 175 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Général américain élu 18ème président des Etats-Unis pour 2 mandats consécutifs, je me suis illustré au plan militaire en tant que commandant victorieux de l’armée fédérale à la fin de la Guerre de Sécession tandis que ma présidence a surtout été marquée par les scandales et la corruption. Je suis... - (ULYSSES S. ou LE GÉNÉRAL) GRANT - 2 - 6 - Qui suis-je ? - 176 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Pointe de vitesse, accélération soudaine produite sur une courte distance par un coureur au cours ou à l’approche de l’arrivée d’une épreuve de course à pied ou cycliste, je suis désigné par un anglicisme tiré d’un verbe qui signifie se précipiter. Je suis... - LE SPRINT - 2 - 7 - Que suis-je ? - 177 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Etat d'asservissement et d'exploitation d'une personne par une autre, j'ai été pratiqué en tous lieux et de tous temps depuis l'Antiquité et notamment en Amérique avec la traite des noirs avant d'être aboli en France en 1848 et condamné par la Déclaration universelle des droits de l'homme de 1948. Je suis... - L'ESCLAVAGE - 2 - 8 - Que suis-je ? - 178 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Arbre de la famille des rosacées originaire des régions tempérées d'Europe et d'Asie, mon bois est recherché pour l'ébénisterie et la sculpture mais je suis surtout cultivé pour mes fruits piriformes dont les nombreuses variétés sont, entre autres, les « comice », « conférence » ou « williams ». Je suis... - LE POIRIER - 2 - 9 - Que suis-je ? - 179 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Au sens premier, je suis l'ensemble de la correspondance reçue et envoyée par quelqu'un et qui, avec Internet, peut désormais être électronique. Mais je désigne également la rubrique spécialisée d'un journal et, précédé des adjectifs court, moyen ou long, je m'applique aux avions de ligne. Je suis... - <div>LE COURRIER</div> - 2 - 10 - Que suis-je ? - 180 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Personnage de fiction prénommé François, capitaine de dragons, homme de confiance du roi Venceslas, docteur en pataphysique, j'accède au trône d'une Pologne imaginaire et suis le héros des pièces du cycle théâtral que m'a consacré Alfred Jarry. Je suis... - UBU - 2 - 11 - Qui suis-je ? - 181 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Confiserie à base de sucre, de poudre d'amandes, d'orange et de melon confits, recouvert d'un glaçage à l'œuf, je me présente sous la forme d'un petit losange et suis, depuis le 15ème siècle, une spécialité très appréciée de la ville d'Aix-en-Provence. Je suis... - LE CALISSON - 2 - 12 - Que suis-je ? - 182 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Sport dont la première épreuve eut lieu en1868 dans le parc de Saint-Cloud, je me pratique sur piste, en cross sur un parcours accidenté ou sur route sur un engin mécanique à deux roues propulsé à la force des jambes au moyen d'un pédalier. Mes champions sont Anquetil, Mercks, Hinault. Je suis... - LE CYCLISME - 2 - 13 - Que suis-je ? - 183 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.m.d.i.DBConnecteurJDDaoImpl - Question : Pratique commerciale ou sociale désignée par un terme anglo-américain, je consiste à vendre des produits à un prix inférieur à celui du marché du fait d’une commercialisation en dessous du prix de revient ou d’un faible coût de la main-d’œuvre employée à la fabrication. Je suis... - LE DUMPING - 2 - 14 - Que suis-je ? - 184 - ISSOUDUN - 03/08/2017
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.JDController - [FIN] Initialisation du panneau JD.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.TypePartieController - Réinitialisation du FAF.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [DEBUT] Initialisation du panneau FAF.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [DEBUT] Modifier la taille.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [FIN] Modifier la taille.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [FIN] Initialisation du panneau FAF.
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.c.jeu.phase.NPGController - ### --> Clic sur "Niveau 1-2-3".
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Changer de question.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Historisation de la question 9PG.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Historisation de la question 9PG.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage carton 9PG.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage niveau question : 1
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage niveau question.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage carton 9PG.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage du nombre de question.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage du nombre de question.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Changer de question.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.TypePartieController - [FIN] Réinitialisation de l'écran.
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO f.q.e.c.jeu.TypePartieController - ### --> Clic sur "Affichage vue Partie".
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG fr.qp1c.ebdj.Launcher - Affichage optimisé pour MAC OS.
+2017-09-03 10:10:40 [JavaFX Application Thread] DEBUG fr.qp1c.ebdj.Launcher - Taille de l'écran original : largeurEcran=1680.0, hauteurEcran=960.0
+2017-09-03 10:10:40 [JavaFX Application Thread] INFO fr.qp1c.ebdj.Launcher - [FIN] Affichage de l'écran partie.
+2017-09-03 10:10:47 [JavaFX Application Thread] INFO f.q.e.c.jeu.phase.NPGController - ### --> Clic sur "Nouvelle question 9PG".
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Changer de question.
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Historisation de la question 9PG.
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Historisation de la question 9PG.
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage carton 9PG.
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage niveau question : 2
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage niveau question.
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage carton 9PG.
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage du nombre de question.
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage du nombre de question.
+2017-09-03 10:10:47 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Changer de question.
+2017-09-03 10:10:49 [JavaFX Application Thread] INFO f.q.e.c.jeu.phase.NPGController - ### --> Clic sur "Nouvelle question 9PG".
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Changer de question.
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Historisation de la question 9PG.
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Historisation de la question 9PG.
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage carton 9PG.
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage niveau question : 3
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage niveau question.
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage carton 9PG.
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage du nombre de question.
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage du nombre de question.
+2017-09-03 10:10:49 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Changer de question.
+2017-09-03 10:10:50 [JavaFX Application Thread] INFO f.q.e.c.jeu.phase.NPGController - ### --> Clic sur "Nouvelle question 9PG".
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Changer de question.
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Historisation de la question 9PG.
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Historisation de la question 9PG.
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage carton 9PG.
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage niveau question : 1
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage niveau question.
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage carton 9PG.
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage du nombre de question.
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage du nombre de question.
+2017-09-03 10:10:50 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Changer de question.
+2017-09-03 10:10:54 [JavaFX Application Thread] INFO f.q.e.c.jeu.phase.NPGController - ### --> Clic sur "Signaler une erreur sur la question de 9PG".
+2017-09-03 10:10:55 [JavaFX Application Thread] DEBUG fr.qp1c.ebdj.utils.DialogUtils - Calcul pour centrer l'écran : largeurEcran=1680.0, hauteurEcran=982.0, positionX=574.0, positionY=378.0
+2017-09-03 10:11:00 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:11:00 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:11:00 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - Num question affiche            : 4
+2017-09-03 10:11:11 [JavaFX Application Thread] INFO f.q.e.c.jeu.phase.NPGController - ### --> Clic sur "Remplacer la question de 9PG".
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Changer de question.
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Historisation de la question 9PG.
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Historisation de la question 9PG.
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage carton 9PG.
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage niveau question : 1
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage niveau question.
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage carton 9PG.
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [DEBUT] Affichage du nombre de question.
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Affichage du nombre de question.
+2017-09-03 10:11:11 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.NPGController - [FIN] Changer de question.
+2017-09-03 10:11:25 [JavaFX Application Thread] INFO f.q.e.c.jeu.TypePartieController - ### --> Clic sur "Affichage vue JD".
+2017-09-03 10:11:25 [JavaFX Application Thread] INFO f.q.e.c.jeu.phase.JDController - ### --> Clic sur "Nouvelle question JD".
+2017-09-03 10:11:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:11:25 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:11:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.JDController - [DEBUT] Historisation de la question JD.
+2017-09-03 10:11:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.JDController - [FIN] Historisation de la question JD.
+2017-09-03 10:11:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.JDController - [DEBUT] Affichage carton JD.
+2017-09-03 10:11:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.JDController - [FIN] Affichage carton JD.
+2017-09-03 10:11:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.JDController - [DEBUT] Affichage du nombre de question.
+2017-09-03 10:11:25 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.JDController - [FIN] Affichage du nombre de question.
+2017-09-03 10:11:33 [JavaFX Application Thread] INFO f.q.e.c.jeu.TypePartieController - ### --> Clic sur "Affichage vue FAF".
+2017-09-03 10:11:33 [JavaFX Application Thread] INFO f.q.e.c.jeu.phase.FAFController - ### --> Clic sur "Nouvelle question FAF".
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [DEBUT] Changer de question.
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.e.m.d.i.DBConnecteurFAFDaoImpl - SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte>=1 AND difficulte<=4 LIMIT 1;
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.e.m.d.i.DBConnecteurFAFDaoImpl - Question : Roman paru en 2015 aux éditions Lattès, j'ai obtenu le prix Goncourt des lycéens. Je retrace l'histoire d'une romancière qui, traversant un passage à vide et ayant cessé d'écrire, voit surgir dans sa vie une femme qui va l'inciter puis la forcer à écrire le roman qu'elle veut lire. Adapté à l'écran par Roman Polanski avec Emmanuelle Seigner et Eva Green, roman ayant également été récompensée par le prix Renaudot, mon auteur est Delphine de Vigan, je suis ...                                    ... - D'après une histoire vraie - 1 - 8 - Littérature  - Littérature - 2 - 9 - GUILERS - 19/06/2017
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Chemin correspondant à la base de données : %s
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.ebdj.moteur.utils.db.DBManager - Connexion  avec succès à la base de données %s
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [DEBUT] Historisation de la question FAF.
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [FIN] Historisation de la question FAF.
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [DEBUT] Affichage carton FAF.
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [FIN] Affichage carton FAF.
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [DEBUT] Affichage du nombre de question.
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [FIN] Affichage du nombre de question.
+2017-09-03 10:11:33 [JavaFX Application Thread] DEBUG f.q.e.c.jeu.phase.FAFController - [FIN] Changer de question.
+2017-09-03 10:12:00 [JavaFX Application Thread] INFO f.q.e.c.jeu.TypePartieController - ### --> Clic sur "Ecran HOME".
+2017-09-03 10:12:02 [JavaFX Application Thread] INFO fr.qp1c.ebdj.Launcher - [DEBUT] Affichage de l'écran accueil
+2017-09-03 10:12:02 [JavaFX Application Thread] DEBUG fr.qp1c.ebdj.Launcher - Affichage optimisé pour MAC OS.
+2017-09-03 10:12:02 [JavaFX Application Thread] DEBUG fr.qp1c.ebdj.Launcher - Taille de l'écran original : largeurEcran=1680.0, hauteurEcran=982.0
+2017-09-03 10:12:02 [JavaFX Application Thread] INFO fr.qp1c.ebdj.Launcher - [FIN] Affichage de l'écran accueil.
+2017-09-03 10:18:11 [main] INFO fr.qp1c.ebdj.Launcher - [FIN] Arrêt de l'application E-BDJ.

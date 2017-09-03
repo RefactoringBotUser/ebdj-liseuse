@@ -9,15 +9,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.Source;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
-import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.moteur.utils.db.DBConstantes;
 import fr.qp1c.ebdj.moteur.utils.db.DBManager;
+import fr.qp1c.ebdj.moteur.utils.db.DBUtils;
 import fr.qp1c.ebdj.moteur.utils.exception.DBManagerException;
 import fr.qp1c.ebdj.moteur.ws.wrapper.question.Question9PGBdjDistante;
 
@@ -174,15 +174,15 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 		StringBuilder query = new StringBuilder();
 		query.append(
 				"INSERT INTO QUESTION_NPG ('question','reponse','difficulte','reference','club','dateReception','version','active') VALUES ('");
-		query.append(Utils.escapeSql(question9pg.getQuestion()));
+		query.append(DBUtils.escapeSql(question9pg.getQuestion()));
 		query.append("','");
-		query.append(Utils.escapeSql(question9pg.getReponse()));
+		query.append(DBUtils.escapeSql(question9pg.getReponse()));
 		query.append("',");
 		query.append(question9pg.getDifficulte());
 		query.append(",'");
 		query.append(question9pg.getReference());
 		query.append("','");
-		query.append(Utils.escapeSql(question9pg.getClub()));
+		query.append(DBUtils.escapeSql(question9pg.getClub()));
 		query.append("','");
 		query.append(question9pg.getDateEnvoi());
 		query.append("',");
@@ -197,13 +197,13 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append("UPDATE QUESTION_NPG SET question='");
-		query.append(Utils.escapeSql(question9pg.getQuestion()));
+		query.append(DBUtils.escapeSql(question9pg.getQuestion()));
 		query.append("', reponse='");
-		query.append(Utils.escapeSql(question9pg.getReponse()));
+		query.append(DBUtils.escapeSql(question9pg.getReponse()));
 		query.append("', difficulte=");
 		query.append(question9pg.getDifficulte());
 		query.append(", club='");
-		query.append(Utils.escapeSql(question9pg.getClub()));
+		query.append(DBUtils.escapeSql(question9pg.getClub()));
 		query.append("', dateReception='");
 		query.append(question9pg.getDateEnvoi());
 		query.append("', version=");

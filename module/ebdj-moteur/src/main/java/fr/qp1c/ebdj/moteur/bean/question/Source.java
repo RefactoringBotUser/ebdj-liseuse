@@ -1,6 +1,6 @@
 package fr.qp1c.ebdj.moteur.bean.question;
 
-import fr.qp1c.ebdj.moteur.utils.Utils;
+import fr.qp1c.ebdj.moteur.utils.StringUtilities;
 
 /**
  * Cette classe modélise la source d'une question ou d'un thème de
@@ -33,6 +33,7 @@ public class Source {
 	 * Constructeur
 	 * 
 	 * @param club
+	 *            le nom du club ayant rédigé la question
 	 */
 	public Source(String club) {
 		super();
@@ -43,6 +44,9 @@ public class Source {
 	 * Constructeur
 	 * 
 	 * @param club
+	 *            le nom du club ayant rédigé la question
+	 * @param dateReception
+	 *            la date de réception de la question
 	 */
 	public Source(String club, String dateReception) {
 		super();
@@ -81,10 +85,10 @@ public class Source {
 		StringBuilder sb = new StringBuilder();
 		sb.append(club);
 		sb.append(" - ");
-		sb.append(Utils.formaterDate(dateReception));
+		sb.append(StringUtilities.formaterDate(dateReception));
 		if (dateIntegration != null && "".equals(dateIntegration)) {
 			sb.append(" - ");
-			sb.append(Utils.formaterDate(dateIntegration));
+			sb.append(StringUtilities.formaterDate(dateIntegration));
 		}
 		return sb.toString();
 	}

@@ -4,9 +4,9 @@ public class StatsCategorieFAF {
 
 	private String categorie;
 
-	private int nbQuestionsTotal;
+	private StatsQuestions statsCategorie;
 
-	private int nbQuestionsJouees;
+	// Getters - setters
 
 	public String getCategorie() {
 		return categorie;
@@ -16,29 +16,16 @@ public class StatsCategorieFAF {
 		this.categorie = categorie;
 	}
 
-	public int getNbQuestionsTotal() {
-		return nbQuestionsTotal;
+	public StatsQuestions getStatsCategorie() {
+		return statsCategorie;
 	}
 
-	public void setNbQuestionsTotal(int nbQuestionsTotal) {
-		this.nbQuestionsTotal = nbQuestionsTotal;
-	}
-
-	public int getNbQuestionsInedites() {
-		return nbQuestionsTotal - nbQuestionsJouees;
-	}
-
-	public int getNbQuestionsJouees() {
-		return nbQuestionsJouees;
-	}
-
-	public void setNbQuestionsJouees(int nbQuestionsJouees) {
-		this.nbQuestionsJouees = nbQuestionsJouees;
+	public void setStatsCategorie(StatsQuestions statsCategorie) {
+		this.statsCategorie = statsCategorie;
 	}
 
 	@Override
 	public String toString() {
-		return "StatsCategorieFAF [nbQuestionsTotal=" + nbQuestionsTotal + ", nbQuestionsJouees=" + nbQuestionsJouees
-				+ "]";
+		return "StatsCategorieFAF [categorie=" + categorie + "," + statsCategorie + "]";
 	}
 }

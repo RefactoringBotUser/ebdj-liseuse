@@ -8,6 +8,8 @@ public abstract class HistoriqueQuestion {
 
 	private boolean nonComptabilise;
 
+	// Getters - setters
+
 	public boolean isNonComptabilise() {
 		return nonComptabilise;
 	}

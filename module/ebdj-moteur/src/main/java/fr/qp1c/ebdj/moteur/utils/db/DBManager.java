@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Classe permettant de gérer les connexions à la base de données.
+ * Classe permettant de gérer les connexions à la base de données SQLite.
  * 
  * @author NICO
  *
@@ -52,14 +52,13 @@ public class DBManager {
 			Class.forName("org.sqlite.JDBC");
 
 			File f = new File(".");
-			LOGGER.debug("Chemin correspondant à la base de données :" + f.getAbsolutePath());
+			LOGGER.debug("Chemin correspondant à la base de données : %s", f.getAbsolutePath());
 
 			String urlDb = "jdbc:sqlite:" + f.getAbsolutePath() + "/db/" + dBFileName;
 
 			connection = DriverManager.getConnection(urlDb);
 
-			// LOGGER.debug("Connexion a " + DBConstantes.DB_PATH + DBFileName +
-			// " avec succès");
+			LOGGER.debug("Connexion  avec succès à la base de données %s", urlDb);
 		} catch (ClassNotFoundException notFoundException) {
 			LOGGER.error("Erreur lors de l'ouverture de la connexion : ", notFoundException);
 		} catch (SQLException sqlException) {

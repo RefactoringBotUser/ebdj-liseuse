@@ -6,6 +6,8 @@ public class HistoriqueQuestionJD extends HistoriqueQuestion {
 
 	private QuestionJD question;
 
+	// Getters - setters
+
 	public QuestionJD getQuestion() {
 		return question;
 	}

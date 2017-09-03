@@ -7,50 +7,55 @@ import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.moteur.bean.question.TypePhase;
 
 public class Utils {
 
+	/**
+	 * Default logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
+
+	/**
+	 * Récupérer l'adresse MAC de la machine.
+	 * 
+	 * @return l'adresse MAC - en cas d'erreur, la méthode retournera null.
+	 */
 	public static String recupererAdresseMac() {
 		InetAddress ip;
 		try {
 
 			ip = InetAddress.getLocalHost();
-			System.out.println("Current IP address : " + ip.getHostAddress());
+			LOGGER.debug("Adresse IP courante: %s", ip.getHostAddress());
 
 			NetworkInterface network = NetworkInterface.getByInetAddress(ip);
 
 			byte[] mac = network.getHardwareAddress();
 
-			System.out.print("Current MAC address : ");
-
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < mac.length; i++) {
 				sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
 			}
-			return sb.toString();
 
+			String adresseMac = sb.toString();
+
+			LOGGER.debug("Adresse MAC courante: %s", adresseMac);
+
+			return adresseMac;
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			LOGGER.error("UnknownHostException - une erreur est survenue : ", e);
 		} catch (SocketException e) {
-			e.printStackTrace();
+			LOGGER.error("SocketException - une erreur est survenue : ", e);
 		}
 		return null;
-	}
-
-	public static String escapeSql(String str) {
-		if (str == null) {
-			return null;
-		}
-		return StringUtils.replace(str, "'", "''");
 	}
 
 	public static String formaterReference(String reference, TypePhase typePhase) {
 
 		switch (typePhase) {
-
 		case NPG:
 			return "Q_9PG_" + StringUtilities.pad(5, '0', reference);
 		case QALS:
@@ -63,29 +68,19 @@ public class Utils {
 		return null;
 	}
 
-	public static String formatDate() {
+	/**
+	 * Calculer la date et l'heure courante et la formater sous forme de chaine
+	 * de caractères (format: yyyy-MM-dd HH:mm:ss).
+	 * 
+	 * @return la date et l'heure courante formatée
+	 */
+	public static String recupererDateHeureCourante() {
 		LocalDateTime now = LocalDateTime.now();
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
 		String formatDateTime = now.format(formatter);
 
 		return formatDateTime;
-	}
-
-	public static String formaterDate(String date) {
-		String result = "";
-
-		if (date != null && date.length() >= 10) {
-			// 2017-07-20
-			result += date.substring(8, 10);
-			result += "/";
-			result += date.substring(5, 7);
-			result += "/";
-			result += date.substring(0, 4);
-		}
-
-		return result;
 	}
 
 }

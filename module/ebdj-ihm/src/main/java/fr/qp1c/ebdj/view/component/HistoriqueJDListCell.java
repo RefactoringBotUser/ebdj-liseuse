@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionJD;
-import fr.qp1c.ebdj.utils.StringUtilities;
+import fr.qp1c.ebdj.moteur.utils.StringUtilities;
 import fr.qp1c.ebdj.view.Style;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;

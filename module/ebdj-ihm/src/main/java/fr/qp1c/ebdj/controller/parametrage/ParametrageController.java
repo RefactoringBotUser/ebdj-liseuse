@@ -16,8 +16,12 @@ public class ParametrageController {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ParametrageController.class);
 
+	// Composant(s) JavaFX
+
 	@FXML
 	private Button btnHome;
+
+	// Autres attributs
 
 	private Launcher launcher;
 
@@ -30,7 +34,7 @@ public class ParametrageController {
 		// TODO : régler : nom de la base de données, clé de la boite de jeu,
 		// url BDJ distante, liste lecteur + préférences taille...)
 
-		// Afficher le numéro de version de l'application
+		// TODO : Afficher le numéro de version de l'application
 
 		LOGGER.debug("[FIN] Initialisation du panneau paramétrage.");
 	}

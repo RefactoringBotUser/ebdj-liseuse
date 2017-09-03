@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -54,13 +53,6 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	private static void afficherReponse(Object objectToPrint) throws JsonProcessingException {
-		// Pretty print
-		ObjectMapper mapper = new ObjectMapper();
-		String prettyStaff1 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(objectToPrint);
-		System.out.println(prettyStaff1);
 	}
 
 	private static List<Question9PGBdjDistante> synchroniserQuestions9PG()

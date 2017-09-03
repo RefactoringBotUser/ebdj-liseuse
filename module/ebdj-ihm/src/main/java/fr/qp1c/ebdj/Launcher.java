@@ -222,15 +222,20 @@ public class Launcher extends Application {
 		// Fixbug : rétrecissement de la fenetre
 
 		if (System.getProperties().getProperty("os.name").toLowerCase().contains("mac os")) {
+			LOGGER.debug("Affichage optimisé pour MAC OS.");
+
 			addHeight = 22;
 		} else if (System.getProperties().getProperty("os.name").toLowerCase().contains("windows")) {
+			LOGGER.debug("Affichage optimisé pour WINDOWS.");
+
 			addHeight = 38;
 			addWidth = 16;
 		}
 
 		Scene oldScene = stage.getScene();
 
-		System.out.println(oldScene.getWidth() + " / " + oldScene.getHeight());
+		LOGGER.debug("Taille de l'écran original : largeurEcran={}, hauteurEcran={}", oldScene.getWidth(),
+				oldScene.getHeight());
 
 		double oldWidth = oldScene.getWidth() + addWidth;
 		double oldHeight = oldScene.getHeight() + addHeight;

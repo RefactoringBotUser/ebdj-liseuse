@@ -36,7 +36,7 @@ public class TypePartieController {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(TypePartieController.class);
 
-	// Composants graphiques
+	// Composant(s) JavaFX
 
 	@FXML
 	private BorderPane content;
@@ -87,6 +87,8 @@ public class TypePartieController {
 	private JDController controllerJD;
 
 	private FAFController controllerFAF;
+
+	// Autres attributs
 
 	private Launcher launcher;
 
@@ -205,9 +207,8 @@ public class TypePartieController {
 		if (TypePartie.NPG.equals(typePartie) || TypePartie.PARTIE.equals(typePartie)) {
 			// Lancer en mode 1,2,3
 			controllerNPG.changerNiveau123();
-
 		} else if (TypePartie.QALS.equals(typePartie)) {
-
+			// TODO implementer la gestion des 4ALS
 		} else if (TypePartie.JD.equals(typePartie)) {
 			controllerJD.jouerNouvelleQuestionJD();
 		} else if (TypePartie.FAF.equals(typePartie)) {
@@ -378,12 +379,6 @@ public class TypePartieController {
 		selectionnerVue(panneauFAF);
 	}
 
-	private void selectionnerVue(BorderPane panneau) {
-		content.getChildren().clear();
-		content.setCenter(panneau);
-		BorderPane.setAlignment(content, Pos.TOP_CENTER);
-	}
-
 	@FXML
 	public void retournerEcranHome() {
 		LOGGER.info("### --> Clic sur \"Ecran HOME\".");
@@ -391,6 +386,12 @@ public class TypePartieController {
 		if (PopUpFinPartie.afficherPopUp()) {
 			launcher.afficherEcranHome();
 		}
+	}
+
+	private void selectionnerVue(BorderPane panneau) {
+		content.getChildren().clear();
+		content.setCenter(panneau);
+		BorderPane.setAlignment(content, Pos.TOP_CENTER);
 	}
 
 	// Getters - setters

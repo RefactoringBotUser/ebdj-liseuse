@@ -3,15 +3,17 @@ package fr.qp1c.ebdj.controller.jeu.phase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.controller.jeu.phase.utilisateur.IPreferencesUtilisateurController;
 import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.loader.MoteurFAF;
 import fr.qp1c.ebdj.model.NiveauPartie;
 import fr.qp1c.ebdj.model.TypePartie;
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.TypePhase;
+import fr.qp1c.ebdj.moteur.utils.StringUtilities;
 import fr.qp1c.ebdj.moteur.utils.Utils;
 import fr.qp1c.ebdj.view.Seuil;
 import fr.qp1c.ebdj.view.Style;
@@ -38,14 +40,14 @@ import javafx.util.Callback;
  * @author NICO
  *
  */
-public class FAFController {
+public class FAFController implements IPreferencesUtilisateurController {
 
 	/**
 	 * Default logger.
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(FAFController.class);
 
-	// Labels.
+	// Composant(s) JavaFX
 
 	@FXML
 	private Label nbQuestion;
@@ -66,8 +68,6 @@ public class FAFController {
 
 	@FXML
 	private ListView<HistoriqueQuestionFAF> histoQuestion;
-
-	public static ObservableList<HistoriqueQuestionFAF> listeHistoriqueFAF = FXCollections.observableArrayList();
 
 	// Boutons.
 
@@ -92,6 +92,8 @@ public class FAFController {
 	private VBox cartonFAF;
 
 	// Données FAF.
+
+	public static ObservableList<HistoriqueQuestionFAF> listeHistoriqueFAF = FXCollections.observableArrayList();
 
 	private MoteurFAF moteurFAF;
 
@@ -124,7 +126,7 @@ public class FAFController {
 				public void handle(MouseEvent event) {
 					Parent p = (Parent) event.getSource();
 
-					LOGGER.info("Clic sur historique FAF : {}", p.getUserData());
+					LOGGER.info("### --> Clic sur \"Historique FAF\" : {}.", p.getUserData());
 
 					afficherQuestionHistorique((HistoriqueQuestionFAF) p.getUserData());
 
@@ -190,8 +192,9 @@ public class FAFController {
 		SignalementAnomalie signalementAnomalie = PopUpAnomalieQuestion.afficherPopUp(TypePartie.FAF);
 
 		if (signalementAnomalie != null) {
-
 			moteurFAF.signalerAnomalie(signalementAnomalie);
+
+			// Mise à jour de l'historique des questions
 			listeHistoriqueFAF.get(listeHistoriqueFAF.size() - numQuestionAffiche).setNonComptabilise(true);
 			histoQuestion.refresh();
 		}
@@ -204,6 +207,7 @@ public class FAFController {
 
 		changerQuestion(false);
 
+		// Mise à jour de l'historique des questions
 		listeHistoriqueFAF.get((moteurFAF.getNbQuestReel() - listeHistoriqueFAF.size()) + 1).setNonComptabilise(true);
 	}
 
@@ -260,17 +264,13 @@ public class FAFController {
 		LOGGER.debug("[FIN] Affichage du nombre de question.");
 	}
 
-	private int compterNombreDeMots(QuestionFAF questionFAF) {
-		return questionFAF.getQuestion().split(" ").length;
-	}
-
 	private void afficherCartonFAF(QuestionFAF questionFAF) {
 		LOGGER.debug("[DEBUT] Affichage carton FAF.");
 
-		String nbMots = " (" + compterNombreDeMots(questionFAF) + " mots)";
+		String nbMots = " (" + StringUtilities.compterNombreDeMots(questionFAF.getQuestion()) + " mots)";
 
 		themeFAF.setText(questionFAF.getTheme().toUpperCase() + nbMots);
-		libelleQuestionFAF.setText(questionFAF.getQuestion().replaceAll("  ", " "));
+		libelleQuestionFAF.setText(questionFAF.getQuestion());
 		reponseFAF.setText(questionFAF.getReponse().toUpperCase());
 		reponseFAF.setTextAlignment(TextAlignment.CENTER);
 		questionFAFInfos.setText(Utils.formaterReference(questionFAF.getReference(), TypePhase.FAF) + " - "
@@ -285,7 +285,6 @@ public class FAFController {
 		LOGGER.debug("[DEBUT] Historisation de la question FAF.");
 
 		if (questionFAF != null) {
-
 			HistoriqueQuestionFAF histo = new HistoriqueQuestionFAF();
 			histo.setNbQuestion(moteurFAF.getNbQuest());
 			histo.setNbQuestionReel(moteurFAF.getNbQuestReel());
@@ -297,6 +296,7 @@ public class FAFController {
 		LOGGER.debug("[FIN] Historisation de la question FAF.");
 	}
 
+	@Override
 	public void modifierTaille(TaillePolice taille) {
 		LOGGER.debug("[DEBUT] Modifier la taille.");
 
@@ -322,10 +322,12 @@ public class FAFController {
 		questionFAFInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
 	}
 
+	@Override
 	public void definirNiveauPartie(NiveauPartie niveauPartie) {
 		moteurFAF.definirNiveauPartie(niveauPartie);
 	}
 
+	@Override
 	public void definirLecteur(Lecteur lecteur) {
 		moteurFAF.definirLecteur(lecteur);
 	}

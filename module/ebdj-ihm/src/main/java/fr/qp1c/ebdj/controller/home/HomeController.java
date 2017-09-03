@@ -20,6 +20,8 @@ public class HomeController {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
+	// Composant(s) JavaFX
+
 	@FXML
 	private ToggleButton btnQuestion;
 
@@ -53,6 +55,8 @@ public class HomeController {
 	@FXML
 	private VBox btnPanneauTypePartie;
 
+	// Autres attributs
+
 	private Launcher launcher;
 
 	@FXML
@@ -68,8 +72,6 @@ public class HomeController {
 
 		// Création du bouton "Paramétrage"
 		BoutonUtils.customiserBouton150(btnParametrage, ImageConstants.IMAGE_HOME_PARAMETRAGE);
-
-		// TODO : Archiver les questions par partie
 
 		masquerSousMenuTypeQuestionnaire();
 
@@ -107,7 +109,7 @@ public class HomeController {
 
 		btnPhase.setSelected(true);
 
-		afficherSousMenuPhase();
+		afficherSousMenuPhase(true);
 	}
 
 	@FXML
@@ -155,19 +157,12 @@ public class HomeController {
 		labelOu.setVisible(true);
 		btnPhase.setVisible(true);
 
-		masquerSousMenuPhase();
+		afficherSousMenuPhase(false);
 
 		btnQuestion.setSelected(true);
 		BoutonUtils.customiserBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION_SELECTED);
 
 		btnPanneauTypePartie.setVisible(true);
-	}
-
-	private void afficherSousMenuPhase() {
-		btn9PG.setVisible(true);
-		btn4ALS.setVisible(true);
-		btnJD.setVisible(true);
-		btnFAF.setVisible(true);
 	}
 
 	/**
@@ -179,7 +174,7 @@ public class HomeController {
 		labelOu.setVisible(false);
 		btnPhase.setVisible(false);
 
-		masquerSousMenuPhase();
+		afficherSousMenuPhase(false);
 
 		btnQuestion.setSelected(false);
 
@@ -190,11 +185,17 @@ public class HomeController {
 		btnPanneauTypePartie.setVisible(false);
 	}
 
-	private void masquerSousMenuPhase() {
-		btn9PG.setVisible(false);
-		btn4ALS.setVisible(false);
-		btnJD.setVisible(false);
-		btnFAF.setVisible(false);
+	/**
+	 * Afficher/masquer le sous-menu phase de jeu.
+	 * 
+	 * @param etat
+	 *            etat d'affichage à positionner
+	 */
+	private void afficherSousMenuPhase(boolean etat) {
+		btn9PG.setVisible(etat);
+		btn4ALS.setVisible(etat);
+		btnJD.setVisible(etat);
+		btnFAF.setVisible(etat);
 	}
 
 	// Getters - setters

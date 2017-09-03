@@ -34,9 +34,10 @@ public class StockCategorieFAF {
 	public StockCategorieFAF(StatsCategorieFAF statsCategorieFAF) {
 		super();
 		this.categorie = new SimpleStringProperty(statsCategorieFAF.getCategorie());
-		this.quantiteTotale = new SimpleLongProperty(statsCategorieFAF.getNbQuestionsTotal());
-		this.quantiteDisponible = new SimpleLongProperty(statsCategorieFAF.getNbQuestionsInedites());
-		this.quantiteJouee = new SimpleLongProperty(statsCategorieFAF.getNbQuestionsJouees());
+		this.quantiteTotale = new SimpleLongProperty(statsCategorieFAF.getStatsCategorie().getNbQuestionsTotal());
+		this.quantiteDisponible = new SimpleLongProperty(
+				statsCategorieFAF.getStatsCategorie().getNbQuestionsInedites());
+		this.quantiteJouee = new SimpleLongProperty(statsCategorieFAF.getStatsCategorie().getNbQuestionsJouees());
 	}
 
 	public String getCategorie() {

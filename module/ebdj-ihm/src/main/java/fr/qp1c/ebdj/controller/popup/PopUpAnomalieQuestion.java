@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.Launcher;
 import fr.qp1c.ebdj.model.TypePartie;
-import fr.qp1c.ebdj.moteur.bean.question.SignalementAnomalie;
-import fr.qp1c.ebdj.moteur.bean.question.TypeAnomalie;
+import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.anomalie.TypeAnomalie;
 import fr.qp1c.ebdj.utils.DialogUtils;
 import fr.qp1c.ebdj.utils.ImageConstants;
 import fr.qp1c.ebdj.utils.ImageUtils;

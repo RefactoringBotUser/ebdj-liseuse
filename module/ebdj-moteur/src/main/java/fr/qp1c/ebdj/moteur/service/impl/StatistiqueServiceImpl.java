@@ -108,11 +108,16 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 		for (Entry<String, Long> categorieFAF : categoriesFAF.entrySet()) {
 			StatsCategorieFAF stats = new StatsCategorieFAF();
 			stats.setCategorie(categorieFAF.getKey());
-			stats.setNbQuestionsTotal(categorieFAF.getValue().intValue());
+
+			StatsQuestions statsCategorie = new StatsQuestions();
+
+			statsCategorie.setNbQuestionsTotal(categorieFAF.getValue().intValue());
 
 			if (categoriesFAFJoues.containsKey(categorieFAF.getKey())) {
-				stats.setNbQuestionsJouees(categoriesFAFJoues.get(categorieFAF.getKey()).intValue());
+				statsCategorie.setNbQuestionsJouees(categoriesFAFJoues.get(categorieFAF.getKey()).intValue());
 			}
+
+			stats.setStatsCategorie(statsCategorie);
 
 			statsCategorieFAF.add(stats);
 		}
