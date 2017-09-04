@@ -24,7 +24,7 @@ public class LecteurServiceImpl implements LecteurService {
 	 */
 	@Override
 	public void ajouterLecteur(Lecteur lecteur) {
-		LOGGER.debug("[DEBUT] Ajouter un lecteur.");
+		LOGGER.info("[DEBUT] Ajouter un lecteur.");
 
 		if (lecteur == null) {
 			LOGGER.error("Le paramètre lecteur est null.");
@@ -41,7 +41,7 @@ public class LecteurServiceImpl implements LecteurService {
 			LOGGER.error("Le lecteur %s %s existe déjà.", lecteur.getNom(), lecteur.getPrenom());
 		}
 
-		LOGGER.debug("[FIN] Ajouter un lecteur.");
+		LOGGER.info("[FIN] Ajouter un lecteur.");
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class LecteurServiceImpl implements LecteurService {
 	 */
 	@Override
 	public void modifierLecteur(String reference, Lecteur lecteur) {
-		LOGGER.debug("[DEBUT] Modifier un lecteur.");
+		LOGGER.info("[DEBUT] Modifier un lecteur.");
 
 		if (reference == null) {
 			LOGGER.error("Le paramètre reference est null.");
@@ -73,7 +73,7 @@ public class LecteurServiceImpl implements LecteurService {
 			dbConnecteurLecteurDao.modifierLecteur(reference, lecteur);
 		}
 
-		LOGGER.debug("[FIN] Modifier un lecteur.");
+		LOGGER.info("[FIN] Modifier un lecteur.");
 	}
 
 	/**
@@ -81,12 +81,15 @@ public class LecteurServiceImpl implements LecteurService {
 	 */
 	@Override
 	public void supprimerLecteur(String reference) {
+		LOGGER.info("[DEBUT] Supprimer un lecteur.");
 
 		if (reference == null) {
 			LOGGER.error("Le paramètre reference est null.");
 		} else {
 			dbConnecteurLecteurDao.supprimerLecteur(reference);
 		}
+
+		LOGGER.info("[FIN] Supprimer un lecteur.");
 	}
 
 	/**
@@ -94,7 +97,12 @@ public class LecteurServiceImpl implements LecteurService {
 	 */
 	@Override
 	public List<Lecteur> listerLecteur() {
+		LOGGER.info("[DEBUT] Lister les lecteurs.");
 
-		return dbConnecteurLecteurDao.listerLecteur();
+		List<Lecteur> lecteurs = dbConnecteurLecteurDao.listerLecteur();
+
+		LOGGER.info("[FIN] Lister les lecteurs.");
+
+		return lecteurs;
 	}
 }

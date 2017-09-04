@@ -40,6 +40,8 @@ public class StockCategorieFAF {
 		this.quantiteJouee = new SimpleLongProperty(statsCategorieFAF.getStatsCategorie().getNbQuestionsJouees());
 	}
 
+	// Getters - setters
+
 	public String getCategorie() {
 		return categorie.get();
 	}

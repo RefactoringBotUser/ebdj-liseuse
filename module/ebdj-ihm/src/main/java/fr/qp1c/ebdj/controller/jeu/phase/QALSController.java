@@ -6,15 +6,16 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.controller.jeu.phase.utilisateur.IPreferencesUtilisateurController;
-import fr.qp1c.ebdj.loader.LoaderQuestion4ALS;
-import fr.qp1c.ebdj.model.NiveauPartie;
+import fr.qp1c.ebdj.controller.jeu.phase.preferences.PreferencesLecteur;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
+import fr.qp1c.ebdj.moteur.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.question.Question;
 import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
-import fr.qp1c.ebdj.utils.ImageConstants;
+import fr.qp1c.ebdj.moteur.loader.LoaderTheme4ALS;
+import fr.qp1c.ebdj.moteur.moteur.MoteurQALS;
+import fr.qp1c.ebdj.utils.config.ImageConstants;
 import fr.qp1c.ebdj.view.TaillePolice;
-import fr.qp1c.ebdj.view.component.TitledPane4ALS;
+import fr.qp1c.ebdj.view.panneau.PanneauTheme4ALS;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -25,7 +26,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 
-public class QALSController implements IPreferencesUtilisateurController {
+public class QALSController implements PreferencesLecteur {
 
 	/**
 	 * Default logger.
@@ -33,19 +34,19 @@ public class QALSController implements IPreferencesUtilisateurController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(QALSController.class);
 
 	@FXML
-	private TitledPane4ALS theme4ALS1;
+	private PanneauTheme4ALS theme4ALS1;
 
 	@FXML
-	private TitledPane4ALS theme4ALS2;
+	private PanneauTheme4ALS theme4ALS2;
 
 	@FXML
-	private TitledPane4ALS theme4ALS3;
+	private PanneauTheme4ALS theme4ALS3;
 
 	@FXML
-	private TitledPane4ALS theme4ALS4;
+	private PanneauTheme4ALS theme4ALS4;
 
 	@FXML
-	private TitledPane4ALS theme4ALS5;
+	private PanneauTheme4ALS theme4ALS5;
 
 	@FXML
 	private TextFlow questionTheme4ALS1;
@@ -71,13 +72,19 @@ public class QALSController implements IPreferencesUtilisateurController {
 	@FXML
 	private ScrollPane panneauQuestionTheme4ALS4;
 
+	// Autres attributs
+
+	private MoteurQALS moteurQALS;
+
 	@FXML
 	private void initialize() {
 		LOGGER.debug("[DEBUT] Initialisation du panneau 4ALS.");
 
+		moteurQALS = new MoteurQALS();
+
 		theme4ALS5.setVisible(false);
 
-		Map<String, Theme4ALS> themes4ALS = LoaderQuestion4ALS.chargerQuestions();
+		Map<String, Theme4ALS> themes4ALS = LoaderTheme4ALS.chargerQuestions();
 
 		Theme4ALS theme4ALS_1 = themes4ALS.get("1");
 		Theme4ALS theme4ALS_2 = themes4ALS.get("2");
@@ -200,14 +207,12 @@ public class QALSController implements IPreferencesUtilisateurController {
 
 	@Override
 	public void definirLecteur(Lecteur lecteur) {
-		// TODO Auto-generated method stub
-
+		moteurQALS.definirLecteur(lecteur);
 	}
 
 	@Override
 	public void definirNiveauPartie(NiveauPartie niveauPartie) {
-		// TODO Auto-generated method stub
-
+		moteurQALS.definirNiveauPartie(niveauPartie);
 	}
 
 	@Override

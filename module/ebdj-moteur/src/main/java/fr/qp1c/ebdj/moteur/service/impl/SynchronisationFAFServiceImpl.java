@@ -37,8 +37,7 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 
 	@Override
 	public void synchroniserQuestionsFAF() throws BdjException {
-
-		LOGGER.debug("[DEBUT] synchroniserQuestionsFAF");
+		LOGGER.info("[DEBUT] synchroniserQuestionsFAF");
 
 		// Retrouver la référence max de la question
 		Long referenceMaxExistante = dbConnecteurFAFDao.recupererReferenceMaxQuestion();
@@ -50,13 +49,12 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 			dbConnecteurFAFDao.creerQuestion(question);
 		}
 
-		LOGGER.debug("[FIN] synchroniserQuestionsFAF");
+		LOGGER.info("[FIN] synchroniserQuestionsFAF");
 	}
 
 	@Override
 	public void synchroniserCorrectionsFAF() throws BdjException {
-
-		LOGGER.debug("[DEBUT] synchroniserCorrectionsFAF");
+		LOGGER.info("[DEBUT] synchroniserCorrectionsFAF");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long indexReprise = dbConnecteurSynchroDao.recupererIndexParCle("FAF_CORRECTION");
@@ -80,12 +78,12 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 
 		dbConnecteurSynchroDao.modifierIndexParCle("FAF_CORRECTION", indexMax);
 
-		LOGGER.debug("[FIN] synchroniserCorrectionsFAF");
+		LOGGER.info("[FIN] synchroniserCorrectionsFAF");
 	}
 
 	@Override
 	public void synchroniserAnomaliesFAF() throws BdjException {
-		LOGGER.debug("[DEBUT] synchroniserAnomaliesFAF");
+		LOGGER.info("[DEBUT] synchroniserAnomaliesFAF");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("FAF_ANOMALIE");
@@ -101,12 +99,12 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 		// Mettre à jour l'index de la dernière question synchronisée.
 		dbConnecteurSynchroDao.modifierIndexParCle("FAF_ANOMALIE", nouveauDernierIndex);
 
-		LOGGER.debug("[FIN] synchroniserAnomaliesFAF");
+		LOGGER.info("[FIN] synchroniserAnomaliesFAF");
 	}
 
 	@Override
 	public void synchroniserLecturesFAF() throws BdjException {
-		LOGGER.debug("[DEBUT] synchroniserLecturesFAF");
+		LOGGER.info("[DEBUT] synchroniserLecturesFAF");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("FAF_LECTURE");
@@ -122,7 +120,7 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 		// Mettre à jour l'index de la dernière question synchronisée.
 		dbConnecteurSynchroDao.modifierIndexParCle("FAF_LECTURE", nouveauDernierIndex);
 
-		LOGGER.debug("[FIN] synchroniserLecturesFAF");
+		LOGGER.info("[FIN] synchroniserLecturesFAF");
 	}
 
 }

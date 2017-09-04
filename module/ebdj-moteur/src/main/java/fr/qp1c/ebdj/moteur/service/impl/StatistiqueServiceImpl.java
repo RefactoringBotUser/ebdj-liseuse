@@ -41,6 +41,7 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 	 */
 	@Override
 	public StatsBDJ calculerStatistique() {
+		LOGGER.info("[DEBUT] calculerStatistique");
 
 		StatsBDJ stats = new StatsBDJ();
 
@@ -92,13 +93,13 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 		statsQuestionsFAF.setNbQuestionsTotal(connecterFAFDao.compterNbQuestion());
 		stats.setStatsFAF(statsQuestionsFAF);
 
-		LOGGER.debug(statsQuestionsFAF.toString());
-
+		LOGGER.info("[FIN ] calculerStatistique : {}", statsQuestionsFAF);
 		return stats;
 	}
 
 	@Override
 	public List<StatsCategorieFAF> calculerStatsCategorieFAF() {
+		LOGGER.info("[DEBUT] calculerStatsCategorieFAF");
 
 		List<StatsCategorieFAF> statsCategorieFAF = new ArrayList<>();
 
@@ -121,6 +122,8 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 
 			statsCategorieFAF.add(stats);
 		}
+
+		LOGGER.info("[FIN] calculerStatsCategorieFAF");
 
 		return statsCategorieFAF;
 	}

@@ -37,8 +37,7 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 
 	@Override
 	public void synchroniserQuestionsJD() throws BdjException {
-
-		LOGGER.debug("[DEBUT] synchroniserQuestionsJD");
+		LOGGER.info("[DEBUT] synchroniserQuestionsJD");
 
 		// Retrouver la référence max de la question
 		Long referenceMaxExistante = dbConnecteurJDDao.recupererReferenceMaxQuestion();
@@ -50,13 +49,12 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 			dbConnecteurJDDao.creerQuestion(question);
 		}
 
-		LOGGER.debug("[FIN] synchroniserQuestionsJD");
+		LOGGER.info("[FIN] synchroniserQuestionsJD");
 	}
 
 	@Override
 	public void synchroniserCorrectionsJD() throws BdjException {
-
-		LOGGER.debug("[DEBUT] synchroniserCorrectionsJD");
+		LOGGER.info("[DEBUT] synchroniserCorrectionsJD");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long indexReprise = dbConnecteurSynchroDao.recupererIndexParCle("JD_CORRECTION");
@@ -79,12 +77,12 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 
 		dbConnecteurSynchroDao.modifierIndexParCle("JD_CORRECTION", indexMax);
 
-		LOGGER.debug("[FIN] synchroniserCorrectionsJD");
+		LOGGER.info("[FIN] synchroniserCorrectionsJD");
 	}
 
 	@Override
 	public void synchroniserAnomaliesJD() throws BdjException {
-		LOGGER.debug("[DEBUT] synchroniserAnomaliesJD");
+		LOGGER.info("[DEBUT] synchroniserAnomaliesJD");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("JD_ANOMALIE");
@@ -100,12 +98,12 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 		// Mettre à jour l'index de la dernière question synchronisée.
 		dbConnecteurSynchroDao.modifierIndexParCle("JD_ANOMALIE", nouveauDernierIndex);
 
-		LOGGER.debug("[FIN] synchroniserAnomaliesJD");
+		LOGGER.info("[FIN] synchroniserAnomaliesJD");
 	}
 
 	@Override
 	public void synchroniserLecturesJD() throws BdjException {
-		LOGGER.debug("[DEBUT] synchroniserLecturesJD");
+		LOGGER.info("[DEBUT] synchroniserLecturesJD");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("JD_LECTURE");
@@ -121,7 +119,7 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 		// Mettre à jour l'index de la dernière question synchronisée.
 		dbConnecteurSynchroDao.modifierIndexParCle("JD_LECTURE", nouveauDernierIndex);
 
-		LOGGER.debug("[FIN] synchroniserLecturesJD");
+		LOGGER.info("[FIN] synchroniserLecturesJD");
 	}
 
 }

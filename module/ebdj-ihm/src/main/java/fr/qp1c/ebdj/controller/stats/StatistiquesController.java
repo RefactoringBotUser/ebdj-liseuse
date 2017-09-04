@@ -7,15 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.Launcher;
-import fr.qp1c.ebdj.controller.popup.PopUpSynchronisationQuestion;
 import fr.qp1c.ebdj.model.stats.StockCategorieFAF;
 import fr.qp1c.ebdj.model.stats.StockQuantite;
 import fr.qp1c.ebdj.moteur.bean.stats.StatsBDJ;
 import fr.qp1c.ebdj.moteur.bean.stats.StatsCategorieFAF;
 import fr.qp1c.ebdj.moteur.service.StatistiqueService;
 import fr.qp1c.ebdj.moteur.service.impl.StatistiqueServiceImpl;
-import fr.qp1c.ebdj.utils.ImageConstants;
-import fr.qp1c.ebdj.utils.ImageUtils;
+import fr.qp1c.ebdj.utils.config.ImageConstants;
+import fr.qp1c.ebdj.view.popup.PopUpSynchronisationQuestion;
+import fr.qp1c.ebdj.view.utils.ImageUtils;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;

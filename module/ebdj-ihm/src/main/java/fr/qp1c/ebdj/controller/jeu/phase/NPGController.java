@@ -3,21 +3,21 @@ package fr.qp1c.ebdj.controller.jeu.phase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.controller.jeu.phase.utilisateur.IPreferencesUtilisateurController;
-import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
-import fr.qp1c.ebdj.loader.MoteurNPG;
-import fr.qp1c.ebdj.model.NiveauPartie;
-import fr.qp1c.ebdj.model.TypePartie;
+import fr.qp1c.ebdj.controller.jeu.phase.preferences.PreferencesLecteur;
 import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestion9PG;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
+import fr.qp1c.ebdj.moteur.bean.partie.NiveauPartie;
+import fr.qp1c.ebdj.moteur.bean.partie.TypePartie;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.moteur.bean.question.TypePhase;
+import fr.qp1c.ebdj.moteur.moteur.MoteurNPG;
 import fr.qp1c.ebdj.moteur.utils.Utils;
-import fr.qp1c.ebdj.view.Seuil;
+import fr.qp1c.ebdj.utils.config.Seuil;
 import fr.qp1c.ebdj.view.Style;
 import fr.qp1c.ebdj.view.TaillePolice;
-import fr.qp1c.ebdj.view.component.Historique9PGListCell;
+import fr.qp1c.ebdj.view.listcell.Historique9PGListCell;
+import fr.qp1c.ebdj.view.popup.PopUpAnomalieQuestion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -35,7 +35,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
-public class NPGController implements IPreferencesUtilisateurController {
+public class NPGController implements PreferencesLecteur {
 
 	/**
 	 * Default logger.
@@ -119,7 +119,7 @@ public class NPGController implements IPreferencesUtilisateurController {
 	}
 
 	public void reinitialiser() {
-		LOGGER.debug("[DEBUT] Initialisation du panneau 9PG.");
+		LOGGER.info("[DEBUT] Initialisation du panneau 9PG.");
 
 		moteur9PG = new MoteurNPG();
 
@@ -163,7 +163,7 @@ public class NPGController implements IPreferencesUtilisateurController {
 
 		nbQuestion.setStyle(Style.FOND_NORMAL);
 
-		LOGGER.debug("[FIN] Initialisation du panneau 9PG.");
+		LOGGER.info("[FIN] Initialisation du panneau 9PG.");
 	}
 
 	// Gestion des évenements
@@ -224,8 +224,6 @@ public class NPGController implements IPreferencesUtilisateurController {
 
 			carton9PG.setStyle(Style.FOND_CARTON);
 		}
-
-		// modifierTaille(TaillePolice.MOYEN);
 	}
 
 	@FXML
@@ -252,8 +250,6 @@ public class NPGController implements IPreferencesUtilisateurController {
 
 			carton9PG.setStyle(Style.FOND_CARTON);
 		}
-
-		// modifierTaille(TaillePolice.GRAND);
 	}
 
 	@FXML
@@ -280,8 +276,6 @@ public class NPGController implements IPreferencesUtilisateurController {
 
 			carton9PG.setStyle(Style.FOND_CARTON);
 		}
-
-		// modifierTaille(TaillePolice.PETIT);
 	}
 
 	@FXML

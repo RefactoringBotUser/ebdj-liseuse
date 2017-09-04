@@ -23,20 +23,20 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 	 */
 	@Override
 	public AuthentificationBdj recupererAuthentificationBdj() {
-		LOGGER.debug("[DEBUT] Récuperer les informations d'authentification.");
+		LOGGER.info("[DEBUT] Récuperer les informations d'authentification.");
 
 		String nomBdj = dbConnecteurParametrageDao.recupererParametrage("NOM_BDJ");
 		String cleActivation = dbConnecteurParametrageDao.recupererParametrage("CLE_ACTIVATION");
 
 		String adresseMac = Utils.recupererAdresseMac();
 
-		LOGGER.debug("Adresse mac : %s", adresseMac);
+		LOGGER.debug("Adresse mac : {}", adresseMac);
 
 		AuthentificationBdj authentificationBdj = new AuthentificationBdj();
 		authentificationBdj.setNomBdj(nomBdj);
 		authentificationBdj.setCleAuthentification(cleActivation);
 
-		LOGGER.debug("[FIN] Récuperer les informations d'authentification.");
+		LOGGER.info("[FIN] Récuperer les informations d'authentification.");
 
 		return authentificationBdj;
 	}
@@ -46,12 +46,17 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 	 */
 	@Override
 	public boolean validerCleActivation() {
+		LOGGER.info("[DEBUT] Valider la clé d'authentification.");
 
 		// Faire un appel à un service rest de la boite pour la valider
 
 		String cleActivation = dbConnecteurParametrageDao.recupererParametrage("CLE_ACTIVATION");
 
-		LOGGER.debug("Cle activation : %s", cleActivation);
+		LOGGER.debug("Cle activation : {}", cleActivation);
+
+		// TODO : a implementer
+
+		LOGGER.info("[FIN] Valider la clé d'authentification.");
 
 		return false;
 	}
@@ -61,6 +66,7 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 	 */
 	@Override
 	public void remplacerCleActivation(String ancienneCle, String nouvelleCle) {
+		LOGGER.info("[DEBUT] Remplacer la clé d'authentification.");
 
 		String cleExistante = dbConnecteurParametrageDao.recupererParametrage("CLE_ACTIVATION");
 
@@ -69,6 +75,8 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 		} else {
 			LOGGER.error("La clé existante ne correspond pas à la clé fournie");
 		}
+
+		LOGGER.info("[FIN] Remplacer la clé d'authentification.");
 	}
 
 }

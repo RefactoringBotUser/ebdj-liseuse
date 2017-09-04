@@ -4,9 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.Launcher;
-import fr.qp1c.ebdj.model.TypePartie;
-import fr.qp1c.ebdj.utils.BoutonUtils;
-import fr.qp1c.ebdj.utils.ImageConstants;
+import fr.qp1c.ebdj.moteur.bean.partie.TypePartie;
+import fr.qp1c.ebdj.utils.config.ImageConstants;
+import fr.qp1c.ebdj.view.utils.BoutonUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

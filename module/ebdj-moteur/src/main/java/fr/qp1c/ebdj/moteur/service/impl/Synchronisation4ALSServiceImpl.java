@@ -33,8 +33,7 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 
 	@Override
 	public void synchroniserCorrections4ALS() throws BdjException {
-
-		LOGGER.debug("[DEBUT] synchroniserCorrections4ALS");
+		LOGGER.info("[DEBUT] synchroniserCorrections4ALS");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long indexReprise = dbConnecteurSynchroDao.recupererIndexParCle("4ALS_CORRECTION");
@@ -58,13 +57,12 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 
 		dbConnecteurSynchroDao.modifierIndexParCle("4ALS_CORRECTION", indexMax);
 
-		LOGGER.debug("[FIN] synchroniserCorrections4ALS");
-
+		LOGGER.info("[FIN] synchroniserCorrections4ALS");
 	}
 
 	@Override
 	public void synchroniserAnomalies4ALS() throws BdjException {
-		LOGGER.debug("[DEBUT] synchroniserAnomalies4ALS");
+		LOGGER.info("[DEBUT] synchroniserAnomalies4ALS");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("4ALS_ANOMALIE");
@@ -80,12 +78,12 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 		// Mettre à jour l'index de la dernière question synchronisée.
 		dbConnecteurSynchroDao.modifierIndexParCle("4ALS_ANOMALIE", nouveauDernierIndex);
 
-		LOGGER.debug("[FIN] synchroniserAnomalies4ALS");
+		LOGGER.info("[FIN] synchroniserAnomalies4ALS");
 	}
 
 	@Override
 	public void synchroniserLectures4ALS() throws BdjException {
-		LOGGER.debug("[DEBUT] synchroniserLectures4ALS");
+		LOGGER.info("[DEBUT] synchroniserLectures4ALS");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("4ALS_LECTURE");
@@ -101,13 +99,12 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 		// Mettre à jour l'index de la dernière question synchronisée.
 		dbConnecteurSynchroDao.modifierIndexParCle("4ALS_LECTURE", nouveauDernierIndex);
 
-		LOGGER.debug("[FIN] synchroniserLectures4ALS");
+		LOGGER.info("[FIN] synchroniserLectures4ALS");
 	}
 
 	@Override
 	public void synchroniserThemes4ALS() throws BdjException {
-
-		LOGGER.debug("[DEBUT] synchroniserThemes4ALS");
+		LOGGER.info("[DEBUT] synchroniserThemes4ALS");
 
 		// Retrouver la référence max de la question
 		Long referenceMaxExistante = dbConnecteur4ALSDao.recupererReferenceMaxQuestion();
@@ -119,8 +116,7 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 			dbConnecteur4ALSDao.creerTheme(theme);
 		}
 
-		LOGGER.debug("[FIN] synchroniserThemes4ALS");
-
+		LOGGER.info("[FIN] synchroniserThemes4ALS");
 	}
 
 }

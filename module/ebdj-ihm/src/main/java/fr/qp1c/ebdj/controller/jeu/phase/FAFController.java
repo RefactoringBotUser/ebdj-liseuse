@@ -3,22 +3,22 @@ package fr.qp1c.ebdj.controller.jeu.phase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.controller.jeu.phase.utilisateur.IPreferencesUtilisateurController;
-import fr.qp1c.ebdj.controller.popup.PopUpAnomalieQuestion;
-import fr.qp1c.ebdj.loader.MoteurFAF;
-import fr.qp1c.ebdj.model.NiveauPartie;
-import fr.qp1c.ebdj.model.TypePartie;
+import fr.qp1c.ebdj.controller.jeu.phase.preferences.PreferencesLecteur;
 import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.historique.HistoriqueQuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
+import fr.qp1c.ebdj.moteur.bean.partie.NiveauPartie;
+import fr.qp1c.ebdj.moteur.bean.partie.TypePartie;
 import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.question.TypePhase;
+import fr.qp1c.ebdj.moteur.moteur.MoteurFAF;
 import fr.qp1c.ebdj.moteur.utils.StringUtilities;
 import fr.qp1c.ebdj.moteur.utils.Utils;
-import fr.qp1c.ebdj.view.Seuil;
+import fr.qp1c.ebdj.utils.config.Seuil;
 import fr.qp1c.ebdj.view.Style;
 import fr.qp1c.ebdj.view.TaillePolice;
-import fr.qp1c.ebdj.view.component.HistoriqueFAFListCell;
+import fr.qp1c.ebdj.view.listcell.HistoriqueFAFListCell;
+import fr.qp1c.ebdj.view.popup.PopUpAnomalieQuestion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -40,7 +40,7 @@ import javafx.util.Callback;
  * @author NICO
  *
  */
-public class FAFController implements IPreferencesUtilisateurController {
+public class FAFController implements PreferencesLecteur {
 
 	/**
 	 * Default logger.

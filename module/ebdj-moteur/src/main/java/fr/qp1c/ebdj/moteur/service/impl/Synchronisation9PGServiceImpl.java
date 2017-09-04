@@ -37,8 +37,7 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 
 	@Override
 	public void synchroniserQuestions9PG() throws BdjException {
-
-		LOGGER.debug("[DEBUT] synchroniserQuestions9PG");
+		LOGGER.info("[DEBUT] synchroniserQuestions9PG");
 
 		// Retrouver la référence max de la question
 		Long referenceMaxExistante = dbConnecteurNPGDao.recupererReferenceMaxQuestion();
@@ -50,13 +49,12 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 			dbConnecteurNPGDao.creerQuestion(question);
 		}
 
-		LOGGER.debug("[FIN] synchroniserQuestions9PG");
+		LOGGER.info("[FIN] synchroniserQuestions9PG");
 	}
 
 	@Override
 	public void synchroniserCorrections9PG() throws BdjException {
-
-		LOGGER.debug("[DEBUT] synchroniserCorrections9PG");
+		LOGGER.info("[DEBUT] synchroniserCorrections9PG");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long indexReprise = dbConnecteurSynchroDao.recupererIndexParCle("9PG_CORRECTION");
@@ -80,12 +78,12 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 
 		dbConnecteurSynchroDao.modifierIndexParCle("9PG_CORRECTION", indexMax);
 
-		LOGGER.debug("[FIN] synchroniserCorrections9PG");
+		LOGGER.info("[FIN] synchroniserCorrections9PG");
 	}
 
 	@Override
 	public void synchroniserAnomalies9PG() throws BdjException {
-		LOGGER.debug("[DEBUT] synchroniserAnomalies9PG");
+		LOGGER.info("[DEBUT] synchroniserAnomalies9PG");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("9PG_ANOMALIE");
@@ -101,12 +99,12 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 		// Mettre à jour l'index de la dernière question synchronisée.
 		dbConnecteurSynchroDao.modifierIndexParCle("9PG_ANOMALIE", nouveauDernierIndex);
 
-		LOGGER.debug("[FIN] synchroniserAnomalies9PG");
+		LOGGER.info("[FIN] synchroniserAnomalies9PG");
 	}
 
 	@Override
 	public void synchroniserLectures9PG() throws BdjException {
-		LOGGER.debug("[DEBUT] synchroniserLectures9PG");
+		LOGGER.info("[DEBUT] synchroniserLectures9PG");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("9PG_LECTURE");
@@ -122,7 +120,7 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 		// Mettre à jour l'index de la dernière question synchronisée.
 		dbConnecteurSynchroDao.modifierIndexParCle("9PG_LECTURE", nouveauDernierIndex);
 
-		LOGGER.debug("[FIN] synchroniserLectures9PG");
+		LOGGER.info("[FIN] synchroniserLectures9PG");
 	}
 
 }
