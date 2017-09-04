@@ -29,7 +29,7 @@ public class Utils {
 		try {
 
 			ip = InetAddress.getLocalHost();
-			LOGGER.debug("Adresse IP courante: %s", ip.getHostAddress());
+			LOGGER.debug("Adresse IP courante: {}", ip.getHostAddress());
 
 			NetworkInterface network = NetworkInterface.getByInetAddress(ip);
 
@@ -42,7 +42,7 @@ public class Utils {
 
 			String adresseMac = sb.toString();
 
-			LOGGER.debug("Adresse MAC courante: %s", adresseMac);
+			LOGGER.debug("Adresse MAC courante: {}", adresseMac);
 
 			return adresseMac;
 		} catch (UnknownHostException e) {

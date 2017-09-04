@@ -78,7 +78,7 @@ public class QALSController implements PreferencesLecteur {
 
 	@FXML
 	private void initialize() {
-		LOGGER.debug("[DEBUT] Initialisation du panneau 4ALS.");
+		LOGGER.info("[DEBUT] Initialisation du panneau 4ALS.");
 
 		moteurQALS = new MoteurQALS();
 
@@ -151,16 +151,16 @@ public class QALSController implements PreferencesLecteur {
 
 		// Retrieving the observable list of the TextFlow Pane
 		ObservableList<Node> list1 = questionTheme4ALS1.getChildren();
-		afficher4ALS(list1, theme4ALS_1);
+		formaterContenuTheme4ALS(list1, theme4ALS_1);
 
 		ObservableList<Node> list2 = questionTheme4ALS2.getChildren();
-		afficher4ALS(list2, theme4ALS_2);
+		formaterContenuTheme4ALS(list2, theme4ALS_2);
 
 		ObservableList<Node> list3 = questionTheme4ALS3.getChildren();
-		afficher4ALS(list3, theme4ALS_3);
+		formaterContenuTheme4ALS(list3, theme4ALS_3);
 
 		ObservableList<Node> list4 = questionTheme4ALS4.getChildren();
-		afficher4ALS(list4, theme4ALS_4);
+		formaterContenuTheme4ALS(list4, theme4ALS_4);
 
 		panneauQuestionTheme4ALS1.setFitToHeight(true);
 		panneauQuestionTheme4ALS1.setFitToWidth(true);
@@ -174,14 +174,15 @@ public class QALSController implements PreferencesLecteur {
 		panneauQuestionTheme4ALS4.setFitToHeight(true);
 		panneauQuestionTheme4ALS4.setFitToWidth(true);
 
-		LOGGER.debug("[FIN] Initialisation du panneau 4ALS.");
+		LOGGER.info("[FIN] Initialisation du panneau 4ALS.");
 	}
 
 	public void reinitialiser() {
 
 	}
 
-	public void afficher4ALS(ObservableList<Node> list, Theme4ALS theme4ALS) {
+	public void formaterContenuTheme4ALS(ObservableList<Node> list, Theme4ALS theme4ALS) {
+		LOGGER.info("[DEBUT] Afficher theme 4ALS.");
 
 		Font fontR = Font.font("Venacti", FontWeight.BOLD, 18);
 		Font fontQ = new Font("Arial", 18);
@@ -203,21 +204,31 @@ public class QALSController implements PreferencesLecteur {
 			// Adding cylinder to the pane
 			list.addAll(textQ, textR, textLV);
 		}
+
+		LOGGER.info("[FIN] Afficher theme 4ALS.");
 	}
 
 	@Override
 	public void definirLecteur(Lecteur lecteur) {
+		LOGGER.info("[DEBUT] Définir lecteur.");
+
 		moteurQALS.definirLecteur(lecteur);
+
+		LOGGER.info("[FIN] Définir lecteur.");
 	}
 
 	@Override
 	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		LOGGER.info("[DEBUT] Définir niveau partie.");
+
 		moteurQALS.definirNiveauPartie(niveauPartie);
+
+		LOGGER.info("[FIN] Définir niveau partie.");
 	}
 
 	@Override
 	public void modifierTaille(TaillePolice taille) {
-		// TODO Auto-generated method stub
+		// TODO a implementer
 
 	}
 

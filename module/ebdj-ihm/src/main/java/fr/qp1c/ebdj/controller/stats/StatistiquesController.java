@@ -112,7 +112,7 @@ public class StatistiquesController {
 
 	@FXML
 	private void initialize() {
-		LOGGER.debug("[DEBUT] Initialisation du panneau stats.");
+		LOGGER.info("[DEBUT] Initialisation du panneau stats.");
 
 		btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_HOME, 25));
 
@@ -154,21 +154,22 @@ public class StatistiquesController {
 
 		actualiserContenuTableaux();
 
-		LOGGER.debug("[FIN] Initialisation du panneau stats.");
+		LOGGER.info("[FIN] Initialisation du panneau stats.");
 	}
 
 	public void actualiserContenuTableaux() {
-		LOGGER.debug("[DEBUT] Réactualisation des données.");
+		LOGGER.info("[DEBUT] Réactualisation des données.");
 
 		// Refresh des tableaux
 		actualiserContenuTableauStockSynthese();
 		actualiserContenuTableauStockFAF();
 
-		LOGGER.debug("[FIN] Réactualisation des données.");
+		LOGGER.info("[FIN] Réactualisation des données.");
 	}
 
 	private void actualiserContenuTableauStockSynthese() {
-		LOGGER.debug("[DEBUT] Réactualisation du contenu du tableau stock synthese.");
+		LOGGER.info("[DEBUT] Réactualisation du contenu du tableau stock synthese.");
+
 		StatistiqueService statistiqueService = new StatistiqueServiceImpl();
 
 		// Réactualisation tableau stock
@@ -188,11 +189,11 @@ public class StatistiquesController {
 
 		tableauStockSynthese.refresh();
 
-		LOGGER.debug("[FIN] Réactualisation du contenu du tableau stock synthese.");
+		LOGGER.info("[FIN] Réactualisation du contenu du tableau stock synthese.");
 	}
 
 	private void actualiserContenuTableauStockFAF() {
-		LOGGER.debug("[DEBUT] Réactualisation du contenu du tableau stock des FAF.");
+		LOGGER.info("[DEBUT] Réactualisation du contenu du tableau stock des FAF.");
 
 		StatistiqueService statistiqueService = new StatistiqueServiceImpl();
 
@@ -212,7 +213,7 @@ public class StatistiquesController {
 
 		tableauStockFAF.refresh();
 
-		LOGGER.debug("[FIN] Réactualisation du contenu du tableau stock des FAF.");
+		LOGGER.info("[FIN] Réactualisation du contenu du tableau stock des FAF.");
 	}
 
 	@FXML

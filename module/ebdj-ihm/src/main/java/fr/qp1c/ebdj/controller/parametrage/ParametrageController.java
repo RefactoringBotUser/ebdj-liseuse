@@ -27,7 +27,7 @@ public class ParametrageController {
 
 	@FXML
 	private void initialize() {
-		LOGGER.debug("[DEBUT] Initialisation du panneau paramétrage.");
+		LOGGER.info("[DEBUT] Initialisation du panneau paramétrage.");
 
 		btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_HOME, 25));
 
@@ -36,7 +36,7 @@ public class ParametrageController {
 
 		// TODO : Afficher le numéro de version de l'application
 
-		LOGGER.debug("[FIN] Initialisation du panneau paramétrage.");
+		LOGGER.info("[FIN] Initialisation du panneau paramétrage.");
 	}
 
 	@FXML

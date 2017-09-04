@@ -308,7 +308,7 @@ public class NPGController implements PreferencesLecteur {
 	// Méthodes d'affichage
 
 	private void changerQuestion(boolean questionACompter, boolean calculerNiveau) {
-		LOGGER.debug("[DEBUT] Changer de question.");
+		LOGGER.info("[DEBUT] Changer de question.");
 
 		QuestionNPG nouvelleQuestion = null;
 
@@ -327,11 +327,11 @@ public class NPGController implements PreferencesLecteur {
 		afficherCarton9PG(nouvelleQuestion, moteur9PG.getNiveau());
 		afficherNbQuestion();
 
-		LOGGER.debug("[FIN] Changer de question.");
+		LOGGER.info("[FIN] Changer de question.");
 	}
 
 	private void afficherQuestionHistorique(HistoriqueQuestion9PG question) {
-		LOGGER.debug("[DEBUT] Affichage question depuis l'historique.");
+		LOGGER.info("[DEBUT] Affichage question depuis l'historique.");
 
 		// Mise à jour de l'affichage
 		afficherCarton9PG(question.getQuestion(), question.getNiveau());
@@ -349,11 +349,11 @@ public class NPGController implements PreferencesLecteur {
 
 		numQuestionAffiche = question.getNbQuestionReel();
 
-		LOGGER.debug("[FIN] Affichage question depuis l'historique.");
+		LOGGER.info("[FIN] Affichage question depuis l'historique.");
 	}
 
 	private void afficherNbQuestion() {
-		LOGGER.debug("[DEBUT] Affichage du nombre de question.");
+		LOGGER.info("[DEBUT] Affichage du nombre de question.");
 
 		if (moteur9PG.getNbQuest() == 1) {
 			nbQuestion.setText(moteur9PG.getNbQuest() + " question jouée");
@@ -363,11 +363,11 @@ public class NPGController implements PreferencesLecteur {
 			}
 			nbQuestion.setText(moteur9PG.getNbQuest() + " questions jouées");
 		}
-		LOGGER.debug("[FIN] Affichage du nombre de question.");
+		LOGGER.info("[FIN] Affichage du nombre de question.");
 	}
 
 	private void afficherCarton9PG(QuestionNPG questionNPG, int niveau) {
-		LOGGER.debug("[DEBUT] Affichage carton 9PG.");
+		LOGGER.info("[DEBUT] Affichage carton 9PG.");
 
 		afficherNiveauQuestion(niveau);
 
@@ -376,7 +376,7 @@ public class NPGController implements PreferencesLecteur {
 		reponse9PG.setTextAlignment(TextAlignment.CENTER);
 		question9PGInfos.setText(formaterQuestion9PGInfos(questionNPG));
 
-		LOGGER.debug("[FIN] Affichage carton 9PG.");
+		LOGGER.info("[FIN] Affichage carton 9PG.");
 	}
 
 	private String formaterQuestion9PGInfos(QuestionNPG questionNPG) {
@@ -384,7 +384,7 @@ public class NPGController implements PreferencesLecteur {
 	}
 
 	private void afficherNiveauQuestion(int niveau) {
-		LOGGER.debug("[DEBUT] Affichage niveau question : {}", niveau);
+		LOGGER.info("[DEBUT] Affichage niveau question : {}", niveau);
 
 		if (niveau == 1) {
 			niveau1.setVisible(false);
@@ -406,13 +406,13 @@ public class NPGController implements PreferencesLecteur {
 			niveau3.setFitWidth(40.0);
 		}
 
-		LOGGER.debug("[FIN] Affichage niveau question.");
+		LOGGER.info("[FIN] Affichage niveau question.");
 	}
 
 	// Méthodes métier
 
 	private void historiserQuestion9PG(QuestionNPG question9PG) {
-		LOGGER.debug("[DEBUT] Historisation de la question 9PG.");
+		LOGGER.info("[DEBUT] Historisation de la question 9PG.");
 
 		if (question9PG != null) {
 			HistoriqueQuestion9PG histo = new HistoriqueQuestion9PG();
@@ -424,7 +424,7 @@ public class NPGController implements PreferencesLecteur {
 			listeHistorique9PG.add(0, histo);
 		}
 
-		LOGGER.debug("[FIN] Historisation de la question 9PG.");
+		LOGGER.info("[FIN] Historisation de la question 9PG.");
 	}
 
 	/**
@@ -435,6 +435,8 @@ public class NPGController implements PreferencesLecteur {
 	 */
 	@Override
 	public void modifierTaille(TaillePolice taille) {
+		LOGGER.info("[DEBUT] Modifier la taille.");
+
 		switch (taille) {
 		case PETIT:
 			definirTailleCarton9PG(14);
@@ -446,6 +448,8 @@ public class NPGController implements PreferencesLecteur {
 			definirTailleCarton9PG(22);
 			break;
 		}
+
+		LOGGER.info("[FIN] Modifier la taille.");
 	}
 
 	/**
@@ -455,18 +459,30 @@ public class NPGController implements PreferencesLecteur {
 	 *            la taille à définir
 	 */
 	private void definirTailleCarton9PG(int taille) {
+		LOGGER.info("[DEBUT] Définir taille carton.");
+
 		question9PG.setStyle("-fx-font-size:" + taille + "px");
 		reponse9PG.setStyle("-fx-font-size:" + taille + "px");
 		question9PGInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
+
+		LOGGER.info("[FIN] Définir taille carton.");
 	}
 
 	@Override
 	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		LOGGER.info("[DEBUT] Définir niveau partie.");
+
 		moteur9PG.definirNiveauPartie(niveauPartie);
+
+		LOGGER.info("[FIN] Définir niveau partie.");
 	}
 
 	@Override
 	public void definirLecteur(Lecteur lecteur) {
+		LOGGER.info("[DEBUT] Définir lecteur.");
+
 		moteur9PG.definirLecteur(lecteur);
+
+		LOGGER.info("[FIN] Définir lecteur.");
 	}
 }

@@ -62,7 +62,7 @@ public class HomeController {
 	@FXML
 	private void initialize() {
 
-		LOGGER.debug("[DEBUT] Initialisation du panneau home.");
+		LOGGER.info("[DEBUT] Initialisation du panneau home.");
 
 		// Création du bouton "Question"
 		BoutonUtils.customiserBouton150(btnQuestion, ImageConstants.IMAGE_HOME_QUESTION);
@@ -75,7 +75,7 @@ public class HomeController {
 
 		masquerSousMenuTypeQuestionnaire();
 
-		LOGGER.debug("[FIN] Initialisation du panneau home.");
+		LOGGER.info("[FIN] Initialisation du panneau home.");
 	}
 
 	@FXML

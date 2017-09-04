@@ -38,7 +38,7 @@ public class LecteurServiceImpl implements LecteurService {
 		if (!dbConnecteurLecteurDao.testerExistanteLecteur(lecteur.getNom(), lecteur.getPrenom())) {
 			dbConnecteurLecteurDao.ajouterLecteur(lecteur);
 		} else {
-			LOGGER.error("Le lecteur %s %s existe déjà.", lecteur.getNom(), lecteur.getPrenom());
+			LOGGER.error("Le lecteur {} {} existe déjà.", lecteur.getNom(), lecteur.getPrenom());
 		}
 
 		LOGGER.info("[FIN] Ajouter un lecteur.");

@@ -107,7 +107,7 @@ public class FAFController implements PreferencesLecteur {
 	}
 
 	public void reinitialiser() {
-		LOGGER.debug("[DEBUT] Initialisation du panneau FAF.");
+		LOGGER.info("[DEBUT] Initialisation du panneau FAF.");
 
 		moteurFAF = new MoteurFAF();
 
@@ -151,7 +151,7 @@ public class FAFController implements PreferencesLecteur {
 
 		modifierTaille(TaillePolice.GRAND);
 
-		LOGGER.debug("[FIN] Initialisation du panneau FAF.");
+		LOGGER.info("[FIN] Initialisation du panneau FAF.");
 	}
 
 	// Gestion des évenements
@@ -214,7 +214,7 @@ public class FAFController implements PreferencesLecteur {
 	// Méthodes d'affichage
 
 	private void changerQuestion(boolean questionACompter) {
-		LOGGER.debug("[DEBUT] Changer de question.");
+		LOGGER.info("[DEBUT] Changer de question.");
 
 		QuestionFAF nouvelleQuestion = moteurFAF.changerQuestion(questionACompter);
 
@@ -225,11 +225,11 @@ public class FAFController implements PreferencesLecteur {
 		afficherCartonFAF(nouvelleQuestion);
 		afficherNbQuestion();
 
-		LOGGER.debug("[FIN] Changer de question.");
+		LOGGER.info("[FIN] Changer de question.");
 	}
 
 	private void afficherQuestionHistorique(HistoriqueQuestionFAF question) {
-		LOGGER.debug("[DEBUT] Affichage question depuis l'historique.");
+		LOGGER.info("[DEBUT] Affichage question depuis l'historique.");
 
 		// Mise à jour de l'affichage
 		afficherCartonFAF(question.getQuestion());
@@ -247,11 +247,11 @@ public class FAFController implements PreferencesLecteur {
 
 		numQuestionAffiche = question.getNbQuestionReel();
 
-		LOGGER.debug("[FIN] Affichage question depuis l'historique.");
+		LOGGER.info("[FIN] Affichage question depuis l'historique.");
 	}
 
 	private void afficherNbQuestion() {
-		LOGGER.debug("[DEBUT] Affichage du nombre de question.");
+		LOGGER.info("[DEBUT] Affichage du nombre de question.");
 
 		if (moteurFAF.getNbQuest() == 1) {
 			nbQuestion.setText(moteurFAF.getNbQuest() + " question jouée");
@@ -261,11 +261,11 @@ public class FAFController implements PreferencesLecteur {
 			}
 			nbQuestion.setText(moteurFAF.getNbQuest() + " questions jouées");
 		}
-		LOGGER.debug("[FIN] Affichage du nombre de question.");
+		LOGGER.info("[FIN] Affichage du nombre de question.");
 	}
 
 	private void afficherCartonFAF(QuestionFAF questionFAF) {
-		LOGGER.debug("[DEBUT] Affichage carton FAF.");
+		LOGGER.info("[DEBUT] Affichage carton FAF.");
 
 		String nbMots = " (" + StringUtilities.compterNombreDeMots(questionFAF.getQuestion()) + " mots)";
 
@@ -276,13 +276,13 @@ public class FAFController implements PreferencesLecteur {
 		questionFAFInfos.setText(Utils.formaterReference(questionFAF.getReference(), TypePhase.FAF) + " - "
 				+ questionFAF.getSource().toString());
 
-		LOGGER.debug("[FIN] Affichage carton FAF.");
+		LOGGER.info("[FIN] Affichage carton FAF.");
 	}
 
 	// Méthodes métier
 
 	private void historiserQuestionFAF(QuestionFAF questionFAF) {
-		LOGGER.debug("[DEBUT] Historisation de la question FAF.");
+		LOGGER.info("[DEBUT] Historisation de la question FAF.");
 
 		if (questionFAF != null) {
 			HistoriqueQuestionFAF histo = new HistoriqueQuestionFAF();
@@ -293,12 +293,12 @@ public class FAFController implements PreferencesLecteur {
 			listeHistoriqueFAF.add(0, histo);
 		}
 
-		LOGGER.debug("[FIN] Historisation de la question FAF.");
+		LOGGER.info("[FIN] Historisation de la question FAF.");
 	}
 
 	@Override
 	public void modifierTaille(TaillePolice taille) {
-		LOGGER.debug("[DEBUT] Modifier la taille.");
+		LOGGER.info("[DEBUT] Modifier la taille.");
 
 		switch (taille) {
 		case PETIT:
@@ -312,23 +312,35 @@ public class FAFController implements PreferencesLecteur {
 			break;
 		}
 
-		LOGGER.debug("[FIN] Modifier la taille.");
+		LOGGER.info("[FIN] Modifier la taille.");
 	}
 
 	private void definirTailleCartonFAF(int taille) {
+		LOGGER.info("[DEBUT] Définir taille carton.");
+
 		themeFAF.setStyle("-fx-font-size:" + taille + "px");
 		libelleQuestionFAF.setStyle("-fx-font-size:" + taille + "px");
 		reponseFAF.setStyle("-fx-font-size:" + taille + "px");
 		questionFAFInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
+
+		LOGGER.info("[FIN] Définir taille carton.");
 	}
 
 	@Override
 	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		LOGGER.info("[DEBUT] Définir niveau partie.");
+
 		moteurFAF.definirNiveauPartie(niveauPartie);
+
+		LOGGER.info("[FIN] Définir niveau partie.");
 	}
 
 	@Override
 	public void definirLecteur(Lecteur lecteur) {
+		LOGGER.info("[DEBUT] Définir lecteur.");
+
 		moteurFAF.definirLecteur(lecteur);
+
+		LOGGER.info("[FIN] Définir lecteur.");
 	}
 }

@@ -180,7 +180,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 				// Convertir chaque question
 				question = convertirQuestionFAF(rs);
 
-				LOGGER.info("Question : " + question);
+				LOGGER.debug("Question : " + question);
 			}
 
 			// Fermeture des connections.

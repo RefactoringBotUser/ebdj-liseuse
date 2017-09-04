@@ -209,6 +209,7 @@ public class JDController implements PreferencesLecteur {
 	// Méthodes d'affichage
 
 	private void changerQuestion(boolean questionACompter) {
+		LOGGER.info("[DEBUT] Changer de question.");
 
 		QuestionJD nouvelleQuestion = moteurJD.changerQuestion(questionACompter);
 
@@ -218,10 +219,12 @@ public class JDController implements PreferencesLecteur {
 		// Mise à jour de l'affichage
 		afficherCartonJD(nouvelleQuestion);
 		afficherNbQuestion();
+
+		LOGGER.info("[FIN] Changer de question.");
 	}
 
 	private void afficherQuestionHistorique(HistoriqueQuestionJD question) {
-		LOGGER.debug("[DEBUT] Affichage question depuis l'historique.");
+		LOGGER.info("[DEBUT] Affichage question depuis l'historique.");
 
 		// Mise à jour de l'affichage
 		afficherCartonJD(question.getQuestion());
@@ -239,11 +242,11 @@ public class JDController implements PreferencesLecteur {
 
 		numQuestionAffiche = question.getNbQuestionReel();
 
-		LOGGER.debug("[FIN] Affichage question depuis l'historique.");
+		LOGGER.info("[FIN] Affichage question depuis l'historique.");
 	}
 
 	private void afficherNbQuestion() {
-		LOGGER.debug("[DEBUT] Affichage du nombre de question.");
+		LOGGER.info("[DEBUT] Affichage du nombre de question.");
 
 		if (moteurJD.getNbQuest() == 1) {
 			nbQuestion.setText(moteurJD.getNbQuest() + " question jouée");
@@ -253,11 +256,11 @@ public class JDController implements PreferencesLecteur {
 			}
 			nbQuestion.setText(moteurJD.getNbQuest() + " questions jouées");
 		}
-		LOGGER.debug("[FIN] Affichage du nombre de question.");
+		LOGGER.info("[FIN] Affichage du nombre de question.");
 	}
 
 	private void afficherCartonJD(QuestionJD questionJD) {
-		LOGGER.debug("[DEBUT] Affichage carton JD.");
+		LOGGER.info("[DEBUT] Affichage carton JD.");
 
 		themeJD.setText(questionJD.getTheme());
 		libelleQuestionJD.setText(questionJD.getQuestion());
@@ -266,13 +269,13 @@ public class JDController implements PreferencesLecteur {
 		questionJDInfos.setText(Utils.formaterReference(questionJD.getReference(), TypePhase.JD) + " - "
 				+ questionJD.getSource().toString());
 
-		LOGGER.debug("[FIN] Affichage carton JD.");
+		LOGGER.info("[FIN] Affichage carton JD.");
 	}
 
 	// Méthodes métier
 
 	private void historiserQuestionJD(QuestionJD questionJD) {
-		LOGGER.debug("[DEBUT] Historisation de la question JD.");
+		LOGGER.info("[DEBUT] Historisation de la question JD.");
 
 		if (questionJD != null) {
 
@@ -284,11 +287,13 @@ public class JDController implements PreferencesLecteur {
 			listeHistoriqueJD.add(0, histo);
 		}
 
-		LOGGER.debug("[FIN] Historisation de la question JD.");
+		LOGGER.info("[FIN] Historisation de la question JD.");
 	}
 
 	@Override
 	public void modifierTaille(TaillePolice taille) {
+		LOGGER.info("[DEBUT] Modifier la taille.");
+
 		switch (taille) {
 		case PETIT:
 			definirTailleCartonJD(14);
@@ -300,22 +305,36 @@ public class JDController implements PreferencesLecteur {
 			definirTailleCartonJD(22);
 			break;
 		}
+
+		LOGGER.info("[FIN] Modifier la taille.");
 	}
 
 	private void definirTailleCartonJD(int taille) {
+		LOGGER.info("[DEBUT] Définir taille carton.");
+
 		themeJD.setStyle("-fx-font-size:" + taille + "px");
 		libelleQuestionJD.setStyle("-fx-font-size:" + taille + "px");
 		reponseJD.setStyle("-fx-font-size:" + taille + "px");
 		questionJDInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
+
+		LOGGER.info("[FIN] Définir taille carton.");
 	}
 
 	@Override
 	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		LOGGER.info("[DEBUT] Définir niveau partie.");
+
 		moteurJD.definirNiveauPartie(niveauPartie);
+
+		LOGGER.info("[FIN] Définir niveau partie.");
 	}
 
 	@Override
 	public void definirLecteur(Lecteur lecteur) {
+		LOGGER.info("[DEBUT] Définir lecteur.");
+
 		moteurJD.definirLecteur(lecteur);
+
+		LOGGER.info("[FIN] Définir lecteur.");
 	}
 }

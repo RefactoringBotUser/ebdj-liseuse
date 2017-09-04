@@ -75,7 +75,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 				source.setDateReception(rs.getString("dateReception"));
 				question.setSource(source);
 
-				LOGGER.info("Question : " + question);
+				LOGGER.debug("Question : " + question);
 
 				// Ajouter la question à la liste
 				listeQuestionsAJouer.add(question);

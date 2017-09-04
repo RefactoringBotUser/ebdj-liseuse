@@ -94,7 +94,7 @@ public class TypePartieController {
 
 	@FXML
 	private void initialize() {
-		LOGGER.debug("[DEBUT] Initialisation du panneau quitter la partie.");
+		LOGGER.info("[DEBUT] Initialisation du panneau quitter la partie.");
 
 		initialiser();
 
@@ -102,7 +102,7 @@ public class TypePartieController {
 		btnHome.setText("Quitter la partie");
 		btnHome.setTextAlignment(TextAlignment.CENTER);
 
-		LOGGER.debug("[FIN] Initialisation du panneau quitter la partie.");
+		LOGGER.info("[FIN] Initialisation du panneau quitter la partie.");
 	}
 
 	private void initialiser() {
@@ -171,7 +171,7 @@ public class TypePartieController {
 	}
 
 	public void reinitialiser(TypePartie typePartie, NiveauPartie niveauPartie) {
-		LOGGER.debug("[DEBUT] Réinitialisation de l'écran.");
+		LOGGER.info("[DEBUT] Réinitialisation de l'écran.");
 
 		Lecteur lecteur = panneauLecteur.getLecteur();
 		panneauLecteur.selectionnerLecteurParDefaut();
@@ -215,7 +215,7 @@ public class TypePartieController {
 			controllerFAF.jouerNouvelleQuestionFAF();
 		}
 
-		LOGGER.debug("[FIN] Réinitialisation de l'écran.");
+		LOGGER.info("[FIN] Réinitialisation de l'écran.");
 	}
 
 	// Gestion des évenements
