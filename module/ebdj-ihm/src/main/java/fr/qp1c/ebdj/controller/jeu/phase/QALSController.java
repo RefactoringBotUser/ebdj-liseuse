@@ -11,7 +11,6 @@ import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.question.Question;
 import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
-import fr.qp1c.ebdj.moteur.loader.LoaderTheme4ALS;
 import fr.qp1c.ebdj.moteur.moteur.MoteurQALS;
 import fr.qp1c.ebdj.utils.config.ImageConstants;
 import fr.qp1c.ebdj.view.TaillePolice;
@@ -78,13 +77,17 @@ public class QALSController implements PreferencesLecteur {
 
 	@FXML
 	private void initialize() {
-		LOGGER.info("[DEBUT] Initialisation du panneau 4ALS.");
+		reinitialiser();
+	}
+
+	public void reinitialiser() {
+		LOGGER.info("[DEBUT] Reinitialisation du panneau 4ALS.");
 
 		moteurQALS = new MoteurQALS();
 
 		theme4ALS5.setVisible(false);
 
-		Map<String, Theme4ALS> themes4ALS = LoaderTheme4ALS.chargerQuestions();
+		Map<Integer, Theme4ALS> themes4ALS = moteurQALS.tirerThemes();
 
 		Theme4ALS theme4ALS_1 = themes4ALS.get("1");
 		Theme4ALS theme4ALS_2 = themes4ALS.get("2");
@@ -99,6 +102,8 @@ public class QALSController implements PreferencesLecteur {
 				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 1\".");
 
 				theme4ALS1.afficherTheme();
+
+				moteurQALS.jouerTheme(theme4ALS_1.getReference());
 			}
 		});
 
@@ -109,6 +114,8 @@ public class QALSController implements PreferencesLecteur {
 				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 2\".");
 
 				theme4ALS2.afficherTheme();
+
+				moteurQALS.jouerTheme(theme4ALS_2.getReference());
 			}
 		});
 
@@ -119,6 +126,8 @@ public class QALSController implements PreferencesLecteur {
 				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 3\".");
 
 				theme4ALS3.afficherTheme();
+
+				moteurQALS.jouerTheme(theme4ALS_3.getReference());
 			}
 		});
 
@@ -129,6 +138,8 @@ public class QALSController implements PreferencesLecteur {
 				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 4\".");
 
 				theme4ALS4.afficherTheme();
+
+				moteurQALS.jouerTheme(theme4ALS_4.getReference());
 			}
 		});
 
@@ -174,11 +185,7 @@ public class QALSController implements PreferencesLecteur {
 		panneauQuestionTheme4ALS4.setFitToHeight(true);
 		panneauQuestionTheme4ALS4.setFitToWidth(true);
 
-		LOGGER.info("[FIN] Initialisation du panneau 4ALS.");
-	}
-
-	public void reinitialiser() {
-
+		LOGGER.info("[FIN] Reinitialisation du panneau 4ALS.");
 	}
 
 	public void formaterContenuTheme4ALS(ObservableList<Node> list, Theme4ALS theme4ALS) {

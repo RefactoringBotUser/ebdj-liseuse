@@ -1,5 +1,8 @@
 package fr.qp1c.ebdj.view.bouton;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.qp1c.ebdj.view.panneau.PanneauTheme4ALS;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
@@ -8,6 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
 public class BoutonSwitch4ALS extends HBox {
+
+	/**
+	 * Default logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(BoutonSwitch4ALS.class);
 
 	private final Label label = new Label();
 	private final Button button = new Button();
@@ -20,8 +28,12 @@ public class BoutonSwitch4ALS extends HBox {
 		init();
 		switchedOn.addListener((a, b, c) -> {
 			if (c) {
+				LOGGER.info("### --> Clic sur \"Joué theme 4ALS\".");
+
 				selectionner4ALS();
 			} else {
+				LOGGER.info("### --> Clic sur \"Non joué theme 4ALS\".");
+
 				deselectionner4ALS();
 			}
 		});
@@ -34,6 +46,8 @@ public class BoutonSwitch4ALS extends HBox {
 
 		if (panneauTheme4ALS != null) {
 			panneauTheme4ALS.setExpanded(true);
+
+			// TODO : appeler le moteur
 		}
 	}
 
@@ -44,6 +58,8 @@ public class BoutonSwitch4ALS extends HBox {
 
 		if (panneauTheme4ALS != null) {
 			panneauTheme4ALS.setExpanded(false);
+
+			// TODO : appeler le moteur
 		}
 	}
 
@@ -61,9 +77,15 @@ public class BoutonSwitch4ALS extends HBox {
 
 		getChildren().addAll(label, button);
 		button.setOnAction((e) -> {
+
+			LOGGER.info("### --> Clic sur \"Joué theme 4ALS\".");
+
 			switchedOn.set(!switchedOn.get());
 		});
 		label.setOnMouseClicked((e) -> {
+
+			LOGGER.info("### --> Clic sur \"Non-joué theme 4ALS\".");
+
 			switchedOn.set(!switchedOn.get());
 		});
 		setStyle();

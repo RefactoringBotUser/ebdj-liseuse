@@ -60,7 +60,7 @@ public class MoteurJD {
 	}
 
 	private QuestionJD donnerNouvelleQuestion() {
-		LOGGER.debug("[DEBUT] Donner une nouvelle question.");
+		LOGGER.info("[DEBUT] Donner une nouvelle question.");
 
 		QuestionJD question = questionsJD.get(nbQuestReel);
 
@@ -68,13 +68,13 @@ public class MoteurJD {
 		DBConnecteurJDDao dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
 		dbConnecteurJDDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
-		LOGGER.debug("[FIN] Donner une nouvelle question.");
+		LOGGER.info("[FIN] Donner une nouvelle question.");
 
 		return question;
 	}
 
 	public QuestionJD changerQuestion(boolean questionACompter) {
-		LOGGER.debug("[DEBUT] Changer de question.");
+		LOGGER.info("[DEBUT] Changer de question.");
 
 		QuestionJD nouvelleQuestion = donnerNouvelleQuestion();
 
@@ -87,16 +87,19 @@ public class MoteurJD {
 
 		derniereQuestionJD = nouvelleQuestion;
 
-		LOGGER.debug("[FIN] Changer de question.");
+		LOGGER.info("[FIN] Changer de question.");
 
 		return nouvelleQuestion;
 	}
 
 	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
+		LOGGER.info("[DEBUT] Signaler anomalie.");
 
 		DBConnecteurJDDao dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
 		dbConnecteurJDDao.signalerAnomalie(derniereQuestionJD.getReference(), derniereQuestionJD.getVersion(),
 				signalementAnomalie, lecteur.formatterNomUtilisateur());
+
+		LOGGER.info("[FIN] Signaler anomalie.");
 	}
 
 	public void calculerNbQuestion() {

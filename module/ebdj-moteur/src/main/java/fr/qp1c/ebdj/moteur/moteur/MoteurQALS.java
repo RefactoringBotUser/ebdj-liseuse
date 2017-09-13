@@ -20,7 +20,7 @@ public class MoteurQALS {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(MoteurQALS.class);
 
-	private Map<String, Boolean> themes4ALS;
+	private Map<String, Boolean> themes4ALSLecture;
 
 	// Contraintes
 
@@ -35,7 +35,7 @@ public class MoteurQALS {
 	public MoteurQALS() {
 
 		// Chargement des questions.
-		themes4ALS = new HashMap<>();
+		themes4ALSLecture = new HashMap<>();
 
 		this.niveauPartie = NiveauPartie.MOYEN;
 	}
@@ -48,7 +48,7 @@ public class MoteurQALS {
 		this.niveauPartie = niveauPartie;
 	}
 
-	private Map<Integer, Theme4ALS> tirerThemes() {
+	public Map<Integer, Theme4ALS> tirerThemes() {
 
 		Map<Integer, Theme4ALS> themes4ALS = new HashMap<>();
 
@@ -63,16 +63,29 @@ public class MoteurQALS {
 		// TODO mettre le questionnaire non-prioritaire avec un système de
 		// pondération
 
+		for (Theme4ALS theme4ALS : themes4ALS.values()) {
+			themes4ALSLecture.put(theme4ALS.getReference(), Boolean.FALSE);
+
+			marquerThemePropose(theme4ALS.getReference());
+		}
+
 		return themes4ALS;
 	}
 
-	public void jouerTheme() {
+	public void jouerTheme(String referenceTheme) {
 		DBConnecteurQALSDao dbConnecteurQALSDao = new DBConnecteurQALSDaoImpl();
+		dbConnecteurQALSDao.marquerThemeJoue(referenceTheme, lecteur.formatterNomUtilisateur());
 
 	}
 
-	public void annulerTheme() {
+	public void annulerTheme(String referenceTheme) {
 		DBConnecteurQALSDao dbConnecteurQALSDao = new DBConnecteurQALSDaoImpl();
+		dbConnecteurQALSDao.annulerMarquerThemeJoue(referenceTheme, lecteur.formatterNomUtilisateur());
+	}
+
+	public void marquerThemePropose(String referenceTheme) {
+		DBConnecteurQALSDao dbConnecteurQALSDao = new DBConnecteurQALSDaoImpl();
+		dbConnecteurQALSDao.marquerThemePropose(referenceTheme, lecteur.formatterNomUtilisateur());
 	}
 
 	public void signalerAnomalie(SignalementAnomalie signalementAnomalie, Theme4ALS theme4ALS) {

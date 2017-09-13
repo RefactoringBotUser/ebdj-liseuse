@@ -1,6 +1,7 @@
 package fr.qp1c.ebdj.moteur.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 * 
 	 */
 	@Override
-	public List<Theme4ALS> listerThemeJouable() throws DBManagerException {
+	public Map<String, Theme4ALS> listerThemesJouables() throws DBManagerException {
 		// TODO A implementer
 
 		return null;
@@ -47,15 +48,6 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 		// lister les questions de ce theme par ordre de priorité croissante
 
 		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public void jouerTheme(String referenceTheme, String lecteur) throws DBManagerException {
-		jouerQuestion("QALS", referenceTheme, lecteur);
 	}
 
 	/**
@@ -244,6 +236,35 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	@Override
 	public Long recupererReferenceMaxQuestion() {
 		return recupererReferenceMaxQuestion("QALS");
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public void marquerThemePropose(String referenceTheme, String lecteur) throws DBManagerException {
+		jouerQuestion("QALS", referenceTheme, lecteur);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public void marquerThemeJoue(String referenceTheme, String lecteur) throws DBManagerException {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public void annulerMarquerThemeJoue(String referenceTheme, String lecteur) throws DBManagerException {
+		// TODO Auto-generated method stub
+
 	}
 
 }

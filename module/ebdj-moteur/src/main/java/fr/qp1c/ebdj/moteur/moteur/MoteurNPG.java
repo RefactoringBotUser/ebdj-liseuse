@@ -111,7 +111,7 @@ public class MoteurNPG {
 	}
 
 	private QuestionNPG donnerNouvelleQuestion() {
-		LOGGER.debug("[DEBUT] Donner une nouvelle question.");
+		LOGGER.info("[DEBUT] Donner une nouvelle question.");
 
 		QuestionNPG question = null;
 
@@ -145,7 +145,7 @@ public class MoteurNPG {
 		DBConnecteurNPGDao dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
 		dbConnecteurNPGDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
-		LOGGER.debug("[FIN] Donner une nouvelle question.");
+		LOGGER.info("[FIN] Donner une nouvelle question.");
 
 		return question;
 
@@ -229,20 +229,20 @@ public class MoteurNPG {
 	}
 
 	public QuestionNPG changerQuestionAvecNiveau(boolean questionACompter) {
-		LOGGER.debug("[DEBUT] Changer de question avec niveau.");
+		LOGGER.info("[DEBUT] Changer de question avec niveau.");
 
 		// Calcul du niveau
 		calculerNiveauQuestion();
 
 		QuestionNPG nouvelleQuestion = changerQuestion(questionACompter);
 
-		LOGGER.debug("[FIN] Changer de question avec niveau.");
+		LOGGER.info("[FIN] Changer de question avec niveau.");
 
 		return nouvelleQuestion;
 	}
 
 	public QuestionNPG changerQuestion(boolean questionACompter) {
-		LOGGER.debug("[DEBUT] Changer de question.");
+		LOGGER.info("[DEBUT] Changer de question.");
 
 		QuestionNPG nouvelleQuestion = donnerNouvelleQuestion();
 
@@ -255,7 +255,7 @@ public class MoteurNPG {
 
 		derniereQuestion9PG = nouvelleQuestion;
 
-		LOGGER.debug("[FIN] Changer de question.");
+		LOGGER.info("[FIN] Changer de question.");
 
 		return nouvelleQuestion;
 	}

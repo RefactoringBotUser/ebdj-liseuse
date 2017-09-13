@@ -91,7 +91,7 @@ public class MoteurFAF {
 	}
 
 	private QuestionFAF donnerNouvelleQuestion() {
-		LOGGER.debug("[DEBUT] Donner une nouvelle question.");
+		LOGGER.info("[DEBUT] Donner une nouvelle question.");
 
 		QuestionFAF question = donnerNouvelleQuestionInedite();
 
@@ -100,13 +100,13 @@ public class MoteurFAF {
 		DBConnecteurFAFDao dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
 		dbConnecteurFAFDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
-		LOGGER.debug("[FIN] Donner une nouvelle question.");
+		LOGGER.info("[FIN] Donner une nouvelle question.");
 
 		return question;
 	}
 
 	public QuestionFAF changerQuestion(boolean questionACompter) {
-		LOGGER.debug("[DEBUT] Changer de question.");
+		LOGGER.info("[DEBUT] Changer de question.");
 
 		QuestionFAF nouvelleQuestion = donnerNouvelleQuestion();
 
@@ -119,16 +119,19 @@ public class MoteurFAF {
 
 		derniereQuestionFAF = nouvelleQuestion;
 
-		LOGGER.debug("[FIN] Changer de question.");
+		LOGGER.info("[FIN] Changer de question.");
 
 		return nouvelleQuestion;
 	}
 
 	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
+		LOGGER.info("[DEBUT] Signaler anomalie.");
 
 		DBConnecteurFAFDao dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
 		dbConnecteurFAFDao.signalerAnomalie(derniereQuestionFAF.getReference(), derniereQuestionFAF.getVersion(),
 				signalementAnomalie, lecteur.formatterNomUtilisateur());
+
+		LOGGER.info("[FIN] Signaler anomalie.");
 	}
 
 	private void calculerNbQuestion() {

@@ -1,6 +1,7 @@
 package fr.qp1c.ebdj.moteur.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
@@ -16,7 +17,7 @@ public interface DBConnecteurQALSDao {
 	 * 
 	 * @return
 	 */
-	public List<Theme4ALS> listerThemeJouable() throws DBManagerException;
+	public Map<String, Theme4ALS> listerThemesJouables() throws DBManagerException;
 
 	/**
 	 * Tirer au sort un thème de 4ALS dans une catégorie donnée.
@@ -29,11 +30,30 @@ public interface DBConnecteurQALSDao {
 
 	/**
 	 * 
+	 * 
 	 * @param referenceTheme
 	 * @param lecteur
 	 * @throws DBManagerException
 	 */
-	public void jouerTheme(String referenceTheme, String lecteur) throws DBManagerException;
+	public void marquerThemePropose(String referenceTheme, String lecteur) throws DBManagerException;
+
+	/**
+	 * 
+	 * 
+	 * @param referenceTheme
+	 * @param lecteur
+	 * @throws DBManagerException
+	 */
+	public void marquerThemeJoue(String referenceTheme, String lecteur) throws DBManagerException;
+
+	/**
+	 * 
+	 * 
+	 * @param referenceTheme
+	 * @param lecteur
+	 * @throws DBManagerException
+	 */
+	public void annulerMarquerThemeJoue(String referenceTheme, String lecteur) throws DBManagerException;
 
 	/**
 	 * 
