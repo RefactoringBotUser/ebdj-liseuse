@@ -165,8 +165,7 @@ public class DBConnecteurGeneriqueImpl {
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT reference, date_lecture, lecteur FROM FROM " + donnerPrefixeTable(type) + "_LECTURE WHERE id>");
+		query.append("SELECT reference, date_lecture, lecteur FROM " + donnerPrefixeTable(type) + "_LECTURE WHERE id>");
 		query.append(indexDebut);
 		query.append(" ORDER BY id ASC;");
 
