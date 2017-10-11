@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
@@ -17,7 +18,7 @@ public interface DBConnecteurQALSDao {
 	 * 
 	 * @return
 	 */
-	public Map<String, Theme4ALS> listerThemesJouables() throws DBManagerException;
+	public Map<String, Theme4ALS> listerThemesJouables(NiveauPartie niveauPartie) throws DBManagerException;
 
 	/**
 	 * Tirer au sort un thème de 4ALS dans une catégorie donnée.
@@ -26,7 +27,7 @@ public interface DBConnecteurQALSDao {
 	 *            catégorie de thème choisie
 	 * @return le thème de 4ALS
 	 */
-	public Theme4ALS donnerTheme(int categorie);
+	public Theme4ALS donnerTheme(int categorie, int niveau);
 
 	/**
 	 * 

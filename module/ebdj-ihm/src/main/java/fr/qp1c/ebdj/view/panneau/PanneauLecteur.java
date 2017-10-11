@@ -67,7 +67,7 @@ public class PanneauLecteur extends HBox {
 		if (result.isPresent()) {
 			LOGGER.info("Utilisateur séléctionné : " + result.get());
 
-			if ("Lecteur par défaut".equals(result.get())) {
+			if ("Lecteur par défaut".equals(result.get().toString())) {
 				selectionnerLecteurParDefaut();
 			} else {
 				selectionnerLecteurPersonnalise(result.get());

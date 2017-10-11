@@ -1,5 +1,7 @@
 package fr.qp1c.ebdj.moteur.dao.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -8,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
+import fr.qp1c.ebdj.moteur.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
@@ -29,10 +32,47 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 * 
 	 */
 	@Override
-	public Map<String, Theme4ALS> listerThemesJouables() throws DBManagerException {
-		// TODO A implementer
-
-		return null;
+	public Map<String, Theme4ALS> listerThemesJouables(NiveauPartie niveauPartie) throws DBManagerException {
+		
+		Map<String, Theme4ALS> themes4ALS=new HashMap<>();
+		
+		// Lister les niveaux possibles en fonction du niveau
+		List<Integer> niveauJouable=donnerNiveauJouable(niveauPartie);
+		
+		// Tirer au sort un niveau
+		
+		// TODO finaliser la méthode
+		int niveau=1;
+		
+		for(int categorie=1;categorie<4;categorie++) {
+			themes4ALS.put(String.valueOf(categorie),donnerTheme(categorie, niveau));
+			
+			// TODO gérer si il manque un questionnaire dans une catégorie pour un niveau donné
+			// TODO prendre en compte les thèmes présentés
+		}
+		
+		return themes4ALS;
+	}
+	
+	private List<Integer> donnerNiveauJouable(NiveauPartie niveauPartie){
+		List<Integer> niveauJouable=new ArrayList<>();
+		
+		if(NiveauPartie.FACILE.equals(niveauPartie)) {
+			niveauJouable.add(2);
+			niveauJouable.add(3);
+			niveauJouable.add(4);
+		} else if(NiveauPartie.MOYEN.equals(niveauPartie)) {
+			niveauJouable.add(1);
+			niveauJouable.add(2);
+			niveauJouable.add(3);
+			niveauJouable.add(4);
+		} else if(NiveauPartie.MOYEN.equals(niveauPartie)) {
+			niveauJouable.add(1);
+			niveauJouable.add(2);
+			niveauJouable.add(3);
+		}
+		
+		return niveauJouable;
 	}
 
 	/**
@@ -40,14 +80,21 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 * 
 	 */
 	@Override
-	public Theme4ALS donnerTheme(int categorie) {
+	public Theme4ALS donnerTheme(int categorie, int niveau) {
+		Theme4ALS theme4als=new Theme4ALS();
+		
+		
 		// TODO A implementer
 
 		// Récupérer 1 theme dans cette catégorie
 
+		// 1. Recupérer theme 4ALS
+		
+		// 2. Récupérer les questions sur le thème
+		
 		// lister les questions de ce theme par ordre de priorité croissante
 
-		return null;
+		return theme4als;
 	}
 
 	/**
@@ -253,7 +300,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public void marquerThemeJoue(String referenceTheme, String lecteur) throws DBManagerException {
-		// TODO Auto-generated method stub
+		// TODO Implementer theme joué
 
 	}
 
@@ -263,7 +310,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public void annulerMarquerThemeJoue(String referenceTheme, String lecteur) throws DBManagerException {
-		// TODO Auto-generated method stub
+		// TODO Annuler le theme non joue
 
 	}
 
