@@ -244,7 +244,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public void marquerThemePropose(String referenceTheme, String lecteur) throws DBManagerException {
-		jouerQuestion("QALS", referenceTheme, lecteur);
+		// jouerQuestion("QALS", referenceTheme, lecteur);
 	}
 
 	/**
