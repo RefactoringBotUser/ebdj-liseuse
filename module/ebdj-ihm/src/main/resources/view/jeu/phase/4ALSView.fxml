@@ -25,7 +25,7 @@
                 </BorderPane>
               </content>
             </PanneauTheme4ALS>
-          <PanneauTheme4ALS fx:id="theme4ALS2" animated="false" styleClass="theme4ALS">
+          	<PanneauTheme4ALS fx:id="theme4ALS2" animated="false" styleClass="theme4ALS">
             <content>
                 <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS" >     
 	              <top>

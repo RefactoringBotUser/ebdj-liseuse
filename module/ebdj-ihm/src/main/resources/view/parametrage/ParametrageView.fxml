@@ -31,8 +31,11 @@
         <panes>
             <TitledPane fx:id="parametrage" animated="false" styleClass="parametrage" text="Parametrage">
             <content>
-                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0" styleClass="zoneCarton4ALS">
+                <BorderPane minHeight="600.0" minWidth="0.0" prefHeight="680.0" prefWidth="800.0">
                      <top>
+                       <ScrollPane fx:id="panneauConfiguration" prefWidth="800.0">
+	                        <TextFlow fx:id="configuration" layoutX="14.0" layoutY="14.0" maxWidth="1600.00" prefHeight="694.0" prefWidth="1000.0" />
+	             		</ScrollPane>   
                      </top>
                 </BorderPane>
               </content>
