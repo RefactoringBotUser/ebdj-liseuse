@@ -13,6 +13,8 @@ public class StatsBDJ {
 	private StatsQuestions statsJD;
 
 	private StatsQuestions statsFAF;
+	
+	// Getters - setters
 
 	public StatsQuestions getStats9PG_1() {
 		return stats9PG_1;

@@ -54,6 +54,7 @@ public class DBManager {
 			File f = new File(".");
 			LOGGER.debug("Chemin correspondant à la base de données : {}", f.getAbsolutePath());
 
+			// TODO : recuperer le nom de la base de données
 			String urlDb = "jdbc:sqlite:" + f.getAbsolutePath() + "/db/" + dBFileName;
 
 			connection = DriverManager.getConnection(urlDb);

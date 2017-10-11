@@ -38,6 +38,7 @@ public class SynchroWSHelper {
 	protected AuthentificationBdj authentificationBdj;
 
 	public SynchroWSHelper() {
+		// TODO : recuperer la configuration dans le fichier de properties
 		urlCockpitRest = "http://localhost:9000/";
 		authentificationBdj = new AuthentificationBdj();
 		authentificationBdj.setNomBdj("E-BDJ - PILOTE");
