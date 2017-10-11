@@ -89,10 +89,10 @@ public class QALSController implements PreferencesLecteur {
 
 		Map<Integer, Theme4ALS> themes4ALS = moteurQALS.tirerThemes();
 
-		Theme4ALS theme4ALS_1 = themes4ALS.get("1");
-		Theme4ALS theme4ALS_2 = themes4ALS.get("2");
-		Theme4ALS theme4ALS_3 = themes4ALS.get("3");
-		Theme4ALS theme4ALS_4 = themes4ALS.get("4");
+		Theme4ALS theme4ALS_1 = themes4ALS.get(1);
+		Theme4ALS theme4ALS_2 = themes4ALS.get(2);
+		Theme4ALS theme4ALS_3 = themes4ALS.get(3);
+		Theme4ALS theme4ALS_4 = themes4ALS.get(4);
 
 		theme4ALS1.setGraphic(ImageConstants.IMAGE_1);
 		theme4ALS1.setText(theme4ALS_1.getTheme());
@@ -195,7 +195,7 @@ public class QALSController implements PreferencesLecteur {
 		Font fontQ = new Font("Arial", 18);
 		Font fontLV = new Font("Venacti", 4);
 
-		for (int i = 1; i <= 12; i++) {
+		for (int i = 1; i <= theme4ALS.getQuestions().size(); i++) {
 
 			Question question = theme4ALS.getQuestions().get(i + "");
 
