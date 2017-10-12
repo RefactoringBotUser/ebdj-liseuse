@@ -7,18 +7,58 @@ public class Theme4ALS extends Question {
 
 	// Attributs
 
-	private String theme;
-
-	private Map<String, Question> questions = new HashMap<>();
+	private Long id;
 
 	private String reference;
 
 	private Source source;
 
+	private String theme;
+
+	private String categorie;
+
+	private Long categorieRef;
+
+	private Long difficulte;
+	
+	private Map<String, Question> questions = new HashMap<>();
+
 	// Getters - setters
 
 	public String getTheme() {
 		return theme;
+	}
+
+	public String getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(String categorie) {
+		this.categorie = categorie;
+	}
+
+	public Long getCategorieRef() {
+		return categorieRef;
+	}
+
+	public void setCategorieRef(Long categorieRef) {
+		this.categorieRef = categorieRef;
+	}
+
+	public Long getDifficulte() {
+		return difficulte;
+	}
+
+	public void setDifficulte(Long difficulte) {
+		this.difficulte = difficulte;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setTheme(String theme) {

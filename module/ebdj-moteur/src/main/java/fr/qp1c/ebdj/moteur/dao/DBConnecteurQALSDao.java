@@ -36,7 +36,7 @@ public interface DBConnecteurQALSDao {
 	 * @param lecteur
 	 * @throws DBManagerException
 	 */
-	public void marquerThemePropose(String referenceTheme, String lecteur) throws DBManagerException;
+	public void marquerThemePresente(String referenceTheme, String lecteur) throws DBManagerException;
 
 	/**
 	 * 

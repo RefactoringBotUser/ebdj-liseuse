@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.moteur.bean.partie.NiveauPartie;
-import fr.qp1c.ebdj.moteur.bean.question.Source;
 import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
 import fr.qp1c.ebdj.moteur.dao.DBConnecteurQALSDao;
 import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurQALSDaoImpl;
@@ -53,17 +52,6 @@ public class MoteurQALS {
 
 		Map<Integer, Theme4ALS> themes4ALS = new HashMap<>();
 
-		Theme4ALS theme_4ALS = new Theme4ALS();
-		theme_4ALS.setTheme("Theme");
-		theme_4ALS.setVersion(Long.valueOf(1));
-		theme_4ALS.setSource(new Source("LILLE"));
-		theme_4ALS.setQuestions(new HashMap<>());
-
-		themes4ALS.put(1, theme_4ALS);
-		themes4ALS.put(2, theme_4ALS);
-		themes4ALS.put(3, theme_4ALS);
-		themes4ALS.put(4, theme_4ALS);
-
 		if (NiveauPartie.DIFFICILE.equals(niveauPartie)) {
 			// TODO : tirer au sort
 		} else if (NiveauPartie.FACILE.equals(niveauPartie)) {
@@ -78,7 +66,7 @@ public class MoteurQALS {
 		for (Theme4ALS theme4ALS : themes4ALS.values()) {
 			themes4ALSLecture.put(theme4ALS.getReference(), Boolean.FALSE);
 
-			// marquerThemePropose(theme4ALS.getReference());
+			marquerThemePresente(theme4ALS.getReference());
 		}
 
 		return themes4ALS;
@@ -95,9 +83,9 @@ public class MoteurQALS {
 		dbConnecteurQALSDao.annulerMarquerThemeJoue(referenceTheme, lecteur.formatterNomUtilisateur());
 	}
 
-	public void marquerThemePropose(String referenceTheme) {
+	public void marquerThemePresente(String referenceTheme) {
 		DBConnecteurQALSDao dbConnecteurQALSDao = new DBConnecteurQALSDaoImpl();
-		dbConnecteurQALSDao.marquerThemePropose(referenceTheme, lecteur.formatterNomUtilisateur());
+		dbConnecteurQALSDao.marquerThemePresente(referenceTheme, lecteur.formatterNomUtilisateur());
 	}
 
 	public void signalerAnomalie(SignalementAnomalie signalementAnomalie, Theme4ALS theme4ALS) {
@@ -106,7 +94,5 @@ public class MoteurQALS {
 		dbConnecteurQALSDao.signalerAnomalie(theme4ALS.getReference(), theme4ALS.getVersion(), signalementAnomalie,
 				lecteur.formatterNomUtilisateur());
 	}
-
-	// Getters - setters
 
 }
