@@ -26,7 +26,7 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 	/**
 	 * Default logger.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SynchronisationJDServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StatistiqueServiceImpl.class);
 
 	private DBConnecteurNPGDao connecterNPGDao = new DBConnecteurNPGDaoImpl();
 
