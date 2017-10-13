@@ -134,7 +134,7 @@ public class MoteurNPG {
 		} else {
 			LOGGER.info("Question à 3 étoiles.");
 
-			if (NiveauPartie.FACILE.equals(niveauPartie)) {
+			if (NiveauPartie.FACILE.equals(niveauPartie)&&(NiveauPartie.MOYEN.equals(niveauPartie) && Mode9PG.MODE_123.equals(mode9PG) && nbQuest>12)) {
 				question = donnerQuestionA2Points();
 			} else {
 				question = donnerQuestionA3Points();
