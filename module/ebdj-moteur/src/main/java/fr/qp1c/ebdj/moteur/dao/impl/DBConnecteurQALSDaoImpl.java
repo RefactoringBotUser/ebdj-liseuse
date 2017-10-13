@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.moteur.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.moteur.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.moteur.bean.question.Question;
-import fr.qp1c.ebdj.moteur.bean.question.QuestionFAF;
 import fr.qp1c.ebdj.moteur.bean.question.Source;
 import fr.qp1c.ebdj.moteur.bean.question.Theme4ALS;
 import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
@@ -38,7 +38,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurQALSDaoImpl.class);
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritDoc} - V1
 	 * 
 	 */
 	@Override
@@ -47,25 +47,23 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 		Map<String, Theme4ALS> themes4ALS = new HashMap<>();
 
 		// Lister les niveaux possibles en fonction du niveau
-		List<Integer> niveauJouable = donnerNiveauJouable(niveauPartie);
-
-		// Tirer au sort un niveau
-
-		// TODO finaliser la méthode
-		int niveau = 1;
+		int niveau = donnerNiveauJouable(niveauPartie);
+				
+		System.out.println("Niveau du questionnaire : "+niveau);
+		
+		// TODO gérer si il manque un questionnaire dans une catégorie pour un niveau
+		// donné
+		// TODO prendre en compte les thèmes présentés
+		// TODO jouer en priorité dans des catégories manquantes
 
 		for (int categorie = 1; categorie < 4; categorie++) {
 			themes4ALS.put(String.valueOf(categorie), donnerTheme(categorie, niveau));
-
-			// TODO gérer si il manque un questionnaire dans une catégorie pour un niveau
-			// donné
-			// TODO prendre en compte les thèmes présentés
 		}
 
 		return themes4ALS;
 	}
 
-	private List<Integer> donnerNiveauJouable(NiveauPartie niveauPartie) {
+	private int donnerNiveauJouable(NiveauPartie niveauPartie) {
 		List<Integer> niveauJouable = new ArrayList<>();
 
 		if (NiveauPartie.FACILE.equals(niveauPartie)) {
@@ -83,7 +81,8 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 			niveauJouable.add(3);
 		}
 
-		return niveauJouable;
+
+		return niveauJouable.get(new Random().nextInt(niveauJouable.size()) +1);
 	}
 
 	/**
@@ -92,22 +91,46 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public Theme4ALS donnerTheme(int categorie, int niveau) {
-		Theme4ALS theme4als = new Theme4ALS();
+		// Création de la requête
+
+		StringBuilder query = new StringBuilder();
+		query.append("SELECT reference FROM THEME_QALS where reference NOT IN (SELECT reference FROM THEME_QALS_LECTURE) AND NOT IN reference NOT IN (SELECT reference FROM THEME_QALS_PRESENTE) AND categorie=");
+		query.append(categorie);
+		query.append(" AND difficulte=");
+		query.append(niveau);
+		query.append(";");
+
+		LOGGER.debug(query.toString());
+
+		String reference=null;
 		
+		try {
+			// Connexion à la base de données SQLite
+			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
+			Connection connection = dbManager.connect();
+			Statement stmt = connection.createStatement();
 
-		
-				// TODO A implementer
+			// Executer la requête
+			ResultSet rs = stmt.executeQuery(query.toString());
+			if (rs.next()) {
+				// Convertir chaque question
+				reference= rs.getString("reference");
+			}
 
-		// Récupérer 1 theme dans cette catégorie
+			// Fermeture des connections.
+			stmt.close();
+			dbManager.close(connection);
+		} catch (Exception e) {
+			LOGGER.error("An error has occured :", e);
+			throw new DBManagerException();
+		}
 
-		// 1. Recupérer theme 4ALS
-
-		// 2. Récupérer les questions sur le thème
-
-		// lister les questions de ce theme par ordre de priorité croissante
+		Theme4ALS theme4als = recupererTheme4ALS(reference);
 
 		return theme4als;
 	}
+	
+	
 	
 	public Theme4ALS recupererTheme4ALS(String reference) {
 		
@@ -126,7 +149,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT id, categorie, theme, difficulte, reference, club, dateReception,version,active FROM THEME_QALS WHERE reference=\"");
+		query.append("SELECT id, categorie, theme, difficulte, reference, club, dateReception, version, active FROM THEME_QALS WHERE reference=\"");
 		query.append(reference);
 		query.append("\";");
 
