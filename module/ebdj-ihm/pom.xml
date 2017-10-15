@@ -74,7 +74,7 @@
 							<configuration>
 								<archive>
 									<manifest>
-										<mainClass>fr.qp1c.ebdj.Launcher</mainClass>
+										<mainClass>fr.qp1c.ebdj.liseuse.ihm.Launcher</mainClass>
 									</manifest>
 								</archive>
 							</configuration>
@@ -94,6 +94,11 @@
 		<dependency>
 			<groupId>fr.ebdj.liseuse</groupId>
 			<artifactId>ebdj-synchronisation</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.ebdj.liseuse</groupId>
+			<artifactId>ebdj-stats</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

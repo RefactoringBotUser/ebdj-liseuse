@@ -17,14 +17,14 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.qp1c.ebdj.moteur.bean.exception.BdjException;
-import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
-import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.AuthentificationBdj;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.anomalie.AnomaliesBdjDistante;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.anomalie.BdjDistanteAnomalie;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.lecture.BdjDistanteLecture;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.lecture.LecturesBdjDistante;
+import fr.qp1c.ebdj.liseuse.commun.bean.exception.BdjException;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
+import fr.qp1c.ebdj.liseuse.commun.exchange.AuthentificationBdj;
+import fr.qp1c.ebdj.liseuse.commun.exchange.anomalie.AnomaliesBdjDistante;
+import fr.qp1c.ebdj.liseuse.commun.exchange.anomalie.BdjDistanteAnomalie;
+import fr.qp1c.ebdj.liseuse.commun.exchange.lecture.BdjDistanteLecture;
+import fr.qp1c.ebdj.liseuse.commun.exchange.lecture.LecturesBdjDistante;
 
 public class SynchroWSHelper {
 
@@ -41,8 +41,16 @@ public class SynchroWSHelper {
 		// TODO : recuperer la configuration dans le fichier de properties
 		urlCockpitRest = "http://localhost:9000/";
 		authentificationBdj = new AuthentificationBdj();
-		authentificationBdj.setNomBdj("E-BDJ - PILOTE");
-		authentificationBdj.setCleAuthentification("45fa69e4-1a99-4b02-996e-b1985a05ddbb");
+
+		// BDJ CLUB
+
+		// authentificationBdj.setNomBdj("E-BDJ - PILOTE");
+		// authentificationBdj.setCleAuthentification("45fa69e4-1a99-4b02-996e-b1985a05ddbb");
+
+		// BDJ TEST
+
+		authentificationBdj.setNomBdj("EBDJ - TEST");
+		authentificationBdj.setCleAuthentification("1936a18b-898d-467a-bc1b-f5d91604f8a8");
 	}
 
 	protected String post(String urlToCall, String request) throws MalformedURLException, IOException {

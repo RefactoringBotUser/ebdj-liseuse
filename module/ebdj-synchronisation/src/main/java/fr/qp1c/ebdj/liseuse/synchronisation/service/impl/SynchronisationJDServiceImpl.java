@@ -5,18 +5,18 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.moteur.bean.exception.BdjException;
-import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
-import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurJDDao;
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurSynchroDao;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurJDDaoImpl;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurSynchroDaoImpl;
+import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurJDDao;
+import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurSynchroDao;
+import fr.qp1c.ebdj.liseuse.bdd.dao.impl.DBConnecteurJDDaoImpl;
+import fr.qp1c.ebdj.liseuse.bdd.dao.impl.DBConnecteurSynchroDaoImpl;
+import fr.qp1c.ebdj.liseuse.commun.bean.exception.BdjException;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
+import fr.qp1c.ebdj.liseuse.commun.exchange.correction.CorrectionQuestionJDBdjDistante;
+import fr.qp1c.ebdj.liseuse.commun.exchange.correction.TypeCorrection;
+import fr.qp1c.ebdj.liseuse.commun.exchange.question.QuestionJDBdjDistante;
 import fr.qp1c.ebdj.liseuse.synchronisation.service.SynchronisationJDService;
 import fr.qp1c.ebdj.liseuse.synchronisation.ws.SynchroJDWSHelper;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.correction.CorrectionQuestionJDBdjDistante;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.correction.TypeCorrection;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.question.QuestionJDBdjDistante;
 
 public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 

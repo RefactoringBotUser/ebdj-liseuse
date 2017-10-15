@@ -1,6 +1,6 @@
 package fr.qp1c.ebdj.liseuse.synchronisation.service;
 
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.AuthentificationBdj;
+import fr.qp1c.ebdj.liseuse.commun.exchange.AuthentificationBdj;
 
 public interface AuthentificationService {
 

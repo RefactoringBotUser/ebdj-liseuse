@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.correction.CorrectionQuestionBdjDistanteDemande;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.correction.CorrectionTheme4ALSBdjDistante;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.question.QuestionSynchroBdjDistanteDemande;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.question.Theme4ALSBdjDistante;
-import fr.qp1c.ebdj.moteur.bean.exception.BdjException;
-import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
-import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
+import fr.qp1c.ebdj.liseuse.commun.bean.exception.BdjException;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
+import fr.qp1c.ebdj.liseuse.commun.exchange.correction.CorrectionQuestionBdjDistanteDemande;
+import fr.qp1c.ebdj.liseuse.commun.exchange.correction.CorrectionTheme4ALSBdjDistante;
+import fr.qp1c.ebdj.liseuse.commun.exchange.question.QuestionSynchroBdjDistanteDemande;
+import fr.qp1c.ebdj.liseuse.commun.exchange.question.Theme4ALSBdjDistante;
 
 public class Synchro4ALSWSHelper extends SynchroWSHelper {
 

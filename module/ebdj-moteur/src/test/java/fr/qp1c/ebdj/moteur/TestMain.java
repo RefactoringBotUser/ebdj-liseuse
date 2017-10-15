@@ -1,7 +1,7 @@
 package fr.qp1c.ebdj.moteur;
 
-import fr.qp1c.ebdj.moteur.service.ParametrageService;
-import fr.qp1c.ebdj.moteur.service.impl.ParametrageServiceImpl;
+import fr.qp1c.ebdj.liseuse.bdd.service.ParametrageService;
+import fr.qp1c.ebdj.liseuse.bdd.service.impl.ParametrageServiceImpl;
 
 public class TestMain {
 

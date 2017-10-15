@@ -5,18 +5,18 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.moteur.bean.exception.BdjException;
-import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
-import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurQALSDao;
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurSynchroDao;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurQALSDaoImpl;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurSynchroDaoImpl;
+import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurQALSDao;
+import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurSynchroDao;
+import fr.qp1c.ebdj.liseuse.bdd.dao.impl.DBConnecteurQALSDaoImpl;
+import fr.qp1c.ebdj.liseuse.bdd.dao.impl.DBConnecteurSynchroDaoImpl;
+import fr.qp1c.ebdj.liseuse.commun.bean.exception.BdjException;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
+import fr.qp1c.ebdj.liseuse.commun.exchange.correction.CorrectionTheme4ALSBdjDistante;
+import fr.qp1c.ebdj.liseuse.commun.exchange.correction.TypeCorrection;
+import fr.qp1c.ebdj.liseuse.commun.exchange.question.Theme4ALSBdjDistante;
 import fr.qp1c.ebdj.liseuse.synchronisation.service.Synchronisation4ALSService;
 import fr.qp1c.ebdj.liseuse.synchronisation.ws.Synchro4ALSWSHelper;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.correction.CorrectionTheme4ALSBdjDistante;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.correction.TypeCorrection;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.question.Theme4ALSBdjDistante;
 
 public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSService {
 
@@ -30,6 +30,10 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 	private DBConnecteurQALSDao dbConnecteur4ALSDao = new DBConnecteurQALSDaoImpl();
 
 	private Synchro4ALSWSHelper wsCockpit4ALSHelper;
+
+	public Synchronisation4ALSServiceImpl() {
+		wsCockpit4ALSHelper = new Synchro4ALSWSHelper();
+	}
 
 	@Override
 	public void synchroniserCorrections4ALS() throws BdjException {

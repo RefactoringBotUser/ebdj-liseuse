@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="panneau" maxHeight="-Infinity" maxWidth="1600" minHeight="600" minWidth="800" prefHeight="800.0" prefWidth="1024.0" styleClass="panneau9PG"  BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.jeu.phase.JDController">
+<BorderPane fx:id="panneau" maxHeight="-Infinity" maxWidth="1600" minHeight="600" minWidth="800" prefHeight="800.0" prefWidth="1024.0" styleClass="panneau9PG"  BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.liseuse.ihm.controller.jeu.phase.JDController">
      <top>
         <VBox prefHeight="50.0">
            <children>

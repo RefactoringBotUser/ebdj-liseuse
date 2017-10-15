@@ -3,11 +3,11 @@ package fr.qp1c.ebdj.liseuse.synchronisation.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurParametrageDao;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurParametrageDaoImpl;
+import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurParametrageDao;
+import fr.qp1c.ebdj.liseuse.bdd.dao.impl.DBConnecteurParametrageDaoImpl;
+import fr.qp1c.ebdj.liseuse.commun.exchange.AuthentificationBdj;
+import fr.qp1c.ebdj.liseuse.commun.utils.Utils;
 import fr.qp1c.ebdj.liseuse.synchronisation.service.AuthentificationService;
-import fr.qp1c.ebdj.moteur.utils.Utils;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.AuthentificationBdj;
 
 public class AuthentificationServiceImpl implements AuthentificationService {
 

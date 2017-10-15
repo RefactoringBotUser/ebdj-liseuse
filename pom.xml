@@ -11,6 +11,10 @@
 	<url>http://maven.apache.org</url>
 
 	<modules>
+		<module>module/ebdj-commun</module>
+		<module>module/ebdj-bdd</module>
+		<module>module/ebdj-stats</module>
+		<module>module/ebdj-synchronisation</module>
 		<module>module/ebdj-moteur</module>
 		<module>module/ebdj-ihm</module>
 	</modules>

@@ -1,6 +1,6 @@
 package fr.qp1c.ebdj.liseuse.synchronisation.service;
 
-import fr.qp1c.ebdj.moteur.bean.exception.BdjException;
+import fr.qp1c.ebdj.liseuse.commun.bean.exception.BdjException;
 
 public interface Synchronisation4ALSService {
 

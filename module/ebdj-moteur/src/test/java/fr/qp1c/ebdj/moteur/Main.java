@@ -14,9 +14,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurNPGDao;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurNPGDaoImpl;
-import fr.qp1c.ebdj.moteur.ws.wrapper.question.Question9PGBdjDistante;
+import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurNPGDao;
+import fr.qp1c.ebdj.liseuse.bdd.dao.impl.DBConnecteurNPGDaoImpl;
+import fr.qp1c.ebdj.liseuse.commun.exchange.question.Question9PGBdjDistante;
 
 public class Main {
 

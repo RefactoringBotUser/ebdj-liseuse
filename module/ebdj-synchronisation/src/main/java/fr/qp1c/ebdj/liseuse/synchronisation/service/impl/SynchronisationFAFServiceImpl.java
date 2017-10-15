@@ -5,18 +5,18 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.moteur.bean.exception.BdjException;
-import fr.qp1c.ebdj.moteur.bean.synchro.Anomalie;
-import fr.qp1c.ebdj.moteur.bean.synchro.Lecture;
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurFAFDao;
-import fr.qp1c.ebdj.moteur.dao.DBConnecteurSynchroDao;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurFAFDaoImpl;
-import fr.qp1c.ebdj.moteur.dao.impl.DBConnecteurSynchroDaoImpl;
+import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurFAFDao;
+import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurSynchroDao;
+import fr.qp1c.ebdj.liseuse.bdd.dao.impl.DBConnecteurFAFDaoImpl;
+import fr.qp1c.ebdj.liseuse.bdd.dao.impl.DBConnecteurSynchroDaoImpl;
+import fr.qp1c.ebdj.liseuse.commun.bean.exception.BdjException;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
+import fr.qp1c.ebdj.liseuse.commun.exchange.correction.CorrectionQuestionFAFBdjDistante;
+import fr.qp1c.ebdj.liseuse.commun.exchange.correction.TypeCorrection;
+import fr.qp1c.ebdj.liseuse.commun.exchange.question.QuestionFAFBdjDistante;
 import fr.qp1c.ebdj.liseuse.synchronisation.service.SynchronisationFAFService;
 import fr.qp1c.ebdj.liseuse.synchronisation.ws.SynchroFAFWSHelper;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.correction.CorrectionQuestionFAFBdjDistante;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.correction.TypeCorrection;
-import fr.qp1c.ebdj.liseuse.synchronisation.ws.wrapper.question.QuestionFAFBdjDistante;
 
 public class SynchronisationFAFServiceImpl implements SynchronisationFAFService {
 
