@@ -47,12 +47,5 @@
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.18.0</version>
 		</dependency>
-
-		<!-- Test -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.3</version>
-		</dependency>
 	</dependencies>
 </project>

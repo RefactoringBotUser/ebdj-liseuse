@@ -64,8 +64,9 @@ public class Utils {
 			return "Q_JD_" + StringUtilities.pad(5, '0', reference);
 		case FAF:
 			return "Q_FAF_" + StringUtilities.pad(5, '0', reference);
+		default:
+			return null;
 		}
-		return null;
 	}
 
 	/**

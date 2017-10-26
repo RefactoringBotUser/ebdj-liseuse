@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurNPGDao;
-import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBConstantes;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBUtils;
 import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
@@ -54,7 +53,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference)");
+				"SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE active=1 AND NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference)");
 
 		if (difficulte > 0) {
 			query.append(" AND Q_9PG.difficulte='");
@@ -72,8 +71,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -102,7 +100,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -126,7 +124,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 */
 	@Override
 	public int compterNbQuestionLue() {
-		return compterNbQuestion(-1);
+		return compterNbQuestionLue(-1);
 	}
 
 	@Override
@@ -135,10 +133,10 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM QUESTION_NPG Q_9PG");
+		query.append("SELECT count(1) FROM QUESTION_NPG Q_9PG WHERE Q_9PG.active=1");
 
 		if (difficulte > 0) {
-			query.append(" WHERE Q_9PG.difficulte='");
+			query.append(" AND Q_9PG.difficulte='");
 			query.append(difficulte);
 			query.append("' ");
 		}

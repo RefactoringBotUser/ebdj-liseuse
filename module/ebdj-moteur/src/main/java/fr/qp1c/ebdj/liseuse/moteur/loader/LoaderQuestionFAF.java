@@ -15,21 +15,6 @@ public class LoaderQuestionFAF {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoaderQuestionFAF.class);
 
-	/**
-	 * 
-	 * @return
-	 */
-	public static List<QuestionFAF> chargerQuestions() {
-		LOGGER.debug("[DEBUT] Chargement des questions de FAF.");
-
-		DBConnecteurFAFDaoImpl dao = new DBConnecteurFAFDaoImpl();
-		List<QuestionFAF> questionsFAF = dao.listerQuestionsJouable(10);
-
-		LOGGER.debug("[FIN] Chargement des questions de FAF.");
-
-		return questionsFAF;
-	}
-
 	public static QuestionFAF chargerQuestions(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax) {
 		LOGGER.debug("[DEBUT] Chargement d'une question de FAF.");
 
