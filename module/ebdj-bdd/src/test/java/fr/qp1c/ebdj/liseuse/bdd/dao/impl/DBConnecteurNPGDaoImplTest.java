@@ -145,7 +145,11 @@ public class DBConnecteurNPGDaoImplTest extends DatabaseTest {
 	
 	@Test
 	public void testJouerQuestion() {
-		fail("not implemented !");
+		//assertEquals(4,dbConnecteurNPGDao.compterNbQuestionLue());
+		
+		dbConnecteurNPGDao.jouerQuestion("25", "Nicolas GENDRON");
+		
+		assertEquals(3,dbConnecteurNPGDao.compterNbQuestionLue());
 	}
 	
 	@Test
@@ -155,6 +159,6 @@ public class DBConnecteurNPGDaoImplTest extends DatabaseTest {
 	
 	@Test
 	public void testCreerQuestion() {
-		fail("not implemented !");
+	
 	}
 }
