@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="panneau" maxHeight="-Infinity" maxWidth="1600" minHeight="600" minWidth="800" prefHeight="800.0" prefWidth="1024.0" styleClass="panneau9PG"  BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.liseuse.ihm.controller.jeu.phase.FAFController">
+<BorderPane fx:id="panneau" maxHeight="-Infinity" maxWidth="1600" minHeight="600" minWidth="800" prefHeight="800.0" prefWidth="1024.0" styleClass="panneau9PG" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.liseuse.ihm.controller.jeu.phase.FAFController">
      <top>
         <VBox prefHeight="50.0">
            <children>
@@ -34,25 +34,25 @@
         </VBox>
 	</top>
      <left>
-        <VBox alignment="TOP_CENTER" styleClass="zoneHistoriqueQuestion" >
+        <VBox alignment="TOP_CENTER" styleClass="zoneHistoriqueQuestion">
            <children>
-              <Label fx:id="labelHistoQuestion" alignment="CENTER" contentDisplay="CENTER" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" styleClass="labelHistoriqueQuestion"  text="Historique :" />
-              <ListView fx:id="histoQuestion" maxHeight="400.0" minHeight="400.0" minWidth="300.0" prefHeight="400.0" prefWidth="300.0" styleClass="listeHistoriqueQuestion" >
+              <Label fx:id="labelHistoQuestion" alignment="CENTER" contentDisplay="CENTER" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" styleClass="labelHistoriqueQuestion" text="Historique :" />
+              <ListView fx:id="histoQuestion" maxHeight="400.0" minHeight="400.0" minWidth="300.0" prefHeight="400.0" prefWidth="300.0" styleClass="listeHistoriqueQuestion">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin></ListView>
            </children>
          <BorderPane.margin>
-            <Insets bottom="20.0" left="10.0" right="10.0"  top="20.0" />
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
          </BorderPane.margin>
         </VBox>
      </left>
      <center>
-        <VBox fx:id="cartonFAF" alignment="TOP_CENTER" prefWidth="100.0" styleClass="zoneCartonFAF"  BorderPane.alignment="CENTER">
+        <VBox fx:id="cartonFAF" alignment="TOP_CENTER" prefWidth="100.0" styleClass="zoneCartonFAF" BorderPane.alignment="CENTER">
            <children>
               <Label fx:id="themeFAF" alignment="CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="50.0" styleClass="themeFAF"  textAlignment="CENTER" wrapText="true" />
-              <Label fx:id="libelleQuestionFAF" alignment="CENTER" contentDisplay="CENTER" minHeight="275.0" prefHeight="275.0" prefWidth="850.0" maxWidth="850.0" styleClass="questionFAF"  textAlignment="JUSTIFY" wrapText="true" />
-              <Label fx:id="reponseFAF" alignment="TOP_CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="125.0" prefWidth="500.0" maxWidth="850.0" styleClass="reponseFAF"  textAlignment="CENTER" wrapText="true" />
+              <Label fx:id="libelleQuestionFAF" alignment="CENTER" contentDisplay="CENTER" minHeight="255.0" prefHeight="255.0" prefWidth="850.0" maxWidth="850.0" styleClass="questionFAF" textAlignment="JUSTIFY" wrapText="true" />
+              <Label fx:id="reponseFAF" alignment="TOP_CENTER" contentDisplay="CENTER" minHeight="50.0" prefHeight="125.0" prefWidth="500.0" maxWidth="850.0" styleClass="reponseFAF" textAlignment="CENTER" wrapText="true" />
  			  <Separator />
               <Label fx:id="questionFAFInfos" prefHeight="60.0" styleClass="questionFAFInfos"  />
            </children>
@@ -73,11 +73,11 @@
 		              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 		           </VBox.margin>
 		        </StackPane>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="120.0">
+                    <HBox alignment="TOP_CENTER" prefHeight="130.0" prefWidth="120.0">
                        <children>
               				<Button fx:id="btnSignalerErreurQuestionFAF" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signalerErreurQuestionFAF" prefHeight="50.0" prefWidth="300.0" styleClass="boutonErreurQuestion"  text="Signaler une erreur" textAlignment="CENTER">
            					<HBox.margin>
-	                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+	                          <Insets bottom="10.0" left="10.0" right="10.0" top="0.0" />
 	                       </HBox.margin>
 	                       </Button>
            					<Button fx:id="btnRemplacerQuestionFAF" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#remplacerQuestionFAF" prefHeight="50.0" prefWidth="300.0" styleClass="boutonRemplacementQuestion"  text="Remplacer la question" textAlignment="CENTER" />
