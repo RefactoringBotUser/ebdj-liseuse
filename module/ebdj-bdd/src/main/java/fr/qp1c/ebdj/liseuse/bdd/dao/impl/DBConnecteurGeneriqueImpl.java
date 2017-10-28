@@ -9,7 +9,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBConstantes;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBUtils;
 import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
@@ -24,7 +23,7 @@ public class DBConnecteurGeneriqueImpl {
 	 * Default logger.
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurGeneriqueImpl.class);
-
+	
 	protected Long recupererIndexMaxAnomalie(String type) {
 		return recupererIndexMax(donnerPrefixeTable(type) + "_ANOMALIE");
 
@@ -48,8 +47,7 @@ public class DBConnecteurGeneriqueImpl {
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			LOGGER.info(query.toString());
@@ -62,7 +60,7 @@ public class DBConnecteurGeneriqueImpl {
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -85,8 +83,7 @@ public class DBConnecteurGeneriqueImpl {
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -97,7 +94,7 @@ public class DBConnecteurGeneriqueImpl {
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -127,8 +124,7 @@ public class DBConnecteurGeneriqueImpl {
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -152,7 +148,7 @@ public class DBConnecteurGeneriqueImpl {
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -175,8 +171,7 @@ public class DBConnecteurGeneriqueImpl {
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -197,7 +192,7 @@ public class DBConnecteurGeneriqueImpl {
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -261,8 +256,7 @@ public class DBConnecteurGeneriqueImpl {
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -273,7 +267,7 @@ public class DBConnecteurGeneriqueImpl {
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -284,8 +278,7 @@ public class DBConnecteurGeneriqueImpl {
 	protected void executerUpdateOuInsert(String requete) {
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			System.out.println(requete);
@@ -295,7 +288,7 @@ public class DBConnecteurGeneriqueImpl {
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();

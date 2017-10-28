@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurParametrageDao;
-import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBConstantes;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
 import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
 
@@ -17,7 +16,7 @@ public class DBConnecteurParametrageDaoImpl implements DBConnecteurParametrageDa
 	/**
 	 * Default logger.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurParametrageDaoImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurParametrageDaoImplTest.class);
 
 	@Override
 	public String recupererParametrage(String cle) {
@@ -33,8 +32,7 @@ public class DBConnecteurParametrageDaoImpl implements DBConnecteurParametrageDa
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -45,7 +43,7 @@ public class DBConnecteurParametrageDaoImpl implements DBConnecteurParametrageDa
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -65,8 +63,7 @@ public class DBConnecteurParametrageDaoImpl implements DBConnecteurParametrageDa
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -74,7 +71,7 @@ public class DBConnecteurParametrageDaoImpl implements DBConnecteurParametrageDa
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();

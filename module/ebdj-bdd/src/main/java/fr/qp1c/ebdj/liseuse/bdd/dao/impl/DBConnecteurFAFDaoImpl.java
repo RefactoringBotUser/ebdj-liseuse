@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurFAFDao;
-import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBConstantes;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBUtils;
 import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
@@ -31,7 +30,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * Default logger.
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurFAFDaoImpl.class);
-
+	
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -56,9 +55,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		LOGGER.debug(query.toString());
 
 		try {
-			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -72,7 +69,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -114,8 +111,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -128,7 +124,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -169,14 +165,12 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
 			ResultSet rs = stmt.executeQuery(query.toString());
 			if (rs.next()) {
-
 				// Convertir chaque question
 				question = convertirQuestionFAF(rs);
 
@@ -185,7 +179,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -204,14 +198,12 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		Map<String, Long> inventaireParCategorie = new HashMap<>();
 
 		// Création de la requête
-
 		StringBuilder query = new StringBuilder();
 		query.append("SELECT categorie, count(1) FROM QUESTION_FAF GROUP BY categorie order by categorie;");
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -225,7 +217,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();
@@ -250,8 +242,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		try {
 			// Connexion à la base de données SQLite
-			DBManager dbManager = new DBManager(DBConstantes.DB_NAME);
-			Connection connection = dbManager.connect();
+			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
@@ -265,7 +256,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 			// Fermeture des connections.
 			stmt.close();
-			dbManager.close(connection);
+			DBManager.getInstance().close(connection);
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 			throw new DBManagerException();

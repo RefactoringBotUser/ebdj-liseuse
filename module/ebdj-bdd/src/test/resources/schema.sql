@@ -1,0 +1,5 @@
+CREATE TABLE "QUESTION_FAF" ( `id` INTEGER PRIMARY KEY auto_increment, `categorie` INTEGER NOT NULL, `theme` TEXT NOT NULL, `question` TEXT NOT NULL, `reponse` TEXT NOT NULL, `reference` INTEGER NOT NULL UNIQUE, `club` TEXT NOT NULL, `dateReception` TEXT NOT NULL, `version` INTEGER NOT NULL, `difficulte` INTEGER NOT NULL, `active` INTEGER );
+
+CREATE TABLE "QUESTION_NPG" ( `id` INTEGER PRIMARY KEY auto_increment, `question` TEXT NOT NULL, `reponse` TEXT NOT NULL, `difficulte` INTEGER NOT NULL, `reference` INTEGER NOT NULL UNIQUE, `club` TEXT NOT NULL, `dateReception` TEXT NOT NULL, `version` INTEGER NOT NULL, `active` INTEGER NOT NULL );
+CREATE TABLE "QUESTION_NPG_ANOMALIE" ( `id` INTEGER PRIMARY KEY auto_increment, `reference` INTEGER NOT NULL, `version` INTEGER NOT NULL, `date_anomalie` TEXT NOT NULL, `type_anomalie` INTEGER NOT NULL, `cause` TEXT NOT NULL, `lecteur` TEXT NOT NULL );
+CREATE TABLE "QUESTION_NPG_LECTURE" ( `id` INTEGER PRIMARY KEY auto_increment, `date_lecture` DATETIME NOT NULL, `lecteur` TEXT, `reference` INTEGER);

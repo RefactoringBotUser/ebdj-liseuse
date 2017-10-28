@@ -1,12 +1,13 @@
 package fr.qp1c.ebdj.liseuse.bdd.utils.db;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import fr.qp1c.ebdj.liseuse.bdd.configuration.Configuration;
 
 /**
  * Classe permettant de gérer les connexions à la base de données SQLite.
@@ -21,24 +22,23 @@ public class DBManager {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBManager.class);
 
-	/**
-	 * Le nom du fichier de base de données.
-	 */
-	private String dBFileName = "";
 
+	private static DBManager DB_MANAGER = new DBManager();
+	
 	// Constructeur
 
 	/**
 	 * Constructeur.
 	 * 
-	 * @param dBFileName
-	 *            le nom du fichier de la base de données
 	 */
-	public DBManager(String dBFileName) {
-		this.dBFileName = dBFileName;
+	private DBManager() {
 	}
 
 	// Méthodes
+
+	public static DBManager getInstance() {
+		return DB_MANAGER;
+	}
 
 	/**
 	 * Créer une connexion à la base de données.
@@ -49,17 +49,15 @@ public class DBManager {
 		Connection connection = null;
 
 		try {
-			Class.forName("org.sqlite.JDBC");
+			if(Configuration.getInstance().isTest()) {
+				Class.forName("org.h2.Driver");
+			} else {
+				Class.forName("org.sqlite.JDBC");
+			}
+						
+			connection = DriverManager.getConnection(Configuration.getInstance().getUrlDb(),Configuration.getInstance().getDbUser(),Configuration.getInstance().getDbPassword());
 
-			File f = new File(".");
-			LOGGER.trace("Chemin correspondant à la base de données : {}", f.getAbsolutePath());
-
-			// TODO : recuperer le nom de la base de données
-			String urlDb = "jdbc:sqlite:" + f.getAbsolutePath() + "/db/" + dBFileName;
-
-			connection = DriverManager.getConnection(urlDb);
-
-			LOGGER.trace("Connexion  avec succès à la base de données {}", urlDb);
+			LOGGER.trace("Connexion  avec succès à la base de données {}", Configuration.getInstance().getUrlDb());
 		} catch (ClassNotFoundException notFoundException) {
 			LOGGER.error("Erreur lors de l'ouverture de la connexion: ", notFoundException);
 		} catch (SQLException sqlException) {

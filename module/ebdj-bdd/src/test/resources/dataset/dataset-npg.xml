@@ -1,0 +1,21 @@
+<dataset>
+	<QUESTION_NPG id="1" question="De quel monument londonien fait partie la tour Elizabeth qui abrite la célèbre cloche surnommée Big Ben ?" reponse="Le palais de Westminster OU Les Chambres du Parlement" difficulte="1" reference="19" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<QUESTION_NPG id="2" question="Quelle céréale est à la base de la boisson andine nommé chicha ?" reponse="Le maïs" difficulte="2" reference="20" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<QUESTION_NPG id="3" question="Quel engin a inspiré le compositeur Arthur Honegger pour son mouvement symphonique Pacific 231 ?" reponse="Une locomotive (à vapeur)" difficulte="3" reference="21" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<QUESTION_NPG id="4" question="Dans quel département se trouve le Pays Basque français ?" reponse="Les Pyrénées-Atlantiques" difficulte="1" reference="22" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<QUESTION_NPG id="5" question="Quel basketteur allemand évoluant aux Dallas Mavericks a été sacré meilleur joueur de NBA pour la saison 2.006/2.007 ?" reponse="Dirk Nowitzki" difficulte="2" reference="23" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<QUESTION_NPG id="6" question="Quel inventeur réalisa en 1.852 le premier vol en dirigeable à vapeur entre Paris et Élancourt ?" reponse="Henri Giffard" difficulte="3" reference="24" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-07" version="1" active="1" />
+	<QUESTION_NPG id="7" question="Qui interprétait Pierrot le fou dans le film de François Truffaut ?" reponse="J. Paul Belmondo" difficulte="1" reference="25" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-07" version="1" active="1" />
+	<QUESTION_NPG id="8" question="Quel écrivain est l’auteur de La symphonie pastorale ?" reponse="André Gide" difficulte="2" reference="26" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-07" version="1" active="1" />
+	<QUESTION_NPG id="9" question="Quelle fleur est l’emblème de la Malaisie ?" reponse="Ibiscus ou althéa" difficulte="3" reference="27" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-07" version="1" active="1" />
+	<QUESTION_NPG id="10" question="Quel grand lac italien est le plus oriental du pays ?" reponse="Lac de Garde" difficulte="1" reference="28" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-07" version="1" active="0" />
+
+
+	 <QUESTION_NPG_LECTURE id="1" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="19" />
+	<QUESTION_NPG_LECTURE id="2" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="20" />
+	<QUESTION_NPG_LECTURE id="3" date_lecture="2017-10-26" lecteur="Colette NOCON" reference="21" />
+	<QUESTION_NPG_LECTURE id="4" date_lecture="2017-10-26" lecteur="Colette NOCON" reference="22" />
+	
+	<QUESTION_NPG_ANOMALIE id="1" reference="20" version="1" date_anomalie="2017-10-26" type_anomalie="1" cause="Question mal redigée" lecteur="Nicolas GENDRON" />
+</dataset>
+

@@ -55,8 +55,12 @@ public class MoteurNPG {
 	// Tracker
 
 	private Lecteur lecteur;
+	
+	private DBConnecteurNPGDao dbConnecteurNPGDao;
 
 	public MoteurNPG() {
+		dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
+		
 		questions9PG_1 = LoaderQuestion9PG.chargerQuestions1Etoile();
 		questions9PG_2 = LoaderQuestion9PG.chargerQuestions2Etoiles();
 		questions9PG_3 = LoaderQuestion9PG.chargerQuestions3Etoiles();
@@ -143,7 +147,7 @@ public class MoteurNPG {
 		}
 		questions9PGJouee.add(question);
 
-		DBConnecteurNPGDao dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
+
 		dbConnecteurNPGDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
 		LOGGER.info("[FIN] Donner une nouvelle question.");
@@ -201,8 +205,6 @@ public class MoteurNPG {
 	}
 
 	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
-
-		DBConnecteurNPGDao dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
 		dbConnecteurNPGDao.signalerAnomalie(derniereQuestion9PG.getReference(), derniereQuestion9PG.getVersion(),
 				signalementAnomalie, lecteur.formatterNomUtilisateur());
 	}
