@@ -173,6 +173,7 @@ public class QALSController implements PreferencesLecteur {
 		theme4ALS1.setGraphic(ImageConstants.IMAGE_1);
 		theme4ALS1.setText(theme4ALS_1.getTheme());
 		theme4ALS1.setCollapsible(true);
+		theme4ALS1.setExpanded(false);
 		theme4ALS1.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
 			if (isNowExpanded) {
 				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 1\".");
@@ -185,6 +186,8 @@ public class QALSController implements PreferencesLecteur {
 
 		theme4ALS2.setGraphic(ImageConstants.IMAGE_2);
 		theme4ALS2.setText(theme4ALS_2.getTheme());
+		theme4ALS2.setCollapsible(true);
+		theme4ALS2.setExpanded(false);
 		theme4ALS2.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
 			if (isNowExpanded) {
 				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 2\".");
@@ -197,6 +200,8 @@ public class QALSController implements PreferencesLecteur {
 
 		theme4ALS3.setGraphic(ImageConstants.IMAGE_3);
 		theme4ALS3.setText(theme4ALS_3.getTheme());
+		theme4ALS3.setCollapsible(true);
+		theme4ALS3.setExpanded(false);
 		theme4ALS3.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
 			if (isNowExpanded) {
 				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 3\".");
@@ -209,6 +214,8 @@ public class QALSController implements PreferencesLecteur {
 
 		theme4ALS4.setGraphic(ImageConstants.IMAGE_4);
 		theme4ALS4.setText(theme4ALS_4.getTheme());
+		theme4ALS4.setCollapsible(true);
+		theme4ALS4.setExpanded(false);
 		theme4ALS4.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
 			if (isNowExpanded) {
 				LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 4\".");
@@ -231,6 +238,10 @@ public class QALSController implements PreferencesLecteur {
 
 	public void formaterContenuTheme4ALS(ObservableList<Node> list, Theme4ALS theme4ALS) {
 		LOGGER.info("[DEBUT] Afficher theme 4ALS.");
+
+		if (list != null) {
+			list.clear();
+		}
 
 		Font fontR = Font.font("Venacti", FontWeight.BOLD, 18);
 		Font fontQ = new Font("Arial", 18);

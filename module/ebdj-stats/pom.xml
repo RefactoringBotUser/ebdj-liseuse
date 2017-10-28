@@ -4,15 +4,13 @@
 
 	<parent>
 		<artifactId>ebdj-liseuse</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>2.0.2</version>
 		<relativePath>../..</relativePath>
 		<groupId>fr.ebdj.liseuse</groupId>
 	</parent>
 
 	<artifactId>ebdj-stats</artifactId>
 	<packaging>jar</packaging>
-
-	<version>1.0.0-SNAPSHOT</version>
 
 	<name>ebdj-stats</name>
 	<url>http://maven.apache.org</url>
@@ -25,7 +23,7 @@
 		<dependency>
 			<groupId>fr.ebdj.liseuse</groupId>
 			<artifactId>ebdj-bdd</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>2.0.2</version>
 		</dependency>
 	</dependencies>
 </project>
