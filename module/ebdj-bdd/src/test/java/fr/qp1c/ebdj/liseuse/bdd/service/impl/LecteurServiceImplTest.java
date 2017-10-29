@@ -1,20 +1,22 @@
 package fr.qp1c.ebdj.liseuse.bdd.service.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import fr.qp1c.ebdj.liseuse.bdd.service.LecteurService;
 
+@Ignore
 public class LecteurServiceImplTest {
 
 	private LecteurService lecteurService;
-	
+
 	@Before
 	public void setUp() throws Exception {
-		lecteurService=new LecteurServiceImpl();
+		lecteurService = new LecteurServiceImpl();
 	}
 
 	@After
@@ -35,7 +37,6 @@ public class LecteurServiceImplTest {
 	public void testModifierLecteur() {
 		fail("Not yet implemented");
 	}
-
 
 	@Test
 	public void testSupprimerLecteur() {

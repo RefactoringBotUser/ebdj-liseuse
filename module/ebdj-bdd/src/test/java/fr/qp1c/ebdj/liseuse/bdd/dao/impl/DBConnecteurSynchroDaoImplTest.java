@@ -1,11 +1,13 @@
 package fr.qp1c.ebdj.liseuse.bdd.dao.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class DBConnecteurSynchroDaoImplTest {
 
 	@Before
@@ -15,12 +17,12 @@ public class DBConnecteurSynchroDaoImplTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-	
+
 	@Test
 	public void testRecupererIndexParCle() {
 		fail("Not yet implemented");
 	}
-	
+
 	@Test
 	public void testModifierIndexParCle() {
 		fail("Not yet implemented");

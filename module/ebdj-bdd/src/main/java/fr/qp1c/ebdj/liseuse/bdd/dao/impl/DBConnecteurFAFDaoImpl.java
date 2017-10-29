@@ -30,7 +30,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * Default logger.
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurFAFDaoImpl.class);
-	
+
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -44,7 +44,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference)");
+				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT active=1 AND EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
@@ -274,7 +274,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM QUESTION_FAF Q_FAF;");
+		query.append("SELECT count(1) FROM QUESTION_FAF Q_FAF WHERE Q_FAF.active=1;");
 
 		return compterNbQuestion(query.toString());
 	}
@@ -300,7 +300,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"INSERT INTO QUESTION_FAF ('categorie','categorieRef','theme','question','reponse','difficulte','reference','club','dateReception','version','active') VALUES ('");
+				"INSERT INTO QUESTION_FAF (categorie,categorieRef,theme,question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('");
 		query.append(DBUtils.escapeSql(questionFaf.getCategorieFAF()));
 		query.append("',");
 		query.append(questionFaf.getCategorieFAFRef());

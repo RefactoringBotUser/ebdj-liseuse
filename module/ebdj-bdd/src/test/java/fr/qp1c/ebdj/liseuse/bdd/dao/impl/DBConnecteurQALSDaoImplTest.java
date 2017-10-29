@@ -1,15 +1,14 @@
 package fr.qp1c.ebdj.liseuse.bdd.dao.impl;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class DBConnecteurQALSDaoImplTest {
 
 	@BeforeClass
@@ -63,7 +62,7 @@ public class DBConnecteurQALSDaoImplTest {
 	public void testcompterNbThemeJouee() {
 		fail("Not yet implemented");
 	}
-	
+
 	@Test
 	public void testcompterNbThemeJoueeWithDifficulte() {
 		fail("Not yet implemented");

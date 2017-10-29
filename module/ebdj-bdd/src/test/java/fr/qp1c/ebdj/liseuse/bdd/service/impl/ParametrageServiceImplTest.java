@@ -1,20 +1,22 @@
 package fr.qp1c.ebdj.liseuse.bdd.service.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import fr.qp1c.ebdj.liseuse.bdd.service.ParametrageService;
 
+@Ignore
 public class ParametrageServiceImplTest {
 
 	private ParametrageService parametrageService;
-	
+
 	@Before
 	public void setUp() throws Exception {
-		parametrageService=new ParametrageServiceImpl();
+		parametrageService = new ParametrageServiceImpl();
 	}
 
 	@After
