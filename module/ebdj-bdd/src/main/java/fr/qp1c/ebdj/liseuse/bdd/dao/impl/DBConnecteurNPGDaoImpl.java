@@ -171,7 +171,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"INSERT INTO QUESTION_NPG ('question','reponse','difficulte','reference','club','dateReception','version','active') VALUES ('");
+				"INSERT INTO QUESTION_NPG (question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('");
 		query.append(DBUtils.escapeSql(question9pg.getQuestion()));
 		query.append("','");
 		query.append(DBUtils.escapeSql(question9pg.getReponse()));

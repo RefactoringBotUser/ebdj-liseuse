@@ -40,7 +40,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,reference,version,club,dateReception FROM QUESTION_JD Q_JD WHERE NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.reference=Q_JD_J.reference)");
+				"SELECT id,question,reponse,theme,reference,version,club,dateReception FROM QUESTION_JD Q_JD WHERE active=1 AND NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.reference=Q_JD_J.reference)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
@@ -100,7 +100,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM QUESTION_JD Q_JD;");
+		query.append("SELECT count(1) FROM QUESTION_JD Q_JD WHERE Q_JD.active=1;");
 
 		return compterNbQuestion(query.toString());
 	}
@@ -126,7 +126,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"INSERT INTO QUESTION_JD ('theme','question','reponse','difficulte','reference','club','dateReception','version','active') VALUES ('");
+				"INSERT INTO QUESTION_JD (theme,question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('");
 		query.append(DBUtils.escapeSql(questionJd.getTheme()));
 		query.append("','");
 		query.append(DBUtils.escapeSql(questionJd.getQuestion()));

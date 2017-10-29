@@ -23,7 +23,7 @@ public class DBConnecteurGeneriqueImpl {
 	 * Default logger.
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurGeneriqueImpl.class);
-	
+
 	protected Long recupererIndexMaxAnomalie(String type) {
 		return recupererIndexMax(donnerPrefixeTable(type) + "_ANOMALIE");
 
@@ -216,8 +216,7 @@ public class DBConnecteurGeneriqueImpl {
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append(
-				"INSERT INTO " + donnerPrefixeTable(type) + "_LECTURE ('reference','date_lecture','lecteur') VALUES (");
+		query.append("INSERT INTO " + donnerPrefixeTable(type) + "_LECTURE (reference, date_lecture,lecteur) VALUES (");
 		query.append(referenceQuestion);
 		query.append(",'");
 		query.append(Utils.recupererDateHeureCourante());
@@ -233,15 +232,15 @@ public class DBConnecteurGeneriqueImpl {
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append("INSERT INTO " + donnerPrefixeTable(type)
-				+ "_ANOMALIE ('reference','version','date_anomalie','type_anomalie','cause','lecteur') VALUES ('");
+				+ "_ANOMALIE (reference,version,date_anomalie,type_anomalie,cause,lecteur) VALUES ('");
 		query.append(reference);
 		query.append("',");
 		query.append(version);
 		query.append(",'");
 		query.append(Utils.recupererDateHeureCourante());
-		query.append("','");
-		query.append(anomalie.getTypeAnomalie());
-		query.append("','");
+		query.append("',");
+		query.append(anomalie.getTypeAnomalie().ordinal());
+		query.append(",'");
 		query.append(DBUtils.escapeSql(anomalie.getDescription()));
 		query.append("','");
 		query.append(DBUtils.escapeSql(lecteur));

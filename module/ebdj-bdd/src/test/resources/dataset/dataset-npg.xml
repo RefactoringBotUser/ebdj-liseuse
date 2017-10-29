@@ -11,7 +11,7 @@
 	<QUESTION_NPG id="10" question="Quel grand lac italien est le plus oriental du pays ?" reponse="Lac de Garde" difficulte="1" reference="28" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-07" version="1" active="0" />
 
 
-	 <QUESTION_NPG_LECTURE id="1" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="19" />
+	<QUESTION_NPG_LECTURE id="1" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="19" />
 	<QUESTION_NPG_LECTURE id="2" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="20" />
 	<QUESTION_NPG_LECTURE id="3" date_lecture="2017-10-26" lecteur="Colette NOCON" reference="21" />
 	<QUESTION_NPG_LECTURE id="4" date_lecture="2017-10-26" lecteur="Colette NOCON" reference="22" />

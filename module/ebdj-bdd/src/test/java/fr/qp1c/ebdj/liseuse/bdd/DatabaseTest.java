@@ -1,7 +1,5 @@
 package fr.qp1c.ebdj.liseuse.bdd;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.nio.charset.Charset;
 
@@ -11,12 +9,6 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.h2.tools.RunScript;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurFAFDao;
-import fr.qp1c.ebdj.liseuse.bdd.dao.impl.DBConnecteurFAFDaoImpl;
 
 public class DatabaseTest {
 
@@ -26,7 +18,7 @@ public class DatabaseTest {
 	private static final String PASSWORD = "";
 
 	public static void createSchema() throws Exception {
-		RunScript.execute(JDBC_URL, USER, PASSWORD, "/home/ngendron/git/ebdj-liseuse/module/ebdj-bdd/src/test/resources/schema.sql", Charset.forName("UTF8"), false);
+		RunScript.execute(JDBC_URL, USER, PASSWORD, "./src/test/resources/schema.sql", Charset.forName("UTF8"), false);
 	}
 
 	public static void importDataSet(String fileName) throws Exception {
@@ -35,7 +27,7 @@ public class DatabaseTest {
 	}
 
 	private static IDataSet readDataSet(String fileName) throws Exception {
-		return new FlatXmlDataSetBuilder().build(new File("./src/test/resources/dataset/"+fileName));
+		return new FlatXmlDataSetBuilder().build(new File("./src/test/resources/dataset/" + fileName));
 	}
 
 	private static void cleanlyInsert(IDataSet dataSet) throws Exception {
@@ -44,5 +36,5 @@ public class DatabaseTest {
 		databaseTester.setDataSet(dataSet);
 		databaseTester.onSetup();
 	}
-	
+
 }

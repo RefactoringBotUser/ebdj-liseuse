@@ -1,10 +1,11 @@
 package fr.qp1c.ebdj.liseuse.bdd.dao.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class DBConnecteurParametrageDaoImplTest {
@@ -21,11 +22,13 @@ public class DBConnecteurParametrageDaoImplTest {
 	public void tearDown() throws Exception {
 	}
 
+	@Ignore
 	@Test
 	public void testRecupererParametrage() {
 		fail("Not yet implemented");
 	}
-	
+
+	@Ignore
 	@Test
 	public void testModifierParametrage() {
 		fail("Not yet implemented");
