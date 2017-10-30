@@ -6,14 +6,7 @@ import fr.qp1c.ebdj.liseuse.bdd.service.impl.ParametrageServiceImpl;
 public class TestMain {
 
 	public static void main(String[] args) {
-		// Synchronisation9PGService synchronisation9pgService = new
-		// Synchronisation9PGServiceImpl();
-		// SynchronisationJDService synchronisationJdService = new
-		// SynchronisationJDServiceImpl();
-		// SynchronisationFAFService synchronisationFafService = new
-		// SynchronisationFAFServiceImpl();
 
-		// System.out.println(Utils.formaterDate("2017-11-23"));
 		ParametrageService ps=new ParametrageServiceImpl();
 		
 		System.out.println(ps.afficherVersionApplication());

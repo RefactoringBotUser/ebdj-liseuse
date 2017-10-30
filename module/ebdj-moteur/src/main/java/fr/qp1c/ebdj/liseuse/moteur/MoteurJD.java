@@ -14,7 +14,7 @@ import fr.qp1c.ebdj.liseuse.commun.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionJD;
 import fr.qp1c.ebdj.liseuse.moteur.loader.LoaderQuestionJD;
 
-public class MoteurJD {
+public class MoteurJD implements Moteur{
 
 	/**
 	 * Default logger.
@@ -32,6 +32,8 @@ public class MoteurJD {
 	private QuestionJD derniereQuestionJD;
 
 	private NiveauPartie niveauPartie;
+	
+	private DBConnecteurJDDao dbConnecteurJDDao;
 
 	// Tracker
 
@@ -49,6 +51,8 @@ public class MoteurJD {
 
 		// Nombre de questions réel (inclus erreur et remplacement).
 		nbQuestReel = 0;
+
+		this.dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
 	}
 
 	public void definirLecteur(Lecteur lecteur) {
@@ -65,7 +69,6 @@ public class MoteurJD {
 		QuestionJD question = questionsJD.get(nbQuestReel);
 
 		// TODO : gérer la récupération du lecteur
-		DBConnecteurJDDao dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
 		dbConnecteurJDDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
 		LOGGER.info("[FIN] Donner une nouvelle question.");
@@ -95,7 +98,6 @@ public class MoteurJD {
 	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
 		LOGGER.info("[DEBUT] Signaler anomalie.");
 
-		DBConnecteurJDDao dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
 		dbConnecteurJDDao.signalerAnomalie(derniereQuestionJD.getReference(), derniereQuestionJD.getVersion(),
 				signalementAnomalie, lecteur.formatterNomUtilisateur());
 

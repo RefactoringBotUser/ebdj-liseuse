@@ -1,3 +1,110 @@
 <dataset>
-
+	<THEME_QALS id="1" categorie="Littérature" categorieRef="11" groupeCategorieRef="2" theme="L'ŒUVRE DE VICTOR HUGO" difficulte="2" reference="19" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<THEME_QALS id="2" categorie="Médecine" categorieRef="18" groupeCategorieRef="3" theme="LES PROTÉINES" difficulte="2" reference="20" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<THEME_QALS id="3" categorie="Géographie" categorieRef="12" groupeCategorieRef="1" theme="LES GRANDS DÉSERTS DU MONDE" difficulte="2" reference="21" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<THEME_QALS id="4" categorie="Musique" categorieRef="4" groupeCategorieRef="4" theme="LES TUBES FRANÇAIS DES ANNÉES 1980" difficulte="2" reference="22" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<THEME_QALS id="5" categorie="Histoire" categorieRef="5" groupeCategorieRef="1" theme="L’HISTOIRE DU MEXIQUE" difficulte="2" reference="23" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="2" active="1" />
+	<THEME_QALS id="6" categorie="Cinéma" categorieRef="3" groupeCategorieRef="2" theme="LE CINÉMA DES ANNÉES 1980" difficulte="2" reference="24" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<THEME_QALS id="7" categorie="Sciences" categorieRef="10" groupeCategorieRef="3" theme="LES DIFFÉRENTES BRANCHES DE LA PHYSIQUE" difficulte="2" reference="25" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<THEME_QALS id="8" categorie="Gastronomie" categorieRef="1" groupeCategorieRef="4" theme="LES USTENSILES DE CUISINE" difficulte="2" reference="26" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="0" />
+	<THEME_QALS id="9" categorie="Vocabulaire" categorieRef="8" groupeCategorieRef="4" theme="LE DISCOURS ET AUTRES MODES D'EXPRESSION ORATOIRE" difficulte="27" reference="2" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	
+	<THEME_QALS_ANOMALIE id="1" version="1" date_anomalie="2017-10-26" type_anomalie="1" cause="Question mal redigée" lecteur="Nicolas GENDRON" reference="20" />
+	
+	<THEME_QALS_LECTURE id="1" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="19" />
+	<THEME_QALS_LECTURE id="2" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="20" />
+	<THEME_QALS_LECTURE id="3" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="21" />			
+	
+	<THEME_QALS_PRESENTE id="1" date_presentation="2017-10-26" lecteur="Nicolas GENDRON" reference="22" />
+	
+	<QUESTION_QALS id="1" seq="1" question="Dans quel roman trouve-t-on les personnages de Javert et de Jean Valjean ?" reponse="LES MISÉRABLES" reference="19" />
+	<QUESTION_QALS id="2" seq="2" question="Quelle pièce déclencha lors de sa création en 1830 une célèbre bataille littéraire entre classiques et romantiques ?" reponse="HERNANI" reference="19" />	
+	<QUESTION_QALS id="3" seq="3" question="De quel recueil poétique publié en1831 est extrait le poème intitulé « Ce siècle avait deux ans » ?" reponse="LES FEUILLES D'AUTOMNE" reference="19" />
+	<QUESTION_QALS id="4" seq="4" question="Quel est le titre de son premier roman écrit à 16 ans ?" reponse="BUG-JARGAL" reference="19" />	
+	<QUESTION_QALS id="5" seq="5" question="De quelle pièce de théâtre est extraite la réplique « Bon appétit, Messieurs ! O ministres intègres » ?" reponse="RUY BLAS" reference="19" />
+	<QUESTION_QALS id="6" seq="6" question="Quel recueil de poèmes satiriques est un pamphlet dirigé contre Napoléon III ?" reponse="LES CHÂTIMENTS" reference="19" />	
+	<QUESTION_QALS id="7" seq="7" question="Quelle est la pièce de 1827 dont la préface est un des textes fondateurs du romantisme français ?" reponse="CROMWELL" reference="19" />
+	<QUESTION_QALS id="8" seq="8" question="Lors de quel siècle se déroule l'action du roman « Notre-Dame de Paris » ?" reponse="15ÈME SIÈCLE (1482)" reference="19" />	
+	<QUESTION_QALS id="9" seq="9" question="Quelle pièce ayant pour personnage principal le bouffon Triboulet a inspiré à Verdi son opéra « Rigoletto » ?" reponse="LE ROI S'AMUSE" reference="19" />
+	<QUESTION_QALS id="10" seq="10" question="Quel drame en 4 actes publié en 1882 fut sa dernière pièce jamais jouée de son vivant ?" reponse="TORQUEMADA" reference="19" />	
+	<QUESTION_QALS id="11" seq="11" question="Quel a été son dernier roman publié en 1874 ?" reponse="QUATREVINGT-TREIZE" reference="19" />
+	<QUESTION_QALS id="12" seq="12" question="Lors de la création de quelle pièce où elle jouait un second rôle a-t-il rencontré Juliette Drouet ?" reponse="LECRÈCE BORGIA" reference="19" />
+	
+	<QUESTION_QALS id="13" seq="1" question="Quel substantif ayant pour suffixe « ides » est synonyme de protéines ?" reponse="PROTIDES" reference="20" />
+	<QUESTION_QALS id="14" seq="2" question="Quelle substance protéique est contenue dans le blanc d'œuf et le lait ?" reponse="L'ALBUMINE" reference="20" />	
+	<QUESTION_QALS id="15" seq="3" question="Comment appelle-t-on les plantes cultivées pour leur richesse en protéines ?" reponse="LES PROTÉAGINEUX" reference="20" />
+	<QUESTION_QALS id="16" seq="4" question="Quel chimiste néerlandais a découvert les protéines en 1835 ?" reponse="(JOHANNES) MULDER" reference="20" />	
+	<QUESTION_QALS id="17" seq="5" question="Quelle protéine a pour fonction de transporter l'oxygène dans l'organisme ?" reponse="L'HÉMOGLOBINE" reference="20" />
+	<QUESTION_QALS id="18" seq="6" question="Quels composés organiques sont les constituants élémentaires des protéines ?" reponse="LES ACIDES AMINÉS" reference="20" />	
+	<QUESTION_QALS id="19" seq="7" question="Quelle science étudie la structure et les fonctions des protéines ?" reponse="LA PROTÉOMIQUE" reference="20" />
+	<QUESTION_QALS id="20" seq="8" question="Quelle partie interne de la cellule est composée d'eau et de protéines ?" reponse="LE CYTOPLASME" reference="20" />	
+	<QUESTION_QALS id="21" seq="9" question="Quelle est la protéine la plus abondante dans l'organisme humain ?" reponse="LE COLLAGÈNE" reference="20" />
+	<QUESTION_QALS id="22" seq="10" question="Comment s'appelle la mesure des protéines dans le sérum ?" reponse="LA PROTÉINÉMIE" reference="20" />	
+	<QUESTION_QALS id="23" seq="11" question="Quel acide aminé présent dans les céréales et le lait cru est un des constituants les plus courants des protéines ?" reponse="LA LYSINE" reference="20" />
+	<QUESTION_QALS id="24" seq="12" question="Comment nomme-t-on les protéines ayant subi un traitement modifiant leur structure ?" reponse="LES PROTÉINES TEXTURÉES" reference="20" />
+	
+	<QUESTION_QALS id="25" seq="1" question="Avec une superficie de plus de 9 millions de km², quel désert est le plus grand du continent africain ?" reponse="LE SAHARA" reference="21" />
+	<QUESTION_QALS id="26" seq="2" question="Quel désert aux confins de la Chine et de la Mongolie est le plus grand d'Asie ?" reponse="LE DÉSERT DE GOBI" reference="21" />	
+	<QUESTION_QALS id="27" seq="3" question="Quel désert froid de 14 millions de km² s'étendant sur tout un continent est le plus grand du monde ?" reponse="LE DÉSERT ANTARCTIQUE" reference="21" />
+	<QUESTION_QALS id="28" seq="4" question="Situé en Bolivie, quel est le plus vaste désert de sel du monde ?" reponse="LE SALAR UYUNI" reference="21" />	
+	<QUESTION_QALS id="29" seq="5" question="Quel désert d'Afrique australe se partage entre le Botswana, la Namibie et l'Afrique du Sud ?" reponse="LE DÉSERT DU KALAHARI" reference="21" />
+	<QUESTION_QALS id="30" seq="6" question="Dans quel pays se trouvent les déserts de Gibson et de Simpson ?" reponse="L'AUSTRALIE" reference="21" />	
+	<QUESTION_QALS id="31" seq="7" question="Quel désert de 140.000 km², au nord du Chili, est un des plus arides du monde ?" reponse="LE DÉSERT D'ATACAMA" reference="21" />
+	<QUESTION_QALS id="32" seq="8" question="Quel désert occupe la pointe sud de l'état d'Israël ?" reponse="LE DÉSERT DU NÉGUEV" reference="21" />	
+	<QUESTION_QALS id="33" seq="9" question="Quel désert d'altitude se partageant entre le Mexique et les Etats-Unis est le plus vaste d'Amérique du Nord ?" reponse="LE DÉSERT DE CHIHUAHUA" reference="21" />
+	<QUESTION_QALS id="34" seq="10" question="Dans quel pays d'Asie centrale se trouve le désert du Karakoum ?" reponse="LE TURKMÉNISTAN" reference="21" />	
+	<QUESTION_QALS id="35" seq="11" question="Situé dans le Nevada et débordant sur les états limitrophes, quelle est la plus grande étendue désertique des Etats-Unis ?" reponse="LE DÉSERT DU GRAND BASSIN (GREAT BASIN)" reference="21" />
+	<QUESTION_QALS id="36" seq="12" question="Quel désert du sud-ouest des Etats-Unis se caractérise par ses sables blancs de gypse ?" reponse="WHITE SANDS" reference="21" />
+	
+	<QUESTION_QALS id="" seq="1" question="" reponse="ETIENNE" reference="22" />
+	<QUESTION_QALS id="" seq="2" question="" reponse="" reference="22" />	
+	<QUESTION_QALS id="" seq="3" question="" reponse="" reference="22" />
+	<QUESTION_QALS id="" seq="4" question="" reponse="" reference="22" />	
+	<QUESTION_QALS id="" seq="5" question="" reponse="" reference="22" />
+	<QUESTION_QALS id="" seq="6" question="" reponse="" reference="22" />	
+	<QUESTION_QALS id="" seq="7" question="" reponse="" reference="22" />
+	<QUESTION_QALS id="" seq="8" question="" reponse="" reference="22" />	
+	<QUESTION_QALS id="" seq="9" question="" reponse="" reference="22" />
+	<QUESTION_QALS id="" seq="10" question="" reponse="" reference="22" />	
+	<QUESTION_QALS id="" seq="11" question="" reponse="" reference="22" />
+	<QUESTION_QALS id="" seq="12" question="" reponse="" reference="22" />
+	
+	<QUESTION_QALS id="" seq="1" question="" reponse="" reference="23" />
+	<QUESTION_QALS id="" seq="2" question="" reponse="" reference="23" />	
+	<QUESTION_QALS id="" seq="3" question="" reponse="" reference="23" />
+	<QUESTION_QALS id="" seq="4" question="" reponse="" reference="23" />	
+	<QUESTION_QALS id="" seq="5" question="" reponse="" reference="23" />
+	<QUESTION_QALS id="" seq="6" question="" reponse="" reference="23" />	
+	<QUESTION_QALS id="" seq="7" question="" reponse="" reference="23" />
+	<QUESTION_QALS id="" seq="8" question="" reponse="" reference="23" />	
+	<QUESTION_QALS id="" seq="9" question="" reponse="" reference="23" />
+	<QUESTION_QALS id="" seq="10" question="" reponse="" reference="23" />	
+	<QUESTION_QALS id="" seq="11" question="" reponse="" reference="23" />
+	<QUESTION_QALS id="" seq="12" question="" reponse="" reference="23" />
+	
+	<QUESTION_QALS id="" seq="1" question="" reponse="" reference="24" />
+	<QUESTION_QALS id="" seq="2" question="" reponse="" reference="24" />	
+	<QUESTION_QALS id="" seq="3" question="" reponse="" reference="24" />
+	<QUESTION_QALS id="" seq="4" question="" reponse="" reference="24" />	
+	<QUESTION_QALS id="" seq="5" question="" reponse="" reference="24" />
+	<QUESTION_QALS id="" seq="6" question="" reponse="" reference="24" />	
+	<QUESTION_QALS id="" seq="7" question="" reponse="" reference="24" />
+	<QUESTION_QALS id="" seq="8" question="" reponse="" reference="24" />	
+	<QUESTION_QALS id="" seq="9" question="" reponse="" reference="24" />
+	<QUESTION_QALS id="" seq="10" question="" reponse="" reference="24" />	
+	<QUESTION_QALS id="" seq="11" question="" reponse="" reference="24" />
+	<QUESTION_QALS id="" seq="12" question="" reponse="" reference="24" />
+	
+	<QUESTION_QALS id="" seq="1" question="" reponse="" reference="25" />
+	<QUESTION_QALS id="" seq="2" question="" reponse="" reference="25" />	
+	<QUESTION_QALS id="" seq="3" question="" reponse="" reference="25" />
+	<QUESTION_QALS id="" seq="4" question="" reponse="" reference="25" />	
+	<QUESTION_QALS id="" seq="5" question="" reponse="" reference="25" />
+	<QUESTION_QALS id="" seq="6" question="" reponse="" reference="25" />	
+	<QUESTION_QALS id="" seq="7" question="" reponse="" reference="25" />
+	<QUESTION_QALS id="" seq="8" question="" reponse="" reference="25" />	
+	<QUESTION_QALS id="" seq="9" question="" reponse="" reference="25" />
+	<QUESTION_QALS id="" seq="10" question="" reponse="" reference="25" />	
+	<QUESTION_QALS id="" seq="11" question="" reponse="" reference="25" />
+	<QUESTION_QALS id="" seq="12" question="" reponse="" reference="25" />
 </dataset>

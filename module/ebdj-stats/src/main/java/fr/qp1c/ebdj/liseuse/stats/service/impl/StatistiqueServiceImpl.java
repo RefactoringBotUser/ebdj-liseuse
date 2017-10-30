@@ -29,14 +29,21 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(StatistiqueServiceImpl.class);
 
-	private DBConnecteurNPGDao connecterNPGDao = new DBConnecteurNPGDaoImpl();
+	private DBConnecteurNPGDao connecterNPGDao;
 
-	private DBConnecteurQALSDao connecter4ALSDao = new DBConnecteurQALSDaoImpl();
+	private DBConnecteurQALSDao connecter4ALSDao;
 
-	private DBConnecteurJDDao connecterJDDao = new DBConnecteurJDDaoImpl();
+	private DBConnecteurJDDao connecterJDDao;
 
-	private DBConnecteurFAFDao connecterFAFDao = new DBConnecteurFAFDaoImpl();
+	private DBConnecteurFAFDao connecterFAFDao;
 
+	public StatistiqueServiceImpl() {
+		this.connecterNPGDao = new DBConnecteurNPGDaoImpl();
+		this.connecter4ALSDao = new DBConnecteurQALSDaoImpl();
+		this.connecterJDDao = new DBConnecteurJDDaoImpl();
+		this.connecterFAFDao = new DBConnecteurFAFDaoImpl();
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -98,6 +105,10 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 		return stats;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public List<StatsCategorieFAF> calculerStatsCategorieFAF() {
 		LOGGER.info("[DEBUT] calculerStatsCategorieFAF");
@@ -129,6 +140,10 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 		return statsCategorieFAF;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public List<StatsGroupeCategorieQALS> calculerStatsGroupeCategorieQALS() {
 		LOGGER.info("[DEBUT] calculerStatsGroupeCategorieQALS");

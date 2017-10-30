@@ -14,7 +14,7 @@ import fr.qp1c.ebdj.liseuse.commun.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionFAF;
 import fr.qp1c.ebdj.liseuse.moteur.loader.LoaderQuestionFAF;
 
-public class MoteurFAF {
+public class MoteurFAF implements Moteur{
 
 	/**
 	 * Default logger.
@@ -40,6 +40,8 @@ public class MoteurFAF {
 	// Tracker
 
 	private Lecteur lecteur;
+	
+	private DBConnecteurFAFDao dbConnecteurFAFDao;
 
 	// Constructeur
 
@@ -57,6 +59,8 @@ public class MoteurFAF {
 		categoriesJouees = new ArrayList<>();
 
 		this.niveauPartie = NiveauPartie.MOYEN;
+
+		this.dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
 	}
 
 	public void definirLecteur(Lecteur lecteur) {
@@ -96,8 +100,7 @@ public class MoteurFAF {
 		QuestionFAF question = donnerNouvelleQuestionInedite();
 
 		categoriesJouees.add(question.getCategorieRef());
-
-		DBConnecteurFAFDao dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
+		
 		dbConnecteurFAFDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
 		LOGGER.info("[FIN] Donner une nouvelle question.");
@@ -127,7 +130,6 @@ public class MoteurFAF {
 	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
 		LOGGER.info("[DEBUT] Signaler anomalie.");
 
-		DBConnecteurFAFDao dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
 		dbConnecteurFAFDao.signalerAnomalie(derniereQuestionFAF.getReference(), derniereQuestionFAF.getVersion(),
 				signalementAnomalie, lecteur.formatterNomUtilisateur());
 

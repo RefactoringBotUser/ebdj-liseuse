@@ -24,97 +24,97 @@ public class DBConnecteurQALSDaoImplTest {
 	}
 
 	@Test
-	public void testdonnerTheme() {
+	public void testDonnerTheme() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testmarquerThemePresente() {
+	public void testMarquerThemePresente() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testmarquerThemeJoue() {
+	public void testMarquerThemeJoue() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testannulerMarquerThemeJoue() {
+	public void testAnnulerMarquerThemeJoue() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testsignalerAnomalie() {
+	public void testSignalerAnomalie() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testcompterNbTheme() {
+	public void testCompterNbTheme() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testcompterNbThemeByCategorie() {
+	public void testCompterNbThemeByCategorie() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testcompterNbThemeJouee() {
+	public void testCompterNbThemeJouee() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testcompterNbThemeJoueeWithDifficulte() {
+	public void testCompterNbThemeJoueeWithDifficulte() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testcreerTheme() {
+	public void testCreerTheme() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testdesactiverTheme() {
+	public void testDesactiverTheme() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testcorrigerTheme() {
+	public void testCorrigerTheme() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testlisterAnomalies() {
+	public void testListerAnomalies() {
 		fail("Not yet implemented");
 	};
 
 	@Test
-	public void testlisterQuestionsLues() {
+	public void testListerQuestionsLues() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testrecupererIndexMaxAnomalie() {
+	public void testRecupererIndexMaxAnomalie() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testrecupererIndexMaxLecture() {
+	public void testRecupererIndexMaxLecture() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testrecupererReferenceMaxQuestion() {
+	public void testRecupererReferenceMaxQuestion() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testcompterParGroupeCategorie() {
+	public void testCompterParGroupeCategorie() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testcompterParGroupeCategorieLue() {
+	public void testCompterParGroupeCategorieLue() {
 		fail("Not yet implemented");
 	}
 }

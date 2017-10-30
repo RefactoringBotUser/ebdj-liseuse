@@ -16,6 +16,11 @@ public interface StatistiqueService {
 	 */
 	public StatsBDJ calculerStatistique();
 
+	/**
+	 * Calculer les stats concernant la consommation de questions par catégorie de FAF.
+	 * 
+	 * @return
+	 */
 	public List<StatsCategorieFAF> calculerStatsCategorieFAF();
 
 	public List<StatsGroupeCategorieQALS> calculerStatsGroupeCategorieQALS();

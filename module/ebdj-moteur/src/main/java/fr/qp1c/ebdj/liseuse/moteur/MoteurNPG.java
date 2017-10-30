@@ -15,7 +15,7 @@ import fr.qp1c.ebdj.liseuse.commun.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.liseuse.moteur.loader.LoaderQuestion9PG;
 
-public class MoteurNPG {
+public class MoteurNPG implements Moteur{
 
 	/**
 	 * Default logger.
