@@ -36,7 +36,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * 
 	 */
 	@Override
-	public List<QuestionFAF> listerQuestionsJouable(int nbQuestion) throws DBManagerException {
+	public List<QuestionFAF> listerQuestionsJouable(int nbQuestion) {
 
 		List<QuestionFAF> listeQuestionsAJouer = new ArrayList<>();
 
@@ -83,8 +83,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * 
 	 */
 	@Override
-	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax)
-			throws DBManagerException {
+	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax) {
 
 		QuestionFAF question = null;
 
@@ -95,7 +94,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte>="
 						+ niveauMin + " AND difficulte<=" + niveauMax + "");
 
-		if (categoriesAExclure != null && categoriesAExclure.size() > 0) {
+		if (categoriesAExclure != null && !categoriesAExclure.isEmpty()) {
 			query.append(" AND Q_FAF.categorieRef NOT IN (");
 			StringJoiner clauseIn = new StringJoiner(",", "", "");
 
@@ -138,7 +137,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * 
 	 */
 	@Override
-	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveau) throws DBManagerException {
+	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveau) {
 
 		QuestionFAF question = null;
 
@@ -149,7 +148,7 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
 				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte="
 						+ niveau + "");
 
-		if (categoriesAExclure != null && categoriesAExclure.size() > 0) {
+		if (categoriesAExclure != null && !categoriesAExclure.isEmpty()) {
 			query.append(" AND Q_FAF.categorieRef NOT IN (");
 			StringJoiner clauseIn = new StringJoiner(",", "", "");
 

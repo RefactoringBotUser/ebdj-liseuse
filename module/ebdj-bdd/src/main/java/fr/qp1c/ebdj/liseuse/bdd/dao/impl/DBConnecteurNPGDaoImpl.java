@@ -37,7 +37,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * 
 	 */
 	@Override
-	public List<QuestionNPG> listerQuestionsJouable(int nbQuestion) throws DBManagerException {
+	public List<QuestionNPG> listerQuestionsJouable(int nbQuestion) {
 		return listerQuestionsJouable(nbQuestion, -1);
 	}
 
@@ -46,7 +46,7 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * 
 	 */
 	@Override
-	public List<QuestionNPG> listerQuestionsJouable(int nbQuestion, int difficulte) throws DBManagerException {
+	public List<QuestionNPG> listerQuestionsJouable(int nbQuestion, int difficulte){
 		List<QuestionNPG> listeQuestionsAJouer = new ArrayList<>();
 
 		// Création de la requête
@@ -218,13 +218,12 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 * 
 	 */
 	@Override
-	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException {
+	public void jouerQuestion(String referenceQuestion, String lecteur) {
 		jouerQuestion("NPG", referenceQuestion, lecteur);
 	}
 
 	@Override
-	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur)
-			throws DBManagerException {
+	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur) {
 		signalerAnomalie("NPG", reference, version, anomalie, lecteur);
 	}
 

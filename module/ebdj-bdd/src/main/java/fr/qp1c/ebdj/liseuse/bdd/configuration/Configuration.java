@@ -4,8 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Configuration {
 
+	/**
+	 * Default logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
+	
 	private static Configuration CONFIG = new Configuration();
 
 	private String urlDb;
@@ -17,7 +25,8 @@ public class Configuration {
 	private boolean test = false;
 
 	private Configuration() {
-		System.out.println("Init config.");
+		LOGGER.debug("Init config.");
+		
 		File f = new File(".");
 
 		Properties prop = new Properties();
@@ -26,7 +35,7 @@ public class Configuration {
 		try {
 			prop.load(getClass().getClassLoader().getResourceAsStream("config.properties"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("L'initialisation a échouée : ",e);
 		}
 		
 		String database=prop.getProperty("database");
@@ -41,7 +50,7 @@ public class Configuration {
 		dbUser = prop.getProperty("dbuser");
 		dbPassword = prop.getProperty("dbpassword");
 
-		System.out.println(urlDb);
+		LOGGER.debug(urlDb);
 	}
 
 	public static Configuration getInstance() {

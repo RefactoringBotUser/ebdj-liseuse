@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author NICO
  *
  */
-public class DBUtils {
+public final class DBUtils {
 
 	/**
 	 * Protéger une valeur SQL comportant des quotes simples.

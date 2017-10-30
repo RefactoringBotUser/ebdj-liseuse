@@ -8,14 +8,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.qp1c.ebdj.liseuse.bdd.service.ParametrageService;
 
 public class ParametrageServiceImpl implements ParametrageService {
 
+	/**
+	 * Default logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(ParametrageServiceImpl.class);
+	
 	@Override
 	public String afficherFichierParametrage() {
 		// Nous déclarons nos objets en dehors du bloc try/catch
-		BufferedInputStream bis;
+		BufferedInputStream bis = null;
 		StringBuffer sb = new StringBuffer();
 
 		try {
@@ -25,13 +33,18 @@ public class ParametrageServiceImpl implements ParametrageService {
 			while (bis.read(buf) != -1) {
 				sb.append(buf);
 			}
-			;
-			// On ferme nos flux de données
-			bis.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			LOGGER.error("An error has occured :", e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("An error has occured :", e);
+		} finally {
+			if (bis != null) {
+				try {
+					bis.close();
+				} catch (IOException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+			}
 		}
 
 		return sb.toString();
@@ -47,8 +60,6 @@ public class ParametrageServiceImpl implements ParametrageService {
 
 		try {
 			// http://blog.soebes.de/blog/2014/01/02/version-information-into-your-appas-with-maven/
-			// File f=new File(".");
-			// System.out.println(f.getAbsolutePath());
 			input = this.getClass().getResourceAsStream("/configuration.properties");
 
 			// load a properties file
@@ -56,13 +67,13 @@ public class ParametrageServiceImpl implements ParametrageService {
 
 			version = props.getProperty("version");
 		} catch (IOException ex) {
-			ex.printStackTrace();
+			LOGGER.error("An error has occured :", ex);
 		} finally {
 			if (input != null) {
 				try {
 					input.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					LOGGER.error("An error has occured :", e);
 				}
 			}
 		}

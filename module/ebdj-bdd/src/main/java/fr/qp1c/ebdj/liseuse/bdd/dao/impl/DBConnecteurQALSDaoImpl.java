@@ -173,8 +173,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 * 
 	 */
 	@Override
-	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur)
-			throws DBManagerException {
+	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur) {
 		signalerAnomalie("QALS", reference, version, anomalie, lecteur);
 	}
 
@@ -364,7 +363,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 * 
 	 */
 	@Override
-	public void marquerThemePresente(String referenceTheme, String lecteur) throws DBManagerException {
+	public void marquerThemePresente(String referenceTheme, String lecteur) {
 
 		// Création de la requête
 
@@ -385,7 +384,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 * 
 	 */
 	@Override
-	public void marquerThemeJoue(String referenceTheme, String lecteur) throws DBManagerException {
+	public void marquerThemeJoue(String referenceTheme, String lecteur) {
 		jouerQuestion("QALS", referenceTheme, lecteur);
 	}
 
@@ -394,7 +393,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 * 
 	 */
 	@Override
-	public void annulerMarquerThemeJoue(String referenceTheme, String lecteur) throws DBManagerException {
+	public void annulerMarquerThemeJoue(String referenceTheme, String lecteur) {
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append("DELETE FROM THEME_QALS_LECTURE where reference=");

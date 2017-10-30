@@ -22,13 +22,13 @@ public class DBConnecteurLecteurDaoImpl implements DBConnecteurLecteurDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurLecteurDaoImpl.class);
 
 	@Override
-	public void ajouterLecteur(Lecteur lecteur) throws DBManagerException {
+	public void ajouterLecteur(Lecteur lecteur) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void modifierLecteur(String reference, Lecteur lecteur) throws DBManagerException {
+	public void modifierLecteur(String reference, Lecteur lecteur) {
 		// TODO Auto-generated method stub
 
 	}
@@ -38,7 +38,7 @@ public class DBConnecteurLecteurDaoImpl implements DBConnecteurLecteurDao {
 	 * 
 	 */
 	@Override
-	public List<Lecteur> listerLecteur() throws DBManagerException {
+	public List<Lecteur> listerLecteur() {
 
 		List<Lecteur> listeLecteurs = new ArrayList<>();
 
@@ -82,19 +82,19 @@ public class DBConnecteurLecteurDaoImpl implements DBConnecteurLecteurDao {
 	}
 
 	@Override
-	public Lecteur recupererLecteur(String reference) throws DBManagerException {
+	public Lecteur recupererLecteur(String reference) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean testerExistanteLecteur(String nom, String prenom) throws DBManagerException {
+	public boolean testerExistanteLecteur(String nom, String prenom) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void supprimerLecteur(String reference) throws DBManagerException {
+	public void supprimerLecteur(String reference) {
 		// TODO Auto-generated method stub
 
 	}

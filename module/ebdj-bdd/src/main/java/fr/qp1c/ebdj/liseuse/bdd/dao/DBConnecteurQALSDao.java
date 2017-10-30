@@ -28,7 +28,7 @@ public interface DBConnecteurQALSDao {
 	 * @param lecteur
 	 * @throws DBManagerException
 	 */
-	public void marquerThemePresente(String referenceTheme, String lecteur) throws DBManagerException;
+	public void marquerThemePresente(String referenceTheme, String lecteur);
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public interface DBConnecteurQALSDao {
 	 * @param lecteur
 	 * @throws DBManagerException
 	 */
-	public void marquerThemeJoue(String referenceTheme, String lecteur) throws DBManagerException;
+	public void marquerThemeJoue(String referenceTheme, String lecteur);
 
 	/**
 	 * 
@@ -46,7 +46,7 @@ public interface DBConnecteurQALSDao {
 	 * @param lecteur
 	 * @throws DBManagerException
 	 */
-	public void annulerMarquerThemeJoue(String referenceTheme, String lecteur) throws DBManagerException;
+	public void annulerMarquerThemeJoue(String referenceTheme, String lecteur);
 
 	/**
 	 * 
@@ -55,8 +55,7 @@ public interface DBConnecteurQALSDao {
 	 * @param lecteur
 	 * @throws DBManagerException
 	 */
-	public void signalerAnomalie(String referenceTheme, Long version, SignalementAnomalie anomalie, String lecteur)
-			throws DBManagerException;
+	public void signalerAnomalie(String referenceTheme, Long version, SignalementAnomalie anomalie, String lecteur);
 
 	/**
 	 * Compter le nombre total de thème existante.

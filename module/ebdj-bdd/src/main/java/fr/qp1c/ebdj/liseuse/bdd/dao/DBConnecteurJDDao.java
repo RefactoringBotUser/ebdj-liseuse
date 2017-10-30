@@ -26,7 +26,7 @@ public interface DBConnecteurJDDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public List<QuestionJD> listerQuestionsJouable(int nbQuestion) throws DBManagerException;
+	public List<QuestionJD> listerQuestionsJouable(int nbQuestion);
 
 	/**
 	 * Marquer une question comme jouée.
@@ -38,7 +38,7 @@ public interface DBConnecteurJDDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException;
+	public void jouerQuestion(String referenceQuestion, String lecteur);
 
 	/**
 	 * Signaler une anomalie sur une question.
@@ -52,8 +52,7 @@ public interface DBConnecteurJDDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur)
-			throws DBManagerException;
+	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur);
 
 	/**
 	 * Compter le nombre total de question existante.

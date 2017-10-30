@@ -79,7 +79,7 @@ public class DBConnecteurGeneriqueImpl {
 		query.append(donnerPrefixeTable(type));
 		query.append(";");
 
-		System.out.println(query.toString());
+		LOGGER.debug(query.toString());
 
 		try {
 			// Connexion à la base de données SQLite
@@ -211,7 +211,7 @@ public class DBConnecteurGeneriqueImpl {
 		executerUpdateOuInsert(query.toString());
 	}
 
-	public void jouerQuestion(String type, String referenceQuestion, String lecteur) throws DBManagerException {
+	public void jouerQuestion(String type, String referenceQuestion, String lecteur) {
 
 		// Création de la requête
 
@@ -228,7 +228,7 @@ public class DBConnecteurGeneriqueImpl {
 	}
 
 	public void signalerAnomalie(String type, String reference, Long version, SignalementAnomalie anomalie,
-			String lecteur) throws DBManagerException {
+			String lecteur){
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append("INSERT INTO " + donnerPrefixeTable(type)
@@ -280,7 +280,7 @@ public class DBConnecteurGeneriqueImpl {
 			Connection connection = DBManager.getInstance().connect();
 			Statement stmt = connection.createStatement();
 
-			System.out.println(requete);
+			LOGGER.debug(requete);
 
 			// Executer la requête
 			stmt.executeUpdate(requete);

@@ -32,8 +32,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	 * 
 	 */
 	@Override
-	public List<QuestionJD> listerQuestionsJouable(int nbQuestion) throws DBManagerException {
-
+	public List<QuestionJD> listerQuestionsJouable(int nbQuestion){
 		List<QuestionJD> listeQuestionsAJouer = new ArrayList<>();
 
 		// Création de la requête
@@ -96,9 +95,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	 */
 	@Override
 	public int compterNbQuestion() {
-
 		// Création de la requête
-
 		StringBuilder query = new StringBuilder();
 		query.append("SELECT count(1) FROM QUESTION_JD Q_JD WHERE Q_JD.active=1;");
 
@@ -111,9 +108,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	 */
 	@Override
 	public int compterNbQuestionLue() {
-
 		// Création de la requête
-
 		StringBuilder query = new StringBuilder();
 		query.append(
 				"SELECT count(1) FROM QUESTION_JD Q_JD WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.reference=Q_JD_J.reference);");
@@ -177,13 +172,12 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	 * 
 	 */
 	@Override
-	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException {
+	public void jouerQuestion(String referenceQuestion, String lecteur) {
 		jouerQuestion("JD", referenceQuestion, lecteur);
 	}
 
 	@Override
-	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur)
-			throws DBManagerException {
+	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur) {
 		signalerAnomalie("JD", reference, version, anomalie, lecteur);
 	}
 
@@ -214,7 +208,6 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 
 	@Override
 	public Long recupererReferenceMaxQuestion() {
-
 		return recupererReferenceMaxQuestion("JD");
 	}
 

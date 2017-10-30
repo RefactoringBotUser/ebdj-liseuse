@@ -27,7 +27,7 @@ public interface DBConnecteurFAFDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public List<QuestionFAF> listerQuestionsJouable(int nbQuestion) throws DBManagerException;
+	public List<QuestionFAF> listerQuestionsJouable(int nbQuestion);
 
 	/**
 	 * Lister les questions jouables.
@@ -37,10 +37,9 @@ public interface DBConnecteurFAFDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax)
-			throws DBManagerException;
+	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax);
 
-	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveau) throws DBManagerException;
+	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveau);
 
 	/**
 	 * Marquer une question comme jouée.
@@ -52,7 +51,7 @@ public interface DBConnecteurFAFDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public void jouerQuestion(String referenceQuestion, String lecteur) throws DBManagerException;
+	public void jouerQuestion(String referenceQuestion, String lecteur);
 
 	/**
 	 * Signaler une anomalie sur une question.
@@ -66,8 +65,7 @@ public interface DBConnecteurFAFDao {
 	 * @throws DBManagerException
 	 *             en cas d'exception lors de la récupération en BDD.
 	 */
-	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur)
-			throws DBManagerException;
+	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur);
 
 	/**
 	 * Compter le nombre total de question existante.
