@@ -13,6 +13,7 @@ DROP TABLE "QUESTION_FAF" IF EXISTS;
 DROP TABLE "QUESTION_FAF_ANOMALIE" IF EXISTS;
 DROP TABLE "QUESTION_FAF_LECTURE" IF EXISTS;
 DROP TABLE "SYNCHRO" IF EXISTS;
+DROP TABLE "PARAMETRAGE" IF EXISTS;
 
 CREATE TABLE "QUESTION_NPG" ( `id` INTEGER PRIMARY KEY auto_increment, `question` TEXT NOT NULL, `reponse` TEXT NOT NULL, `difficulte` INTEGER NOT NULL, `reference` INTEGER NOT NULL UNIQUE, `club` TEXT NOT NULL, `dateReception` TEXT NOT NULL, `version` INTEGER NOT NULL, `active` INTEGER NOT NULL );
 CREATE TABLE "QUESTION_NPG_ANOMALIE" ( `id` INTEGER PRIMARY KEY auto_increment, `reference` INTEGER NOT NULL, `version` INTEGER NOT NULL, `date_anomalie` TEXT NOT NULL, `type_anomalie` INTEGER NOT NULL, `cause` TEXT NOT NULL, `lecteur` TEXT NOT NULL );
@@ -26,10 +27,12 @@ CREATE TABLE "QUESTION_FAF" ( `id` INTEGER PRIMARY KEY auto_increment, `categori
 CREATE TABLE "QUESTION_FAF_ANOMALIE" ( `id` INTEGER PRIMARY KEY auto_increment, `reference` INTEGER NOT NULL, `version` INTEGER NOT NULL, `date_anomalie` TEXT NOT NULL, `type_anomalie` INTEGER NOT NULL, `cause` TEXT NOT NULL, `lecteur` TEXT NOT NULL);
 CREATE TABLE "QUESTION_FAF_LECTURE" ( `id` INTEGER PRIMARY KEY auto_increment, `date_lecture` DATETIME NOT NULL, `lecteur` TEXT, `reference` TEXT NOT NULL );
 
-CREATE TABLE "THEME_QALS" ( `id` INTEGER, `categorie` TEXT NOT NULL, `categorieRef` INTEGER NOT NULL, `groupeCategorieRef` INTEGER NOT NULL, `theme` TEXT NOT NULL, `difficulte` INTEGER NOT NULL, `reference` INTEGER NOT NULL UNIQUE, `club` TEXT NOT NULL, `dateReception` TEXT NOT NULL, `version` INTEGER NOT NULL, `active` INTEGER NOT NULL );
-CREATE TABLE "THEME_QALS_ANOMALIE" ( `id` INTEGER NOT NULL, `reference` INTEGER NOT NULL, `version` INTEGER NOT NULL, `date_anomalie` TEXT NOT NULL, `type_anomalie` INTEGER NOT NULL, `cause` TEXT NOT NULL, `lecteur` TEXT NOT NULL );
-CREATE TABLE "THEME_QALS_LECTURE" ( `id` INTEGER NOT NULL, `date_lecture` DATETIME NOT NULL, `lecteur` TEXT, `reference` INTEGER NOT NULL);
-CREATE TABLE "THEME_QALS_PRESENTE" ( `id` INTEGER NOT NULL, `date_presentation` DATETIME NOT NULL, `lecteur` TEXT, `reference` INTEGER NOT NULL);
-CREATE TABLE "QUESTION_QALS" ( `id` INTEGER, `seq` INTEGER NOT NULL, `question` TEXT NOT NULL, `reponse` TEXT NOT NULL, `reference` INTEGER NOT NULL );
+CREATE TABLE "THEME_QALS" ( `id` INTEGER PRIMARY KEY auto_increment, `categorie` TEXT NOT NULL, `categorieRef` INTEGER NOT NULL, `groupeCategorieRef` INTEGER NOT NULL, `theme` TEXT NOT NULL, `difficulte` INTEGER NOT NULL, `reference` INTEGER NOT NULL UNIQUE, `club` TEXT NOT NULL, `dateReception` TEXT NOT NULL, `version` INTEGER NOT NULL, `active` INTEGER NOT NULL );
+CREATE TABLE "THEME_QALS_ANOMALIE" ( `id` INTEGER PRIMARY KEY auto_increment, `reference` INTEGER NOT NULL, `version` INTEGER NOT NULL, `date_anomalie` TEXT NOT NULL, `type_anomalie` INTEGER NOT NULL, `cause` TEXT NOT NULL, `lecteur` TEXT NOT NULL );
+CREATE TABLE "THEME_QALS_LECTURE" ( `id` INTEGER PRIMARY KEY auto_increment, `date_lecture` DATETIME NOT NULL, `lecteur` TEXT, `reference` INTEGER NOT NULL);
+CREATE TABLE "THEME_QALS_PRESENTE" ( `id` INTEGER PRIMARY KEY auto_increment, `date_presentation` DATETIME NOT NULL, `lecteur` TEXT, `reference` INTEGER NOT NULL);
+CREATE TABLE "QUESTION_QALS" ( `id` INTEGER PRIMARY KEY auto_increment, `seq` INTEGER NOT NULL, `question` TEXT NOT NULL, `reponse` TEXT NOT NULL, `reference` INTEGER NOT NULL );
 
-CREATE TABLE "SYNCHRO" ( `id` INTEGER PRIMARY KEY auto_increment, `cle` TEXT NOT NULL, `valeur` INTEGER NOT NULL, `date_derniere_synchro` DATETIME NOT NULL)
+CREATE TABLE "SYNCHRO" ( `id` INTEGER PRIMARY KEY auto_increment, `cle` TEXT NOT NULL, `valeur` INTEGER NOT NULL, `date_derniere_synchro` DATETIME NOT NULL);
+
+CREATE TABLE "PARAMETRAGE" ( `id` INTEGER PRIMARY KEY auto_increment, `cle` TEXT NOT NULL, `valeur` TEXT NOT NULL);

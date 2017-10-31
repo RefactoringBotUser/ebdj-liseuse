@@ -79,7 +79,7 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 		// Stats 4ALS
 
 		StatsQuestions statsQuestions4ALS = new StatsQuestions();
-		statsQuestions4ALS.setNbQuestionsJouees(connecter4ALSDao.compterNbThemeJouee());
+		statsQuestions4ALS.setNbQuestionsJouees(connecter4ALSDao.compterNbThemeJoue());
 		statsQuestions4ALS.setNbQuestionsTotal(connecter4ALSDao.compterNbTheme());
 		stats.setStats4ALS(statsQuestions4ALS);
 

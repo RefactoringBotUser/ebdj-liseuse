@@ -7,15 +7,18 @@
 	<THEME_QALS id="6" categorie="Cinéma" categorieRef="3" groupeCategorieRef="2" theme="LE CINÉMA DES ANNÉES 1980" difficulte="2" reference="24" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
 	<THEME_QALS id="7" categorie="Sciences" categorieRef="10" groupeCategorieRef="3" theme="LES DIFFÉRENTES BRANCHES DE LA PHYSIQUE" difficulte="2" reference="25" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
 	<THEME_QALS id="8" categorie="Gastronomie" categorieRef="1" groupeCategorieRef="4" theme="LES USTENSILES DE CUISINE" difficulte="2" reference="26" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="0" />
-	<THEME_QALS id="9" categorie="Vocabulaire" categorieRef="8" groupeCategorieRef="4" theme="LE DISCOURS ET AUTRES MODES D'EXPRESSION ORATOIRE" difficulte="27" reference="2" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<THEME_QALS id="9" categorie="Vocabulaire" categorieRef="8" groupeCategorieRef="4" theme="LE DISCOURS ET AUTRES MODES D'EXPRESSION ORATOIRE" difficulte="2" reference="27" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
 	
-	<THEME_QALS_ANOMALIE id="1" version="1" date_anomalie="2017-10-26" type_anomalie="1" cause="Question mal redigée" lecteur="Nicolas GENDRON" reference="20" />
+	<THEME_QALS_ANOMALIE id="1" version="1" date_anomalie="2017-10-26" type_anomalie="1" cause="Question mal redigée" lecteur="Nicolas GENDRON" reference="21" />
 	
 	<THEME_QALS_LECTURE id="1" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="19" />
 	<THEME_QALS_LECTURE id="2" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="20" />
 	<THEME_QALS_LECTURE id="3" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="21" />			
 	
-	<THEME_QALS_PRESENTE id="1" date_presentation="2017-10-26" lecteur="Nicolas GENDRON" reference="22" />
+	<THEME_QALS_PRESENTE id="1" date_presentation="2017-10-26" lecteur="Nicolas GENDRON" reference="19" />
+	<THEME_QALS_PRESENTE id="2" date_presentation="2017-10-26" lecteur="Nicolas GENDRON" reference="20" />
+	<THEME_QALS_PRESENTE id="3" date_presentation="2017-10-26" lecteur="Nicolas GENDRON" reference="21" />
+	<THEME_QALS_PRESENTE id="4" date_presentation="2017-10-26" lecteur="Nicolas GENDRON" reference="22" />
 	
 	<QUESTION_QALS id="1" seq="1" question="Dans quel roman trouve-t-on les personnages de Javert et de Jean Valjean ?" reponse="LES MISÉRABLES" reference="19" />
 	<QUESTION_QALS id="2" seq="2" question="Quelle pièce déclencha lors de sa création en 1830 une célèbre bataille littéraire entre classiques et romantiques ?" reponse="HERNANI" reference="19" />	
@@ -56,55 +59,81 @@
 	<QUESTION_QALS id="35" seq="11" question="Situé dans le Nevada et débordant sur les états limitrophes, quelle est la plus grande étendue désertique des Etats-Unis ?" reponse="LE DÉSERT DU GRAND BASSIN (GREAT BASIN)" reference="21" />
 	<QUESTION_QALS id="36" seq="12" question="Quel désert du sud-ouest des Etats-Unis se caractérise par ses sables blancs de gypse ?" reponse="WHITE SANDS" reference="21" />
 	
-	<QUESTION_QALS id="" seq="1" question="" reponse="ETIENNE" reference="22" />
-	<QUESTION_QALS id="" seq="2" question="" reponse="" reference="22" />	
-	<QUESTION_QALS id="" seq="3" question="" reponse="" reference="22" />
-	<QUESTION_QALS id="" seq="4" question="" reponse="" reference="22" />	
-	<QUESTION_QALS id="" seq="5" question="" reponse="" reference="22" />
-	<QUESTION_QALS id="" seq="6" question="" reponse="" reference="22" />	
-	<QUESTION_QALS id="" seq="7" question="" reponse="" reference="22" />
-	<QUESTION_QALS id="" seq="8" question="" reponse="" reference="22" />	
-	<QUESTION_QALS id="" seq="9" question="" reponse="" reference="22" />
-	<QUESTION_QALS id="" seq="10" question="" reponse="" reference="22" />	
-	<QUESTION_QALS id="" seq="11" question="" reponse="" reference="22" />
-	<QUESTION_QALS id="" seq="12" question="" reponse="" reference="22" />
+	<QUESTION_QALS id="37" seq="1" question="Quel succès de Guesch Patti a reçu le prix Vincent Scotto, en 1987 ?" reponse="ETIENNE" reference="22" />
+	<QUESTION_QALS id="38" seq="2" question="Qui a composé la chanson « Pour le plaisir » qui donne son titre à l'album d'Herbert Léonard numéro 1 des ventes en France en 1981 ?" reponse="(JULIEN) LEPERS" reference="22" />	
+	<QUESTION_QALS id="39" seq="3" question="Quel auteur-compositeur-interprète est surtout connu pour son succès de 1981 « Il est libre Max » ?" reponse="(HERVÉ) CRISTIANI" reference="22" />
+	<QUESTION_QALS id="40" seq="4" question="Quel groupe strasbourgeois a créé en 1984 la chanson « Femme libérée » ?" reponse="COOKIE DINGLER" reference="22" />	
+	<QUESTION_QALS id="41" seq="5" question="Quel auteur-compositeur-interprète reçoit en 1983 le trophée de la meilleure chanson française décerné par la SACEM pour « La langue de chez nous » ?" reponse="(YVES) DUTEIL" reference="22" />
+	<QUESTION_QALS id="42" seq="6" question="Quelle chanson de 1987 de Maxime Le Forestier s'est classée durant onze semaines au Top 50 ?" reponse="NÉ QUELQUE PART" reference="22" />	
+	<QUESTION_QALS id="43" seq="7" question="Quel prénom féminin exotique fait le titre d'une chanson de l'album de 1984 « Aime-moi » de Julien Clerc ?" reponse="MÉLISSA" reference="22" />
+	<QUESTION_QALS id="44" seq="8" question="En 1985, qui a écrit la chanson « Quelque chose de Tennessee » pour Johnny Hallyday ?" reponse="(MICHEL) BERGER" reference="22" />	
+	<QUESTION_QALS id="45" seq="9" question="Quel duo interprète la chanson « Besoin de rien, envie de toi » numéro 1 du Top 50 d'octobre 1984 à janvier 1985 ?" reponse="PETER ET SLOANE" reference="22" />
+	<QUESTION_QALS id="46" seq="10" question="Qui a écrit les paroles de la chanson « Joe le taxi » créée en 1987 par Vanessa Paradis ?" reponse="(ETIENNE) RODA-GIL" reference="22" />	
+	<QUESTION_QALS id="47" seq="11" question="Quelle chanson de Jean-Pierre Mader atteint la troisième place du Top 50 en 1985 ?" reponse="MACUMBA" reference="22" />
+	<QUESTION_QALS id="48" seq="12" question="Quelle chanson fait le titre du dernier album de Daniel Balavoine enregistré en 1985 quelques mois avant sa mort ?" reponse="SAUVER L'AMOUR" reference="22" />
 	
-	<QUESTION_QALS id="" seq="1" question="" reponse="" reference="23" />
-	<QUESTION_QALS id="" seq="2" question="" reponse="" reference="23" />	
-	<QUESTION_QALS id="" seq="3" question="" reponse="" reference="23" />
-	<QUESTION_QALS id="" seq="4" question="" reponse="" reference="23" />	
-	<QUESTION_QALS id="" seq="5" question="" reponse="" reference="23" />
-	<QUESTION_QALS id="" seq="6" question="" reponse="" reference="23" />	
-	<QUESTION_QALS id="" seq="7" question="" reponse="" reference="23" />
-	<QUESTION_QALS id="" seq="8" question="" reponse="" reference="23" />	
-	<QUESTION_QALS id="" seq="9" question="" reponse="" reference="23" />
-	<QUESTION_QALS id="" seq="10" question="" reponse="" reference="23" />	
-	<QUESTION_QALS id="" seq="11" question="" reponse="" reference="23" />
-	<QUESTION_QALS id="" seq="12" question="" reponse="" reference="23" />
+	<QUESTION_QALS id="49" seq="1" question="Quel conquistador espagnol a conquis le Mexique en 1519 ?" reponse="(HERMAN) CORTÈS" reference="23" />
+	<QUESTION_QALS id="50" seq="2" question="Par quel peuple autochtone le Mexique était-il dominé lors de l’invasion espagnole ?" reponse="LES AZTÈQUES" reference="23" />	
+	<QUESTION_QALS id="51" seq="3" question="Quel était le nom des territoires auxquels appartenait le Mexique sous la colonisation espagnole ?" reponse="LA NOUVELLE-ESPAGNE" reference="23" />
+	<QUESTION_QALS id="52" seq="4" question="En quelle année le Mexique a-t-il accédé à l’indépendance ?" reponse="1821" reference="23" />	
+	<QUESTION_QALS id="53" seq="5" question="Sous quel nom était plus connu en 1910 le chef révolutionnaire José Doroteo Arango Arambula ?" reponse="PANCHO VILLA" reference="23" />
+	<QUESTION_QALS id="54" seq="6" question="Qui fut en 1822 le premier empereur du Mexique indépendant ?" reponse="AUGUSTIN 1ER (DE ITURBIDE)" reference="23" />	
+	<QUESTION_QALS id="55" seq="7" question="Comment a-t-on surnommé l’intervention militaire française au Mexique en 1838 ?" reponse="LA GUERRE DES PÂTISSERIES" reference="23" />
+	<QUESTION_QALS id="56" seq="8" question="Quel traité mit fin à la guerre américano-mexicaine de 1846-1848 ?" reponse="LE TRAITÉ DE GUADALUPE HIDALGO" reference="23" />	
+	<QUESTION_QALS id="57" seq="9" question="En 1863 lors de l’expédition française au Mexique, quelle bataille constitue un des hauts faits d’armes de la Légion Etrangère ?" reponse="LA BATAILLE DE CAMERONE" reference="23" />
+	<QUESTION_QALS id="58" seq="10" question="Quel nom a-t-on donné à la période de 1876 à 1911 durant laquelle Porfirio Diaz a dirigé le Mexique ?" reponse="LE PORFIRIAT" reference="23" />	
+	<QUESTION_QALS id="59" seq="11" question="Comment a-t-on nommé les paysans rebelles catholiques soulevés contre le pouvoir central de 1926 à 1929 ?" reponse="LES CRISTEROS" reference="23" />
+	<QUESTION_QALS id="60" seq="12" question="Qui a été élu en 2012 Président de la République mexicaine ?" reponse="(ENRIQUE) PENA NIETO" reference="23" />
 	
-	<QUESTION_QALS id="" seq="1" question="" reponse="" reference="24" />
-	<QUESTION_QALS id="" seq="2" question="" reponse="" reference="24" />	
-	<QUESTION_QALS id="" seq="3" question="" reponse="" reference="24" />
-	<QUESTION_QALS id="" seq="4" question="" reponse="" reference="24" />	
-	<QUESTION_QALS id="" seq="5" question="" reponse="" reference="24" />
-	<QUESTION_QALS id="" seq="6" question="" reponse="" reference="24" />	
-	<QUESTION_QALS id="" seq="7" question="" reponse="" reference="24" />
-	<QUESTION_QALS id="" seq="8" question="" reponse="" reference="24" />	
-	<QUESTION_QALS id="" seq="9" question="" reponse="" reference="24" />
-	<QUESTION_QALS id="" seq="10" question="" reponse="" reference="24" />	
-	<QUESTION_QALS id="" seq="11" question="" reponse="" reference="24" />
-	<QUESTION_QALS id="" seq="12" question="" reponse="" reference="24" />
+	<QUESTION_QALS id="61" seq="1" question="Quel film a obtenu 10 Césars en 1981 dont celui du meilleur film ?" reponse="LE DERNIER MÉTRO" reference="24" />
+	<QUESTION_QALS id="62" seq="2" question="Quel acteur est le héros du film de Gérard Oury de 1982 « L'As des As » ?" reponse="(JEAN-PAUL) BELMONDO" reference="24" />	
+	<QUESTION_QALS id="63" seq="3" question="Quel film de Sidney Pollack a reçu l'Oscar du meilleur film en 1986 ?" reponse="OUT OF AFRICA" reference="24" />
+	<QUESTION_QALS id="64" seq="4" question="Quel a été le seul film français à recevoir la Palme d'or au Festival de Cannes au cours des années 1980 ?" reponse="SOUS LE SOLEIL DE SATAN" reference="24" />	
+	<QUESTION_QALS id="65" seq="5" question="Quel est le titre français du film américain de 1989 « Dead Poets Society » ?" reponse="LE CERCLE DES POÈTES DISPARUS" reference="24" />
+	<QUESTION_QALS id="66" seq="6" question="Dans quel film de Dino Risi de 1985 Coluche fait-il sa dernière apparition à l'écran avant sa mort en 1986 ?" reponse="LE FOU DE GUERRE" reference="24" />	
+	<QUESTION_QALS id="67" seq="7" question="Quel film d'animation de Walt Disney sorti en 1989 s'inspire d'un conte éponyme d'Andersen ?" reponse="LA PETITE SIRÈNE" reference="24" />
+	<QUESTION_QALS id="68" seq="8" question="Lors de quel festival international le film de 1987  de Louis Malle « Au revoir les enfants » a-t-il reçu la récompense suprême ?" reponse="LA MOSTRA DE VENISE" reference="24" />	
+	<QUESTION_QALS id="69" seq="9" question="Quel comédien a reçu le César du meilleur acteur en 1982 pour son rôle dans le film « Garde à vue » ?" reponse="(MICHEL) SERRAULT" reference="24" />
+	<QUESTION_QALS id="70" seq="10" question="Qui est le réalisateur du film américain de 1987 « Full Metal Jacket » ?" reponse="(STANLEY) KUBRICK" reference="24" />	
+	<QUESTION_QALS id="71" seq="11" question="Combien de films de la série « Indiana Jones » sont sortis au cours de la décennie 1980 ?" reponse="3" reference="24" />
+	<QUESTION_QALS id="72" seq="12" question="En quelle année est sorti le film de Jean-Jacques Annaud « Le Nom de la Rose » ?" reponse="1986" reference="24" />
 	
-	<QUESTION_QALS id="" seq="1" question="" reponse="" reference="25" />
-	<QUESTION_QALS id="" seq="2" question="" reponse="" reference="25" />	
-	<QUESTION_QALS id="" seq="3" question="" reponse="" reference="25" />
-	<QUESTION_QALS id="" seq="4" question="" reponse="" reference="25" />	
-	<QUESTION_QALS id="" seq="5" question="" reponse="" reference="25" />
-	<QUESTION_QALS id="" seq="6" question="" reponse="" reference="25" />	
-	<QUESTION_QALS id="" seq="7" question="" reponse="" reference="25" />
-	<QUESTION_QALS id="" seq="8" question="" reponse="" reference="25" />	
-	<QUESTION_QALS id="" seq="9" question="" reponse="" reference="25" />
-	<QUESTION_QALS id="" seq="10" question="" reponse="" reference="25" />	
-	<QUESTION_QALS id="" seq="11" question="" reponse="" reference="25" />
-	<QUESTION_QALS id="" seq="12" question="" reponse="" reference="25" />
+	<QUESTION_QALS id="73" seq="1" question="Quelle branche de la physique étudie les sons ?" reponse="L’ACOUSTIQUE" reference="25" />
+	<QUESTION_QALS id="74" seq="2" question="Quel domaine de la physique a pour objet l’étude des forces et des mouvements ?" reponse="LA MÉCANIQUE" reference="25" />	
+	<QUESTION_QALS id="75" seq="3" question="Quelle partie de la physique étudie les relations entre électricité et magnétisme ?" reponse="L’ÉLECTROMAGNÉTISME" reference="25" />
+	<QUESTION_QALS id="76" seq="4" question="Quel physicien allemand est considéré comme le père de la physique quantique ?" reponse="(MAX) PLANCK" reference="25" />	
+	<QUESTION_QALS id="77" seq="5" question="Quelle science étudie les mouvements des corps lancés dans l’espace ?" reponse="LA BALISTIQUE" reference="25" />
+	<QUESTION_QALS id="78" seq="6" question="Quelle partie de la mécanique des fluides traite des liquides et en particulier de l’eau ?" reponse="L’HYDRAULIQUE" reference="25" />	
+	<QUESTION_QALS id="79" seq="7" question="Quelle spécialité étudie les relations entre la chaleur et les phénomènes mécaniques ?" reponse="LA THERMODYNAMIQUE" reference="25" />
+	<QUESTION_QALS id="80" seq="8" question="Quel ensemble de techniques traite de la mesure d’objets à l’échelle de l’atome ?" reponse="LA NANOPHYSIQUE" reference="25" />	
+	<QUESTION_QALS id="81" seq="9" question="Quelle discipline concerne l’étude des caractéristiques physiques de la Terre ?" reponse="LA GÉOPHYSIQUE" reference="25" />
+	<QUESTION_QALS id="82" seq="10" question="Quelle branche de la physique est l’application de l’électricité au traitement automatisé de l’information ?" reponse="L’ÉLECTRONIQUE" reference="25" />	
+	<QUESTION_QALS id="83" seq="11" question="Quelle science traite des propriétés de la lumière et des phénomènes de la vision ?" reponse="L’OPTIQUE" reference="25" />
+	<QUESTION_QALS id="84" seq="12" question="Quelle partie de la physique étudie la nature, la formation et les propriétés physiques des astres ?" reponse="L’ASTROPHYSIQUE" reference="25" />
+	
+	<QUESTION_QALS id="85" seq="1" question="Quelle sorte de casserole en terre cuite ou en fonte est notamment utilisée pour préparer et servir la fondue ?" reponse="UN CAQUELON" reference="26" />
+	<QUESTION_QALS id="86" seq="2" question="Comment nomme-t-on une passoire à grille fine généralement de forme conique ?" reponse="UN CHINOIS" reference="26" />	
+	<QUESTION_QALS id="87" seq="3" question="Quel mot de trois lettres, apprécié des joueurs de scrabble, désigne une sorte de grande poêle de forme hémisphérique ?" reponse="LE WOK" reference="26" />
+	<QUESTION_QALS id="88" seq="4" question="Quel récipient en terre cuite en forme de cône tronqué sert traditionnellement à faire cuire le cassoulet ?" reponse="LA CASSOLE" reference="26" />	
+	<QUESTION_QALS id="89" seq="5" question="Quel ustensile de cuisson d'origine espagnole est une plaque en pierre ou en métal servant à faire griller les aliments ?" reponse="LA PLANCHA" reference="26" />
+	<QUESTION_QALS id="90" seq="6" question="Quel ustensile permet de découper des légumes ou des fruits en forme de fleurs pour décorer des plats ?" reponse="UN CANNELEUR" reference="26" />	
+	<QUESTION_QALS id="91" seq="7" question="Quel ustensile pour râper ou émincer des légumes crus porte un nom d'instrument de musique à cordes ?" reponse="UNE MANDOLINE" reference="26" />
+	<QUESTION_QALS id="92" seq="8" question="Quelle sorte de moule à bord haut est utilisé pour les génoises, biscuits et tartes Tatin ?" reponse="UN MOULE À MANQUÉ" reference="26" />	
+	<QUESTION_QALS id="93" seq="9" question="Quel prénom féminin donne-t-on à la spatule souple servant à racler le fond et les bords d'un récipient ?" reponse="UNE MARYSE" reference="26" />
+	<QUESTION_QALS id="94" seq="10" question="Quelle sorte de marmite comporte un couvercle en creux destiné à recevoir de l'eau pour éviter l'évaporation pendant la cuisson ?" reponse="UNE BRAISIÈRE" reference="26" />	
+	<QUESTION_QALS id="95" seq="11" question="Quel mixeur plongeant servant à préparer des purées, des soupes ou des sauces porte le nom d'un animal au long cou ?" reponse="UNE GIRAFE" reference="26" />
+	<QUESTION_QALS id="96" seq="12" question="Quel ustensile de cuisine a été inventé en 1929 par le Français Victor Pouzet ?" reponse="LE COUTEAU ÉPLUCHEUR" reference="26" />
+	
+	<QUESTION_QALS id="97" seq="1" question="Quel exposé oral d'un avocat défend la cause d'une partie lors d'un procès ?" reponse="UNE PLAIDOIRIE" reference="27" />
+	<QUESTION_QALS id="98" seq="2" question="Comment appelle-t-on un discours assez court mais de caractère officiel ?" reponse="UNE ALLOCUTION" reference="27" />	
+	<QUESTION_QALS id="99" seq="3" question="Comment se nomme le première partie d'un discours oratoire ?" reponse="L'EXORDE" reference="27" />
+	<QUESTION_QALS id="100" seq="4" question="Quelle déclaration est faite par un prêtre à la fin d'un prêche ou d'un office pour annoncer les cérémonies à venir ?" reponse="UN PRÔNE" reference="27" />	
+	<QUESTION_QALS id="101" seq="5" question="Dans une pièce de théâtre, comment s'appelle la séquence où un acteur seul se parle à lui-même ?" reponse="UN MONOLOGUE" reference="27" />
+	<QUESTION_QALS id="102" seq="6" question="Quel nom donne-t-on à un sermon fait sur un ton familier ?" reponse="UNE HOMÉLIE" reference="27" />	
+	<QUESTION_QALS id="103" seq="7" question="Du nom d'un personnage de la mythologie grecque, comment nomme-t-on un discours long et ennuyeux ?" reponse="UN LAÏUS" reference="27" />
+	<QUESTION_QALS id="104" seq="8" question="Quel discours qualifié de funèbre est prononcé en l'honneur d'un mort illustre ?" reponse="UNE ORAISON" reference="27" />	
+	<QUESTION_QALS id="105" seq="9" question="Quel verbe signifie réciter, dire un texte devant un public ?" reponse="DÉCLAMER" reference="27" />
+	<QUESTION_QALS id="106" seq="10" question="Quel mot anglais désigne familièrement un petit discours de circonstance ?" reponse="UN SPEECH" reference="27" />	
+	<QUESTION_QALS id="107" seq="11" question="Quel discours est prononcé à la louange de quelqu'un ?" reponse="UN PANÉGYRIQUE" reference="27" />
+	<QUESTION_QALS id="108" seq="12" question="Comment appelle-t-on la conclusion d'un discours ?" reponse="LA PÉRORAISON" reference="27" />
 </dataset>

@@ -45,7 +45,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 		query.append(
 				"SELECT reference FROM THEME_QALS where reference NOT IN (SELECT reference FROM THEME_QALS_LECTURE) AND reference NOT IN (SELECT reference FROM THEME_QALS_PRESENTE) AND groupeCategorieRef=");
 		query.append(groupeCategorie);
-		query.append(" AND difficulte=");
+		query.append(" AND active=1 AND difficulte=");
 		query.append(niveau);
 		query.append(";");
 
@@ -196,10 +196,10 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM THEME_QALS T_QALS");
+		query.append("SELECT count(1) FROM THEME_QALS T_QALS WHERE T_QALS.active=1 ");
 
 		if (groupeCategorieRef > 0) {
-			query.append(" WHERE T_QALS.groupeCategorieRef=");
+			query.append(" AND T_QALS.groupeCategorieRef=");
 			query.append(groupeCategorieRef);
 			query.append(" ");
 		}
@@ -214,8 +214,8 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 * 
 	 */
 	@Override
-	public int compterNbThemeJouee() {
-		return compterNbThemeJouee(-1);
+	public int compterNbThemeJoue() {
+		return compterNbThemeJoue(-1);
 	}
 
 	/**
@@ -223,13 +223,13 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 * 
 	 */
 	@Override
-	public int compterNbThemeJouee(int groupeCategorieRef) {
+	public int compterNbThemeJoue(int groupeCategorieRef) {
 
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT count(1) FROM THEME_QALS T_QALS WHERE EXISTS(SELECT DISTINCT * FROM THEME_QALS_LECTURE T_QALS_J WHERE T_QALS.id=T_QALS_J.reference) ");
+				"SELECT count(1) FROM THEME_QALS T_QALS WHERE EXISTS(SELECT DISTINCT * FROM THEME_QALS_LECTURE T_QALS_J WHERE T_QALS.reference=T_QALS_J.reference) ");
 
 		if (groupeCategorieRef > 0) {
 			query.append(" AND T_QALS.groupeCategorieRef=");
@@ -241,11 +241,44 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 		return compterNbQuestion(query.toString());
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public int compterNbThemePresente() {
+		return compterNbThemePresente(-1);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public int compterNbThemePresente(int groupeCategorieRef) {
+
+		// Création de la requête
+
+		StringBuilder query = new StringBuilder();
+		query.append(
+				"SELECT count(1) FROM THEME_QALS T_QALS WHERE EXISTS(SELECT DISTINCT * FROM THEME_QALS_PRESENTE T_QALS_J WHERE T_QALS.reference=T_QALS_J.reference) ");
+
+		if (groupeCategorieRef > 0) {
+			query.append(" AND T_QALS.groupeCategorieRef=");
+			query.append(groupeCategorieRef);
+		}
+
+		query.append(";");
+
+		return compterNbQuestion(query.toString());
+	}
+	
 	@Override
 	public void creerTheme(Theme4ALSBdjDistante theme4als) {
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"INSERT INTO THEME_QALS ('categorie','categorieRef','groupeCategorieRef','theme','difficulte','reference','club','dateReception','version','active') VALUES ('");
+				"INSERT INTO THEME_QALS (categorie,categorieRef,groupeCategorieRef,theme,difficulte,reference,club,dateReception,version,active) VALUES ('");
 		query.append(DBUtils.escapeSql(theme4als.getCategorie4ALS()));
 		query.append("',");
 		query.append(theme4als.getCategorie4ALSRef());
@@ -269,7 +302,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 
 		for (Entry<Integer, Question4ALSBdjDistante> question4ALS : theme4als.getQuestions().entrySet()) {
 			StringBuilder queryQuestion = new StringBuilder();
-			queryQuestion.append("INSERT INTO QUESTION_QALS ('seq','question','reponse','reference') VALUES ('");
+			queryQuestion.append("INSERT INTO QUESTION_QALS (seq,question,reponse,reference) VALUES ('");
 			queryQuestion.append(question4ALS.getKey());
 			queryQuestion.append("','");
 			queryQuestion.append(DBUtils.escapeSql(question4ALS.getValue().getQuestion()));
@@ -319,7 +352,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 
 		for (Entry<Integer, Question4ALSBdjDistante> question4ALS : theme4als.getQuestions().entrySet()) {
 			StringBuilder queryQuestion = new StringBuilder();
-			queryQuestion.append("INSERT INTO QUESTION_QALS ('seq','question','reponse','reference') VALUES ('");
+			queryQuestion.append("INSERT INTO QUESTION_QALS (seq,question,reponse,reference) VALUES ('");
 			queryQuestion.append(question4ALS.getKey());
 			queryQuestion.append("','");
 			queryQuestion.append(DBUtils.escapeSql(question4ALS.getValue().getQuestion()));
@@ -368,7 +401,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 		// Création de la requête
 
 		StringBuilder query = new StringBuilder();
-		query.append("INSERT INTO THEME_QALS_PRESENTE ('reference','date_presentation','lecteur') VALUES (");
+		query.append("INSERT INTO THEME_QALS_PRESENTE (reference,date_presentation,lecteur) VALUES (");
 		query.append(referenceTheme);
 		query.append(",'");
 		query.append(Utils.recupererDateHeureCourante());
@@ -398,7 +431,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 		StringBuilder query = new StringBuilder();
 		query.append("DELETE FROM THEME_QALS_LECTURE where reference=");
 		query.append(referenceTheme);
-		query.append("';");
+		query.append(";");
 
 		executerUpdateOuInsert(query.toString());
 	}
@@ -438,7 +471,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT groupeCategorieRef, difficulte, count(difficulte) FROM THEME_QALS GROUP BY groupeCategorieRef, difficulte order by groupeCategorieRef;");
+				"SELECT groupeCategorieRef, difficulte, count(difficulte) FROM THEME_QALS WHERE active=1 GROUP BY groupeCategorieRef, difficulte order by groupeCategorieRef;");
 
 		for (int i = 1; i <= 4; i++) {
 

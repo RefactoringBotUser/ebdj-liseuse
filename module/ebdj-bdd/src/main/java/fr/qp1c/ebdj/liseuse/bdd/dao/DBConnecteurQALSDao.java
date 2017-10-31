@@ -76,14 +76,29 @@ public interface DBConnecteurQALSDao {
 	 * 
 	 * @return le nombre de thème jouable.
 	 */
-	public int compterNbThemeJouee();
+	public int compterNbThemeJoue();
 
 	/**
 	 * Compter le nombre total de thème jouable.
 	 * 
 	 * @return le nombre de thème jouable.
 	 */
-	public int compterNbThemeJouee(int categorie);
+	public int compterNbThemeJoue(int categorie);
+	
+
+	/**
+	 * Compter le nombre total de thème jouable.
+	 * 
+	 * @return le nombre de thème jouable.
+	 */
+	public int compterNbThemePresente();
+
+	/**
+	 * Compter le nombre total de thème jouable.
+	 * 
+	 * @return le nombre de thème jouable.
+	 */
+	public int compterNbThemePresente(int categorie);
 
 	public void creerTheme(Theme4ALSBdjDistante theme4alsBdjDistante);
 
