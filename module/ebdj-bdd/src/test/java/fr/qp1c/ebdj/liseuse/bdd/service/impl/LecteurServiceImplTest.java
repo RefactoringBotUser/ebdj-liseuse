@@ -7,16 +7,15 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import fr.qp1c.ebdj.liseuse.bdd.service.LecteurService;
 
 @Ignore
 public class LecteurServiceImplTest {
 
-	private LecteurService lecteurService;
+//	private LecteurService lecteurService;
 
 	@Before
 	public void setUp() throws Exception {
-		lecteurService = new LecteurServiceImpl();
+	//	lecteurService = new LecteurServiceImpl();
 	}
 
 	@After

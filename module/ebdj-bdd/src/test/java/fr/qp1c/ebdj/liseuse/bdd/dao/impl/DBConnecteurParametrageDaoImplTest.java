@@ -1,16 +1,13 @@
 package fr.qp1c.ebdj.liseuse.bdd.dao.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import fr.qp1c.ebdj.liseuse.bdd.DatabaseTest;
-import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurNPGDao;
 import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurParametrageDao;
 
 public class DBConnecteurParametrageDaoImplTest  extends DatabaseTest {

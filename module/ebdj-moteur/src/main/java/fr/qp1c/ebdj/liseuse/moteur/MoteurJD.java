@@ -31,7 +31,7 @@ public class MoteurJD implements Moteur{
 
 	private QuestionJD derniereQuestionJD;
 
-	private NiveauPartie niveauPartie;
+	//private NiveauPartie niveauPartie;
 	
 	private DBConnecteurJDDao dbConnecteurJDDao;
 
@@ -60,7 +60,7 @@ public class MoteurJD implements Moteur{
 	}
 
 	public void definirNiveauPartie(NiveauPartie niveauPartie) {
-		this.niveauPartie = niveauPartie;
+	//	this.niveauPartie = niveauPartie;
 	}
 
 	private QuestionJD donnerNouvelleQuestion() {
