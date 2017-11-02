@@ -6,105 +6,140 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.liseuse.commun.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionFAF;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionJD;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.Source;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.Theme4ALS;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
+import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
 
 public class MapperQuestion {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(MapperQuestion.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(MapperQuestion.class);
 
-	private MapperQuestion() {
+    private MapperQuestion() {
 
-	}
+    }
 
-	public static QuestionFAF convertirQuestionFAF(ResultSet rs) throws SQLException {
-		// Convertir chaque question
-		QuestionFAF question = new QuestionFAF();
-		question.setId(rs.getLong("id"));
-		question.setCategorie(rs.getString("categorie"));
-		question.setCategorieRef(rs.getLong("categorieRef"));
-		question.setTheme(rs.getString("theme"));
-		question.setQuestion(rs.getString("question"));
-		question.setReponse(rs.getString("reponse"));
-		question.setReference(rs.getString("reference"));
-		question.setDifficulte(rs.getLong("difficulte"));
-		question.setVersion(rs.getLong("version"));
+    public static QuestionFAF convertirQuestionFAF(ResultSet rs) throws SQLException {
+        // Convertir chaque question
+        QuestionFAF question = new QuestionFAF();
+        question.setId(rs.getLong(MapperConstants.ID));
+        question.setCategorie(rs.getString("categorie"));
+        question.setCategorieRef(rs.getLong("categorieRef"));
+        question.setTheme(rs.getString(MapperConstants.THEME));
+        question.setQuestion(rs.getString(MapperConstants.QUESTION));
+        question.setReponse(rs.getString(MapperConstants.REPONSE));
+        question.setReference(rs.getString(MapperConstants.REFERENCE));
+        question.setDifficulte(rs.getLong("difficulte"));
+        question.setVersion(rs.getLong(MapperConstants.VERSION));
+        question.setSource(convertirSource(rs));
 
-		Source source = new Source();
-		source.setClub(rs.getString("club"));
-		source.setDateReception(rs.getString("dateReception"));
-		question.setSource(source);
+        LOGGER.debug("Question FAF : {}", question);
 
-		LOGGER.debug("Question : " + question);
+        return question;
+    }
 
-		return question;
-	}
+    private static Source convertirSource(ResultSet rs) throws SQLException {
+        Source source = new Source();
+        source.setClub(rs.getString("club"));
+        source.setDateReception(rs.getString("dateReception"));
+        return source;
+    }
 
-	public static QuestionJD convertirQuestionJD(ResultSet rs) throws SQLException {
-		// Convertir chaque question
-		QuestionJD question = new QuestionJD();
-		question.setId(rs.getLong("id"));
-		question.setTheme(rs.getString("theme"));
-		question.setQuestion(rs.getString("question"));
-		question.setReponse(rs.getString("reponse"));
-		question.setReference(rs.getString("reference"));
-		question.setVersion(rs.getLong("version"));
+    public static QuestionJD convertirQuestionJD(ResultSet rs) throws SQLException {
+        // Convertir chaque question
+        QuestionJD question = new QuestionJD();
+        question.setId(rs.getLong(MapperConstants.ID));
+        question.setTheme(rs.getString("theme"));
+        question.setQuestion(rs.getString(MapperConstants.QUESTION));
+        question.setReponse(rs.getString(MapperConstants.REPONSE));
+        question.setReference(rs.getString(MapperConstants.REFERENCE));
+        question.setVersion(rs.getLong(MapperConstants.VERSION));
+        question.setSource(convertirSource(rs));
 
-		Source source = new Source();
-		source.setClub(rs.getString("club"));
-		source.setDateReception(rs.getString("dateReception"));
-		question.setSource(source);
+        LOGGER.debug("Question JD : {}", question);
 
-		LOGGER.debug("Question : " + question);
+        return question;
+    }
 
-		return question;
-	}
+    public static Theme4ALS convertirTheme4ALS(ResultSet rs) throws SQLException {
+        // Convertir chaque question
+        Theme4ALS theme = new Theme4ALS();
+        theme.setId(rs.getLong(MapperConstants.ID));
+        theme.setCategorie(rs.getString("categorie"));
+        theme.setCategorieRef(rs.getLong("categorieRef"));
+        theme.setGroupeCategorieRef(rs.getLong("groupeCategorieRef"));
+        theme.setTheme(rs.getString("theme"));
+        theme.setReference(rs.getString(MapperConstants.REFERENCE));
+        theme.setDifficulte(rs.getLong("difficulte"));
+        theme.setVersion(rs.getLong(MapperConstants.VERSION));
+        theme.setSource(convertirSource(rs));
 
-	public static Theme4ALS convertirTheme4ALS(ResultSet rs) throws SQLException {
-		// Convertir chaque question
-		Theme4ALS theme = new Theme4ALS();
-		theme.setId(rs.getLong("id"));
-		theme.setCategorie(rs.getString("categorie"));
-		theme.setCategorieRef(rs.getLong("categorieRef"));
-		theme.setGroupeCategorieRef(rs.getLong("groupeCategorieRef"));
-		theme.setTheme(rs.getString("theme"));
-		theme.setReference(rs.getString("reference"));
-		theme.setDifficulte(rs.getLong("difficulte"));
-		theme.setVersion(rs.getLong("version"));
+        LOGGER.debug("Theme : {}", theme);
 
-		Source source = new Source();
-		source.setClub(rs.getString("club"));
-		source.setDateReception(rs.getString("dateReception"));
-		theme.setSource(source);
+        return theme;
+    }
 
-		LOGGER.debug("Theme : " + theme);
+    public static QuestionNPG convertirQuestion9PG(ResultSet rs) throws SQLException {
+        // Convertir chaque question
+        QuestionNPG question = new QuestionNPG();
+        question.setId(rs.getLong(MapperConstants.ID));
+        question.setDifficulte(Integer.toString(rs.getInt("difficulte")));
+        question.setQuestion(rs.getString(MapperConstants.QUESTION));
+        question.setReponse(rs.getString(MapperConstants.REPONSE));
+        question.setReference(rs.getString(MapperConstants.REFERENCE));
+        question.setVersion(rs.getLong(MapperConstants.VERSION));
+        question.setSource(convertirSource(rs));
 
-		return theme;
-	}
-	
-	public static QuestionNPG convertirQuestion9PG(ResultSet rs) throws SQLException {
-		// Convertir chaque question
-		QuestionNPG question = new QuestionNPG();
-		question.setId(rs.getLong("id"));
-		question.setDifficulte(rs.getInt("difficulte") + "");
-		question.setQuestion(rs.getString("question"));
-		question.setReponse(rs.getString("reponse"));
-		question.setReference(rs.getString("reference"));
-		question.setVersion(rs.getLong("version"));
+        LOGGER.debug("Question 9PG : {}", question);
 
-		Source source = new Source();
-		source.setClub(rs.getString("club"));
-		source.setDateReception(rs.getString("dateReception"));
-		question.setSource(source);
+        return question;
+    }
 
-		LOGGER.debug("Question : " + question);
-		
-		return question;
-	}
+    public static Lecteur convertirLecteur(ResultSet rs) throws SQLException {
+        // Convertir chaque lecteur
+        Lecteur lecteur = new Lecteur();
+        lecteur.setId(rs.getLong("id"));
+        lecteur.setNom(rs.getString("nom"));
+        lecteur.setPrenom(rs.getString("prenom"));
+
+        LOGGER.info("Lecteur: {}", lecteur);
+
+        return lecteur;
+    }
+
+    public static Anomalie convertirAnomalie(ResultSet rs) throws SQLException {
+        // Convertir chaque question
+        Anomalie anomalie = new Anomalie();
+        anomalie.setReference(rs.getLong("reference"));
+        anomalie.setVersion(rs.getLong(MapperConstants.VERSION));
+        anomalie.setDateAnomalie(rs.getString("date_anomalie"));
+        anomalie.setTypeAnomalie(rs.getLong("type_anomalie"));
+        anomalie.setCause(rs.getString("cause"));
+        anomalie.setLecteur(rs.getString("lecteur"));
+
+        LOGGER.info("Anomalie : {}", anomalie);
+
+        return anomalie;
+
+    }
+
+    public static Lecture convertirLecture(ResultSet rs) throws SQLException {
+        // Convertir chaque question
+        Lecture lecture = new Lecture();
+        lecture.setReference(rs.getLong("reference"));
+        lecture.setDateLecture(rs.getString("date_lecture"));
+        lecture.setLecteur(rs.getString("lecteur"));
+
+        LOGGER.info("Lecture : {}", lecture);
+
+        return lecture;
+
+    }
 }

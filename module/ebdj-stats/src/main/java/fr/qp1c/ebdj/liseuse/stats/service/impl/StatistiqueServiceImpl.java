@@ -24,185 +24,187 @@ import fr.qp1c.ebdj.liseuse.stats.service.StatistiqueService;
 
 public class StatistiqueServiceImpl implements StatistiqueService {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(StatistiqueServiceImpl.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatistiqueServiceImpl.class);
 
-	private DBConnecteurNPGDao connecterNPGDao;
+    private DBConnecteurNPGDao connecterNPGDao;
 
-	private DBConnecteurQALSDao connecter4ALSDao;
+    private DBConnecteurQALSDao connecter4ALSDao;
 
-	private DBConnecteurJDDao connecterJDDao;
+    private DBConnecteurJDDao connecterJDDao;
 
-	private DBConnecteurFAFDao connecterFAFDao;
+    private DBConnecteurFAFDao connecterFAFDao;
 
-	public StatistiqueServiceImpl() {
-		this.connecterNPGDao = new DBConnecteurNPGDaoImpl();
-		this.connecter4ALSDao = new DBConnecteurQALSDaoImpl();
-		this.connecterJDDao = new DBConnecteurJDDaoImpl();
-		this.connecterFAFDao = new DBConnecteurFAFDaoImpl();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public StatsBDJ calculerStatistique() {
-		LOGGER.info("[DEBUT] calculerStatistique");
+    public StatistiqueServiceImpl() {
+        this.connecterNPGDao = new DBConnecteurNPGDaoImpl();
+        this.connecter4ALSDao = new DBConnecteurQALSDaoImpl();
+        this.connecterJDDao = new DBConnecteurJDDaoImpl();
+        this.connecterFAFDao = new DBConnecteurFAFDaoImpl();
+    }
 
-		StatsBDJ stats = new StatsBDJ();
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public StatsBDJ calculerStatistique() {
+        LOGGER.info("[DEBUT] calculerStatistique");
 
-		// Stats 9PG
+        StatsBDJ stats = new StatsBDJ();
 
-		StatsQuestions statsQuestions9PG1 = new StatsQuestions();
-		statsQuestions9PG1.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(1));
-		statsQuestions9PG1.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(1));
-		stats.setStats9PG1(statsQuestions9PG1);
+        // Stats 9PG
 
-		LOGGER.debug(statsQuestions9PG1.toString());
+        StatsQuestions statsQuestions9PG1 = new StatsQuestions();
+        statsQuestions9PG1.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(1));
+        statsQuestions9PG1.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(1));
+        stats.setStats9PG1(statsQuestions9PG1);
 
-		StatsQuestions statsQuestions9PG2 = new StatsQuestions();
-		statsQuestions9PG2.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(2));
-		statsQuestions9PG2.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(2));
-		stats.setStats9PG2(statsQuestions9PG2);
+        LOGGER.debug("{}", statsQuestions9PG1.toString());
 
-		LOGGER.debug(statsQuestions9PG2.toString());
+        StatsQuestions statsQuestions9PG2 = new StatsQuestions();
+        statsQuestions9PG2.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(2));
+        statsQuestions9PG2.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(2));
+        stats.setStats9PG2(statsQuestions9PG2);
 
-		StatsQuestions statsQuestions9PG3 = new StatsQuestions();
-		statsQuestions9PG3.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(3));
-		statsQuestions9PG3.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(3));
-		stats.setStats9PG3(statsQuestions9PG3);
+        LOGGER.debug("{}", statsQuestions9PG2.toString());
 
-		LOGGER.debug(statsQuestions9PG3.toString());
+        StatsQuestions statsQuestions9PG3 = new StatsQuestions();
+        statsQuestions9PG3.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(3));
+        statsQuestions9PG3.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(3));
+        stats.setStats9PG3(statsQuestions9PG3);
 
-		// Stats 4ALS
+        LOGGER.debug("{}", statsQuestions9PG3.toString());
 
-		StatsQuestions statsQuestions4ALS = new StatsQuestions();
-		statsQuestions4ALS.setNbQuestionsJouees(connecter4ALSDao.compterNbThemeJoue());
-		statsQuestions4ALS.setNbQuestionsTotal(connecter4ALSDao.compterNbTheme());
-		stats.setStats4ALS(statsQuestions4ALS);
+        // Stats 4ALS
 
-		LOGGER.debug(statsQuestions4ALS.toString());
+        StatsQuestions statsQuestions4ALS = new StatsQuestions();
+        statsQuestions4ALS.setNbQuestionsJouees(connecter4ALSDao.compterNbThemeJoue());
+        statsQuestions4ALS.setNbQuestionsTotal(connecter4ALSDao.compterNbTheme());
+        stats.setStats4ALS(statsQuestions4ALS);
 
-		// Stats JD
+        LOGGER.debug("{}", statsQuestions4ALS.toString());
 
-		StatsQuestions statsQuestionsJD = new StatsQuestions();
-		statsQuestionsJD.setNbQuestionsJouees(connecterJDDao.compterNbQuestionLue());
-		statsQuestionsJD.setNbQuestionsTotal(connecterJDDao.compterNbQuestion());
-		stats.setStatsJD(statsQuestionsJD);
+        // Stats JD
 
-		LOGGER.debug(statsQuestionsJD.toString());
+        StatsQuestions statsQuestionsJD = new StatsQuestions();
+        statsQuestionsJD.setNbQuestionsJouees(connecterJDDao.compterNbQuestionLue());
+        statsQuestionsJD.setNbQuestionsTotal(connecterJDDao.compterNbQuestion());
+        stats.setStatsJD(statsQuestionsJD);
 
-		// Stats FAF
+        LOGGER.debug("{}", statsQuestionsJD.toString());
 
-		StatsQuestions statsQuestionsFAF = new StatsQuestions();
-		statsQuestionsFAF.setNbQuestionsJouees(connecterFAFDao.compterNbQuestionLue());
-		statsQuestionsFAF.setNbQuestionsTotal(connecterFAFDao.compterNbQuestion());
-		stats.setStatsFAF(statsQuestionsFAF);
+        // Stats FAF
 
-		LOGGER.info("[FIN ] calculerStatistique : {}", statsQuestionsFAF);
-		return stats;
-	}
+        StatsQuestions statsQuestionsFAF = new StatsQuestions();
+        statsQuestionsFAF.setNbQuestionsJouees(connecterFAFDao.compterNbQuestionLue());
+        statsQuestionsFAF.setNbQuestionsTotal(connecterFAFDao.compterNbQuestion());
+        stats.setStatsFAF(statsQuestionsFAF);
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public List<StatsCategorieFAF> calculerStatsCategorieFAF() {
-		LOGGER.info("[DEBUT] calculerStatsCategorieFAF");
+        LOGGER.debug("{}", statsQuestionsFAF.toString());
 
-		List<StatsCategorieFAF> statsCategorieFAF = new ArrayList<>();
+        LOGGER.info("[FIN ] calculerStatistique : {}", stats);
+        return stats;
+    }
 
-		Map<String, Long> categoriesFAF = connecterFAFDao.compterParCategorie();
-		Map<String, Long> categoriesFAFJoues = connecterFAFDao.compterParCategorieLue();
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public List<StatsCategorieFAF> calculerStatsCategorieFAF() {
+        LOGGER.info("[DEBUT] calculerStatsCategorieFAF");
 
-		for (Entry<String, Long> categorieFAF : categoriesFAF.entrySet()) {
-			StatsCategorieFAF stats = new StatsCategorieFAF();
-			stats.setCategorie(categorieFAF.getKey());
+        List<StatsCategorieFAF> statsCategorieFAF = new ArrayList<>();
 
-			StatsQuestions statsCategorie = new StatsQuestions();
+        Map<String, Long> categoriesFAF = connecterFAFDao.compterParCategorie();
+        Map<String, Long> categoriesFAFJoues = connecterFAFDao.compterParCategorieLue();
 
-			statsCategorie.setNbQuestionsTotal(categorieFAF.getValue().intValue());
+        for (Entry<String, Long> categorieFAF : categoriesFAF.entrySet()) {
+            StatsCategorieFAF stats = new StatsCategorieFAF();
+            stats.setCategorie(categorieFAF.getKey());
 
-			if (categoriesFAFJoues.containsKey(categorieFAF.getKey())) {
-				statsCategorie.setNbQuestionsJouees(categoriesFAFJoues.get(categorieFAF.getKey()).intValue());
-			}
+            StatsQuestions statsCategorie = new StatsQuestions();
 
-			stats.setStatsCategorie(statsCategorie);
+            statsCategorie.setNbQuestionsTotal(categorieFAF.getValue().intValue());
 
-			statsCategorieFAF.add(stats);
-		}
+            if (categoriesFAFJoues.containsKey(categorieFAF.getKey())) {
+                statsCategorie.setNbQuestionsJouees(categoriesFAFJoues.get(categorieFAF.getKey()).intValue());
+            }
 
-		LOGGER.info("[FIN] calculerStatsCategorieFAF");
+            stats.setStatsCategorie(statsCategorie);
 
-		return statsCategorieFAF;
-	}
+            statsCategorieFAF.add(stats);
+        }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public List<StatsGroupeCategorieQALS> calculerStatsGroupeCategorieQALS() {
-		LOGGER.info("[DEBUT] calculerStatsGroupeCategorieQALS");
+        LOGGER.info("[FIN] calculerStatsCategorieFAF");
 
-		List<StatsGroupeCategorieQALS> statsGroupeCategorieQALS = new ArrayList<>();
+        return statsCategorieFAF;
+    }
 
-		Map<String, Map<String, Long>> groupeCategoriesQALS = connecter4ALSDao.compterParGroupeCategorie();
-		Map<String, Map<String, Long>> groupeCategoriesQALSJoues = connecter4ALSDao.compterParGroupeCategorieLue();
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public List<StatsGroupeCategorieQALS> calculerStatsGroupeCategorieQALS() {
+        LOGGER.info("[DEBUT] calculerStatsGroupeCategorieQALS");
 
-		for (Entry<String, Map<String, Long>> groupeCategorieQALS : groupeCategoriesQALS.entrySet()) {
-			StatsGroupeCategorieQALS stats = new StatsGroupeCategorieQALS();
-			stats.setGroupeCategorie(groupeCategorieQALS.getKey());
+        List<StatsGroupeCategorieQALS> statsGroupeCategorieQALS = new ArrayList<>();
 
-			StatsQuestions statsNiveau1 = new StatsQuestions();
-			statsNiveau1.setNbQuestionsTotal(groupeCategorieQALS.getValue().get("1").intValue());
+        Map<String, Map<String, Long>> groupeCategoriesQALS = connecter4ALSDao.compterParGroupeCategorie();
+        Map<String, Map<String, Long>> groupeCategoriesQALSJoues = connecter4ALSDao.compterParGroupeCategorieLue();
 
-			if (groupeCategoriesQALSJoues.containsKey(groupeCategorieQALS.getKey())) {
-				statsNiveau1.setNbQuestionsJouees(
-						groupeCategoriesQALSJoues.get(groupeCategorieQALS.getKey()).get("1").intValue());
-			}
+        for (Entry<String, Map<String, Long>> groupeCategorieQALS : groupeCategoriesQALS.entrySet()) {
+            StatsGroupeCategorieQALS stats = new StatsGroupeCategorieQALS();
+            stats.setGroupeCategorie(groupeCategorieQALS.getKey());
 
-			stats.setStatsNiveau1(statsNiveau1);
+            StatsQuestions statsNiveau1 = new StatsQuestions();
+            statsNiveau1.setNbQuestionsTotal(groupeCategorieQALS.getValue().get("1").intValue());
 
-			StatsQuestions statsNiveau2 = new StatsQuestions();
-			statsNiveau2.setNbQuestionsTotal(groupeCategorieQALS.getValue().get("2").intValue());
+            if (groupeCategoriesQALSJoues.containsKey(groupeCategorieQALS.getKey())) {
+                statsNiveau1.setNbQuestionsJouees(
+                        groupeCategoriesQALSJoues.get(groupeCategorieQALS.getKey()).get("1").intValue());
+            }
 
-			if (groupeCategoriesQALSJoues.containsKey(groupeCategorieQALS.getKey())) {
-				statsNiveau2.setNbQuestionsJouees(
-						groupeCategoriesQALSJoues.get(groupeCategorieQALS.getKey()).get("2").intValue());
-			}
+            stats.setStatsNiveau1(statsNiveau1);
 
-			stats.setStatsNiveau2(statsNiveau2);
+            StatsQuestions statsNiveau2 = new StatsQuestions();
+            statsNiveau2.setNbQuestionsTotal(groupeCategorieQALS.getValue().get("2").intValue());
 
-			StatsQuestions statsNiveau3 = new StatsQuestions();
-			statsNiveau3.setNbQuestionsTotal(groupeCategorieQALS.getValue().get("3").intValue());
+            if (groupeCategoriesQALSJoues.containsKey(groupeCategorieQALS.getKey())) {
+                statsNiveau2.setNbQuestionsJouees(
+                        groupeCategoriesQALSJoues.get(groupeCategorieQALS.getKey()).get("2").intValue());
+            }
 
-			if (groupeCategoriesQALSJoues.containsKey(groupeCategorieQALS.getKey())) {
-				statsNiveau3.setNbQuestionsJouees(
-						groupeCategoriesQALSJoues.get(groupeCategorieQALS.getKey()).get("3").intValue());
-			}
+            stats.setStatsNiveau2(statsNiveau2);
 
-			stats.setStatsNiveau3(statsNiveau3);
+            StatsQuestions statsNiveau3 = new StatsQuestions();
+            statsNiveau3.setNbQuestionsTotal(groupeCategorieQALS.getValue().get("3").intValue());
 
-			StatsQuestions statsNiveau4 = new StatsQuestions();
-			statsNiveau4.setNbQuestionsTotal(groupeCategorieQALS.getValue().get("4").intValue());
+            if (groupeCategoriesQALSJoues.containsKey(groupeCategorieQALS.getKey())) {
+                statsNiveau3.setNbQuestionsJouees(
+                        groupeCategoriesQALSJoues.get(groupeCategorieQALS.getKey()).get("3").intValue());
+            }
 
-			if (groupeCategoriesQALSJoues.containsKey(groupeCategorieQALS.getKey())) {
-				statsNiveau4.setNbQuestionsJouees(
-						groupeCategoriesQALSJoues.get(groupeCategorieQALS.getKey()).get("4").intValue());
-			}
+            stats.setStatsNiveau3(statsNiveau3);
 
-			stats.setStatsNiveau4(statsNiveau4);
+            StatsQuestions statsNiveau4 = new StatsQuestions();
+            statsNiveau4.setNbQuestionsTotal(groupeCategorieQALS.getValue().get("4").intValue());
 
-			statsGroupeCategorieQALS.add(stats);
-		}
+            if (groupeCategoriesQALSJoues.containsKey(groupeCategorieQALS.getKey())) {
+                statsNiveau4.setNbQuestionsJouees(
+                        groupeCategoriesQALSJoues.get(groupeCategorieQALS.getKey()).get("4").intValue());
+            }
 
-		LOGGER.info("[FIN] calculerStatsGroupeCategorieQALS");
+            stats.setStatsNiveau4(statsNiveau4);
 
-		return statsGroupeCategorieQALS;
-	}
+            statsGroupeCategorieQALS.add(stats);
+        }
+
+        LOGGER.info("[FIN] calculerStatsGroupeCategorieQALS");
+
+        return statsGroupeCategorieQALS;
+    }
 
 }

@@ -14,78 +14,76 @@ import fr.qp1c.ebdj.liseuse.commun.bean.question.TypePhase;
 
 public class Utils {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
-	
-	private Utils() {
-		
-	}
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
 
-	/**
-	 * Récupérer l'adresse MAC de la machine.
-	 * 
-	 * @return l'adresse MAC - en cas d'erreur, la méthode retournera null.
-	 */
-	public static String recupererAdresseMac() {
-		InetAddress ip;
-		try {
+    private Utils() {
 
-			ip = InetAddress.getLocalHost();
-			LOGGER.debug("Adresse IP courante: {}", ip.getHostAddress());
+    }
 
-			NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+    /**
+     * Récupérer l'adresse MAC de la machine.
+     * 
+     * @return l'adresse MAC - en cas d'erreur, la méthode retournera null.
+     */
+    public static String recupererAdresseMac() {
+        InetAddress ip;
+        try {
 
-			byte[] mac = network.getHardwareAddress();
+            ip = InetAddress.getLocalHost();
+            LOGGER.debug("Adresse IP courante: {}", ip.getHostAddress());
 
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < mac.length; i++) {
-				sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
-			}
+            NetworkInterface network = NetworkInterface.getByInetAddress(ip);
 
-			String adresseMac = sb.toString();
+            byte[] mac = network.getHardwareAddress();
 
-			LOGGER.debug("Adresse MAC courante: {}", adresseMac);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < mac.length; i++) {
+                sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+            }
 
-			return adresseMac;
-		} catch (UnknownHostException e) {
-			LOGGER.error("UnknownHostException - une erreur est survenue : ", e);
-		} catch (SocketException e) {
-			LOGGER.error("SocketException - une erreur est survenue : ", e);
-		}
-		return null;
-	}
+            String adresseMac = sb.toString();
 
-	public static String formaterReference(String reference, TypePhase typePhase) {
+            LOGGER.debug("Adresse MAC courante: {}", adresseMac);
 
-		switch (typePhase) {
-		case NPG:
-			return "Q_9PG_" + StringUtilities.pad(5, '0', reference);
-		case QALS:
-			return "Q_4ALS_" + StringUtilities.pad(4, '0', reference);
-		case JD:
-			return "Q_JD_" + StringUtilities.pad(5, '0', reference);
-		case FAF:
-			return "Q_FAF_" + StringUtilities.pad(5, '0', reference);
-		default:
-			return null;
-		}
-	}
+            return adresseMac;
+        } catch (UnknownHostException e) {
+            LOGGER.error("UnknownHostException - une erreur est survenue : ", e);
+        } catch (SocketException e) {
+            LOGGER.error("SocketException - une erreur est survenue : ", e);
+        }
+        return null;
+    }
 
-	/**
-	 * Calculer la date et l'heure courante et la formater sous forme de chaine
-	 * de caractères (format: yyyy-MM-dd HH:mm:ss).
-	 * 
-	 * @return la date et l'heure courante formatée
-	 */
-	public static String recupererDateHeureCourante() {
-		LocalDateTime now = LocalDateTime.now();
+    public static String formaterReference(String reference, TypePhase typePhase) {
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String formatDateTime = now.format(formatter);
+        switch (typePhase) {
+        case NPG:
+            return "Q_9PG_" + StringUtilities.pad(5, '0', reference);
+        case QALS:
+            return "Q_4ALS_" + StringUtilities.pad(4, '0', reference);
+        case JD:
+            return "Q_JD_" + StringUtilities.pad(5, '0', reference);
+        case FAF:
+            return "Q_FAF_" + StringUtilities.pad(5, '0', reference);
+        default:
+            return null;
+        }
+    }
 
-		return formatDateTime;
-	}
+    /**
+     * Calculer la date et l'heure courante et la formater sous forme de chaine de
+     * caractères (format: yyyy-MM-dd HH:mm:ss).
+     * 
+     * @return la date et l'heure courante formatée
+     */
+    public static String recupererDateHeureCourante() {
+        LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return now.format(formatter);
+    }
 
 }

@@ -30,243 +30,243 @@ import javafx.stage.Stage;
 
 public class Launcher extends Application {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
 
-	// Scene principale
+    // Scene principale
 
-	private static Stage stage;
+    private static Stage stage;
 
-	// Ecrans
+    // Ecrans
 
-	private Scene ecranHome;
+    private Scene ecranHome;
 
-	private Scene ecranQuestions;
+    private Scene ecranQuestions;
 
-	private Scene ecranStats;
+    private Scene ecranStats;
 
-	private Scene ecranParametrage;
+    private Scene ecranParametrage;
 
-	// Controllers
+    // Controllers
 
-	private TypePartieController typePartieController;
+    private TypePartieController typePartieController;
 
-	private StatistiquesController statistiquesController;
+    private StatistiquesController statistiquesController;
 
-	private HomeController homeControler;
+    private HomeController homeControler;
 
-	@Override
-	public void start(Stage primaryStage) {
-		LOGGER.info("[DEBUT] Start");
+    @Override
+    public void start(Stage primaryStage) {
+        LOGGER.info("[DEBUT] Start");
 
-		stage = primaryStage;
+        stage = primaryStage;
 
-		primaryStage.setTitle(Libelle.TITRE);
+        primaryStage.setTitle(Libelle.TITRE);
 
-		try {
-			Font.loadFont(getClass().getResourceAsStream("./src/main/resources/fonts/Venacti Bold.ttf"), 14);
+        try {
+            Font.loadFont(getClass().getResourceAsStream("./src/main/resources/fonts/Venacti Bold.ttf"), 14);
 
-			initialiserEcrans();
+            initialiserEcrans();
 
-			ecranHome.widthProperty().addListener(new ChangeListener<Number>() {
-				@Override
-				public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth,
-						Number newSceneWidth) {
-					LOGGER.debug("Width: " + newSceneWidth);
-				}
-			});
-			ecranHome.heightProperty().addListener(new ChangeListener<Number>() {
-				@Override
-				public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight,
-						Number newSceneHeight) {
-					LOGGER.debug("Height: " + newSceneHeight);
-				}
-			});
+            ecranHome.widthProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth,
+                        Number newSceneWidth) {
+                    LOGGER.debug("Width: {}", newSceneWidth);
+                }
+            });
+            ecranHome.heightProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight,
+                        Number newSceneHeight) {
+                    LOGGER.debug("Height: {}", newSceneHeight);
+                }
+            });
 
-			// Initialisation de la stage principale
-			primaryStage.setScene(ecranHome);
-			primaryStage.getIcons().add(new Image(this.getClass().getResource(ImageConstants.LOGO_QP1C).toString()));
-			primaryStage.show();
-		} catch (IOException e) {
-			LOGGER.error("Une erreur s'est produite :", e);
-			PopUpErreur.afficherPopUp(e);
-		}
+            // Initialisation de la stage principale
+            primaryStage.setScene(ecranHome);
+            primaryStage.getIcons().add(new Image(this.getClass().getResource(ImageConstants.LOGO_QP1C).toString()));
+            primaryStage.show();
+        } catch (IOException e) {
+            LOGGER.error("Une erreur s'est produite :", e);
+            PopUpErreur.afficherPopUp(e);
+        }
 
-		LOGGER.info("[FIN] Start");
-	}
+        LOGGER.info("[FIN] Start");
+    }
 
-	private void initialiserEcrans() throws IOException {
+    private void initialiserEcrans() throws IOException {
 
-		// Création de la scène principale (=home)
-		this.initialiserEcranHome();
+        // Création de la scène principale (=home)
+        this.initialiserEcranHome();
 
-		// Création de la scène (=questions).
-		this.initialiserEcranQuestions();
+        // Création de la scène (=questions).
+        this.initialiserEcranQuestions();
 
-		// Création de la scène (=stats).
-		this.initialiserEcranStats();
+        // Création de la scène (=stats).
+        this.initialiserEcranStats();
 
-		// Création de la scène (=parametrage).
-		this.initialiserEcranParametrage();
-	}
+        // Création de la scène (=parametrage).
+        this.initialiserEcranParametrage();
+    }
 
-	private void initialiserEcranHome() throws IOException {
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("/view/home/HomeView.fxml"));
-		BorderPane page = (BorderPane) loader.load();
+    private void initialiserEcranHome() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("/view/home/HomeView.fxml"));
+        BorderPane page = (BorderPane) loader.load();
 
-		homeControler = (HomeController) loader.getController();
-		homeControler.setLauncher(this);
+        homeControler = (HomeController) loader.getController();
+        homeControler.setLauncher(this);
 
-		ecranHome = new SceneBdj(page, Screen.getPrimary().getVisualBounds());
-	}
+        ecranHome = new SceneBdj(page, Screen.getPrimary().getVisualBounds());
+    }
 
-	private void initialiserEcranStats() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/stats/StatsView.fxml"));
-		VBox page = (VBox) loader.load();
+    private void initialiserEcranStats() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/stats/StatsView.fxml"));
+        VBox page = (VBox) loader.load();
 
-		statistiquesController = (StatistiquesController) loader.getController();
-		statistiquesController.setLauncher(this);
+        statistiquesController = (StatistiquesController) loader.getController();
+        statistiquesController.setLauncher(this);
 
-		ecranStats = new SceneBdj(page, Screen.getPrimary().getVisualBounds());
-	}
+        ecranStats = new SceneBdj(page, Screen.getPrimary().getVisualBounds());
+    }
 
-	private void initialiserEcranParametrage() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/parametrage/ParametrageView.fxml"));
-		BorderPane page = (BorderPane) loader.load();
-		((ParametrageController) loader.getController()).setLauncher(this);
+    private void initialiserEcranParametrage() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/parametrage/ParametrageView.fxml"));
+        BorderPane page = (BorderPane) loader.load();
+        ((ParametrageController) loader.getController()).setLauncher(this);
 
-		ecranParametrage = new SceneBdj(page, Screen.getPrimary().getVisualBounds());
-	}
+        ecranParametrage = new SceneBdj(page, Screen.getPrimary().getVisualBounds());
+    }
 
-	private void initialiserEcranQuestions() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/TypePartieView.fxml"));
-		BorderPane page = (BorderPane) loader.load();
+    private void initialiserEcranQuestions() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/jeu/TypePartieView.fxml"));
+        BorderPane page = (BorderPane) loader.load();
 
-		typePartieController = (TypePartieController) loader.getController();
-		typePartieController.setLauncher(this);
+        typePartieController = (TypePartieController) loader.getController();
+        typePartieController.setLauncher(this);
 
-		ecranQuestions = new SceneBdj(page, Screen.getPrimary().getVisualBounds());
-	}
+        ecranQuestions = new SceneBdj(page, Screen.getPrimary().getVisualBounds());
+    }
 
-	public void afficherEcranQuestions(TypePartie typePartie) {
-		LOGGER.info("[DEBUT] Affichage de l'écran partie.");
+    public void afficherEcranQuestions(TypePartie typePartie) {
+        LOGGER.info("[DEBUT] Affichage de l'écran partie.");
 
-		NiveauPartie niveauPartie = PopUpNiveauPartie.afficherPopUp();
+        NiveauPartie niveauPartie = PopUpNiveauPartie.afficherPopUp();
 
-		if (niveauPartie == null) {
-			// Sortir si abandon.
-			return;
-		}
+        if (niveauPartie == null) {
+            // Sortir si abandon.
+            return;
+        }
 
-		// Réinitialisation de l'écran
-		typePartieController.reinitialiser(typePartie, niveauPartie);
+        // Réinitialisation de l'écran
+        typePartieController.reinitialiser(typePartie, niveauPartie);
 
-		switch (typePartie) {
-		case NPG:
-			typePartieController.selectionnerVuePhase9PG();
-			break;
-		case QALS:
-			typePartieController.selectionnerVuePhase4ALS();
-			break;
-		case JD:
-			typePartieController.selectionnerVuePhaseJD();
-			break;
-		case FAF:
-			typePartieController.selectionnerVuePhaseFAF();
-			break;
-		case PARTIE:
-			typePartieController.selectionnerVuePartie();
-			break;
-		}
+        switch (typePartie) {
+        case NPG:
+            typePartieController.selectionnerVuePhase9PG();
+            break;
+        case QALS:
+            typePartieController.selectionnerVuePhase4ALS();
+            break;
+        case JD:
+            typePartieController.selectionnerVuePhaseJD();
+            break;
+        case FAF:
+            typePartieController.selectionnerVuePhaseFAF();
+            break;
+        case PARTIE:
+            typePartieController.selectionnerVuePartie();
+            break;
+        }
 
-		afficherEcran(ecranQuestions);
+        afficherEcran(ecranQuestions);
 
-		LOGGER.info("[FIN] Affichage de l'écran partie.");
-	}
+        LOGGER.info("[FIN] Affichage de l'écran partie.");
+    }
 
-	public void afficherEcranStats() {
-		LOGGER.info("[DEBUT] Affichage de l'écran de stats");
+    public void afficherEcranStats() {
+        LOGGER.info("[DEBUT] Affichage de l'écran de stats");
 
-		statistiquesController.actualiserContenuTableaux();
+        statistiquesController.actualiserContenuTableaux();
 
-		afficherEcran(ecranStats);
+        afficherEcran(ecranStats);
 
-		LOGGER.info("[FIN] Affichage de l'écran de stats.");
-	}
+        LOGGER.info("[FIN] Affichage de l'écran de stats.");
+    }
 
-	public void afficherEcranParametrage() {
-		LOGGER.info("[DEBUT] Affichage de l'écran de paramétrage");
+    public void afficherEcranParametrage() {
+        LOGGER.info("[DEBUT] Affichage de l'écran de paramétrage");
 
-		afficherEcran(ecranParametrage);
+        afficherEcran(ecranParametrage);
 
-		LOGGER.info("[FIN] Affichage de l'écran de paramétrage.");
-	}
+        LOGGER.info("[FIN] Affichage de l'écran de paramétrage.");
+    }
 
-	public void afficherEcranHome() {
-		LOGGER.info("[DEBUT] Affichage de l'écran accueil");
+    public void afficherEcranHome() {
+        LOGGER.info("[DEBUT] Affichage de l'écran accueil");
 
-		homeControler.masquerSousMenuTypeQuestionnaire();
+        homeControler.masquerSousMenuTypeQuestionnaire();
 
-		afficherEcran(ecranHome);
+        afficherEcran(ecranHome);
 
-		LOGGER.info("[FIN] Affichage de l'écran accueil.");
-	}
+        LOGGER.info("[FIN] Affichage de l'écran accueil.");
+    }
 
-	private void afficherEcran(Scene scene) {
+    private void afficherEcran(Scene scene) {
 
-		int addHeight = 0;
-		int addWidth = 0;
+        int addHeight = 0;
+        int addWidth = 0;
 
-		// Fixbug : rétrecissement de la fenetre
+        // Fixbug : rétrecissement de la fenetre
 
-		if (System.getProperties().getProperty("os.name").toLowerCase().contains("mac os")) {
-			LOGGER.debug("Affichage optimisé pour MAC OS.");
+        if (System.getProperties().getProperty("os.name").toLowerCase().contains("mac os")) {
+            LOGGER.debug("Affichage optimisé pour MAC OS.");
 
-			addHeight = 22;
-		} else if (System.getProperties().getProperty("os.name").toLowerCase().contains("windows")) {
-			LOGGER.debug("Affichage optimisé pour WINDOWS.");
+            addHeight = 22;
+        } else if (System.getProperties().getProperty("os.name").toLowerCase().contains("windows")) {
+            LOGGER.debug("Affichage optimisé pour WINDOWS.");
 
-			addHeight = 38;
-			addWidth = 16;
-		}
+            addHeight = 38;
+            addWidth = 16;
+        }
 
-		Scene oldScene = stage.getScene();
+        Scene oldScene = stage.getScene();
 
-		LOGGER.debug("Taille de l'écran original : largeurEcran={}, hauteurEcran={}", oldScene.getWidth(),
-				oldScene.getHeight());
+        LOGGER.debug("Taille de l'écran original : largeurEcran={}, hauteurEcran={}", oldScene.getWidth(),
+                oldScene.getHeight());
 
-		double oldWidth = oldScene.getWidth() + addWidth;
-		double oldHeight = oldScene.getHeight() + addHeight;
+        double oldWidth = oldScene.getWidth() + addWidth;
+        double oldHeight = oldScene.getHeight() + addHeight;
 
-		stage.setScene(scene);
-		stage.setWidth(oldWidth);
-		stage.setHeight(oldHeight);
-		stage.show();
-	}
+        stage.setScene(scene);
+        stage.setWidth(oldWidth);
+        stage.setHeight(oldHeight);
+        stage.show();
+    }
 
-	public static Stage getStage() {
-		return stage;
-	}
+    public static Stage getStage() {
+        return stage;
+    }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		LOGGER.info("[DEBUT] Démarrage de l'application E-BDJ.");
+        LOGGER.info("[DEBUT] Démarrage de l'application E-BDJ.");
 
-		/**
-		 * try {
-		 * 
-		 * URL iconURL = new
-		 * URL(Launcher.class.getResource(ImageConstants.LOGO_QP1C).toString());
-		 * java.awt.Image image = new ImageIcon(iconURL).getImage();
-		 * com.apple.eawt.Application.getApplication().setDockIconImage(image);
-		 * } catch (Exception e) { // Won't work on Windows or Linux. }
-		 */
+        /**
+         * try {
+         * 
+         * URL iconURL = new
+         * URL(Launcher.class.getResource(ImageConstants.LOGO_QP1C).toString());
+         * java.awt.Image image = new ImageIcon(iconURL).getImage();
+         * com.apple.eawt.Application.getApplication().setDockIconImage(image); } catch
+         * (Exception e) { // Won't work on Windows or Linux. }
+         */
 
-		launch(args);
+        launch(args);
 
-		LOGGER.info("[FIN] Arrêt de l'application E-BDJ.");
-	}
+        LOGGER.info("[FIN] Arrêt de l'application E-BDJ.");
+    }
 
 }

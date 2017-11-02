@@ -1,102 +1,71 @@
 package fr.qp1c.ebdj.liseuse.bdd.dao.impl;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.dbutils.ResultSetHandler;
 
 import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurLecteurDao;
-import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
-import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
+import fr.qp1c.ebdj.liseuse.bdd.dao.mapper.MapperQuestion;
 import fr.qp1c.ebdj.liseuse.commun.bean.lecteur.Lecteur;
 
-public class DBConnecteurLecteurDaoImpl implements DBConnecteurLecteurDao {
+public class DBConnecteurLecteurDaoImpl extends DBConnecteurGeneriqueImpl implements DBConnecteurLecteurDao {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurLecteurDaoImpl.class);
+    @Override
+    public void ajouterLecteur(Lecteur lecteur) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void ajouterLecteur(Lecteur lecteur) {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public void modifierLecteur(String reference, Lecteur lecteur) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void modifierLecteur(String reference, Lecteur lecteur) {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public List<Lecteur> listerLecteur() {
+        // Création de la requête
+        String requete = "SELECT id,nom,prenom FROM LECTEUR ORDER BY nom, prenom;";
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public List<Lecteur> listerLecteur() {
+        ResultSetHandler<List<Lecteur>> h = new ResultSetHandler<List<Lecteur>>() {
+            @Override
+            public List<Lecteur> handle(ResultSet rs) throws SQLException {
+                List<Lecteur> listeLecteurs = new ArrayList<>();
 
-		List<Lecteur> listeLecteurs = new ArrayList<>();
+                while (rs.next()) {
+                    // Ajouter la lecteur à la liste
+                    listeLecteurs.add(MapperQuestion.convertirLecteur(rs));
+                }
+                return listeLecteurs;
+            }
+        };
 
-		// Création de la requête
+        return executerRequete(requete, h);
+    }
 
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT id,nom,prenom FROM LECTEUR ORDER BY nom, prenom;");
+    @Override
+    public Lecteur recupererLecteur(String reference) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-		LOGGER.debug(query.toString());
+    @Override
+    public boolean testerExistanteLecteur(String nom, String prenom) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
+    @Override
+    public void supprimerLecteur(String reference) {
+        // TODO Auto-generated method stub
 
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			while (rs.next()) {
-
-				// Convertir chaque lecteur
-				Lecteur lecteur = new Lecteur();
-				lecteur.setId(rs.getLong("id"));
-				lecteur.setNom(rs.getString("nom"));
-				lecteur.setPrenom(rs.getString("prenom"));
-
-				LOGGER.info("Lecteur: " + lecteur);
-
-				// Ajouter la lecteur à la liste
-				listeLecteurs.add(lecteur);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-
-		return listeLecteurs;
-	}
-
-	@Override
-	public Lecteur recupererLecteur(String reference) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean testerExistanteLecteur(String nom, String prenom) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void supprimerLecteur(String reference) {
-		// TODO Auto-generated method stub
-
-	}
+    }
 
 }

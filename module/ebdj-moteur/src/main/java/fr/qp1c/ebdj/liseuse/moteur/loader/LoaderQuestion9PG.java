@@ -10,53 +10,57 @@ import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionNPG;
 
 public class LoaderQuestion9PG {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoaderQuestion9PG.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoaderQuestion9PG.class);
 
-	/**
-	 * 
-	 * @return
-	 */
-	public static List<QuestionNPG> chargerQuestions1Etoile() {
-		LOGGER.debug("[DEBUT] Chargement des questions de 9PG - 1 étoile.");
+    private LoaderQuestion9PG() {
 
-		DBConnecteurNPGDaoImpl dao = new DBConnecteurNPGDaoImpl();
-		List<QuestionNPG> questions9PG = dao.listerQuestionsJouable(20, 1);
+    }
 
-		LOGGER.debug("[FIN] Chargement des questions de 9PG.");
+    /**
+     * 
+     * @return
+     */
+    public static List<QuestionNPG> chargerQuestions1Etoile() {
+        LOGGER.debug("[DEBUT] Chargement des questions de 9PG - 1 étoile.");
 
-		return questions9PG;
-	}
+        DBConnecteurNPGDaoImpl dao = new DBConnecteurNPGDaoImpl();
+        List<QuestionNPG> questions9PG = dao.listerQuestionsJouable(20, 1);
 
-	/**
-	 * 
-	 * @return
-	 */
-	public static List<QuestionNPG> chargerQuestions2Etoiles() {
-		LOGGER.debug("[DEBUT] Chargement des questions de 9PG - 2 étoiles.");
+        LOGGER.debug("[FIN] Chargement des questions de 9PG.");
 
-		DBConnecteurNPGDaoImpl dao = new DBConnecteurNPGDaoImpl();
-		List<QuestionNPG> questions9PG = dao.listerQuestionsJouable(15, 2);
+        return questions9PG;
+    }
 
-		LOGGER.debug("[FIN] Chargement des questions de 9PG.");
+    /**
+     * 
+     * @return
+     */
+    public static List<QuestionNPG> chargerQuestions2Etoiles() {
+        LOGGER.debug("[DEBUT] Chargement des questions de 9PG - 2 étoiles.");
 
-		return questions9PG;
-	}
+        DBConnecteurNPGDaoImpl dao = new DBConnecteurNPGDaoImpl();
+        List<QuestionNPG> questions9PG = dao.listerQuestionsJouable(15, 2);
 
-	/**
-	 * 
-	 * @return
-	 */
-	public static List<QuestionNPG> chargerQuestions3Etoiles() {
-		LOGGER.debug("[DEBUT] Chargement des questions de 9PG - 3 étoiles.");
+        LOGGER.debug("[FIN] Chargement des questions de 9PG.");
 
-		DBConnecteurNPGDaoImpl dao = new DBConnecteurNPGDaoImpl();
-		List<QuestionNPG> questions9PG = dao.listerQuestionsJouable(10, 3);
+        return questions9PG;
+    }
 
-		LOGGER.debug("[FIN] Chargement des questions de 9PG.");
+    /**
+     * 
+     * @return
+     */
+    public static List<QuestionNPG> chargerQuestions3Etoiles() {
+        LOGGER.debug("[DEBUT] Chargement des questions de 9PG - 3 étoiles.");
 
-		return questions9PG;
-	}
+        DBConnecteurNPGDaoImpl dao = new DBConnecteurNPGDaoImpl();
+        List<QuestionNPG> questions9PG = dao.listerQuestionsJouable(10, 3);
+
+        LOGGER.debug("[FIN] Chargement des questions de 9PG.");
+
+        return questions9PG;
+    }
 }

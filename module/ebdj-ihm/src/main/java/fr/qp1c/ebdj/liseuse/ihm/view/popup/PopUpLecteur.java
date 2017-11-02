@@ -28,93 +28,93 @@ import javafx.util.Callback;
 
 public class PopUpLecteur {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(PopUpLecteur.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(PopUpLecteur.class);
 
-	public PopUpLecteur() {
-	}
+    private PopUpLecteur() {
+    }
 
-	private static List<Lecteur> listerLecteurs() {
-		DBConnecteurLecteurDao dbConnecteurLecteurDao = new DBConnecteurLecteurDaoImpl();
-		List<Lecteur> lecteurs = dbConnecteurLecteurDao.listerLecteur();
+    private static List<Lecteur> listerLecteurs() {
+        DBConnecteurLecteurDao dbConnecteurLecteurDao = new DBConnecteurLecteurDaoImpl();
+        List<Lecteur> lecteurs = dbConnecteurLecteurDao.listerLecteur();
 
-		Lecteur lecteurParDefaut = new Lecteur();
-		lecteurParDefaut.setId(Long.valueOf(-1));
-		lecteurParDefaut.setPrenom("Lecteur par défaut");
+        Lecteur lecteurParDefaut = new Lecteur();
+        lecteurParDefaut.setId(Long.valueOf(-1));
+        lecteurParDefaut.setPrenom("Lecteur par défaut");
 
-		lecteurs.add(0, lecteurParDefaut);
+        lecteurs.add(0, lecteurParDefaut);
 
-		return lecteurs;
-	}
+        return lecteurs;
+    }
 
-	public static Optional<Lecteur> afficherPopUp() {
+    public static Optional<Lecteur> afficherPopUp() {
 
-		Dialog<Lecteur> popupLecteur = new Dialog<>();
-		popupLecteur.initOwner(Launcher.getStage());
-		popupLecteur.initModality(Modality.APPLICATION_MODAL);
-		popupLecteur.setTitle(Libelle.TITRE);
-		popupLecteur.setHeaderText("Sélection du lecteur");
+        Dialog<Lecteur> popupLecteur = new Dialog<>();
+        popupLecteur.initOwner(Launcher.getStage());
+        popupLecteur.initModality(Modality.APPLICATION_MODAL);
+        popupLecteur.setTitle(Libelle.TITRE);
+        popupLecteur.setHeaderText("Sélection du lecteur");
 
-		// TODO : Afficher logo la selection du lecteur
-		popupLecteur.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_POPUP));
+        // TODO : Afficher logo la selection du lecteur
+        popupLecteur.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_POPUP));
 
-		DialogPane dialogPane = popupLecteur.getDialogPane();
-		dialogPane.getStylesheets().add("/css/styles.css");
-		dialogPane.getStyleClass().add("popUp");
-		dialogPane.setMinHeight(200);
-		dialogPane.setMinWidth(350);
+        DialogPane dialogPane = popupLecteur.getDialogPane();
+        dialogPane.getStylesheets().add("/css/styles.css");
+        dialogPane.getStyleClass().add("popUp");
+        dialogPane.setMinHeight(200);
+        dialogPane.setMinWidth(350);
 
-		ButtonType btnSelectionType = new ButtonType("Selectionner", ButtonData.OK_DONE);
-		dialogPane.getButtonTypes().addAll(btnSelectionType);
-		dialogPane.lookupButton(btnSelectionType).setStyle("boutonFermer");
+        ButtonType btnSelectionType = new ButtonType("Selectionner", ButtonData.OK_DONE);
+        dialogPane.getButtonTypes().addAll(btnSelectionType);
+        dialogPane.lookupButton(btnSelectionType).setStyle("boutonFermer");
 
-		HBox box = new HBox();
-		box.setAlignment(Pos.TOP_CENTER);
-		Label labelLecteur = new Label("Lecteur : ");
-		labelLecteur.setPrefHeight(40);
-		labelLecteur.setPrefWidth(75);
+        HBox box = new HBox();
+        box.setAlignment(Pos.TOP_CENTER);
+        Label labelLecteur = new Label("Lecteur : ");
+        labelLecteur.setPrefHeight(40);
+        labelLecteur.setPrefWidth(75);
 
-		box.getChildren().add(labelLecteur);
+        box.getChildren().add(labelLecteur);
 
-		ComboBox<Lecteur> listeLecteur = new ComboBox<>();
-		listeLecteur.getItems().addAll(listerLecteurs());
-		listeLecteur.getSelectionModel().select(0);
-		listeLecteur.setPrefHeight(40);
-		listeLecteur.setPrefWidth(275);
+        ComboBox<Lecteur> listeLecteur = new ComboBox<>();
+        listeLecteur.getItems().addAll(listerLecteurs());
+        listeLecteur.getSelectionModel().select(0);
+        listeLecteur.setPrefHeight(40);
+        listeLecteur.setPrefWidth(275);
 
-		listeLecteur.setCellFactory(new Callback<ListView<Lecteur>, ListCell<Lecteur>>() {
-			@Override
-			public ListCell<Lecteur> call(ListView<Lecteur> p) {
-				return new ListCell<Lecteur>() {
+        listeLecteur.setCellFactory(new Callback<ListView<Lecteur>, ListCell<Lecteur>>() {
+            @Override
+            public ListCell<Lecteur> call(ListView<Lecteur> p) {
+                return new ListCell<Lecteur>() {
 
-					@Override
-					protected void updateItem(Lecteur item, boolean empty) {
-						super.updateItem(item, empty);
+                    @Override
+                    protected void updateItem(Lecteur item, boolean empty) {
+                        super.updateItem(item, empty);
 
-						if (item == null || empty) {
-							setGraphic(null);
-						} else {
-							setText(item.formatterNomUtilisateur());
-						}
-					}
-				};
-			}
-		});
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(item.formatterNomUtilisateur());
+                        }
+                    }
+                };
+            }
+        });
 
-		box.getChildren().add(listeLecteur);
+        box.getChildren().add(listeLecteur);
 
-		popupLecteur.getDialogPane().setContent(box);
-		popupLecteur.showAndWait();
+        popupLecteur.getDialogPane().setContent(box);
+        popupLecteur.showAndWait();
 
-		// Traditional way to get the response value.
-		Lecteur result = listeLecteur.getValue();
-		if (result != null && result.getId() > 0) {
-			LOGGER.info("Lecteur séléctionné : " + result.formatterNomUtilisateur());
-			return Optional.ofNullable(result);
-		}
+        // Traditional way to get the response value.
+        Lecteur result = listeLecteur.getValue();
+        if (result != null && result.getId() > 0) {
+            LOGGER.info("Lecteur séléctionné : " + result.formatterNomUtilisateur());
+            return Optional.ofNullable(result);
+        }
 
-		return Optional.ofNullable(null);
-	}
+        return Optional.ofNullable(null);
+    }
 }

@@ -8,20 +8,24 @@ import javafx.scene.text.TextAlignment;
 
 public class BoutonUtils {
 
-	/**
-	 * Ajouter une image carrée de 150 pixels sur un bouton.
-	 * 
-	 * @param btn
-	 *            le bouton à modifier
-	 * @param imageBouton
-	 */
-	public static void customiserBouton150(ButtonBase btn, Image imageBouton) {
-		ImageView image = new ImageView(imageBouton);
-		ImageUtils.reduireImageCustom(image, 150);
+    private BoutonUtils() {
 
-		btn.setGraphic(image);
-		btn.setTextAlignment(TextAlignment.CENTER);
-		btn.setContentDisplay(ContentDisplay.TOP);
-	}
+    }
+
+    /**
+     * Ajouter une image carrée de 150 pixels sur un bouton.
+     * 
+     * @param btn
+     *            le bouton à modifier
+     * @param imageBouton
+     */
+    public static void customiserBouton150(ButtonBase btn, Image imageBouton) {
+        ImageView image = new ImageView(imageBouton);
+        ImageUtils.reduireImageCustom(image, 150);
+
+        btn.setGraphic(image);
+        btn.setTextAlignment(TextAlignment.CENTER);
+        btn.setContentDisplay(ContentDisplay.TOP);
+    }
 
 }

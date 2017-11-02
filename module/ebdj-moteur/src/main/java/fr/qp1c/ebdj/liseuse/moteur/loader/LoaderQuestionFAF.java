@@ -10,31 +10,35 @@ import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionFAF;
 
 public class LoaderQuestionFAF {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoaderQuestionFAF.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoaderQuestionFAF.class);
 
-	public static QuestionFAF chargerQuestions(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax) {
-		LOGGER.debug("[DEBUT] Chargement d'une question de FAF.");
+    private LoaderQuestionFAF() {
 
-		DBConnecteurFAFDaoImpl dao = new DBConnecteurFAFDaoImpl();
-		QuestionFAF questionFAF = dao.donnerQuestionsJouable(categoriesAExclure, niveauMin, niveauMax);
+    }
 
-		LOGGER.debug("[FIN] Chargement d'une question de FAF.");
+    public static QuestionFAF chargerQuestions(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax) {
+        LOGGER.debug("[DEBUT] Chargement d'une question de FAF.");
 
-		return questionFAF;
-	}
+        DBConnecteurFAFDaoImpl dao = new DBConnecteurFAFDaoImpl();
+        QuestionFAF questionFAF = dao.donnerQuestionsJouable(categoriesAExclure, niveauMin, niveauMax);
 
-	public static QuestionFAF chargerQuestions(List<Long> categoriesAExclure, Long niveau) {
-		LOGGER.debug("[DEBUT] Chargement d'une question de FAF.");
+        LOGGER.debug("[FIN] Chargement d'une question de FAF.");
 
-		DBConnecteurFAFDaoImpl dao = new DBConnecteurFAFDaoImpl();
-		QuestionFAF questionFAF = dao.donnerQuestionsJouable(categoriesAExclure, niveau);
+        return questionFAF;
+    }
 
-		LOGGER.debug("[FIN] Chargement d'une question de FAF.");
+    public static QuestionFAF chargerQuestions(List<Long> categoriesAExclure, Long niveau) {
+        LOGGER.debug("[DEBUT] Chargement d'une question de FAF.");
 
-		return questionFAF;
-	}
+        DBConnecteurFAFDaoImpl dao = new DBConnecteurFAFDaoImpl();
+        QuestionFAF questionFAF = dao.donnerQuestionsJouable(categoriesAExclure, niveau);
+
+        LOGGER.debug("[FIN] Chargement d'une question de FAF.");
+
+        return questionFAF;
+    }
 
 }

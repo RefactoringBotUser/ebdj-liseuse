@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 import org.apache.commons.dbutils.ResultSetHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurFAFDao;
 import fr.qp1c.ebdj.liseuse.bdd.dao.mapper.MapperQuestion;
@@ -23,271 +21,265 @@ import fr.qp1c.ebdj.liseuse.commun.exchange.question.QuestionFAFBdjDistante;
 
 public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements DBConnecteurFAFDao {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurFAFDaoImpl.class);
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public List<QuestionFAF> listerQuestionsJouable(int nbQuestion) {
+        // Création de la requête
+        StringBuilder query = new StringBuilder();
+        query.append(
+                "SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT active=1 AND EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference)");
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public List<QuestionFAF> listerQuestionsJouable(int nbQuestion) {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT active=1 AND EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference)");
+        if (nbQuestion > 0) {
+            query.append(" LIMIT ");
+            query.append(nbQuestion);
+        }
+        query.append(";");
 
-		if (nbQuestion > 0) {
-			query.append(" LIMIT ");
-			query.append(nbQuestion);
-		}
-		query.append(";");
-		
-		ResultSetHandler<List<QuestionFAF>> h = new ResultSetHandler<List<QuestionFAF>>() {
-			@Override
-		    public List<QuestionFAF> handle(ResultSet rs) throws SQLException {
-				List<QuestionFAF> listeQuestionsAJouer = new ArrayList<>();
-		    	
-		    		while (rs.next()) {
-					// Ajouter la question à la liste
-					listeQuestionsAJouer.add(MapperQuestion.convertirQuestionFAF(rs));
-				}
-		        return listeQuestionsAJouer;
-		    }
-		};
-		
-		return executerRequete(query.toString(), h);
-	}
-	
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax) {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte>="
-						+ niveauMin + " AND difficulte<=" + niveauMax + "");
+        ResultSetHandler<List<QuestionFAF>> h = new ResultSetHandler<List<QuestionFAF>>() {
+            @Override
+            public List<QuestionFAF> handle(ResultSet rs) throws SQLException {
+                List<QuestionFAF> listeQuestionsAJouer = new ArrayList<>();
 
-		return donnerQuestionsJouable(query.toString(), categoriesAExclure);
-	}
+                while (rs.next()) {
+                    // Ajouter la question à la liste
+                    listeQuestionsAJouer.add(MapperQuestion.convertirQuestionFAF(rs));
+                }
+                return listeQuestionsAJouer;
+            }
+        };
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveau) {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte="
-						+ niveau + "");
-		return donnerQuestionsJouable(query.toString(), categoriesAExclure);
-	}
-	
-	private QuestionFAF donnerQuestionsJouable(String requete, List<Long> categoriesAExclure) {
-		StringBuilder query = new StringBuilder();
-		query.append(requete);
-		
-		if (categoriesAExclure != null && !categoriesAExclure.isEmpty()) {
-			query.append(" AND Q_FAF.categorieRef NOT IN (");
-			StringJoiner clauseIn = new StringJoiner(",", "", "");
+        return executerRequete(query.toString(), h);
+    }
 
-			for (Long categorie : categoriesAExclure) {
-				clauseIn.add(categorie.toString());
-			}
-			query.append(clauseIn);
-			query.append(')');
-		}
-		query.append(" LIMIT 1;");
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax) {
+        // Création de la requête
+        StringBuilder query = new StringBuilder();
+        query.append(
+                "SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte>="
+                        + niveauMin + " AND difficulte<=" + niveauMax + "");
 
-		LOGGER.debug(query.toString());
+        return donnerQuestionsJouable(query.toString(), categoriesAExclure);
+    }
 
-		ResultSetHandler<QuestionFAF> h = new ResultSetHandler<QuestionFAF>() {
-			@Override
-		    public QuestionFAF handle(ResultSet rs) throws SQLException {
-				QuestionFAF question = null;
-		    	
-				if (rs.next()) {
-					// Convertir chaque question
-					question = MapperQuestion.convertirQuestionFAF(rs);
-				}
-		        return question;
-		    }
-		};
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveau) {
+        // Création de la requête
+        StringBuilder query = new StringBuilder();
+        query.append(
+                "SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte="
+                        + niveau + "");
+        return donnerQuestionsJouable(query.toString(), categoriesAExclure);
+    }
 
-		return executerRequete(query.toString(), h);
-	}
+    private QuestionFAF donnerQuestionsJouable(String requete, List<Long> categoriesAExclure) {
+        StringBuilder query = new StringBuilder();
+        query.append(requete);
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public Map<String, Long> compterParCategorie() {
-		return compter("SELECT categorie, count(1) FROM QUESTION_FAF GROUP BY categorie order by categorie;");
-	}
+        if (categoriesAExclure != null && !categoriesAExclure.isEmpty()) {
+            query.append(" AND Q_FAF.categorieRef NOT IN (");
+            StringJoiner clauseIn = new StringJoiner(",", "", "");
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public Map<String, Long> compterParCategorieLue() {
-		return compter("SELECT categorie, count(1) FROM QUESTION_FAF Q_FAF WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) GROUP BY categorie order by categorie;");
-	}
-	
-	private Map<String, Long> compter(String requete){
-		ResultSetHandler<Map<String, Long>> h = new ResultSetHandler<Map<String, Long>>() {
-		    public Map<String, Long> handle(ResultSet rs) throws SQLException {
-				Map<String, Long> inventaireParCategorie = new HashMap<>();
-		    	
-				while (rs.next()) {
-					String categorie = rs.getString(1);
-					Long nbQuestion = rs.getLong(2);
+            for (Long categorie : categoriesAExclure) {
+                clauseIn.add(categorie.toString());
+            }
+            query.append(clauseIn);
+            query.append(')');
+        }
+        query.append(" LIMIT 1;");
 
-					inventaireParCategorie.put(categorie, nbQuestion);
-				}
-		        return inventaireParCategorie;
-		    }
-		};
-		
-		return executerRequete(requete, h);
-	}
+        ResultSetHandler<QuestionFAF> h = new ResultSetHandler<QuestionFAF>() {
+            @Override
+            public QuestionFAF handle(ResultSet rs) throws SQLException {
+                QuestionFAF question = null;
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public void creerQuestion(QuestionFAFBdjDistante questionFaf) {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"INSERT INTO QUESTION_FAF (categorie,categorieRef,theme,question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('");
-		query.append(DBUtils.escapeSql(questionFaf.getCategorieFAF()));
-		query.append("',");
-		query.append(questionFaf.getCategorieFAFRef());
-		query.append(",'");
-		query.append(DBUtils.escapeSql(questionFaf.getTheme()));
-		query.append("','");
-		query.append(DBUtils.escapeSql(questionFaf.getQuestion()));
-		query.append("','");
-		query.append(DBUtils.escapeSql(questionFaf.getReponse()));
-		query.append("',");
-		query.append(questionFaf.getDifficulte());
-		query.append(",'");
-		query.append(questionFaf.getReference());
-		query.append("','");
-		query.append(DBUtils.escapeSql(questionFaf.getClub()));
-		query.append("','");
-		query.append(questionFaf.getDateEnvoi());
-		query.append("',");
-		query.append(questionFaf.getVersion());
-		query.append(",1);"); // question active
+                if (rs.next()) {
+                    // Convertir chaque question
+                    question = MapperQuestion.convertirQuestionFAF(rs);
+                }
+                return question;
+            }
+        };
 
-		executerUpdateOuInsert(query.toString());
-	}
+        return executerRequete(query.toString(), h);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public void corrigerQuestion(QuestionFAFBdjDistante questionFaf) {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append("UPDATE QUESTION_FAF SET categorie='");
-		query.append(questionFaf.getCategorieFAF());
-		query.append("', categorieRef=");
-		query.append(questionFaf.getCategorieFAFRef());
-		query.append(", theme='");
-		query.append(DBUtils.escapeSql(questionFaf.getTheme()));
-		query.append("', question='");
-		query.append(DBUtils.escapeSql(questionFaf.getQuestion()));
-		query.append("', reponse='");
-		query.append(DBUtils.escapeSql(questionFaf.getReponse()));
-		query.append("', difficulte=");
-		query.append(questionFaf.getDifficulte());
-		query.append(", club='");
-		query.append(DBUtils.escapeSql(questionFaf.getClub()));
-		query.append("', dateReception='");
-		query.append(questionFaf.getDateEnvoi());
-		query.append("', version=");
-		query.append(questionFaf.getVersion());
-		query.append(" WHERE reference=");
-		query.append(questionFaf.getReference());
-		query.append(";");
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public Map<String, Long> compterParCategorie() {
+        return compter("SELECT categorie, count(1) FROM QUESTION_FAF GROUP BY categorie order by categorie;");
+    }
 
-		executerUpdateOuInsert(query.toString());
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public Map<String, Long> compterParCategorieLue() {
+        return compter(
+                "SELECT categorie, count(1) FROM QUESTION_FAF Q_FAF WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) GROUP BY categorie order by categorie;");
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public int compterNbQuestion() {
-		return compterNbQuestion("FAF");
-	}
+    private Map<String, Long> compter(String requete) {
+        ResultSetHandler<Map<String, Long>> h = new ResultSetHandler<Map<String, Long>>() {
+            @Override
+            public Map<String, Long> handle(ResultSet rs) throws SQLException {
+                Map<String, Long> inventaireParCategorie = new HashMap<>();
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public int compterNbQuestionLue() {
-		return compterNbQuestionLue("FAF");
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public void jouerQuestion(String referenceQuestion, String lecteur){
-		jouerQuestion("FAF", referenceQuestion, lecteur);
-	}
+                while (rs.next()) {
+                    String categorie = rs.getString(1);
+                    Long nbQuestion = rs.getLong(2);
 
-	@Override
-	public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur) {
-		signalerAnomalie("FAF", reference, version, anomalie, lecteur);
-	}
+                    inventaireParCategorie.put(categorie, nbQuestion);
+                }
+                return inventaireParCategorie;
+            }
+        };
 
-	@Override
-	public void desactiverQuestion(String reference) {
-		desactiverQuestion("FAF", reference);
-	}
+        return executerRequete(requete, h);
+    }
 
-	@Override
-	public List<Lecture> listerQuestionsLues(Long indexDebut) {
-		return listerQuestionsLues("FAF", indexDebut);
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public void creerQuestion(QuestionFAFBdjDistante questionFaf) {
+        // Création de la requête
+        StringBuilder query = new StringBuilder();
+        query.append(
+                "INSERT INTO QUESTION_FAF (categorie,categorieRef,theme,question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('");
+        query.append(DBUtils.escapeSql(questionFaf.getCategorieFAF()));
+        query.append("',");
+        query.append(questionFaf.getCategorieFAFRef());
+        query.append(",'");
+        query.append(DBUtils.escapeSql(questionFaf.getTheme()));
+        query.append("','");
+        query.append(DBUtils.escapeSql(questionFaf.getQuestion()));
+        query.append("','");
+        query.append(DBUtils.escapeSql(questionFaf.getReponse()));
+        query.append("',");
+        query.append(questionFaf.getDifficulte());
+        query.append(",'");
+        query.append(questionFaf.getReference());
+        query.append("','");
+        query.append(DBUtils.escapeSql(questionFaf.getClub()));
+        query.append("','");
+        query.append(questionFaf.getDateEnvoi());
+        query.append("',");
+        query.append(questionFaf.getVersion());
+        query.append(",1);"); // question active
 
-	@Override
-	public List<Anomalie> listerAnomalies(Long indexDebut) {
-		return listerAnomalies("FAF", indexDebut);
-	}
+        executerUpdateOuInsert(query.toString());
+    }
 
-	@Override
-	public Long recupererIndexMaxAnomalie() {
-		return recupererIndexMaxAnomalie("FAF");
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public void corrigerQuestion(QuestionFAFBdjDistante questionFaf) {
+        // Création de la requête
+        StringBuilder query = new StringBuilder();
+        query.append("UPDATE QUESTION_FAF SET categorie='");
+        query.append(questionFaf.getCategorieFAF());
+        query.append("', categorieRef=");
+        query.append(questionFaf.getCategorieFAFRef());
+        query.append(", theme='");
+        query.append(DBUtils.escapeSql(questionFaf.getTheme()));
+        query.append("', question='");
+        query.append(DBUtils.escapeSql(questionFaf.getQuestion()));
+        query.append("', reponse='");
+        query.append(DBUtils.escapeSql(questionFaf.getReponse()));
+        query.append("', difficulte=");
+        query.append(questionFaf.getDifficulte());
+        query.append(", club='");
+        query.append(DBUtils.escapeSql(questionFaf.getClub()));
+        query.append("', dateReception='");
+        query.append(questionFaf.getDateEnvoi());
+        query.append("', version=");
+        query.append(questionFaf.getVersion());
+        query.append(" WHERE reference=");
+        query.append(questionFaf.getReference());
+        query.append(";");
 
-	@Override
-	public Long recupererIndexMaxLecture() {
-		return recupererIndexMaxLecture("FAF");
-	}
+        executerUpdateOuInsert(query.toString());
+    }
 
-	@Override
-	public Long recupererReferenceMaxQuestion() {
-		return recupererReferenceMaxQuestion("FAF");
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public int compterNbQuestion() {
+        return compterNbQuestion("FAF");
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public int compterNbQuestionLue() {
+        return compterNbQuestionLue("FAF");
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public void jouerQuestion(String referenceQuestion, String lecteur) {
+        jouerQuestion("FAF", referenceQuestion, lecteur);
+    }
+
+    @Override
+    public void signalerAnomalie(String reference, Long version, SignalementAnomalie anomalie, String lecteur) {
+        signalerAnomalie("FAF", reference, version, anomalie, lecteur);
+    }
+
+    @Override
+    public void desactiverQuestion(String reference) {
+        desactiverQuestion("FAF", reference);
+    }
+
+    @Override
+    public List<Lecture> listerQuestionsLues(Long indexDebut) {
+        return listerQuestionsLues("FAF", indexDebut);
+    }
+
+    @Override
+    public List<Anomalie> listerAnomalies(Long indexDebut) {
+        return listerAnomalies("FAF", indexDebut);
+    }
+
+    @Override
+    public Long recupererIndexMaxAnomalie() {
+        return recupererIndexMaxAnomalie("FAF");
+    }
+
+    @Override
+    public Long recupererIndexMaxLecture() {
+        return recupererIndexMaxLecture("FAF");
+    }
+
+    @Override
+    public Long recupererReferenceMaxQuestion() {
+        return recupererReferenceMaxQuestion("FAF");
+    }
 
 }

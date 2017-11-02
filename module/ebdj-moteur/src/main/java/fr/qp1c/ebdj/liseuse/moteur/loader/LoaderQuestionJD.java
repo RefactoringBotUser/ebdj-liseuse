@@ -10,24 +10,28 @@ import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionJD;
 
 public class LoaderQuestionJD {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoaderQuestionJD.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoaderQuestionJD.class);
 
-	/**
-	 * 
-	 * @return
-	 */
-	public static List<QuestionJD> chargerQuestions() {
-		LOGGER.debug("[DEBUT] Chargement des questions de JD.");
+    private LoaderQuestionJD() {
 
-		DBConnecteurJDDaoImpl dao = new DBConnecteurJDDaoImpl();
-		List<QuestionJD> questionsJD = dao.listerQuestionsJouable(10);
+    }
 
-		LOGGER.debug("[FIN] Chargement des questions de JD.");
+    /**
+     * 
+     * @return
+     */
+    public static List<QuestionJD> chargerQuestions() {
+        LOGGER.debug("[DEBUT] Chargement des questions de JD.");
 
-		return questionsJD;
-	}
+        DBConnecteurJDDaoImpl dao = new DBConnecteurJDDaoImpl();
+        List<QuestionJD> questionsJD = dao.listerQuestionsJouable(10);
+
+        LOGGER.debug("[FIN] Chargement des questions de JD.");
+
+        return questionsJD;
+    }
 
 }

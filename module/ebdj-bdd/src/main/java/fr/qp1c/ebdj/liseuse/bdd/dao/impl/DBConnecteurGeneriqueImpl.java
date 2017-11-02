@@ -2,6 +2,7 @@ package fr.qp1c.ebdj.liseuse.bdd.dao.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.liseuse.bdd.dao.mapper.MapperQuestion;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBUtils;
 import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
@@ -20,387 +22,278 @@ import fr.qp1c.ebdj.liseuse.commun.utils.Utils;
 
 public class DBConnecteurGeneriqueImpl {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurGeneriqueImpl.class);
-
-	protected Long recupererIndexMaxAnomalie(String type) {
-		return recupererIndexMax(donnerPrefixeTable(type) + "_ANOMALIE");
-	}
-
-	protected Long recupererIndexMaxLecture(String type) {
-		return recupererIndexMax(donnerPrefixeTable(type) + "_LECTURE");
-	}
-
-	protected Long recupererIndexMax(String table) {
-		Long indexMax = Long.valueOf(0);
-
-		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT max(id) FROM ");
-		query.append(table);
-		query.append(";");
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			LOGGER.info(query.toString());
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				indexMax = rs.getLong(1);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return indexMax;
-	}
-
-	protected Long recupererReferenceMaxQuestion(String type) {
-		Long referenceMax = Long.valueOf(0);
-
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT max(reference) FROM ");
-		query.append(donnerPrefixeTable(type));
-		query.append(";");
-
-		LOGGER.debug(query.toString());
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				referenceMax = rs.getLong(1);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return referenceMax;
-	}
-
-	private String donnerPrefixeTable(String type) {
-		if ("QALS".equals(type)) {
-			return "THEME_" + type;
-		}
-		return "QUESTION_" + type;
-	}
-
-	protected List<Anomalie> listerAnomalies(String type, Long indexDebut) {
-		List<Anomalie> listeAnomalies = new ArrayList<>();
-
-		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT reference,version,date_anomalie,type_anomalie,cause,lecteur FROM "
-				+ donnerPrefixeTable(type) + "_ANOMALIE WHERE id>");
-		query.append(indexDebut);
-		query.append(" ORDER BY id ASC;");
-
-		LOGGER.debug(query.toString());
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			while (rs.next()) {
-
-				// Convertir chaque question
-				Anomalie anomalie = new Anomalie();
-				anomalie.setReference(rs.getLong("reference"));
-				anomalie.setVersion(rs.getLong("version"));
-				anomalie.setDateAnomalie(rs.getString("date_anomalie"));
-				anomalie.setTypeAnomalie(rs.getLong("type_anomalie"));
-				anomalie.setCause(rs.getString("cause"));
-				anomalie.setLecteur(rs.getString("lecteur"));
-
-				LOGGER.info("Anomalie : " + anomalie);
-
-				// Ajouter la question à la liste
-				listeAnomalies.add(anomalie);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-
-		return listeAnomalies;
-	}
-
-	public List<Lecture> listerQuestionsLues(String type, Long indexDebut) {
-		List<Lecture> listeQuestionsLues = new ArrayList<>();
-
-		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT reference, date_lecture, lecteur FROM " + donnerPrefixeTable(type) + "_LECTURE WHERE id>");
-		query.append(indexDebut);
-		query.append(" ORDER BY id ASC;");
-
-		LOGGER.debug(query.toString());
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			while (rs.next()) {
-
-				// Convertir chaque question
-				Lecture lecture = new Lecture();
-				lecture.setReference(rs.getLong("reference"));
-				lecture.setDateLecture(rs.getString("date_lecture"));
-				lecture.setLecteur(rs.getString("lecteur"));
-
-				LOGGER.info("Lecture : " + lecture);
-
-				// Ajouter la question à la liste
-				listeQuestionsLues.add(lecture);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-
-		return listeQuestionsLues;
-	}
-
-	public void desactiverQuestion(String type, String reference) {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append("UPDATE " + donnerPrefixeTable(type) + " SET active=0 WHERE reference=");
-		query.append(reference);
-		query.append(";"); // question active
-
-		executerUpdateOuInsert(query.toString());
-	}
-
-	public void jouerQuestion(String type, String referenceQuestion, String lecteur) {
-
-		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append("INSERT INTO " + donnerPrefixeTable(type) + "_LECTURE (reference, date_lecture,lecteur) VALUES (");
-		query.append(referenceQuestion);
-		query.append(",'");
-		query.append(Utils.recupererDateHeureCourante());
-		query.append("','");
-		query.append(lecteur);
-		query.append("');");
-
-		executerUpdateOuInsert(query.toString());
-	}
-
-	public void signalerAnomalie(String type, String reference, Long version, SignalementAnomalie anomalie,
-			String lecteur){
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append("INSERT INTO " + donnerPrefixeTable(type)
-				+ "_ANOMALIE (reference,version,date_anomalie,type_anomalie,cause,lecteur) VALUES ('");
-		query.append(reference);
-		query.append("',");
-		query.append(version);
-		query.append(",'");
-		query.append(Utils.recupererDateHeureCourante());
-		query.append("',");
-		query.append(anomalie.getTypeAnomalie().ordinal());
-		query.append(",'");
-		query.append(DBUtils.escapeSql(anomalie.getDescription()));
-		query.append("','");
-		query.append(DBUtils.escapeSql(lecteur));
-		query.append("');");
-
-		executerUpdateOuInsert(query.toString());
-	}
-
-	protected int compterNbQuestion(String type) {
-		return compterNbQuestion(type, null);
-	}
-
-	protected int compterNbQuestion(String type, String complement) {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM " + donnerPrefixeTable(type)+" WHERE active=1");
-		if(complement!=null) {
-			query.append(complement);
-		}
-		query.append(";");
-		
-		int nbQuestion = 0;
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				nbQuestion = rs.getInt(1);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return nbQuestion;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	protected int compterNbQuestionLue(String type) {
-		return compterNbQuestionLue(type, null);
-	}
-	
-	protected int compterNbQuestionLue(String type, String complement) {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT count(1) FROM " + donnerPrefixeTable(type)+"  Q WHERE EXISTS(SELECT DISTINCT * FROM " + donnerPrefixeTable(type)+"_LECTURE Q_J WHERE Q.reference=Q_J.reference)");
-		if(complement!=null) {
-			query.append(complement);
-		}
-		query.append(";");
-
-		int nbQuestion = 0;
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				nbQuestion = rs.getInt(1);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return nbQuestion;
-	}
-	
-	protected int compterNbQuestionPresente(String type, String complement) {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT count(1) FROM " + donnerPrefixeTable(type)+"  Q WHERE EXISTS(SELECT DISTINCT * FROM " + donnerPrefixeTable(type)+"_PRESENTE Q_T WHERE Q.reference=Q_T.reference)");
-		if(complement!=null) {
-			query.append(complement);
-		}
-		query.append(";");
-
-		int nbQuestion = 0;
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				nbQuestion = rs.getInt(1);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return nbQuestion;
-	}
-
-	protected void executerUpdateOuInsert(String requete) {
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			LOGGER.debug(requete);
-
-			// Executer la requête
-			stmt.executeUpdate(requete);
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-	}
-	
-
-	
-	public <T> T executerRequete(String requete, ResultSetHandler<T> h) {
-		
-		T result=null;
-		
-		LOGGER.debug(requete);
-		
-		try {
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(requete);
-			
-			result=h.handle(rs);
-
-			// Fermeture des connections.
-				stmt.close();
-				DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		} 
-
-		return result;
-	}
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurGeneriqueImpl.class);
+
+    protected Long recupererIndexMaxAnomalie(String type) {
+        return recupererIndexMax(donnerPrefixeTable(type) + "_ANOMALIE");
+    }
+
+    protected Long recupererIndexMaxLecture(String type) {
+        return recupererIndexMax(donnerPrefixeTable(type) + "_LECTURE");
+    }
+
+    protected Long recupererIndexMax(String table) {
+        // Création de la requête
+        String requete = String.format("SELECT max(id) FROM %s;", table);
+
+        ResultSetHandler<Long> h = new ResultSetHandler<Long>() {
+            @Override
+            public Long handle(ResultSet rs) throws SQLException {
+                Long indexMax = Long.valueOf(0);
+
+                if (rs.next()) {
+                    indexMax = rs.getLong(1);
+                }
+                return indexMax;
+            }
+        };
+
+        return executerRequete(requete, h);
+    }
+
+    protected Long recupererReferenceMaxQuestion(String type) {
+        // Création de la requête
+        String requete = String.format("SELECT max(reference) FROM %s;", donnerPrefixeTable(type));
+
+        ResultSetHandler<Long> h = new ResultSetHandler<Long>() {
+            @Override
+            public Long handle(ResultSet rs) throws SQLException {
+                Long referenceMax = Long.valueOf(0);
+
+                if (rs.next()) {
+                    referenceMax = rs.getLong(1);
+                }
+                return referenceMax;
+            }
+        };
+
+        return executerRequete(requete, h);
+    }
+
+    private String donnerPrefixeTable(String type) {
+        if ("QALS".equals(type)) {
+            return "THEME_" + type;
+        }
+        return "QUESTION_" + type;
+    }
+
+    protected List<Anomalie> listerAnomalies(String type, Long indexDebut) {
+        // Création de la requête
+        String requete = String.format(
+                "SELECT reference,version,date_anomalie,type_anomalie,cause,lecteur FROM %s_ANOMALIE WHERE id>%d ORDER BY id ASC;",
+                donnerPrefixeTable(type), indexDebut);
+
+        ResultSetHandler<List<Anomalie>> h = new ResultSetHandler<List<Anomalie>>() {
+            @Override
+            public List<Anomalie> handle(ResultSet rs) throws SQLException {
+                List<Anomalie> listeAnomalies = new ArrayList<>();
+
+                while (rs.next()) {
+                    // Ajouter la question à la liste
+                    listeAnomalies.add(MapperQuestion.convertirAnomalie(rs));
+                }
+                return listeAnomalies;
+            }
+        };
+
+        return executerRequete(requete, h);
+    }
+
+    public List<Lecture> listerQuestionsLues(String type, Long indexDebut) {
+        // Création de la requête
+        String requete = String.format(
+                "SELECT reference, date_lecture, lecteur FROM %s_LECTURE WHERE id>%d ORDER BY id ASC;",
+                donnerPrefixeTable(type), indexDebut);
+
+        ResultSetHandler<List<Lecture>> h = new ResultSetHandler<List<Lecture>>() {
+            @Override
+            public List<Lecture> handle(ResultSet rs) throws SQLException {
+                List<Lecture> listeQuestionsLues = new ArrayList<>();
+
+                while (rs.next()) {
+                    // Ajouter la question à la liste
+                    listeQuestionsLues.add(MapperQuestion.convertirLecture(rs));
+                }
+                return listeQuestionsLues;
+            }
+        };
+
+        return executerRequete(requete, h);
+    }
+
+    public void desactiverQuestion(String type, String reference) {
+        // Création de la requête
+        String requete = String.format("UPDATE %s SET active=0 WHERE reference=%s;", donnerPrefixeTable(type),
+                reference);
+
+        executerUpdateOuInsert(requete);
+    }
+
+    public void jouerQuestion(String type, String referenceQuestion, String lecteur) {
+        // Création de la requête
+        String requete = String.format(
+                "INSERT INTO %s_LECTURE (reference, date_lecture,lecteur) VALUES (%s,'%s','%s');",
+                donnerPrefixeTable(type), referenceQuestion, Utils.recupererDateHeureCourante(), lecteur);
+
+        executerUpdateOuInsert(requete);
+    }
+
+    public void signalerAnomalie(String type, String reference, Long version, SignalementAnomalie anomalie,
+            String lecteur) {
+        // Création de la requête
+        StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO " + donnerPrefixeTable(type)
+                + "_ANOMALIE (reference,version,date_anomalie,type_anomalie,cause,lecteur) VALUES ('");
+        query.append(reference);
+        query.append("',");
+        query.append(version);
+        query.append(",'");
+        query.append(Utils.recupererDateHeureCourante());
+        query.append("',");
+        query.append(anomalie.getTypeAnomalie().ordinal());
+        query.append(",'");
+        query.append(DBUtils.escapeSql(anomalie.getDescription()));
+        query.append("','");
+        query.append(DBUtils.escapeSql(lecteur));
+        query.append("');");
+
+        executerUpdateOuInsert(query.toString());
+    }
+
+    protected int compterNbQuestion(String type) {
+        return compterNbQuestion(type, null);
+    }
+
+    protected int compterNbQuestion(String type, String complement) {
+        // Création de la requête
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT count(1) FROM " + donnerPrefixeTable(type) + " WHERE active=1");
+        if (complement != null) {
+            query.append(complement);
+        }
+        query.append(";");
+
+        ResultSetHandler<Integer> h = new ResultSetHandler<Integer>() {
+            @Override
+            public Integer handle(ResultSet rs) throws SQLException {
+                int nbQuestion = 0;
+
+                if (rs.next()) {
+                    nbQuestion = rs.getInt(1);
+                }
+                return Integer.valueOf(nbQuestion);
+            }
+        };
+
+        return executerRequete(query.toString(), h);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    protected int compterNbQuestionLue(String type) {
+        return compterNbQuestionLue(type, null);
+    }
+
+    protected int compterNbQuestionLue(String type, String complement) {
+        // Création de la requête
+        StringBuilder query = new StringBuilder();
+        query.append(String.format(
+                "SELECT count(1) FROM %s Q WHERE EXISTS(SELECT DISTINCT * FROM %s_LECTURE Q_J WHERE Q.reference=Q_J.reference)",
+                donnerPrefixeTable(type), donnerPrefixeTable(type)));
+        if (complement != null) {
+            query.append(complement);
+        }
+        query.append(";");
+
+        ResultSetHandler<Integer> h = new ResultSetHandler<Integer>() {
+            @Override
+            public Integer handle(ResultSet rs) throws SQLException {
+                int nbQuestion = 0;
+
+                if (rs.next()) {
+                    nbQuestion = rs.getInt(1);
+                }
+                return Integer.valueOf(nbQuestion);
+            }
+        };
+
+        return executerRequete(query.toString(), h);
+    }
+
+    protected int compterNbQuestionPresente(String type, String complement) {
+        // Création de la requête
+        StringBuilder query = new StringBuilder();
+        query.append(String.format(
+                "SELECT count(1) FROM %s Q WHERE EXISTS(SELECT DISTINCT * FROM %s_PRESENTE Q_T WHERE Q.reference=Q_T.reference)",
+                donnerPrefixeTable(type), donnerPrefixeTable(type)));
+        if (complement != null) {
+            query.append(complement);
+        }
+        query.append(";");
+
+        ResultSetHandler<Integer> h = new ResultSetHandler<Integer>() {
+            @Override
+            public Integer handle(ResultSet rs) throws SQLException {
+                int nbQuestion = 0;
+
+                if (rs.next()) {
+                    nbQuestion = rs.getInt(1);
+                }
+                return Integer.valueOf(nbQuestion);
+            }
+        };
+
+        return executerRequete(query.toString(), h);
+    }
+
+    protected void executerUpdateOuInsert(String requete) {
+        try {
+            // Connexion à la base de données SQLite
+            Connection connection = DBManager.getInstance().connect();
+            Statement stmt = connection.createStatement();
+
+            LOGGER.debug(requete);
+
+            // Executer la requête
+            stmt.executeUpdate(requete);
+
+            // Fermeture des connections.
+            stmt.close();
+            DBManager.getInstance().close(connection);
+        } catch (Exception e) {
+            LOGGER.error("An error has occured :", e);
+            throw new DBManagerException();
+        }
+    }
+
+    public <T> T executerRequete(String requete, ResultSetHandler<T> h) {
+
+        T result = null;
+
+        try {
+            Connection connection = DBManager.getInstance().connect();
+            Statement stmt = connection.createStatement();
+
+            LOGGER.debug(requete);
+
+            // Executer la requête
+            ResultSet rs = stmt.executeQuery(requete);
+            result = h.handle(rs);
+
+            // Fermeture des connections.
+            stmt.close();
+            DBManager.getInstance().close(connection);
+        } catch (Exception e) {
+            LOGGER.error("An error has occured :", e);
+            throw new DBManagerException();
+        }
+
+        return result;
+    }
 
 }

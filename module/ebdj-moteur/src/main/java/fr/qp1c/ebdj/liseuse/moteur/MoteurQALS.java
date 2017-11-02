@@ -17,143 +17,144 @@ import fr.qp1c.ebdj.liseuse.commun.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.liseuse.commun.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.Theme4ALS;
 
-public class MoteurQALS implements Moteur{
+public class MoteurQALS implements Moteur {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(MoteurQALS.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(MoteurQALS.class);
 
-	private Map<String, Boolean> themes4ALSLecture;
+    private Map<String, Boolean> themes4ALSLecture;
 
-	// Contraintes
+    // Contraintes
 
-	private NiveauPartie niveauPartie;
+    private NiveauPartie niveauPartie;
 
-	// Tracker
+    // Tracker
 
-	private Lecteur lecteur;
-	
-	private DBConnecteurQALSDao dbConnecteurQALSDao;
+    private Lecteur lecteur;
 
-	// Constructeur
+    private DBConnecteurQALSDao dbConnecteurQALSDao;
 
-	public MoteurQALS() {
-		// Chargement des questions.
-		this.themes4ALSLecture = new HashMap<>();
+    // Constructeur
 
-		this.niveauPartie = NiveauPartie.MOYEN;
-		
-		this.dbConnecteurQALSDao = new DBConnecteurQALSDaoImpl();
-	}
+    public MoteurQALS() {
+        // Chargement des questions.
+        this.themes4ALSLecture = new HashMap<>();
 
-	public void definirLecteur(Lecteur lecteur) {
-		this.lecteur = lecteur;
-	}
+        this.niveauPartie = NiveauPartie.MOYEN;
 
-	public void definirNiveauPartie(NiveauPartie niveauPartie) {
-		this.niveauPartie = niveauPartie;
-	}
+        this.dbConnecteurQALSDao = new DBConnecteurQALSDaoImpl();
+    }
 
-	public Map<String, Theme4ALS> tirerThemes() {
-		themes4ALSLecture = new HashMap<>();
+    @Override
+    public void definirLecteur(Lecteur lecteur) {
+        this.lecteur = lecteur;
+    }
 
-		Map<String, Theme4ALS> themes4ALS = listerThemesJouables(niveauPartie);
+    @Override
+    public void definirNiveauPartie(NiveauPartie niveauPartie) {
+        this.niveauPartie = niveauPartie;
+    }
 
-		// TODO mettre le questionnaire non-prioritaire avec un système de
-		// pondération
+    public Map<String, Theme4ALS> tirerThemes() {
+        themes4ALSLecture = new HashMap<>();
 
-		for (Theme4ALS theme4ALS : themes4ALS.values()) {
-			themes4ALSLecture.put(theme4ALS.getReference(), Boolean.FALSE);
+        Map<String, Theme4ALS> themes4ALS = listerThemesJouables(niveauPartie);
 
-			marquerThemePresente(theme4ALS.getReference());
-		}
+        // TODO mettre le questionnaire non-prioritaire avec un système de
+        // pondération
 
-		return themes4ALS;
-	}
+        for (Theme4ALS theme4ALS : themes4ALS.values()) {
+            themes4ALSLecture.put(theme4ALS.getReference(), Boolean.FALSE);
 
-	/**
-	 * {@inheritDoc} - V1
-	 * 
-	 */
-	public Map<String, Theme4ALS> listerThemesJouables(NiveauPartie niveauPartie) throws DBManagerException {
+            marquerThemePresente(theme4ALS.getReference());
+        }
 
-		Map<String, Theme4ALS> themes4ALS = new HashMap<>();
-		DBConnecteurQALSDao dbConnecteurQALSDao = new DBConnecteurQALSDaoImpl();
+        return themes4ALS;
+    }
 
-		// Lister les niveaux possibles en fonction du niveau
-		int niveau = donnerNiveauJouable(niveauPartie);
+    /**
+     * {@inheritDoc} - V1
+     * 
+     */
+    public Map<String, Theme4ALS> listerThemesJouables(NiveauPartie niveauPartie) throws DBManagerException {
 
-		LOGGER.debug("Niveau du questionnaire : " + niveau);
+        Map<String, Theme4ALS> themes4ALS = new HashMap<>();
+        DBConnecteurQALSDao dbConnecteurQALSDao = new DBConnecteurQALSDaoImpl();
 
-		// TODO gérer les pénuries
+        // Lister les niveaux possibles en fonction du niveau
+        int niveau = donnerNiveauJouable(niveauPartie);
 
-		// TODO gérer si il manque un questionnaire dans une catégorie pour un
-		// niveau
-		// donné
-		// TODO prendre en compte les thèmes présentés
-		// TODO jouer en priorité dans des catégories manquantes
+        LOGGER.debug("Niveau du questionnaire : {}", niveau);
 
-		for (int groupeCategorie = 1; groupeCategorie <= 4; groupeCategorie++) {
+        // TODO gérer les pénuries
 
-			Theme4ALS theme4ALS = dbConnecteurQALSDao.donnerTheme(groupeCategorie, niveau);
-			if (themes4ALS == null) {
-				LOGGER.debug(
-						"Attention le theme de 4ALS pour le groupe " + groupeCategorie + " est introuvable (=null).");
-			}
+        // TODO gérer si il manque un questionnaire dans une catégorie pour un
+        // niveau
+        // donné
+        // TODO prendre en compte les thèmes présentés
+        // TODO jouer en priorité dans des catégories manquantes
 
-			themes4ALS.put(String.valueOf(groupeCategorie), theme4ALS);
-		}
+        for (int groupeCategorie = 1; groupeCategorie <= 4; groupeCategorie++) {
 
-		return themes4ALS;
-	}
+            Theme4ALS theme4ALS = dbConnecteurQALSDao.donnerTheme(groupeCategorie, niveau);
+            if (themes4ALS == null) {
+                LOGGER.debug("Attention le theme de 4ALS pour le groupe {} est introuvable (=null).", groupeCategorie);
+            }
 
-	private int donnerNiveauJouable(NiveauPartie niveauPartie) {
-		List<Integer> niveauJouable = new ArrayList<>();
+            themes4ALS.put(String.valueOf(groupeCategorie), theme4ALS);
+        }
 
-		if (NiveauPartie.FACILE.equals(niveauPartie)) {
-			niveauJouable.add(2);
-			niveauJouable.add(3);
-			niveauJouable.add(4);
-		} else if (NiveauPartie.MOYEN.equals(niveauPartie)) {
-			niveauJouable.add(1);
-			niveauJouable.add(2);
-			niveauJouable.add(3);
-			niveauJouable.add(4);
-		} else if (NiveauPartie.DIFFICILE.equals(niveauPartie)) {
-			niveauJouable.add(1);
-			niveauJouable.add(2);
-			niveauJouable.add(3);
-		}
+        return themes4ALS;
+    }
 
-		int indexRandom = new Random().nextInt(niveauJouable.size());
+    private int donnerNiveauJouable(NiveauPartie niveauPartie) {
+        List<Integer> niveauJouable = new ArrayList<>();
 
-		LOGGER.debug("Niveau à jouer :" + niveauJouable.get(indexRandom));
+        if (NiveauPartie.FACILE.equals(niveauPartie)) {
+            niveauJouable.add(2);
+            niveauJouable.add(3);
+            niveauJouable.add(4);
+        } else if (NiveauPartie.MOYEN.equals(niveauPartie)) {
+            niveauJouable.add(1);
+            niveauJouable.add(2);
+            niveauJouable.add(3);
+            niveauJouable.add(4);
+        } else if (NiveauPartie.DIFFICILE.equals(niveauPartie)) {
+            niveauJouable.add(1);
+            niveauJouable.add(2);
+            niveauJouable.add(3);
+        }
 
-		return niveauJouable.get(indexRandom);
-	}
+        int indexRandom = new Random().nextInt(niveauJouable.size());
 
-	public void jouerTheme(String referenceTheme) {
-		dbConnecteurQALSDao.marquerThemeJoue(referenceTheme, lecteur.formatterNomUtilisateur());
-	}
+        LOGGER.debug("Niveau à jouer : {}", niveauJouable.get(indexRandom));
 
-	public void annulerTheme(String referenceTheme) {
-		dbConnecteurQALSDao.annulerMarquerThemeJoue(referenceTheme, lecteur.formatterNomUtilisateur());
-	}
+        return niveauJouable.get(indexRandom);
+    }
 
-	public void marquerThemePresente(String referenceTheme) {
-		dbConnecteurQALSDao.marquerThemePresente(referenceTheme, lecteur.formatterNomUtilisateur());
-	}
+    public void jouerTheme(String referenceTheme) {
+        dbConnecteurQALSDao.marquerThemeJoue(referenceTheme, lecteur.formatterNomUtilisateur());
+    }
 
-	public void signalerAnomalie(SignalementAnomalie signalementAnomalie, Theme4ALS theme4ALS) {
-		dbConnecteurQALSDao.signalerAnomalie(theme4ALS.getReference(), theme4ALS.getVersion(), signalementAnomalie,
-				lecteur.formatterNomUtilisateur());
-	}
+    public void annulerTheme(String referenceTheme) {
+        dbConnecteurQALSDao.annulerMarquerThemeJoue(referenceTheme, lecteur.formatterNomUtilisateur());
+    }
 
-	@Override
-	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void marquerThemePresente(String referenceTheme) {
+        dbConnecteurQALSDao.marquerThemePresente(referenceTheme, lecteur.formatterNomUtilisateur());
+    }
+
+    public void signalerAnomalie(SignalementAnomalie signalementAnomalie, Theme4ALS theme4ALS) {
+        dbConnecteurQALSDao.signalerAnomalie(theme4ALS.getReference(), theme4ALS.getVersion(), signalementAnomalie,
+                lecteur.formatterNomUtilisateur());
+    }
+
+    @Override
+    public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
+        // TODO Auto-generated method stub
+
+    }
 
 }
