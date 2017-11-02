@@ -23,7 +23,7 @@ public class DBManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DBManager.class);
 
 
-	private static DBManager DB_MANAGER = new DBManager();
+	private static DBManager dbManager;
 	
 	// Constructeur
 
@@ -37,7 +37,10 @@ public class DBManager {
 	// Méthodes
 
 	public static DBManager getInstance() {
-		return DB_MANAGER;
+		if(dbManager==null) {
+			dbManager=new DBManager();
+		}
+		return dbManager;
 	}
 
 	/**

@@ -25,14 +25,16 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SynchronisationJDServiceImpl.class);
 
-	private DBConnecteurSynchroDao dbConnecteurSynchroDao = new DBConnecteurSynchroDaoImpl();
+	private DBConnecteurSynchroDao dbConnecteurSynchroDao;
 
-	private DBConnecteurJDDao dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
+	private DBConnecteurJDDao dbConnecteurJDDao;
 
 	private SynchroJDWSHelper wsCockpitJDHelper;
 
 	public SynchronisationJDServiceImpl() {
-		wsCockpitJDHelper = new SynchroJDWSHelper();
+		this.wsCockpitJDHelper = new SynchroJDWSHelper();
+		this.dbConnecteurSynchroDao = new DBConnecteurSynchroDaoImpl();
+		this.dbConnecteurJDDao = new DBConnecteurJDDaoImpl();
 	}
 
 	@Override

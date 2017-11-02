@@ -3,7 +3,6 @@ package fr.qp1c.ebdj.liseuse.bdd.service.impl;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -24,7 +23,7 @@ public class ParametrageServiceImpl implements ParametrageService {
 	public String afficherFichierParametrage() {
 		// Nous déclarons nos objets en dehors du bloc try/catch
 		BufferedInputStream bis = null;
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		try {
 			bis = new BufferedInputStream(new FileInputStream(new File("configuration.properties")));
@@ -33,9 +32,7 @@ public class ParametrageServiceImpl implements ParametrageService {
 			while (bis.read(buf) != -1) {
 				sb.append(buf);
 			}
-		} catch (FileNotFoundException e) {
-			LOGGER.error("An error has occured :", e);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
 		} finally {
 			if (bis != null) {

@@ -1,21 +1,17 @@
 package fr.qp1c.ebdj.liseuse.bdd.dao.impl;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.dbutils.ResultSetHandler;
 
 import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurJDDao;
-import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
+import fr.qp1c.ebdj.liseuse.bdd.dao.mapper.MapperQuestion;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBUtils;
-import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
 import fr.qp1c.ebdj.liseuse.commun.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionJD;
-import fr.qp1c.ebdj.liseuse.commun.bean.question.Source;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
 import fr.qp1c.ebdj.liseuse.commun.exchange.question.QuestionJDBdjDistante;
@@ -23,20 +19,12 @@ import fr.qp1c.ebdj.liseuse.commun.exchange.question.QuestionJDBdjDistante;
 public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements DBConnecteurJDDao {
 
 	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurJDDaoImpl.class);
-
-	/**
 	 * {@inheritDoc}
 	 * 
 	 */
 	@Override
 	public List<QuestionJD> listerQuestionsJouable(int nbQuestion){
-		List<QuestionJD> listeQuestionsAJouer = new ArrayList<>();
-
 		// Création de la requête
-
 		StringBuilder query = new StringBuilder();
 		query.append(
 				"SELECT id,question,reponse,theme,reference,version,club,dateReception FROM QUESTION_JD Q_JD WHERE active=1 AND NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.reference=Q_JD_J.reference)");
@@ -46,47 +34,21 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 			query.append(nbQuestion);
 		}
 		query.append(";");
-
-		LOGGER.debug(query.toString());
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			while (rs.next()) {
-
-				// Convertir chaque question
-				QuestionJD question = new QuestionJD();
-				question.setId(rs.getLong("id"));
-				question.setTheme(rs.getString("theme"));
-				question.setQuestion(rs.getString("question"));
-				question.setReponse(rs.getString("reponse"));
-				question.setReference(rs.getString("reference"));
-				question.setVersion(rs.getLong("version"));
-
-				Source source = new Source();
-				source.setClub(rs.getString("club"));
-				source.setDateReception(rs.getString("dateReception"));
-				question.setSource(source);
-
-				LOGGER.debug("Question : " + question);
-
-				// Ajouter la question à la liste
-				listeQuestionsAJouer.add(question);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-
-		return listeQuestionsAJouer;
+		
+		ResultSetHandler<List<QuestionJD>> h = new ResultSetHandler<List<QuestionJD>>() {
+			@Override
+		    public List<QuestionJD> handle(ResultSet rs) throws SQLException {
+				List<QuestionJD> listeQuestionsAJouer = new ArrayList<>();
+		    	
+		    		while (rs.next()) {
+					// Ajouter la question à la liste
+					listeQuestionsAJouer.add(MapperQuestion.convertirQuestionJD(rs));
+				}
+		        return listeQuestionsAJouer;
+		    }
+		};
+		
+		return executerRequete(query.toString(), h);
 	}
 
 	/**
@@ -95,11 +57,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	 */
 	@Override
 	public int compterNbQuestion() {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM QUESTION_JD Q_JD WHERE Q_JD.active=1;");
-
-		return compterNbQuestion(query.toString());
+		return compterNbQuestion("JD");
 	}
 
 	/**
@@ -108,12 +66,7 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	 */
 	@Override
 	public int compterNbQuestionLue() {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT count(1) FROM QUESTION_JD Q_JD WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.reference=Q_JD_J.reference);");
-
-		return compterNbQuestion(query.toString());
+		return compterNbQuestionLue("JD");
 	}
 
 	@Override

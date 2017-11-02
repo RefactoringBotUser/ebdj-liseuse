@@ -1,21 +1,17 @@
 package fr.qp1c.ebdj.liseuse.bdd.dao.impl;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.dbutils.ResultSetHandler;
 
 import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurNPGDao;
-import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
+import fr.qp1c.ebdj.liseuse.bdd.dao.mapper.MapperQuestion;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBUtils;
-import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
 import fr.qp1c.ebdj.liseuse.commun.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionNPG;
-import fr.qp1c.ebdj.liseuse.commun.bean.question.Source;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
 import fr.qp1c.ebdj.liseuse.commun.exchange.question.Question9PGBdjDistante;
@@ -26,12 +22,7 @@ import fr.qp1c.ebdj.liseuse.commun.exchange.question.Question9PGBdjDistante;
  * 
  */
 public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements DBConnecteurNPGDao {
-
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnecteurNPGDaoImpl.class);
-
+	
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -47,19 +38,11 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	 */
 	@Override
 	public List<QuestionNPG> listerQuestionsJouable(int nbQuestion, int difficulte){
-		List<QuestionNPG> listeQuestionsAJouer = new ArrayList<>();
-
 		// Création de la requête
-
 		StringBuilder query = new StringBuilder();
 		query.append(
 				"SELECT id,question,reponse,difficulte,reference,version,club,dateReception FROM QUESTION_NPG Q_9PG WHERE active=1 AND NOT EXISTS(SELECT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference)");
-
-		if (difficulte > 0) {
-			query.append(" AND Q_9PG.difficulte='");
-			query.append(difficulte);
-			query.append("' ");
-		}
+		query.append(ajouterClauseDifficulte(difficulte));
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
@@ -67,103 +50,20 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 		}
 		query.append(";");
 
-		LOGGER.debug(query.toString());
+		ResultSetHandler<List<QuestionNPG>> h = new ResultSetHandler<List<QuestionNPG>>() {
+			@Override
+		    public List<QuestionNPG> handle(ResultSet rs) throws SQLException {
+				List<QuestionNPG> listeQuestionsAJouer = new ArrayList<>();
 
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			while (rs.next()) {
-
-				// Convertir chaque question
-				QuestionNPG question = new QuestionNPG();
-				question.setId(rs.getLong("id"));
-				question.setDifficulte(rs.getInt("difficulte") + "");
-				question.setQuestion(rs.getString("question"));
-				question.setReponse(rs.getString("reponse"));
-				question.setReference(rs.getString("reference"));
-				question.setVersion(rs.getLong("version"));
-
-				Source source = new Source();
-				source.setClub(rs.getString("club"));
-				source.setDateReception(rs.getString("dateReception"));
-				question.setSource(source);
-
-				LOGGER.debug("Question : " + question);
-
-				// Ajouter la question à la liste
-				listeQuestionsAJouer.add(question);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-
-		return listeQuestionsAJouer;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public int compterNbQuestion() {
-		return compterNbQuestion(-1);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
-	@Override
-	public int compterNbQuestionLue() {
-		return compterNbQuestionLue(-1);
-	}
-
-	@Override
-	public int compterNbQuestion(int difficulte) {
-
-		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM QUESTION_NPG Q_9PG WHERE Q_9PG.active=1");
-
-		if (difficulte > 0) {
-			query.append(" AND Q_9PG.difficulte='");
-			query.append(difficulte);
-			query.append("' ");
-		}
-
-		query.append(";");
-
-		return compterNbQuestion(query.toString());
-	}
-
-	@Override
-	public int compterNbQuestionLue(int difficulte) {
-
-		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT count(1) FROM QUESTION_NPG Q_9PG WHERE EXISTS(SELECT DISTINCT * FROM QUESTION_NPG_LECTURE Q_9PG_J WHERE Q_9PG.reference=Q_9PG_J.reference) ");
-
-		if (difficulte > 0) {
-			query.append(" AND Q_9PG.difficulte='");
-			query.append(difficulte);
-			query.append("' ");
-		}
-
-		query.append(";");
-
-		return compterNbQuestion(query.toString());
+				while (rs.next()) {
+					// Ajouter la question à la liste
+					listeQuestionsAJouer.add(MapperQuestion.convertirQuestion9PG(rs));
+				}
+		        return listeQuestionsAJouer;
+		    }
+		};
+		
+		return executerRequete(query.toString(), h);
 	}
 
 	@Override
@@ -211,6 +111,46 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 		query.append(";");
 
 		executerUpdateOuInsert(query.toString());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public int compterNbQuestion() {
+		return compterNbQuestion(-1);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
+	public int compterNbQuestionLue() {
+		return compterNbQuestionLue(-1);
+	}
+
+	@Override
+	public int compterNbQuestion(int difficulte) {
+		return compterNbQuestion("NPG",ajouterClauseDifficulte(difficulte));
+	}
+
+	@Override
+	public int compterNbQuestionLue(int difficulte) {
+		return compterNbQuestionLue("NPG",ajouterClauseDifficulte(difficulte));
+	}
+	
+	private String ajouterClauseDifficulte(int difficulte) {
+		StringBuilder query = new StringBuilder();
+
+		if (difficulte > 0) {
+			query.append(" AND difficulte='");
+			query.append(difficulte);
+			query.append("' ");
+		}
+		
+		return query.toString();
 	}
 
 	/**

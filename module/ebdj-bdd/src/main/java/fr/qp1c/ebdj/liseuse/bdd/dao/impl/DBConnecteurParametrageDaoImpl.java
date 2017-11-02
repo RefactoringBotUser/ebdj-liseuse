@@ -11,7 +11,7 @@ import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurParametrageDao;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
 import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
 
-public class DBConnecteurParametrageDaoImpl implements DBConnecteurParametrageDao {
+public class DBConnecteurParametrageDaoImpl extends DBConnecteurGeneriqueImpl implements DBConnecteurParametrageDao {
 
 	/**
 	 * Default logger.
@@ -23,12 +23,8 @@ public class DBConnecteurParametrageDaoImpl implements DBConnecteurParametrageDa
 
 		String valeur = "";
 
-		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT valeur FROM PARAMETRAGE WHERE cle='");
-		query.append(cle);
-		query.append("';");
+		// Création de la requête		
+		String requete= String .format("SELECT valeur FROM PARAMETRAGE WHERE cle='%d';", cle);
 
 		try {
 			// Connexion à la base de données SQLite
@@ -36,7 +32,7 @@ public class DBConnecteurParametrageDaoImpl implements DBConnecteurParametrageDa
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
+			ResultSet rs = stmt.executeQuery(requete);
 			if (rs.next()) {
 				valeur = rs.getString(1);
 			}
@@ -54,28 +50,9 @@ public class DBConnecteurParametrageDaoImpl implements DBConnecteurParametrageDa
 	@Override
 	public void modifierParametrage(String cle, String valeur) {
 		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append("UPDATE PARAMETRAGE SET valeur='");
-		query.append(valeur);
-		query.append("' WHERE cle='");
-		query.append(cle);
-		query.append("';");
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			stmt.executeUpdate(query.toString());
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
+		String requete=String.format("UPDATE PARAMETRAGE SET valeur='%d' WHERE cle='%d';", valeur, cle);
+		
+		executerUpdateOuInsert(requete);
 	}
 
 }

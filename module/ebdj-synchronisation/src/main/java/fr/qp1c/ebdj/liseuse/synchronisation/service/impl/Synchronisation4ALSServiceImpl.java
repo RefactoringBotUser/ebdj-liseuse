@@ -16,6 +16,7 @@ import fr.qp1c.ebdj.liseuse.commun.exchange.correction.CorrectionTheme4ALSBdjDis
 import fr.qp1c.ebdj.liseuse.commun.exchange.correction.TypeCorrection;
 import fr.qp1c.ebdj.liseuse.commun.exchange.question.Theme4ALSBdjDistante;
 import fr.qp1c.ebdj.liseuse.synchronisation.service.Synchronisation4ALSService;
+import fr.qp1c.ebdj.liseuse.synchronisation.utils.SynchronisationConstants;
 import fr.qp1c.ebdj.liseuse.synchronisation.ws.Synchro4ALSWSHelper;
 
 public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSService {
@@ -25,14 +26,16 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(Synchronisation4ALSServiceImpl.class);
 
-	private DBConnecteurSynchroDao dbConnecteurSynchroDao = new DBConnecteurSynchroDaoImpl();
+	private DBConnecteurSynchroDao dbConnecteurSynchroDao;
 
-	private DBConnecteurQALSDao dbConnecteur4ALSDao = new DBConnecteurQALSDaoImpl();
+	private DBConnecteurQALSDao dbConnecteur4ALSDao;
 
 	private Synchro4ALSWSHelper wsCockpit4ALSHelper;
 
 	public Synchronisation4ALSServiceImpl() {
-		wsCockpit4ALSHelper = new Synchro4ALSWSHelper();
+		this.wsCockpit4ALSHelper = new Synchro4ALSWSHelper();
+		this.dbConnecteurSynchroDao = new DBConnecteurSynchroDaoImpl();
+		this.dbConnecteur4ALSDao = new DBConnecteurQALSDaoImpl();
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 		LOGGER.info("[DEBUT] synchroniserCorrections4ALS");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
-		Long indexReprise = dbConnecteurSynchroDao.recupererIndexParCle("4ALS_CORRECTION");
+		Long indexReprise = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_4ALS_CORRECTION);
 
 		List<CorrectionTheme4ALSBdjDistante> corrections = wsCockpit4ALSHelper
 				.synchroniserCorrections4ALS(indexReprise);
@@ -59,7 +62,7 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 			}
 		}
 
-		dbConnecteurSynchroDao.modifierIndexParCle("4ALS_CORRECTION", indexMax);
+		dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_4ALS_CORRECTION, indexMax);
 
 		LOGGER.info("[FIN] synchroniserCorrections4ALS");
 	}
@@ -69,7 +72,7 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 		LOGGER.info("[DEBUT] synchroniserAnomalies4ALS");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
-		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("4ALS_ANOMALIE");
+		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_4ALS_ANOMALIE);
 
 		// Lister les anomalies à synchroniser
 		List<Anomalie> anomalies = dbConnecteur4ALSDao.listerAnomalies(dernierIndex);
@@ -80,7 +83,7 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 		wsCockpit4ALSHelper.synchroniserAnomalies4ALS(anomalies);
 
 		// Mettre à jour l'index de la dernière question synchronisée.
-		dbConnecteurSynchroDao.modifierIndexParCle("4ALS_ANOMALIE", nouveauDernierIndex);
+		dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_4ALS_ANOMALIE, nouveauDernierIndex);
 
 		LOGGER.info("[FIN] synchroniserAnomalies4ALS");
 	}
@@ -90,7 +93,7 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 		LOGGER.info("[DEBUT] synchroniserLectures4ALS");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
-		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("4ALS_LECTURE");
+		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_4ALS_LECTURE);
 
 		// Lister les lectures à synchroniser
 		List<Lecture> lectures = dbConnecteur4ALSDao.listerQuestionsLues(dernierIndex);
@@ -101,7 +104,7 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 		wsCockpit4ALSHelper.synchroniserLectures4ALS(lectures);
 
 		// Mettre à jour l'index de la dernière question synchronisée.
-		dbConnecteurSynchroDao.modifierIndexParCle("4ALS_LECTURE", nouveauDernierIndex);
+		dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_4ALS_LECTURE, nouveauDernierIndex);
 
 		LOGGER.info("[FIN] synchroniserLectures4ALS");
 	}

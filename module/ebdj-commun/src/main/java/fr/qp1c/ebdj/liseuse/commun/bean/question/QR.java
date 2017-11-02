@@ -1,23 +1,21 @@
 package fr.qp1c.ebdj.liseuse.commun.bean.question;
 
-public class Question {
+public class QR {
 
 	// Attributs
+	
+	protected String question;
 
-	// TODO : #4CAF50 vert #FE2E64 rouge
+	protected String reponse;
 
-	private String question;
-
-	private String reponse;
-
-	private Long version;
+	protected Long version;
 
 	// Constructeur
 
 	/**
 	 * 
 	 */
-	public Question() {
+	public QR() {
 		super();
 	}
 
@@ -25,7 +23,7 @@ public class Question {
 	 * @param question
 	 * @param reponse
 	 */
-	public Question(String question, String reponse) {
+	public QR(String question, String reponse) {
 		super();
 		this.question = question;
 		this.reponse = reponse;

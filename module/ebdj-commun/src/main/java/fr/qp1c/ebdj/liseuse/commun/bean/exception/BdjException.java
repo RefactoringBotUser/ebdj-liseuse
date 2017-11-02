@@ -13,7 +13,7 @@ public class BdjException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String codeInterne;
+	private final String codeInterne;
 
 	//
 
@@ -46,9 +46,5 @@ public class BdjException extends Exception {
 
 	public String getCodeInterne() {
 		return codeInterne;
-	}
-
-	public void setCodeInterne(String codeInterne) {
-		this.codeInterne = codeInterne;
 	}
 }

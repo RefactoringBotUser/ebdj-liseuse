@@ -25,14 +25,16 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SynchronisationFAFServiceImpl.class);
 
-	private DBConnecteurSynchroDao dbConnecteurSynchroDao = new DBConnecteurSynchroDaoImpl();
+	private DBConnecteurSynchroDao dbConnecteurSynchroDao;
 
-	private DBConnecteurFAFDao dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
+	private DBConnecteurFAFDao dbConnecteurFAFDao;
 
 	private SynchroFAFWSHelper wsCockpitFAFHelper;
 
 	public SynchronisationFAFServiceImpl() {
-		wsCockpitFAFHelper = new SynchroFAFWSHelper();
+		this.wsCockpitFAFHelper = new SynchroFAFWSHelper();
+		this.dbConnecteurSynchroDao = new DBConnecteurSynchroDaoImpl();
+		this.dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
 	}
 
 	@Override

@@ -223,9 +223,9 @@ public class StatistiquesController {
 
 		donneesTableauSG.clear();
 
-		donneesTableauSG.add(new StockQuantite("9PG - 1", statsBDJ.getStats9PG_1()));
-		donneesTableauSG.add(new StockQuantite("9PG - 2", statsBDJ.getStats9PG_2()));
-		donneesTableauSG.add(new StockQuantite("9PG - 3", statsBDJ.getStats9PG_3()));
+		donneesTableauSG.add(new StockQuantite("9PG - 1", statsBDJ.getStats9PG1()));
+		donneesTableauSG.add(new StockQuantite("9PG - 2", statsBDJ.getStats9PG2()));
+		donneesTableauSG.add(new StockQuantite("9PG - 3", statsBDJ.getStats9PG3()));
 		donneesTableauSG.add(new StockQuantite("4ALS", statsBDJ.getStats4ALS()));
 		donneesTableauSG.add(new StockQuantite("JD", statsBDJ.getStatsJD()));
 		donneesTableauSG.add(new StockQuantite("FAF", statsBDJ.getStatsFAF()));

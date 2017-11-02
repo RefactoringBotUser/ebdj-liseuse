@@ -1,11 +1,9 @@
 package fr.qp1c.ebdj.liseuse.synchronisation.ws;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -53,7 +51,7 @@ public class SynchroWSHelper {
 		authentificationBdj.setCleAuthentification("1936a18b-898d-467a-bc1b-f5d91604f8a8");
 	}
 
-	protected String post(String urlToCall, String request) throws MalformedURLException, IOException {
+	protected String post(String urlToCall, String request) throws Exception {
 		String response = null;
 
 		try {
@@ -88,11 +86,8 @@ public class SynchroWSHelper {
 			Long fin = System.nanoTime();
 
 			LOGGER.info("Duree de l'appel : " + (fin - deb) / 100000 + " ms.");
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			throw e;
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			LOGGER.error("An error has occured :", e);
 			throw e;
 		}
 		return response;

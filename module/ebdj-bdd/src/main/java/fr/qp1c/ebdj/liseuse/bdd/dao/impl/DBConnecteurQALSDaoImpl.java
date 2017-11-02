@@ -9,16 +9,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.dbutils.ResultSetHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurQALSDao;
+import fr.qp1c.ebdj.liseuse.bdd.dao.mapper.MapperQuestion;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBUtils;
 import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
 import fr.qp1c.ebdj.liseuse.commun.bean.anomalie.SignalementAnomalie;
-import fr.qp1c.ebdj.liseuse.commun.bean.question.Question;
-import fr.qp1c.ebdj.liseuse.commun.bean.question.Source;
+import fr.qp1c.ebdj.liseuse.commun.bean.question.QR;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.Theme4ALS;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
@@ -40,46 +41,29 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	@Override
 	public Theme4ALS donnerTheme(int groupeCategorie, int niveau) {
 		// Création de la requête
+		String requete = String.format(
+				"SELECT reference FROM THEME_QALS where reference NOT IN (SELECT reference FROM THEME_QALS_LECTURE) AND reference NOT IN (SELECT reference FROM THEME_QALS_PRESENTE) AND groupeCategorieRef=%d AND active=1 AND difficulte=%d;",
+				groupeCategorie, niveau);
 
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT reference FROM THEME_QALS where reference NOT IN (SELECT reference FROM THEME_QALS_LECTURE) AND reference NOT IN (SELECT reference FROM THEME_QALS_PRESENTE) AND groupeCategorieRef=");
-		query.append(groupeCategorie);
-		query.append(" AND active=1 AND difficulte=");
-		query.append(niveau);
-		query.append(";");
+		ResultSetHandler<String> h = new ResultSetHandler<String>() {
+			@Override
+		    public String handle(ResultSet rs) throws SQLException {
+				String ref = null;
 
-		LOGGER.debug(query.toString());
-
-		String reference = null;
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				// Convertir chaque question
-				reference = rs.getString("reference");
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-
-		Theme4ALS theme4als = recupererTheme4ALS(reference);
-
-		return theme4als;
+				if (rs.next()) {
+					// Convertir chaque question
+					ref = rs.getString("reference");
+				}
+		        return ref;
+		    }
+		};
+		
+		String reference = executerRequete(requete, h);
+		
+		return recupererTheme4ALS(reference);
 	}
 
 	public Theme4ALS recupererTheme4ALS(String reference) {
-
 		Theme4ALS theme4ALS = recupererPartieTheme4ALS(reference);
 		if (theme4ALS.getReference() == null) {
 			LOGGER.error("Le theme avec la référence {} est introuvable !", reference);
@@ -91,81 +75,53 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	}
 
 	private Theme4ALS recupererPartieTheme4ALS(String reference) {
-		Theme4ALS theme4als = new Theme4ALS();
-
 		// Création de la requête
+		String requete = String.format(
+				"SELECT id, categorie, categorieRef, groupeCategorieRef, theme, difficulte, reference, club, dateReception, version, active FROM THEME_QALS WHERE reference=%s;",
+				reference);
 
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT id, categorie, categorieRef, groupeCategorieRef, theme, difficulte, reference, club, dateReception, version, active FROM THEME_QALS WHERE reference=");
-		query.append(reference);
-		query.append(";");
+		ResultSetHandler<Theme4ALS> h = new ResultSetHandler<Theme4ALS>() {
+			@Override
+		    public Theme4ALS handle(ResultSet rs) throws SQLException {
+				Theme4ALS theme4als = new Theme4ALS();
 
-		LOGGER.debug(query.toString());
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			if (rs.next()) {
-				// Convertir chaque question
-				theme4als = convertirTheme4ALS(rs);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-
-		return theme4als;
+				if (rs.next()) {
+					// Convertir chaque question
+					theme4als = MapperQuestion.convertirTheme4ALS(rs);
+				}
+		        return theme4als;
+		    }
+		};
+		
+		return executerRequete(requete, h);
 	}
 
-	private Map<String, Question> recupererPartieQuestions4ALS(String reference) {
-		Map<String, Question> questions4als = new HashMap<>();
-
+	private Map<String, QR> recupererPartieQuestions4ALS(String reference) {
 		// Création de la requête
+		String requete = String.format(
+				"SELECT seq, question, reponse FROM QUESTION_QALS WHERE reference=%s ORDER BY seq ASC;", reference);
 
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT seq, question, reponse FROM QUESTION_QALS WHERE reference=");
-		query.append(reference);
-		query.append(" ORDER BY seq ASC;");
+		ResultSetHandler<Map<String, QR>> h = new ResultSetHandler<Map<String, QR>>() {
+			@Override
+		    public Map<String, QR> handle(ResultSet rs) throws SQLException {
+				Map<String, QR> questions4als = new HashMap<>();
 
-		LOGGER.debug(query.toString());
+				int indexQuestion = 1;
+				while (rs.next()) {
+					// Convertir chaque question
+					QR question4als = new QR();
+					question4als.setQuestion(rs.getString("question"));
+					question4als.setReponse(rs.getString("reponse"));
+					question4als.setVersion(Long.valueOf(1));
+					questions4als.put(String.valueOf(indexQuestion), question4als);
 
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			int indexQuestion = 1;
-			while (rs.next()) {
-				// Convertir chaque question
-				Question question4als = new Question();
-				question4als.setQuestion(rs.getString("question"));
-				question4als.setReponse(rs.getString("reponse"));
-				question4als.setVersion(Long.valueOf(1));
-				questions4als.put(String.valueOf(indexQuestion), question4als);
-
-				indexQuestion += 1;
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-
-		return questions4als;
+					indexQuestion += 1;
+				}
+		        return questions4als;
+		    }
+		};
+		
+		return executerRequete(requete, h);
 	}
 
 	/**
@@ -192,21 +148,16 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public int compterNbTheme(int groupeCategorieRef) {
-
 		// Création de la requête
-
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT count(1) FROM THEME_QALS T_QALS WHERE T_QALS.active=1 ");
 
 		if (groupeCategorieRef > 0) {
-			query.append(" AND T_QALS.groupeCategorieRef=");
+			query.append(" AND groupeCategorieRef=");
 			query.append(groupeCategorieRef);
 			query.append(" ");
 		}
 
-		query.append(";");
-
-		return compterNbQuestion(query.toString());
+		return compterNbQuestion("QALS", query.toString());
 	}
 
 	/**
@@ -224,23 +175,16 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public int compterNbThemeJoue(int groupeCategorieRef) {
-
 		// Création de la requête
-
 		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT count(1) FROM THEME_QALS T_QALS WHERE EXISTS(SELECT DISTINCT * FROM THEME_QALS_LECTURE T_QALS_J WHERE T_QALS.reference=T_QALS_J.reference) ");
 
 		if (groupeCategorieRef > 0) {
-			query.append(" AND T_QALS.groupeCategorieRef=");
+			query.append(" AND groupeCategorieRef=");
 			query.append(groupeCategorieRef);
 		}
 
-		query.append(";");
-
-		return compterNbQuestion(query.toString());
+		return compterNbQuestionLue("QALS", query.toString());
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -257,23 +201,17 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public int compterNbThemePresente(int groupeCategorieRef) {
-
 		// Création de la requête
-
 		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT count(1) FROM THEME_QALS T_QALS WHERE EXISTS(SELECT DISTINCT * FROM THEME_QALS_PRESENTE T_QALS_J WHERE T_QALS.reference=T_QALS_J.reference) ");
 
 		if (groupeCategorieRef > 0) {
-			query.append(" AND T_QALS.groupeCategorieRef=");
+			query.append(" AND groupeCategorieRef=");
 			query.append(groupeCategorieRef);
 		}
 
-		query.append(";");
-
-		return compterNbQuestion(query.toString());
+		return compterNbQuestionPresente("QALS", query.toString());
 	}
-	
+
 	@Override
 	public void creerTheme(Theme4ALSBdjDistante theme4als) {
 		StringBuilder query = new StringBuilder();
@@ -300,7 +238,12 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 
 		executerUpdateOuInsert(query.toString());
 
-		for (Entry<Integer, Question4ALSBdjDistante> question4ALS : theme4als.getQuestions().entrySet()) {
+		creerQuestions(theme4als.getReference(), theme4als.getQuestions());
+	}
+
+	private void creerQuestions(Long reference, Map<Integer, Question4ALSBdjDistante> questions) {
+
+		for (Entry<Integer, Question4ALSBdjDistante> question4ALS : questions.entrySet()) {
 			StringBuilder queryQuestion = new StringBuilder();
 			queryQuestion.append("INSERT INTO QUESTION_QALS (seq,question,reponse,reference) VALUES ('");
 			queryQuestion.append(question4ALS.getKey());
@@ -309,7 +252,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 			queryQuestion.append("','");
 			queryQuestion.append(DBUtils.escapeSql(question4ALS.getValue().getReponse()));
 			queryQuestion.append("',");
-			queryQuestion.append(theme4als.getReference());
+			queryQuestion.append(reference);
 			queryQuestion.append(");");
 
 			executerUpdateOuInsert(queryQuestion.toString());
@@ -350,20 +293,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 
 		executerUpdateOuInsert("delete from QUESTION_QALS WHERE reference=" + theme4als.getReference() + ";");
 
-		for (Entry<Integer, Question4ALSBdjDistante> question4ALS : theme4als.getQuestions().entrySet()) {
-			StringBuilder queryQuestion = new StringBuilder();
-			queryQuestion.append("INSERT INTO QUESTION_QALS (seq,question,reponse,reference) VALUES ('");
-			queryQuestion.append(question4ALS.getKey());
-			queryQuestion.append("','");
-			queryQuestion.append(DBUtils.escapeSql(question4ALS.getValue().getQuestion()));
-			queryQuestion.append("','");
-			queryQuestion.append(DBUtils.escapeSql(question4ALS.getValue().getReponse()));
-			queryQuestion.append("',");
-			queryQuestion.append(theme4als.getReference());
-			queryQuestion.append(");");
-
-			executerUpdateOuInsert(queryQuestion.toString());
-		}
+		creerQuestions(theme4als.getReference(), theme4als.getQuestions());
 	}
 
 	@Override
@@ -397,9 +327,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public void marquerThemePresente(String referenceTheme, String lecteur) {
-
 		// Création de la requête
-
 		StringBuilder query = new StringBuilder();
 		query.append("INSERT INTO THEME_QALS_PRESENTE (reference,date_presentation,lecteur) VALUES (");
 		query.append(referenceTheme);
@@ -427,35 +355,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public void annulerMarquerThemeJoue(String referenceTheme, String lecteur) {
-		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append("DELETE FROM THEME_QALS_LECTURE where reference=");
-		query.append(referenceTheme);
-		query.append(";");
-
-		executerUpdateOuInsert(query.toString());
-	}
-
-	private Theme4ALS convertirTheme4ALS(ResultSet rs) throws SQLException {
-		// Convertir chaque question
-		Theme4ALS theme = new Theme4ALS();
-		theme.setId(rs.getLong("id"));
-		theme.setCategorie(rs.getString("categorie"));
-		theme.setCategorieRef(rs.getLong("categorieRef"));
-		theme.setGroupeCategorieRef(rs.getLong("groupeCategorieRef"));
-		theme.setTheme(rs.getString("theme"));
-		theme.setReference(rs.getString("reference"));
-		theme.setDifficulte(rs.getLong("difficulte"));
-		theme.setVersion(rs.getLong("version"));
-
-		Source source = new Source();
-		source.setClub(rs.getString("club"));
-		source.setDateReception(rs.getString("dateReception"));
-		theme.setSource(source);
-
-		LOGGER.debug("Theme : " + theme);
-
-		return theme;
+		executerUpdateOuInsert(String.format("DELETE FROM THEME_QALS_LECTURE where reference=%s;", referenceTheme));
 	}
 
 	/**
@@ -464,50 +364,9 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public Map<String, Map<String, Long>> compterParGroupeCategorie() {
-
-		Map<String, Map<String, Long>> inventaireParGroupeCategorie = new HashMap<>();
-
 		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT groupeCategorieRef, difficulte, count(difficulte) FROM THEME_QALS WHERE active=1 GROUP BY groupeCategorieRef, difficulte order by groupeCategorieRef;");
-
-		for (int i = 1; i <= 4; i++) {
-
-			Map<String, Long> mapGroupeCategorie = new HashMap<>();
-			for (int j = 1; j <= 4; j++) {
-				mapGroupeCategorie.put(String.valueOf(j), Long.valueOf(0));
-			}
-
-			inventaireParGroupeCategorie.put(String.valueOf(i), mapGroupeCategorie);
-		}
-
-		try {
-			// Connexion à la base de données SQLite
-			Connection connection = DBManager.getInstance().connect();
-			Statement stmt = connection.createStatement();
-
-			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
-			while (rs.next()) {
-				String groupeCategorie = rs.getString("groupeCategorieRef");
-				String difficulte = rs.getString("difficulte");
-				Long nbQuestion = rs.getLong(3);
-
-				Map<String, Long> mapTemp = inventaireParGroupeCategorie.get(groupeCategorie);
-				mapTemp.put(difficulte, nbQuestion);
-				inventaireParGroupeCategorie.put(groupeCategorie, mapTemp);
-			}
-
-			// Fermeture des connections.
-			stmt.close();
-			DBManager.getInstance().close(connection);
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw new DBManagerException();
-		}
-		return inventaireParGroupeCategorie;
+		String requete="SELECT groupeCategorieRef, difficulte, count(difficulte) FROM THEME_QALS WHERE active=1 GROUP BY groupeCategorieRef, difficulte order by groupeCategorieRef;";
+		return compterParGroupeCategorie(requete);
 	}
 
 	/**
@@ -516,14 +375,14 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 	 */
 	@Override
 	public Map<String, Map<String, Long>> compterParGroupeCategorieLue() {
+		// Création de la requête
+		String requete="SELECT groupeCategorieRef, difficulte, count(difficulte) FROM THEME_QALS WHERE reference IN (SELECT reference FROM THEME_QALS_LECTURE)  GROUP BY groupeCategorieRef, difficulte order by groupeCategorieRef;";
+		return compterParGroupeCategorie(requete);
+	}
+
+	private Map<String, Map<String, Long>> compterParGroupeCategorie(String requete) {
 
 		Map<String, Map<String, Long>> inventaireParGroupeCategorie = new HashMap<>();
-
-		// Création de la requête
-
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"SELECT groupeCategorieRef, difficulte, count(difficulte) FROM THEME_QALS WHERE reference IN (SELECT reference FROM THEME_QALS_LECTURE)  GROUP BY groupeCategorieRef, difficulte order by groupeCategorieRef;");
 
 		for (int i = 1; i <= 4; i++) {
 
@@ -541,7 +400,7 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
 			Statement stmt = connection.createStatement();
 
 			// Executer la requête
-			ResultSet rs = stmt.executeQuery(query.toString());
+			ResultSet rs = stmt.executeQuery(requete);
 			while (rs.next()) {
 				String groupeCategorie = rs.getString("groupeCategorieRef");
 				String difficulte = rs.getString("difficulte");

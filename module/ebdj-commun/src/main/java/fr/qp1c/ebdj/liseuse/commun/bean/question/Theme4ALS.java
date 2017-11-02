@@ -3,7 +3,7 @@ package fr.qp1c.ebdj.liseuse.commun.bean.question;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Theme4ALS extends Question {
+public class Theme4ALS extends QR {
 
 	// Attributs
 
@@ -23,7 +23,7 @@ public class Theme4ALS extends Question {
 
 	private Long difficulte;
 
-	private Map<String, Question> questions = new HashMap<>();
+	private Map<String, QR> questions = new HashMap<>();
 
 	// Getters - setters
 
@@ -75,11 +75,11 @@ public class Theme4ALS extends Question {
 		this.theme = theme;
 	}
 
-	public Map<String, Question> getQuestions() {
+	public Map<String, QR> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Map<String, Question> questions) {
+	public void setQuestions(Map<String, QR> questions) {
 		this.questions = questions;
 	}
 

@@ -18,6 +18,10 @@ public class Utils {
 	 * Default logger.
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
+	
+	private Utils() {
+		
+	}
 
 	/**
 	 * Récupérer l'adresse MAC de la machine.

@@ -18,5 +18,9 @@ public final class DBConstantes {
 	 * Nom de la base de données.
 	 */
 	public static final String DB_NAME = "QP1C-EBDJ.sqlite";
+	
+	private DBConstantes() {
+		
+	}
 
 }

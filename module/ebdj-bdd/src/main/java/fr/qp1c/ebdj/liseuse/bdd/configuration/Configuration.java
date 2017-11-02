@@ -14,7 +14,7 @@ public class Configuration {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
 	
-	private static Configuration CONFIG = new Configuration();
+	private static Configuration configuration;
 
 	private String urlDb;
 
@@ -54,7 +54,10 @@ public class Configuration {
 	}
 
 	public static Configuration getInstance() {
-		return CONFIG;
+		if(configuration==null) {
+			configuration= new Configuration();
+		}
+		return configuration;
 	}
 
 	public String getUrlDb() {

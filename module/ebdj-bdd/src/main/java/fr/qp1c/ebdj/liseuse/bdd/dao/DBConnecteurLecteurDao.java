@@ -10,7 +10,7 @@ public interface DBConnecteurLecteurDao {
 
 	public Lecteur recupererLecteur(String reference);
 
-	public void ajouterLecteur(Lecteur Lecteur);
+	public void ajouterLecteur(Lecteur lecteur);
 
 	public void modifierLecteur(String reference, Lecteur lecteur);
 

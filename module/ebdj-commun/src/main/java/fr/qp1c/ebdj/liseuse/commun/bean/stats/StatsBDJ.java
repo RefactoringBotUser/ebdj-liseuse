@@ -2,11 +2,11 @@ package fr.qp1c.ebdj.liseuse.commun.bean.stats;
 
 public class StatsBDJ {
 
-	private StatsQuestions stats9PG_1;
+	private StatsQuestions stats9PG1;
 
-	private StatsQuestions stats9PG_2;
+	private StatsQuestions stats9PG2;
 
-	private StatsQuestions stats9PG_3;
+	private StatsQuestions stats9PG3;
 
 	private StatsQuestions stats4ALS;
 
@@ -16,32 +16,32 @@ public class StatsBDJ {
 	
 	// Getters - setters
 
-	public StatsQuestions getStats9PG_1() {
-		return stats9PG_1;
-	}
-
-	public void setStats9PG_1(StatsQuestions stats9pg_1) {
-		stats9PG_1 = stats9pg_1;
-	}
-
-	public StatsQuestions getStats9PG_2() {
-		return stats9PG_2;
-	}
-
-	public void setStats9PG_2(StatsQuestions stats9pg_2) {
-		stats9PG_2 = stats9pg_2;
-	}
-
-	public StatsQuestions getStats9PG_3() {
-		return stats9PG_3;
-	}
-
-	public void setStats9PG_3(StatsQuestions stats9pg_3) {
-		stats9PG_3 = stats9pg_3;
-	}
-
 	public StatsQuestions getStats4ALS() {
 		return stats4ALS;
+	}
+
+	public StatsQuestions getStats9PG1() {
+		return stats9PG1;
+	}
+
+	public void setStats9PG1(StatsQuestions stats9pg1) {
+		stats9PG1 = stats9pg1;
+	}
+
+	public StatsQuestions getStats9PG2() {
+		return stats9PG2;
+	}
+
+	public void setStats9PG2(StatsQuestions stats9pg2) {
+		stats9PG2 = stats9pg2;
+	}
+
+	public StatsQuestions getStats9PG3() {
+		return stats9PG3;
+	}
+
+	public void setStats9PG3(StatsQuestions stats9pg3) {
+		stats9PG3 = stats9pg3;
 	}
 
 	public void setStats4ALS(StatsQuestions stats4als) {
@@ -66,7 +66,7 @@ public class StatsBDJ {
 
 	@Override
 	public String toString() {
-		return "StatsBoiteDeJeu [stats9PG_1=" + stats9PG_1 + ", stats9PG_2=" + stats9PG_2 + ", stats9PG_3=" + stats9PG_3
+		return "StatsBoiteDeJeu [stats9PG_1=" + stats9PG1 + ", stats9PG_2=" + stats9PG2 + ", stats9PG_3=" + stats9PG3
 				+ ", stats4ALS=" + stats4ALS + ", statsJD=" + statsJD + ", statsFAF=" + statsFAF + "]";
 	}
 

@@ -8,6 +8,10 @@ package fr.qp1c.ebdj.liseuse.commun.utils;
  *
  */
 public class StringUtilities {
+	
+	private StringUtilities() {
+		
+	}
 
 	/**
 	 * Creates a string left padded to the specified width with the supplied

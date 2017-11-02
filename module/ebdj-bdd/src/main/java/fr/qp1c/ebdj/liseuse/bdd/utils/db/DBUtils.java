@@ -10,6 +10,10 @@ import org.apache.commons.lang3.StringUtils;
  *
  */
 public final class DBUtils {
+	
+	private DBUtils() {
+		
+	}
 
 	/**
 	 * Protéger une valeur SQL comportant des quotes simples.

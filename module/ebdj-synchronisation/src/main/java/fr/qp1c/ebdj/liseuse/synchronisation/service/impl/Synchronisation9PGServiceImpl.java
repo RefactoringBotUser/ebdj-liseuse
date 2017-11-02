@@ -25,14 +25,16 @@ public class Synchronisation9PGServiceImpl implements Synchronisation9PGService 
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SynchronisationJDServiceImpl.class);
 
-	private DBConnecteurSynchroDao dbConnecteurSynchroDao = new DBConnecteurSynchroDaoImpl();
+	private DBConnecteurSynchroDao dbConnecteurSynchroDao;
 
-	private DBConnecteurNPGDao dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
+	private DBConnecteurNPGDao dbConnecteurNPGDao;
 
 	private Synchro9PGWSHelper wsCockpit9PGHelper;
 
 	public Synchronisation9PGServiceImpl() {
-		wsCockpit9PGHelper = new Synchro9PGWSHelper();
+		this.wsCockpit9PGHelper = new Synchro9PGWSHelper();
+		this.dbConnecteurSynchroDao = new DBConnecteurSynchroDaoImpl();
+		this.dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
 	}
 
 	@Override

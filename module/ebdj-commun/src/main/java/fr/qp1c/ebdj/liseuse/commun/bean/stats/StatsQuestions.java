@@ -32,7 +32,7 @@ public class StatsQuestions {
 	}
 
 	public String afficherQuantites() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		sb.append(getNbQuestionsTotal());
 		sb.append(" / ");

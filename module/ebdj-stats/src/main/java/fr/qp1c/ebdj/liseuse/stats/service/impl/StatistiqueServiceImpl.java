@@ -55,26 +55,26 @@ public class StatistiqueServiceImpl implements StatistiqueService {
 
 		// Stats 9PG
 
-		StatsQuestions statsQuestions9PG_1 = new StatsQuestions();
-		statsQuestions9PG_1.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(1));
-		statsQuestions9PG_1.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(1));
-		stats.setStats9PG_1(statsQuestions9PG_1);
+		StatsQuestions statsQuestions9PG1 = new StatsQuestions();
+		statsQuestions9PG1.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(1));
+		statsQuestions9PG1.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(1));
+		stats.setStats9PG1(statsQuestions9PG1);
 
-		LOGGER.debug(statsQuestions9PG_1.toString());
+		LOGGER.debug(statsQuestions9PG1.toString());
 
-		StatsQuestions statsQuestions9PG_2 = new StatsQuestions();
-		statsQuestions9PG_2.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(2));
-		statsQuestions9PG_2.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(2));
-		stats.setStats9PG_2(statsQuestions9PG_2);
+		StatsQuestions statsQuestions9PG2 = new StatsQuestions();
+		statsQuestions9PG2.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(2));
+		statsQuestions9PG2.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(2));
+		stats.setStats9PG2(statsQuestions9PG2);
 
-		LOGGER.debug(statsQuestions9PG_2.toString());
+		LOGGER.debug(statsQuestions9PG2.toString());
 
-		StatsQuestions statsQuestions9PG_3 = new StatsQuestions();
-		statsQuestions9PG_3.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(3));
-		statsQuestions9PG_3.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(3));
-		stats.setStats9PG_3(statsQuestions9PG_3);
+		StatsQuestions statsQuestions9PG3 = new StatsQuestions();
+		statsQuestions9PG3.setNbQuestionsJouees(connecterNPGDao.compterNbQuestionLue(3));
+		statsQuestions9PG3.setNbQuestionsTotal(connecterNPGDao.compterNbQuestion(3));
+		stats.setStats9PG3(statsQuestions9PG3);
 
-		LOGGER.debug(statsQuestions9PG_3.toString());
+		LOGGER.debug(statsQuestions9PG3.toString());
 
 		// Stats 4ALS
 

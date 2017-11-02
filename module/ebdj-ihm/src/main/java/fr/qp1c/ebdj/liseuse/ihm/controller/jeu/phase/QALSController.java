@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.liseuse.commun.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.liseuse.commun.bean.partie.NiveauPartie;
-import fr.qp1c.ebdj.liseuse.commun.bean.question.Question;
+import fr.qp1c.ebdj.liseuse.commun.bean.question.QR;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.Theme4ALS;
 import fr.qp1c.ebdj.liseuse.ihm.controller.jeu.phase.preferences.PreferencesLecteur;
 import fr.qp1c.ebdj.liseuse.ihm.utils.config.ImageConstants;
@@ -250,7 +250,7 @@ public class QALSController implements PreferencesLecteur {
 
 		for (int i = 1; i <= theme4ALS.getQuestions().size(); i++) {
 
-			Question question = theme4ALS.getQuestions().get(i + "");
+			QR question = theme4ALS.getQuestions().get(i + "");
 
 			Text textQ = new Text(i + "/ " + question.getQuestion() + "\n");
 			textQ.setFont(fontQ);
