@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="panneauStats" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1600" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.controller.stats.StatistiquesController">
+<VBox fx:id="panneauStats" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1600" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 12px;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.qp1c.ebdj.liseuse.ihm.controller.stats.StatistiquesController">
        <children>
       <BorderPane prefHeight="60.0" prefWidth="60.0" BorderPane.alignment="CENTER">
          <left>
@@ -52,6 +52,27 @@
                 </BorderPane>
               </content>
             </TitledPane>
+            <TitledPane fx:id="stockQALS" animated="false" styleClass="stock" text="Stock 4ALS par thème">
+            <content>
+                <BorderPane minHeight="440.0" minWidth="0.0" prefHeight="440.0" prefWidth="1200.0" styleClass="zoneStock">
+                     <top>
+                     <VBox alignment="CENTER">
+                           <children>
+                     <TableView fx:id="tableauStockQALS" maxHeight="350.0" maxWidth="850.0" minHeight="350.0" minWidth="300.0" prefHeight="350.0" prefWidth="850.0" >
+                          <columns>
+                            <TableColumn fx:id="tabSQColGroupeCategorie" editable="false" prefWidth="150.0" sortable="false" text="Groupe" />
+                           	<TableColumn fx:id="tabSQColQuantiteNiveau4" editable="false" prefWidth="150.0" sortable="false" text="Facile" />
+                           	<TableColumn fx:id="tabSQColQuantiteNiveau3" editable="false" prefWidth="150.0" sortable="false" text="Moyen" />
+                            <TableColumn fx:id="tabSQColQuantiteNiveau2" editable="false" prefWidth="150.0" sortable="false" text="Difficile" />
+                            <TableColumn fx:id="tabSQColQuantiteNiveau1" editable="false" prefWidth="150.0" sortable="false" text="Très difficile" />
+                            </columns>
+                        </TableView>
+                           </children>
+                        </VBox>
+                     </top>
+                </BorderPane>
+              </content>
+            </TitledPane>
             <TitledPane fx:id="stockFAF" animated="false" styleClass="stock" text="Stock FAF par thème">
             <content>
                 <BorderPane minHeight="440.0" minWidth="0.0" prefHeight="440.0" prefWidth="1200.0" styleClass="zoneStock">
@@ -69,13 +90,6 @@
                            </children>
                         </VBox>
                      </top>
-                </BorderPane>
-              </content>
-            </TitledPane>
-            <TitledPane fx:id="stock4ALS" animated="false" styleClass="stock" text="Stock 4ALS par thème">
-            <content>
-                <BorderPane minHeight="440.0" minWidth="0.0" prefHeight="440.0" prefWidth="1200.0" styleClass="zoneStock">
-                     <top></top>
                 </BorderPane>
               </content>
             </TitledPane>

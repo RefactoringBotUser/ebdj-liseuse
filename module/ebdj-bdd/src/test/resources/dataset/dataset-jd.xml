@@ -1,0 +1,14 @@
+<dataset>
+	<QUESTION_JD id="1" theme="Que suis-je ?" question="Instrument dont l’invention est parfois attribuée à Abbas Ibn Firnas, je suis mis au point  au XIIIe siècle en Italie. Employé au pluriel, je corrige la presbytie ou la myopie. Dérivé du mot « lune », je suis…" reponse="LES LUNETTES" difficulte="1" reference="19" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<QUESTION_JD id="2" theme="Qui suis-je ?" question="Personnage apparu dans un roman du XVIIIe siècle, je suis un être sauvage et dégoûtant. Mon nom est devenu une insulte en anglais mais au XXe siècle, j’ai donné mon nom à une société de services sur Internet. Mon nom commence par un Y. Je suis…" reponse="UN YAHOO" difficulte="2" reference="20" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+	<QUESTION_JD id="3" theme="Qui suis-je ?" question="Acteur réalisateur et producteur américain né en 1907 dans l’Iowa, j’ai joué dans des films policiers, des films de guerre, des comédies mais surtout dans de nombreux westerns. Prénommé John, je suis…" reponse="(JOHN) WAYNE" difficulte="3" reference="21" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="0" />
+	<QUESTION_JD id="4" theme="Que suis-je ?" question="Type de navire apparu au début du XIXe siècle et dont certains sont devenus des symboles nationaux, mon nom vient de l’anglais et signifie à l’origine « transporteur de courrier ». Grand navire assurant le transport de passagers, je suis…..." reponse="UN PAQUEBOT" difficulte="1" reference="22" club="SAINT-AMAND-LES-EAUX" dateReception="2016-11-03" version="1" active="1" />
+
+
+	<QUESTION_JD_LECTURE id="1" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="19" />
+	<QUESTION_JD_LECTURE id="2" date_lecture="2017-10-26" lecteur="Nicolas GENDRON" reference="20" />
+	<QUESTION_JD_LECTURE id="3" date_lecture="2017-10-26" lecteur="Colette NOCON" reference="21" />
+	
+	<QUESTION_JD_ANOMALIE id="1" reference="20" version="1" date_anomalie="2017-10-26" type_anomalie="1" cause="Question mal redigée" lecteur="Nicolas GENDRON" />
+</dataset>
+
