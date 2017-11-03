@@ -15,274 +15,280 @@ import fr.qp1c.ebdj.liseuse.commun.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionNPG;
 import fr.qp1c.ebdj.liseuse.moteur.loader.LoaderQuestion9PG;
 
-public class MoteurNPG implements Moteur{
+public class MoteurNPG implements Moteur {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(MoteurNPG.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(MoteurNPG.class);
 
-	// Nombre de questions officiellement joué.
-	private int nbQuest = 0;
+    // Nombre de questions officiellement joué.
+    private int nbQuest = 0;
 
-	// Nombre de questions réel (inclus erreur et remplacement).
-	private int nbQuestReel = 0;
+    // Nombre de questions réel (inclus erreur et remplacement).
+    private int nbQuestReel = 0;
 
-	private int niveau = 0;
+    private int niveau = 0;
 
-	private int cpt_1 = 0;
+    private int cpt1 = 0;
 
-	private int cpt_2 = 0;
+    private int cpt2 = 0;
 
-	private int cpt_3 = 0;
+    private int cpt3 = 0;
 
-	private Mode9PG mode9PG;
+    private Mode9PG mode9PG;
 
-	private List<QuestionNPG> questions9PGJouee = new ArrayList<>();
+    private List<QuestionNPG> questions9PGJouee = new ArrayList<>();
 
-	private List<QuestionNPG> questions9PG_1 = new ArrayList<>();
+    private List<QuestionNPG> questions9PG1 = new ArrayList<>();
 
-	private List<QuestionNPG> questions9PG_2 = new ArrayList<>();
+    private List<QuestionNPG> questions9PG2 = new ArrayList<>();
 
-	private List<QuestionNPG> questions9PG_3 = new ArrayList<>();
+    private List<QuestionNPG> questions9PG3 = new ArrayList<>();
 
-	private QuestionNPG derniereQuestion9PG;
+    private QuestionNPG derniereQuestion9PG;
 
-	// Contraintes
+    // Contraintes
 
-	private NiveauPartie niveauPartie;
+    private NiveauPartie niveauPartie;
 
-	// Tracker
+    // Tracker
 
-	private Lecteur lecteur;
-	
-	private DBConnecteurNPGDao dbConnecteurNPGDao;
+    private Lecteur lecteur;
 
-	public MoteurNPG() {
-		dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
-		
-		questions9PG_1 = LoaderQuestion9PG.chargerQuestions1Etoile();
-		questions9PG_2 = LoaderQuestion9PG.chargerQuestions2Etoiles();
-		questions9PG_3 = LoaderQuestion9PG.chargerQuestions3Etoiles();
+    private DBConnecteurNPGDao dbConnecteurNPGDao;
 
-		questions9PGJouee = new ArrayList<>();
+    public MoteurNPG() {
+        dbConnecteurNPGDao = new DBConnecteurNPGDaoImpl();
 
-		// Nombre de questions officiellement joué.
-		nbQuest = 0;
+        questions9PG1 = LoaderQuestion9PG.chargerQuestions1Etoile();
+        questions9PG2 = LoaderQuestion9PG.chargerQuestions2Etoiles();
+        questions9PG3 = LoaderQuestion9PG.chargerQuestions3Etoiles();
 
-		// Nombre de questions réel (inclus erreur et remplacement).
-		nbQuestReel = 0;
+        questions9PGJouee = new ArrayList<>();
 
-		niveau = 0;
+        // Nombre de questions officiellement joué.
+        nbQuest = 0;
 
-		cpt_1 = 0;
+        // Nombre de questions réel (inclus erreur et remplacement).
+        nbQuestReel = 0;
 
-		cpt_2 = 0;
+        niveau = 0;
 
-		cpt_3 = 0;
+        cpt1 = 0;
 
-		niveauPartie = NiveauPartie.MOYEN;
+        cpt2 = 0;
 
-		// Lancer en mode 1,2,3
-		changerNiveau123();
-	}
+        cpt3 = 0;
 
-	public void changerNiveau123() {
-		mode9PG = Mode9PG.MODE_123;
-	}
+        niveauPartie = NiveauPartie.MOYEN;
 
-	public void changerNiveau23() {
-		// Selection du mode de jeu
-		mode9PG = Mode9PG.MODE_23;
+        // Lancer en mode 1,2,3
+        changerNiveau123();
+    }
 
-		niveau = 2;
-	}
+    public void changerNiveau123() {
+        mode9PG = Mode9PG.MODE_123;
+    }
 
-	public void changerNiveau3() {
+    public void changerNiveau23() {
+        // Selection du mode de jeu
+        mode9PG = Mode9PG.MODE_23;
 
-		// Selection du mode de jeu
-		mode9PG = Mode9PG.MODE_3;
+        niveau = 2;
+    }
 
-		niveau = 3;
-	}
+    public void changerNiveau3() {
 
-	public void definirLecteur(Lecteur lecteur) {
-		this.lecteur = lecteur;
-	}
+        // Selection du mode de jeu
+        mode9PG = Mode9PG.MODE_3;
 
-	public void definirNiveauPartie(NiveauPartie niveauPartie) {
-		this.niveauPartie = niveauPartie;
-	}
+        niveau = 3;
+    }
 
-	private QuestionNPG donnerNouvelleQuestion() {
-		LOGGER.info("[DEBUT] Donner une nouvelle question.");
+    @Override
+    public void definirLecteur(Lecteur lecteur) {
+        this.lecteur = lecteur;
+    }
 
-		QuestionNPG question;
+    @Override
+    public void definirNiveauPartie(NiveauPartie niveauPartie) {
+        this.niveauPartie = niveauPartie;
+    }
 
-		if ((niveau == 1 && Mode9PG.MODE_123.equals(mode9PG)) || (niveau == 2 && Mode9PG.MODE_23.equals(mode9PG))
-				|| (niveau == 3 && Mode9PG.MODE_3.equals(mode9PG))) {
-			LOGGER.info("Question à 1 étoile.");
+    private boolean isNiveau1() {
+        return (niveau == 1 && Mode9PG.MODE_123.equals(mode9PG)) || (niveau == 2 && Mode9PG.MODE_23.equals(mode9PG))
+                || (niveau == 3 && Mode9PG.MODE_3.equals(mode9PG));
+    }
 
-			if (NiveauPartie.DIFFICILE.equals(niveauPartie)) {
-				question = donnerQuestionA2Points();
-			} else {
-				question = donnerQuestionA1Point();
-			}
+    private QuestionNPG donnerNouvelleQuestion() {
+        LOGGER.info("[DEBUT] Donner une nouvelle question.");
 
-		} else if ((niveau == 2 && Mode9PG.MODE_123.equals(mode9PG))
-				|| (niveau == 3 && Mode9PG.MODE_23.equals(mode9PG))) {
-			LOGGER.info("Question à 2 étoiles.");
+        QuestionNPG question;
 
-			question = donnerQuestionA2Points();
+        if (isNiveau1()) {
+            LOGGER.info("Question à 1 étoile.");
 
-		} else {
-			LOGGER.info("Question à 3 étoiles.");
+            if (NiveauPartie.DIFFICILE.equals(niveauPartie)) {
+                question = donnerQuestionA2Points();
+            } else {
+                question = donnerQuestionA1Point();
+            }
 
-			if (NiveauPartie.FACILE.equals(niveauPartie)
-					|| (NiveauPartie.MOYEN.equals(niveauPartie) && Mode9PG.MODE_123.equals(mode9PG) && nbQuest > 12)) {
-				question = donnerQuestionA2Points();
-			} else {
-				question = donnerQuestionA3Points();
-			}
-		}
-		questions9PGJouee.add(question);
+        } else if ((niveau == 2 && Mode9PG.MODE_123.equals(mode9PG))
+                || (niveau == 3 && Mode9PG.MODE_23.equals(mode9PG))) {
+            LOGGER.info("Question à 2 étoiles.");
 
+            question = donnerQuestionA2Points();
 
-		dbConnecteurNPGDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
+        } else {
+            LOGGER.info("Question à 3 étoiles.");
 
-		LOGGER.info("[FIN] Donner une nouvelle question.");
+            if (NiveauPartie.FACILE.equals(niveauPartie)
+                    || (NiveauPartie.MOYEN.equals(niveauPartie) && Mode9PG.MODE_123.equals(mode9PG) && nbQuest > 12)) {
+                question = donnerQuestionA2Points();
+            } else {
+                question = donnerQuestionA3Points();
+            }
+        }
+        questions9PGJouee.add(question);
 
-		return question;
+        dbConnecteurNPGDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
-	}
+        LOGGER.info("[FIN] Donner une nouvelle question.");
 
-	private QuestionNPG donnerQuestionA1Point() {
+        return question;
 
-		// Charger de nouvelles questions si il en manque
-		if (questions9PG_1.size() <= cpt_1) {
+    }
 
-			// TODO : vérifier que le chargement a été efficace
-			questions9PG_1.addAll(LoaderQuestion9PG.chargerQuestions1Etoile());
-		}
+    private QuestionNPG donnerQuestionA1Point() {
 
-		// Récupérer la question à jouer
-		QuestionNPG question = questions9PG_1.get(cpt_1);
-		cpt_1++;
+        // Charger de nouvelles questions si il en manque
+        if (questions9PG1.size() <= cpt1) {
 
-		return question;
-	}
+            // TODO : vérifier que le chargement a été efficace
+            questions9PG1.addAll(LoaderQuestion9PG.chargerQuestions1Etoile());
+        }
 
-	private QuestionNPG donnerQuestionA2Points() {
+        // Récupérer la question à jouer
+        QuestionNPG question = questions9PG1.get(cpt1);
+        cpt1++;
 
-		// Charger de nouvelles questions si il en manque
-		if (questions9PG_2.size() <= cpt_2) {
+        return question;
+    }
 
-			// TODO : vérifier que le chargement a été efficace
-			questions9PG_2.addAll(LoaderQuestion9PG.chargerQuestions2Etoiles());
-		}
+    private QuestionNPG donnerQuestionA2Points() {
 
-		// Récupérer la question à jouer
-		QuestionNPG question = questions9PG_2.get(cpt_2);
-		cpt_2++;
+        // Charger de nouvelles questions si il en manque
+        if (questions9PG2.size() <= cpt2) {
 
-		return question;
-	}
+            // TODO : vérifier que le chargement a été efficace
+            questions9PG2.addAll(LoaderQuestion9PG.chargerQuestions2Etoiles());
+        }
 
-	private QuestionNPG donnerQuestionA3Points() {
+        // Récupérer la question à jouer
+        QuestionNPG question = questions9PG2.get(cpt2);
+        cpt2++;
 
-		// Charger de nouvelles questions si il en manque
-		if (questions9PG_3.size() <= cpt_3) {
+        return question;
+    }
 
-			// TODO : vérifier que le chargement a été efficace
-			questions9PG_3.addAll(LoaderQuestion9PG.chargerQuestions3Etoiles());
-		}
+    private QuestionNPG donnerQuestionA3Points() {
 
-		// Récupérer la question à jouer
-		QuestionNPG question = questions9PG_3.get(cpt_3);
-		cpt_3++;
+        // Charger de nouvelles questions si il en manque
+        if (questions9PG3.size() <= cpt3) {
 
-		return question;
-	}
+            // TODO : vérifier que le chargement a été efficace
+            questions9PG3.addAll(LoaderQuestion9PG.chargerQuestions3Etoiles());
+        }
 
-	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
-		dbConnecteurNPGDao.signalerAnomalie(derniereQuestion9PG.getReference(), derniereQuestion9PG.getVersion(),
-				signalementAnomalie, lecteur.formatterNomUtilisateur());
-	}
+        // Récupérer la question à jouer
+        QuestionNPG question = questions9PG3.get(cpt3);
+        cpt3++;
 
-	private void calculerNbQuestion() {
-		nbQuest++;
-	}
+        return question;
+    }
 
-	private void calculerNbQuestionReel() {
-		nbQuestReel++;
-	}
+    @Override
+    public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
+        dbConnecteurNPGDao.signalerAnomalie(derniereQuestion9PG.getReference(), derniereQuestion9PG.getVersion(),
+                signalementAnomalie, lecteur.formatterNomUtilisateur());
+    }
 
-	private void calculerNiveauQuestion() {
-		if (Mode9PG.MODE_123.equals(mode9PG)) {
-			niveau = ((niveau++) % 3) + 1;
-		} else if (Mode9PG.MODE_23.equals(mode9PG)) {
-			if (niveau == 2) {
-				niveau = 3;
-			} else {
-				niveau = 2;
-			}
-		} else if (Mode9PG.MODE_3.equals(mode9PG)) {
-			niveau = 3;
-		}
-	}
+    private void calculerNbQuestion() {
+        nbQuest++;
+    }
 
-	public QuestionNPG changerQuestionAvecNiveau(boolean questionACompter) {
-		LOGGER.info("[DEBUT] Changer de question avec niveau.");
+    private void calculerNbQuestionReel() {
+        nbQuestReel++;
+    }
 
-		// Calcul du niveau
-		calculerNiveauQuestion();
+    private void calculerNiveauQuestion() {
+        if (Mode9PG.MODE_123.equals(mode9PG)) {
+            niveau = ((niveau++) % 3) + 1;
+        } else if (Mode9PG.MODE_23.equals(mode9PG)) {
+            if (niveau == 2) {
+                niveau = 3;
+            } else {
+                niveau = 2;
+            }
+        } else if (Mode9PG.MODE_3.equals(mode9PG)) {
+            niveau = 3;
+        }
+    }
 
-		QuestionNPG nouvelleQuestion = changerQuestion(questionACompter);
+    public QuestionNPG changerQuestionAvecNiveau(boolean questionACompter) {
+        LOGGER.info("[DEBUT] Changer de question avec niveau.");
 
-		LOGGER.info("[FIN] Changer de question avec niveau.");
+        // Calcul du niveau
+        calculerNiveauQuestion();
 
-		return nouvelleQuestion;
-	}
+        QuestionNPG nouvelleQuestion = changerQuestion(questionACompter);
 
-	public QuestionNPG changerQuestion(boolean questionACompter) {
-		LOGGER.info("[DEBUT] Changer de question.");
+        LOGGER.info("[FIN] Changer de question avec niveau.");
 
-		QuestionNPG nouvelleQuestion = donnerNouvelleQuestion();
+        return nouvelleQuestion;
+    }
 
-		// Calcul du nombre de question joué
-		if (questionACompter) {
-			calculerNbQuestion();
+    public QuestionNPG changerQuestion(boolean questionACompter) {
+        LOGGER.info("[DEBUT] Changer de question.");
 
-		}
-		calculerNbQuestionReel();
+        QuestionNPG nouvelleQuestion = donnerNouvelleQuestion();
 
-		derniereQuestion9PG = nouvelleQuestion;
+        // Calcul du nombre de question joué
+        if (questionACompter) {
+            calculerNbQuestion();
 
-		LOGGER.info("[FIN] Changer de question.");
+        }
+        calculerNbQuestionReel();
 
-		return nouvelleQuestion;
-	}
+        derniereQuestion9PG = nouvelleQuestion;
 
-	// Getters - setters
+        LOGGER.info("[FIN] Changer de question.");
 
-	public int getNbQuest() {
-		return nbQuest;
-	}
+        return nouvelleQuestion;
+    }
 
-	public int getNbQuestReel() {
-		return nbQuestReel;
-	}
+    // Getters - setters
 
-	public int getNiveau() {
-		return niveau;
-	}
+    public int getNbQuest() {
+        return nbQuest;
+    }
 
-	public Mode9PG getMode9PG() {
-		return mode9PG;
-	}
+    public int getNbQuestReel() {
+        return nbQuestReel;
+    }
 
-	public QuestionNPG getDerniereQuestion9PG() {
-		return derniereQuestion9PG;
-	}
+    public int getNiveau() {
+        return niveau;
+    }
+
+    public Mode9PG getMode9PG() {
+        return mode9PG;
+    }
+
+    public QuestionNPG getDerniereQuestion9PG() {
+        return derniereQuestion9PG;
+    }
 
 }

@@ -366,12 +366,14 @@ public class NPGController implements PreferencesLecteur {
     private void afficherCarton9PG(QuestionNPG questionNPG, int niveau) {
         LOGGER.info("[DEBUT] Affichage carton 9PG.");
 
-        afficherNiveauQuestion(niveau);
+        if (questionNPG != null) {
+            afficherNiveauQuestion(niveau);
 
-        question9PG.setText(questionNPG.getQuestion());
-        reponse9PG.setText(questionNPG.getReponse().toUpperCase());
-        reponse9PG.setTextAlignment(TextAlignment.CENTER);
-        question9PGInfos.setText(formaterQuestion9PGInfos(questionNPG));
+            question9PG.setText(questionNPG.getQuestion());
+            reponse9PG.setText(questionNPG.getReponse().toUpperCase());
+            reponse9PG.setTextAlignment(TextAlignment.CENTER);
+            question9PGInfos.setText(formaterQuestion9PGInfos(questionNPG));
+        }
 
         LOGGER.info("[FIN] Affichage carton 9PG.");
     }

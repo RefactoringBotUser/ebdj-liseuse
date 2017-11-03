@@ -42,302 +42,304 @@ import javafx.util.Callback;
  */
 public class FAFController implements PreferencesLecteur {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(FAFController.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(FAFController.class);
 
-	// Composant(s) JavaFX
+    // Composant(s) JavaFX
 
-	@FXML
-	private Label nbQuestion;
+    @FXML
+    private Label nbQuestion;
 
-	@FXML
-	private Label themeFAF;
+    @FXML
+    private Label themeFAF;
 
-	@FXML
-	private Label libelleQuestionFAF;
+    @FXML
+    private Label libelleQuestionFAF;
 
-	@FXML
-	private Label reponseFAF;
+    @FXML
+    private Label reponseFAF;
 
-	@FXML
-	private Label questionFAFInfos;
+    @FXML
+    private Label questionFAFInfos;
 
-	// Liste.
+    // Liste.
 
-	@FXML
-	private ListView<HistoriqueQuestionFAF> histoQuestion;
+    @FXML
+    private ListView<HistoriqueQuestionFAF> histoQuestion;
 
-	// Boutons.
+    // Boutons.
 
-	@FXML
-	private Button btnNouvelleQuestionFAF;
+    @FXML
+    private Button btnNouvelleQuestionFAF;
 
-	@FXML
-	private Button btnReprendreFAF;
+    @FXML
+    private Button btnReprendreFAF;
 
-	@FXML
-	private Button btnSignalerErreurQuestionFAF;
+    @FXML
+    private Button btnSignalerErreurQuestionFAF;
 
-	@FXML
-	private Button btnRemplacerQuestionFAF;
+    @FXML
+    private Button btnRemplacerQuestionFAF;
 
-	// Panneau.
+    // Panneau.
 
-	@FXML
-	private BorderPane panneau;
+    @FXML
+    private BorderPane panneau;
 
-	@FXML
-	private VBox cartonFAF;
+    @FXML
+    private VBox cartonFAF;
 
-	// Données FAF.
+    // Données FAF.
 
-	public static final ObservableList<HistoriqueQuestionFAF> listeHistoriqueFAF = FXCollections.observableArrayList();
+    public static final ObservableList<HistoriqueQuestionFAF> listeHistoriqueFAF = FXCollections.observableArrayList();
 
-	private MoteurFAF moteurFAF;
+    private MoteurFAF moteurFAF;
 
-	private int numQuestionAffiche = 0;
+    private int numQuestionAffiche = 0;
 
-	private boolean affichageHistoriqueEnCours = false;
+    private boolean affichageHistoriqueEnCours = false;
 
-	@FXML
-	private void initialize() {
-		reinitialiser();
-	}
+    @FXML
+    private void initialize() {
+        reinitialiser();
+    }
 
-	public void reinitialiser() {
-		LOGGER.info("[DEBUT] Initialisation du panneau FAF.");
+    public void reinitialiser() {
+        LOGGER.info("[DEBUT] Initialisation du panneau FAF.");
 
-		moteurFAF = new MoteurFAF();
+        moteurFAF = new MoteurFAF();
 
-		listeHistoriqueFAF.clear();
+        listeHistoriqueFAF.clear();
 
-		numQuestionAffiche = 0;
+        numQuestionAffiche = 0;
 
-		// Création de l'historique des questions du 9PG
-		histoQuestion.setEditable(false);
-		histoQuestion.setItems(listeHistoriqueFAF);
-		histoQuestion.setCellFactory(new Callback<ListView<HistoriqueQuestionFAF>, ListCell<HistoriqueQuestionFAF>>() {
+        // Création de l'historique des questions du 9PG
+        histoQuestion.setEditable(false);
+        histoQuestion.setItems(listeHistoriqueFAF);
+        histoQuestion.setCellFactory(new Callback<ListView<HistoriqueQuestionFAF>, ListCell<HistoriqueQuestionFAF>>() {
 
-			// only one global event handler
-			private EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					Parent p = (Parent) event.getSource();
-					LOGGER.info("### --> Clic sur \"Historique FAF\" : {}.", p.getUserData());
+            // only one global event handler
+            private EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    Parent p = (Parent) event.getSource();
+                    LOGGER.info("### --> Clic sur \"Historique FAF\" : {}.", p.getUserData());
 
-					afficherQuestionHistorique((HistoriqueQuestionFAF) p.getUserData());
-					btnRemplacerQuestionFAF.setDisable(true);
-					affichageHistoriqueEnCours = true;
-				}
-			};
+                    afficherQuestionHistorique((HistoriqueQuestionFAF) p.getUserData());
+                    btnRemplacerQuestionFAF.setDisable(true);
+                    affichageHistoriqueEnCours = true;
+                }
+            };
 
-			@Override
-			public ListCell<HistoriqueQuestionFAF> call(ListView<HistoriqueQuestionFAF> list) {
-				return new HistoriqueFAFListCell(eventHandler);
-			}
-		});
+            @Override
+            public ListCell<HistoriqueQuestionFAF> call(ListView<HistoriqueQuestionFAF> list) {
+                return new HistoriqueFAFListCell(eventHandler);
+            }
+        });
 
-		// Création des boutons
+        // Création des boutons
 
-		btnReprendreFAF.setVisible(false);
-		btnReprendreFAF.setDisable(true);
+        btnReprendreFAF.setVisible(false);
+        btnReprendreFAF.setDisable(true);
 
-		nbQuestion.setStyle(Style.FOND_NORMAL);
+        nbQuestion.setStyle(Style.FOND_NORMAL);
 
-		modifierTaille(TaillePolice.GRAND);
+        modifierTaille(TaillePolice.GRAND);
 
-		LOGGER.info("[FIN] Initialisation du panneau FAF.");
-	}
+        LOGGER.info("[FIN] Initialisation du panneau FAF.");
+    }
 
-	// Gestion des évenements
+    // Gestion des évenements
 
-	@FXML
-	public void jouerNouvelleQuestionFAF() {
-		LOGGER.info("### --> Clic sur \"Nouvelle question FAF\".");
+    @FXML
+    public void jouerNouvelleQuestionFAF() {
+        LOGGER.info("### --> Clic sur \"Nouvelle question FAF\".");
 
-		changerQuestion(true);
-	}
+        changerQuestion(true);
+    }
 
-	@FXML
-	public void reprendreFAF() {
-		LOGGER.info("### --> Clic sur \"Reprendre FAF\".");
+    @FXML
+    public void reprendreFAF() {
+        LOGGER.info("### --> Clic sur \"Reprendre FAF\".");
 
-		if (affichageHistoriqueEnCours) {
+        if (affichageHistoriqueEnCours) {
 
-			btnReprendreFAF.setDisable(true);
-			btnReprendreFAF.setVisible(false);
+            btnReprendreFAF.setDisable(true);
+            btnReprendreFAF.setVisible(false);
 
-			btnNouvelleQuestionFAF.setDisable(false);
-			btnNouvelleQuestionFAF.setVisible(true);
+            btnNouvelleQuestionFAF.setDisable(false);
+            btnNouvelleQuestionFAF.setVisible(true);
 
-			btnRemplacerQuestionFAF.setDisable(false);
+            btnRemplacerQuestionFAF.setDisable(false);
 
-			cartonFAF.setStyle(Style.FOND_CARTON);
+            cartonFAF.setStyle(Style.FOND_CARTON);
 
-			afficherCartonFAF(moteurFAF.getDerniereQuestionFAF());
+            afficherCartonFAF(moteurFAF.getDerniereQuestionFAF());
 
-			numQuestionAffiche = moteurFAF.getNbQuestReel();
-		}
-	}
+            numQuestionAffiche = moteurFAF.getNbQuestReel();
+        }
+    }
 
-	@FXML
-	public void signalerErreurQuestionFAF() {
-		LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de FAF\".");
+    @FXML
+    public void signalerErreurQuestionFAF() {
+        LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de FAF\".");
 
-		SignalementAnomalie signalementAnomalie = PopUpAnomalieQuestion.afficherPopUp(TypePartie.FAF);
+        SignalementAnomalie signalementAnomalie = PopUpAnomalieQuestion.afficherPopUp(TypePartie.FAF);
 
-		if (signalementAnomalie != null) {
-			moteurFAF.signalerAnomalie(signalementAnomalie);
+        if (signalementAnomalie != null) {
+            moteurFAF.signalerAnomalie(signalementAnomalie);
 
-			// Mise à jour de l'historique des questions
-			listeHistoriqueFAF.get(listeHistoriqueFAF.size() - numQuestionAffiche).setNonComptabilise(true);
-			histoQuestion.refresh();
-		}
+            // Mise à jour de l'historique des questions
+            listeHistoriqueFAF.get(listeHistoriqueFAF.size() - numQuestionAffiche).setNonComptabilise(true);
+            histoQuestion.refresh();
+        }
 
-	}
+    }
 
-	@FXML
-	public void remplacerQuestionFAF() {
-		LOGGER.info("### --> Clic sur \"Remplacer la question de FAF\".");
+    @FXML
+    public void remplacerQuestionFAF() {
+        LOGGER.info("### --> Clic sur \"Remplacer la question de FAF\".");
 
-		changerQuestion(false);
+        changerQuestion(false);
 
-		// Mise à jour de l'historique des questions
-		listeHistoriqueFAF.get((moteurFAF.getNbQuestReel() - listeHistoriqueFAF.size()) + 1).setNonComptabilise(true);
-	}
+        // Mise à jour de l'historique des questions
+        listeHistoriqueFAF.get((moteurFAF.getNbQuestReel() - listeHistoriqueFAF.size()) + 1).setNonComptabilise(true);
+    }
 
-	// Méthodes d'affichage
+    // Méthodes d'affichage
 
-	private void changerQuestion(boolean questionACompter) {
-		LOGGER.info("[DEBUT] Changer de question.");
+    private void changerQuestion(boolean questionACompter) {
+        LOGGER.info("[DEBUT] Changer de question.");
 
-		QuestionFAF nouvelleQuestion = moteurFAF.changerQuestion(questionACompter);
+        QuestionFAF nouvelleQuestion = moteurFAF.changerQuestion(questionACompter);
 
-		// Historiser la nouvelle question
-		historiserQuestionFAF(nouvelleQuestion);
+        // Historiser la nouvelle question
+        historiserQuestionFAF(nouvelleQuestion);
 
-		// Mise à jour de l'affichage
-		afficherCartonFAF(nouvelleQuestion);
-		afficherNbQuestion();
+        // Mise à jour de l'affichage
+        afficherCartonFAF(nouvelleQuestion);
+        afficherNbQuestion();
 
-		LOGGER.info("[FIN] Changer de question.");
-	}
+        LOGGER.info("[FIN] Changer de question.");
+    }
 
-	private void afficherQuestionHistorique(HistoriqueQuestionFAF question) {
-		LOGGER.info("[DEBUT] Affichage question depuis l'historique.");
+    private void afficherQuestionHistorique(HistoriqueQuestionFAF question) {
+        LOGGER.info("[DEBUT] Affichage question depuis l'historique.");
 
-		// Mise à jour de l'affichage
-		afficherCartonFAF(question.getQuestion());
+        // Mise à jour de l'affichage
+        afficherCartonFAF(question.getQuestion());
 
-		// Désactivation du bouton "Nouvelle question"
-		btnNouvelleQuestionFAF.setVisible(false);
-		btnNouvelleQuestionFAF.setDisable(true);
+        // Désactivation du bouton "Nouvelle question"
+        btnNouvelleQuestionFAF.setVisible(false);
+        btnNouvelleQuestionFAF.setDisable(true);
 
-		// Activation du bouton "Reprendre le FAF"
-		btnReprendreFAF.setVisible(true);
-		btnReprendreFAF.setDisable(false);
+        // Activation du bouton "Reprendre le FAF"
+        btnReprendreFAF.setVisible(true);
+        btnReprendreFAF.setDisable(false);
 
-		// Modifcation de la couleur de fond du carton du FAF.
-		cartonFAF.setStyle(Style.FOND_CARTON_HISTORIQUE);
+        // Modifcation de la couleur de fond du carton du FAF.
+        cartonFAF.setStyle(Style.FOND_CARTON_HISTORIQUE);
 
-		numQuestionAffiche = question.getNbQuestionReel();
+        numQuestionAffiche = question.getNbQuestionReel();
 
-		LOGGER.info("[FIN] Affichage question depuis l'historique.");
-	}
+        LOGGER.info("[FIN] Affichage question depuis l'historique.");
+    }
 
-	private void afficherNbQuestion() {
-		LOGGER.info("[DEBUT] Affichage du nombre de question.");
+    private void afficherNbQuestion() {
+        LOGGER.info("[DEBUT] Affichage du nombre de question.");
 
-		if (moteurFAF.getNbQuest() == 1) {
-			nbQuestion.setText(moteurFAF.getNbQuest() + " question jouée");
-		} else {
-			if (moteurFAF.getNbQuest() >= Seuil.SEUIL_WARNING_FAF) {
-				nbQuestion.setStyle(Style.FOND_WARNING);
-			}
-			nbQuestion.setText(moteurFAF.getNbQuest() + " questions jouées");
-		}
-		LOGGER.info("[FIN] Affichage du nombre de question.");
-	}
+        if (moteurFAF.getNbQuest() == 1) {
+            nbQuestion.setText(moteurFAF.getNbQuest() + " question jouée");
+        } else {
+            if (moteurFAF.getNbQuest() >= Seuil.SEUIL_WARNING_FAF) {
+                nbQuestion.setStyle(Style.FOND_WARNING);
+            }
+            nbQuestion.setText(moteurFAF.getNbQuest() + " questions jouées");
+        }
+        LOGGER.info("[FIN] Affichage du nombre de question.");
+    }
 
-	private void afficherCartonFAF(QuestionFAF questionFAF) {
-		LOGGER.info("[DEBUT] Affichage carton FAF.");
+    private void afficherCartonFAF(QuestionFAF questionFAF) {
+        LOGGER.info("[DEBUT] Affichage carton FAF.");
 
-		String nbMots = " (" + StringUtilities.compterNombreDeMots(questionFAF.getQuestion()) + " mots)";
+        if (questionFAF != null) {
+            String nbMots = " (" + StringUtilities.compterNombreDeMots(questionFAF.getQuestion()) + " mots)";
 
-		themeFAF.setText(questionFAF.getTheme().toUpperCase() + nbMots);
-		libelleQuestionFAF.setText(questionFAF.getQuestion());
-		reponseFAF.setText(questionFAF.getReponse().toUpperCase());
-		reponseFAF.setTextAlignment(TextAlignment.CENTER);
-		questionFAFInfos.setText(Utils.formaterReference(questionFAF.getReference(), TypePhase.FAF) + " - "
-				+ questionFAF.getSource().toString());
+            themeFAF.setText(questionFAF.getTheme().toUpperCase() + nbMots);
+            libelleQuestionFAF.setText(questionFAF.getQuestion());
+            reponseFAF.setText(questionFAF.getReponse().toUpperCase());
+            reponseFAF.setTextAlignment(TextAlignment.CENTER);
+            questionFAFInfos.setText(Utils.formaterReference(questionFAF.getReference(), TypePhase.FAF) + " - "
+                    + questionFAF.getSource().toString());
+        }
 
-		LOGGER.info("[FIN] Affichage carton FAF.");
-	}
+        LOGGER.info("[FIN] Affichage carton FAF.");
+    }
 
-	// Méthodes métier
+    // Méthodes métier
 
-	private void historiserQuestionFAF(QuestionFAF questionFAF) {
-		LOGGER.info("[DEBUT] Historisation de la question FAF.");
+    private void historiserQuestionFAF(QuestionFAF questionFAF) {
+        LOGGER.info("[DEBUT] Historisation de la question FAF.");
 
-		if (questionFAF != null) {
-			HistoriqueQuestionFAF histo = new HistoriqueQuestionFAF();
-			histo.setNbQuestion(moteurFAF.getNbQuest());
-			histo.setNbQuestionReel(moteurFAF.getNbQuestReel());
-			histo.setQuestion(questionFAF);
+        if (questionFAF != null) {
+            HistoriqueQuestionFAF histo = new HistoriqueQuestionFAF();
+            histo.setNbQuestion(moteurFAF.getNbQuest());
+            histo.setNbQuestionReel(moteurFAF.getNbQuestReel());
+            histo.setQuestion(questionFAF);
 
-			listeHistoriqueFAF.add(0, histo);
-		}
+            listeHistoriqueFAF.add(0, histo);
+        }
 
-		LOGGER.info("[FIN] Historisation de la question FAF.");
-	}
+        LOGGER.info("[FIN] Historisation de la question FAF.");
+    }
 
-	@Override
-	public void modifierTaille(TaillePolice taille) {
-		LOGGER.info("[DEBUT] Modifier la taille.");
+    @Override
+    public void modifierTaille(TaillePolice taille) {
+        LOGGER.info("[DEBUT] Modifier la taille.");
 
-		switch (taille) {
-		case PETIT:
-			definirTailleCartonFAF(14);
-			break;
-		case MOYEN:
-			definirTailleCartonFAF(18);
-			break;
-		case GRAND:
-			definirTailleCartonFAF(22);
-			break;
-		}
+        switch (taille) {
+        case PETIT:
+            definirTailleCartonFAF(14);
+            break;
+        case MOYEN:
+            definirTailleCartonFAF(18);
+            break;
+        case GRAND:
+            definirTailleCartonFAF(22);
+            break;
+        }
 
-		LOGGER.info("[FIN] Modifier la taille.");
-	}
+        LOGGER.info("[FIN] Modifier la taille.");
+    }
 
-	private void definirTailleCartonFAF(int taille) {
-		LOGGER.info("[DEBUT] Définir taille carton.");
+    private void definirTailleCartonFAF(int taille) {
+        LOGGER.info("[DEBUT] Définir taille carton.");
 
-		themeFAF.setStyle("-fx-font-size:" + taille + "px");
-		libelleQuestionFAF.setStyle("-fx-font-size:" + taille + "px");
-		reponseFAF.setStyle("-fx-font-size:" + taille + "px");
-		questionFAFInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
+        themeFAF.setStyle("-fx-font-size:" + taille + "px");
+        libelleQuestionFAF.setStyle("-fx-font-size:" + taille + "px");
+        reponseFAF.setStyle("-fx-font-size:" + taille + "px");
+        questionFAFInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
 
-		LOGGER.info("[FIN] Définir taille carton.");
-	}
+        LOGGER.info("[FIN] Définir taille carton.");
+    }
 
-	@Override
-	public void definirNiveauPartie(NiveauPartie niveauPartie) {
-		LOGGER.info("[DEBUT] Définir niveau partie.");
+    @Override
+    public void definirNiveauPartie(NiveauPartie niveauPartie) {
+        LOGGER.info("[DEBUT] Définir niveau partie.");
 
-		moteurFAF.definirNiveauPartie(niveauPartie);
+        moteurFAF.definirNiveauPartie(niveauPartie);
 
-		LOGGER.info("[FIN] Définir niveau partie.");
-	}
+        LOGGER.info("[FIN] Définir niveau partie.");
+    }
 
-	@Override
-	public void definirLecteur(Lecteur lecteur) {
-		LOGGER.info("[DEBUT] Définir lecteur.");
+    @Override
+    public void definirLecteur(Lecteur lecteur) {
+        LOGGER.info("[DEBUT] Définir lecteur.");
 
-		moteurFAF.definirLecteur(lecteur);
+        moteurFAF.definirLecteur(lecteur);
 
-		LOGGER.info("[FIN] Définir lecteur.");
-	}
+        LOGGER.info("[FIN] Définir lecteur.");
+    }
 }

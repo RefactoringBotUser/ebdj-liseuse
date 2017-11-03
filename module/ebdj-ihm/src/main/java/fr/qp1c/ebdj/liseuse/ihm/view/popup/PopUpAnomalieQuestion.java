@@ -114,9 +114,7 @@ public class PopUpAnomalieQuestion {
         grid.add(description, 1, 1);
 
         dialog.getDialogPane().setContent(grid);
-        Platform.runLater(() -> {
-            DialogUtils.centrer(dialog);
-        });
+        Platform.runLater(() -> DialogUtils.centrer(dialog));
 
         // Traditional way to get the response value.
         Optional<ButtonType> result = dialog.showAndWait();

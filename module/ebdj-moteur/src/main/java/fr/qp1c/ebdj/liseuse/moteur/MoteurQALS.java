@@ -81,7 +81,6 @@ public class MoteurQALS implements Moteur {
     public Map<String, Theme4ALS> listerThemesJouables(NiveauPartie niveauPartie) throws DBManagerException {
 
         Map<String, Theme4ALS> themes4ALS = new HashMap<>();
-        DBConnecteurQALSDao dbConnecteurQALSDao = new DBConnecteurQALSDaoImpl();
 
         // Lister les niveaux possibles en fonction du niveau
         int niveau = donnerNiveauJouable(niveauPartie);
@@ -99,11 +98,11 @@ public class MoteurQALS implements Moteur {
         for (int groupeCategorie = 1; groupeCategorie <= 4; groupeCategorie++) {
 
             Theme4ALS theme4ALS = dbConnecteurQALSDao.donnerTheme(groupeCategorie, niveau);
-            if (themes4ALS == null) {
+            if (theme4ALS == null) {
                 LOGGER.debug("Attention le theme de 4ALS pour le groupe {} est introuvable (=null).", groupeCategorie);
+            } else {
+                themes4ALS.put(String.valueOf(groupeCategorie), theme4ALS);
             }
-
-            themes4ALS.put(String.valueOf(groupeCategorie), theme4ALS);
         }
 
         return themes4ALS;
