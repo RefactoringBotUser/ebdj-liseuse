@@ -17,6 +17,7 @@ import fr.qp1c.ebdj.liseuse.ihm.view.Style;
 import fr.qp1c.ebdj.liseuse.ihm.view.TaillePolice;
 import fr.qp1c.ebdj.liseuse.ihm.view.listcell.HistoriqueJDListCell;
 import fr.qp1c.ebdj.liseuse.ihm.view.popup.PopUpAnomalieQuestion;
+import fr.qp1c.ebdj.liseuse.ihm.view.utils.FontConstants;
 import fr.qp1c.ebdj.liseuse.moteur.MoteurJD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,7 +63,7 @@ public class JDController implements PreferencesLecteur {
 	@FXML
 	private ListView<HistoriqueQuestionJD> histoQuestion;
 
-	public static ObservableList<HistoriqueQuestionJD> listeHistoriqueJD = FXCollections.observableArrayList();
+	public static final ObservableList<HistoriqueQuestionJD> listeHistoriqueJD = FXCollections.observableArrayList();
 
 	// Boutons.
 
@@ -122,13 +123,10 @@ public class JDController implements PreferencesLecteur {
 				@Override
 				public void handle(MouseEvent event) {
 					Parent p = (Parent) event.getSource();
-
 					LOGGER.info("### --> Clic sur \"Historique JD\" : {}.", p.getUserData());
 
 					afficherQuestionHistorique((HistoriqueQuestionJD) p.getUserData());
-
 					btnRemplacerQuestionJD.setDisable(true);
-
 					affichageHistoriqueEnCours = true;
 				}
 			};
@@ -312,10 +310,10 @@ public class JDController implements PreferencesLecteur {
 	private void definirTailleCartonJD(int taille) {
 		LOGGER.info("[DEBUT] Définir taille carton.");
 
-		themeJD.setStyle("-fx-font-size:" + taille + "px");
-		libelleQuestionJD.setStyle("-fx-font-size:" + taille + "px");
-		reponseJD.setStyle("-fx-font-size:" + taille + "px");
-		questionJDInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
+		themeJD.setStyle(FontConstants.FONT_SIZE+":" + taille + "px");
+		libelleQuestionJD.setStyle(FontConstants.FONT_SIZE+":" + taille + "px");
+		reponseJD.setStyle(FontConstants.FONT_SIZE+":" + taille + "px");
+		questionJDInfos.setStyle(FontConstants.FONT_SIZE+":" + (taille - 4) + "px");
 
 		LOGGER.info("[FIN] Définir taille carton.");
 	}

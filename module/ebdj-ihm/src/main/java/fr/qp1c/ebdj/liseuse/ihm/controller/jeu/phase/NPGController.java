@@ -61,7 +61,7 @@ public class NPGController implements PreferencesLecteur {
     @FXML
     private ListView<HistoriqueQuestion9PG> histoQuestion;
 
-    public static ObservableList<HistoriqueQuestion9PG> listeHistorique9PG = FXCollections.observableArrayList();
+    public static final ObservableList<HistoriqueQuestion9PG> listeHistorique9PG = FXCollections.observableArrayList();
 
     // Images.
 
@@ -137,13 +137,10 @@ public class NPGController implements PreferencesLecteur {
                 @Override
                 public void handle(MouseEvent event) {
                     Parent p = (Parent) event.getSource();
-
                     LOGGER.info("### --> Clic sur \"Historique 9PG\" : {}.", p.getUserData());
 
                     afficherQuestionHistorique((HistoriqueQuestion9PG) p.getUserData());
-
                     btnRemplacerQuestion9PG.setDisable(true);
-
                     affichageHistoriqueEnCours = true;
                 }
             };
@@ -310,7 +307,7 @@ public class NPGController implements PreferencesLecteur {
     private void changerQuestion(boolean questionACompter, boolean calculerNiveau) {
         LOGGER.info("[DEBUT] Changer de question.");
 
-        QuestionNPG nouvelleQuestion = null;
+        QuestionNPG nouvelleQuestion;
 
         if (calculerNiveau) {
             nouvelleQuestion = moteur9PG.changerQuestionAvecNiveau(questionACompter);

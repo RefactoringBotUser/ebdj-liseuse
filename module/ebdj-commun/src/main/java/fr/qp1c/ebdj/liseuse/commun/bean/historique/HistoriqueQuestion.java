@@ -7,7 +7,7 @@ public abstract class HistoriqueQuestion {
 	private int nbQuestionReel;
 
 	private boolean nonComptabilise;
-
+	
 	// Getters - setters
 
 	public boolean isNonComptabilise() {
@@ -33,7 +33,7 @@ public abstract class HistoriqueQuestion {
 	public void setNbQuestionReel(int nbQuestionReel) {
 		this.nbQuestionReel = nbQuestionReel;
 	}
-
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

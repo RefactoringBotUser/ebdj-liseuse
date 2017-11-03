@@ -72,17 +72,16 @@ public class BoutonSwitch4ALS extends HBox {
 	}
 
 	private void init() {
-
 		label.setText("NON JOUE");
 
 		getChildren().addAll(label, button);
-		button.setOnAction((e) -> {
+		button.setOnAction(e -> {
 
 			LOGGER.info("### --> Clic sur \"Joué theme 4ALS\".");
 
 			switchedOn.set(!switchedOn.get());
 		});
-		label.setOnMouseClicked((e) -> {
+		label.setOnMouseClicked(e -> {
 
 			LOGGER.info("### --> Clic sur \"Non-joué theme 4ALS\".");
 

@@ -130,16 +130,16 @@ public class StatistiquesController {
 
 	private ObservableList<StockGroupeCategorieQALS> donneesTableauSQ = FXCollections.observableArrayList();
 
-	private final Comparator<StockCategorieFAF> CATEGORIE_FAF_COMPARATOR = (o1, o2) -> o1.getCategorie()
+	private static final Comparator<StockCategorieFAF> CATEGORIE_FAF_COMPARATOR = (o1, o2) -> o1.getCategorie()
 			.compareTo(o2.getCategorie());
 
-	private final Comparator<StockGroupeCategorieQALS> GROUPE_CATEGORIE_QALS_COMPARATOR = (o1, o2) -> o1
+	private static final Comparator<StockGroupeCategorieQALS> GROUPE_CATEGORIE_QALS_COMPARATOR = (o1, o2) -> o1
 			.getGroupeCategorie().compareTo(o2.getGroupeCategorie());
 
-	private final ObjectProperty<Comparator<? super StockCategorieFAF>> CATEGORIE_FAF_COMPARATOR_WRAPPER = new SimpleObjectProperty<>(
+	private static final ObjectProperty<Comparator<? super StockCategorieFAF>> CATEGORIE_FAF_COMPARATOR_WRAPPER = new SimpleObjectProperty<>(
 			CATEGORIE_FAF_COMPARATOR);
 
-	private final ObjectProperty<Comparator<? super StockGroupeCategorieQALS>> GROUPE_CATEGORIE_QALS_COMPARATOR_WRAPPER = new SimpleObjectProperty<>(
+	private static final ObjectProperty<Comparator<? super StockGroupeCategorieQALS>> GROUPE_CATEGORIE_QALS_COMPARATOR_WRAPPER = new SimpleObjectProperty<>(
 			GROUPE_CATEGORIE_QALS_COMPARATOR);
 
 	@FXML

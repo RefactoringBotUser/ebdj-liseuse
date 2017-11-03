@@ -69,48 +69,18 @@ public class DBConnecteurNPGDaoImpl extends DBConnecteurGeneriqueImpl implements
 	@Override
 	public void creerQuestion(Question9PGBdjDistante question9pg) {
 		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"INSERT INTO QUESTION_NPG (question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('");
-		query.append(DBUtils.escapeSql(question9pg.getQuestion()));
-		query.append("','");
-		query.append(DBUtils.escapeSql(question9pg.getReponse()));
-		query.append("',");
-		query.append(question9pg.getDifficulte());
-		query.append(",'");
-		query.append(question9pg.getReference());
-		query.append("','");
-		query.append(DBUtils.escapeSql(question9pg.getClub()));
-		query.append("','");
-		query.append(question9pg.getDateEnvoi());
-		query.append("',");
-		query.append(question9pg.getVersion());
-		query.append(",1);"); // question active
+		String requete = String.format(
+				"INSERT INTO QUESTION_NPG (question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('%s','%s',%d,'%s','%s','%s',%d,1);",DBUtils.escapeSql(question9pg.getQuestion()),DBUtils.escapeSql(question9pg.getReponse()),question9pg.getDifficulte(),question9pg.getReference(),DBUtils.escapeSql(question9pg.getClub()),question9pg.getDateEnvoi(),question9pg.getVersion());
 
-		executerUpdateOuInsert(query.toString());
+		executerUpdateOuInsert(requete);
 	}
 
 	@Override
 	public void corrigerQuestion(Question9PGBdjDistante question9pg) {
 		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append("UPDATE QUESTION_NPG SET question='");
-		query.append(DBUtils.escapeSql(question9pg.getQuestion()));
-		query.append("', reponse='");
-		query.append(DBUtils.escapeSql(question9pg.getReponse()));
-		query.append("', difficulte=");
-		query.append(question9pg.getDifficulte());
-		query.append(", club='");
-		query.append(DBUtils.escapeSql(question9pg.getClub()));
-		query.append("', dateReception='");
-		query.append(question9pg.getDateEnvoi());
-		query.append("', version=");
-		query.append(question9pg.getVersion());
-		query.append(" WHERE reference=");
-		query.append(question9pg.getReference());
-		query.append(";");
-
-		executerUpdateOuInsert(query.toString());
+		String requete = String.format("UPDATE QUESTION_NPG SET question='%s', reponse='%s', difficulte=%d, club='%s', dateReception='%s', version=%d WHERE reference=%d;",DBUtils.escapeSql(question9pg.getQuestion()),DBUtils.escapeSql(question9pg.getReponse()), question9pg.getDifficulte(),DBUtils.escapeSql(question9pg.getClub()),question9pg.getDateEnvoi(),question9pg.getVersion(),question9pg.getReference());
+		
+		executerUpdateOuInsert(requete);
 	}
 
 	/**

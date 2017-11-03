@@ -1,6 +1,7 @@
 package fr.qp1c.ebdj.liseuse.bdd.dao.impl;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,8 +12,8 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.liseuse.bdd.configuration.Configuration;
 import fr.qp1c.ebdj.liseuse.bdd.dao.mapper.MapperQuestion;
-import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBManager;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBUtils;
 import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
 import fr.qp1c.ebdj.liseuse.commun.bean.anomalie.SignalementAnomalie;
@@ -144,23 +145,9 @@ public class DBConnecteurGeneriqueImpl {
     public void signalerAnomalie(String type, String reference, Long version, SignalementAnomalie anomalie,
             String lecteur) {
         // Création de la requête
-        StringBuilder query = new StringBuilder();
-        query.append("INSERT INTO " + donnerPrefixeTable(type)
-                + "_ANOMALIE (reference,version,date_anomalie,type_anomalie,cause,lecteur) VALUES ('");
-        query.append(reference);
-        query.append("',");
-        query.append(version);
-        query.append(",'");
-        query.append(Utils.recupererDateHeureCourante());
-        query.append("',");
-        query.append(anomalie.getTypeAnomalie().ordinal());
-        query.append(",'");
-        query.append(DBUtils.escapeSql(anomalie.getDescription()));
-        query.append("','");
-        query.append(DBUtils.escapeSql(lecteur));
-        query.append("');");
+        String requete=String.format("INSERT INTO %s_ANOMALIE (reference,version,date_anomalie,type_anomalie,cause,lecteur) VALUES ('%s',%d,'%s',%d,'%s','%s');",donnerPrefixeTable(type),reference,version,Utils.recupererDateHeureCourante(),anomalie.getTypeAnomalie().ordinal(), DBUtils.escapeSql(anomalie.getDescription()),DBUtils.escapeSql(lecteur));
 
-        executerUpdateOuInsert(query.toString());
+        executerUpdateOuInsert(requete);
     }
 
     protected int compterNbQuestion(String type) {
@@ -252,46 +239,93 @@ public class DBConnecteurGeneriqueImpl {
     }
 
     protected void executerUpdateOuInsert(String requete) {
+        // Connexion à la base de données SQLite
+    		Connection connection = null;
+    		Statement stmt = null;
         try {
-            // Connexion à la base de données SQLite
-            Connection connection = DBManager.getInstance().connect();
-            Statement stmt = connection.createStatement();
+	    		if(Configuration.getInstance().isTest()) {
+				Class.forName("org.h2.Driver");
+			} else {
+				Class.forName("org.sqlite.JDBC");
+			}
+						
+			connection = DriverManager.getConnection(Configuration.getInstance().getUrlDb(),Configuration.getInstance().getDbUser(),Configuration.getInstance().getDbPassword());
+
+            stmt=connection.createStatement();
 
             LOGGER.debug(requete);
 
             // Executer la requête
             stmt.executeUpdate(requete);
-
-            // Fermeture des connections.
-            stmt.close();
-            DBManager.getInstance().close(connection);
         } catch (Exception e) {
             LOGGER.error("An error has occured :", e);
             throw new DBManagerException();
+        } finally {
+        		if(stmt!=null) {
+        			// Fermeture des connections.
+        			try {
+        				stmt.close();
+        			} catch (SQLException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+        		}
+	    		if(connection!=null) {
+	    			// Fermeture des connections.
+	    			try {
+	    				connection.close();
+	    			} catch (SQLException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+	    		}
         }
     }
 
     public <T> T executerRequete(String requete, ResultSetHandler<T> h) {
 
         T result = null;
-
+        
+        // Connexion à la base de données SQLite
+    		Connection connection = null;
+    		Statement stmt = null;
         try {
-            Connection connection = DBManager.getInstance().connect();
-            Statement stmt = connection.createStatement();
+        		if(Configuration.getInstance().isTest()) {
+				Class.forName("org.h2.Driver");
+			} else {
+				Class.forName("org.sqlite.JDBC");
+			}
+						
+			connection = DriverManager.getConnection(Configuration.getInstance().getUrlDb(),Configuration.getInstance().getDbUser(),Configuration.getInstance().getDbPassword());
+
+			LOGGER.trace("Connexion  avec succès à la base de données {}", Configuration.getInstance().getUrlDb());
+			
+            stmt=connection.createStatement();
 
             LOGGER.debug(requete);
 
             // Executer la requête
             ResultSet rs = stmt.executeQuery(requete);
             result = h.handle(rs);
-
-            // Fermeture des connections.
-            stmt.close();
-            DBManager.getInstance().close(connection);
         } catch (Exception e) {
             LOGGER.error("An error has occured :", e);
             throw new DBManagerException();
-        }
+        } finally {
+	    		if(stmt!=null) {
+	    			// Fermeture des connections.
+	    			try {
+	    				stmt.close();
+	    			} catch (SQLException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+	    		}
+	    		if(connection!=null) {
+	    			// Fermeture des connections.
+	    			try {
+	    				connection.close();
+	    			} catch (SQLException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+	    		}
+	    }
 
         return result;
     }

@@ -93,9 +93,7 @@ public class PopUpNiveauPartie {
 
         dialog.getDialogPane().setContent(box);
 
-        Platform.runLater(() -> {
-            DialogUtils.centrer(dialog);
-        });
+        Platform.runLater(() -> DialogUtils.centrer(dialog));
 
         Optional<String> result = dialog.showAndWait();
 

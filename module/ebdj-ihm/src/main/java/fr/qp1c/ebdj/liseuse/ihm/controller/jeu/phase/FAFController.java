@@ -93,7 +93,7 @@ public class FAFController implements PreferencesLecteur {
 
 	// Données FAF.
 
-	public static ObservableList<HistoriqueQuestionFAF> listeHistoriqueFAF = FXCollections.observableArrayList();
+	public static final ObservableList<HistoriqueQuestionFAF> listeHistoriqueFAF = FXCollections.observableArrayList();
 
 	private MoteurFAF moteurFAF;
 
@@ -125,13 +125,10 @@ public class FAFController implements PreferencesLecteur {
 				@Override
 				public void handle(MouseEvent event) {
 					Parent p = (Parent) event.getSource();
-
 					LOGGER.info("### --> Clic sur \"Historique FAF\" : {}.", p.getUserData());
 
 					afficherQuestionHistorique((HistoriqueQuestionFAF) p.getUserData());
-
 					btnRemplacerQuestionFAF.setDisable(true);
-
 					affichageHistoriqueEnCours = true;
 				}
 			};

@@ -73,7 +73,7 @@ public class MoteurFAF implements Moteur{
 
 	private QuestionFAF donnerNouvelleQuestionInedite() {
 
-		QuestionFAF questionFAF = null;
+		QuestionFAF questionFAF;
 
 		if (nbQuest % 2 == 0) {
 

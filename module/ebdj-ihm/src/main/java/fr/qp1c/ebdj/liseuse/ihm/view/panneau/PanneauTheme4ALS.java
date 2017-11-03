@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 
 public class PanneauTheme4ALS extends TitledPane {
 
-	public BoutonSwitch4ALS boutonSwith4ALS;
+	private BoutonSwitch4ALS boutonSwith4ALS;
 
 	public BoutonSwitch4ALS getBoutonSwith4ALS() {
 		return boutonSwith4ALS;

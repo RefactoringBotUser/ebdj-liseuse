@@ -61,12 +61,10 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
     @Override
     public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveauMin, Long niveauMax) {
         // Création de la requête
-        StringBuilder query = new StringBuilder();
-        query.append(
-                "SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte>="
-                        + niveauMin + " AND difficulte<=" + niveauMax + "");
+        String requete = String.format(
+                "SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte>=%d AND difficulte<=%d",niveauMin, niveauMax);
 
-        return donnerQuestionsJouable(query.toString(), categoriesAExclure);
+        return donnerQuestionsJouable(requete, categoriesAExclure);
     }
 
     /**
@@ -76,11 +74,10 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
     @Override
     public QuestionFAF donnerQuestionsJouable(List<Long> categoriesAExclure, Long niveau) {
         // Création de la requête
-        StringBuilder query = new StringBuilder();
-        query.append(
-                "SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte="
-                        + niveau + "");
-        return donnerQuestionsJouable(query.toString(), categoriesAExclure);
+        String requete = String.format(
+                "SELECT id,question,reponse,theme,difficulte,categorie,categorieRef,reference,version,club,dateReception FROM QUESTION_FAF Q_FAF WHERE NOT EXISTS(SELECT * FROM QUESTION_FAF_LECTURE Q_FAF_J WHERE Q_FAF.reference=Q_FAF_J.reference) AND difficulte=%d", niveau );
+       
+        return donnerQuestionsJouable(requete, categoriesAExclure);
     }
 
     private QuestionFAF donnerQuestionsJouable(String requete, List<Long> categoriesAExclure) {
@@ -194,30 +191,9 @@ public class DBConnecteurFAFDaoImpl extends DBConnecteurGeneriqueImpl implements
     @Override
     public void corrigerQuestion(QuestionFAFBdjDistante questionFaf) {
         // Création de la requête
-        StringBuilder query = new StringBuilder();
-        query.append("UPDATE QUESTION_FAF SET categorie='");
-        query.append(questionFaf.getCategorieFAF());
-        query.append("', categorieRef=");
-        query.append(questionFaf.getCategorieFAFRef());
-        query.append(", theme='");
-        query.append(DBUtils.escapeSql(questionFaf.getTheme()));
-        query.append("', question='");
-        query.append(DBUtils.escapeSql(questionFaf.getQuestion()));
-        query.append("', reponse='");
-        query.append(DBUtils.escapeSql(questionFaf.getReponse()));
-        query.append("', difficulte=");
-        query.append(questionFaf.getDifficulte());
-        query.append(", club='");
-        query.append(DBUtils.escapeSql(questionFaf.getClub()));
-        query.append("', dateReception='");
-        query.append(questionFaf.getDateEnvoi());
-        query.append("', version=");
-        query.append(questionFaf.getVersion());
-        query.append(" WHERE reference=");
-        query.append(questionFaf.getReference());
-        query.append(";");
+        String requete = String.format("UPDATE QUESTION_FAF SET categorie='%s', categorieRef=%d, theme='%s', question='%s', reponse='%s', difficulte=%d, club='%s', dateReception='%s', version=%d WHERE reference=%d;",questionFaf.getCategorieFAF(),questionFaf.getCategorieFAFRef(),DBUtils.escapeSql(questionFaf.getTheme()),DBUtils.escapeSql(questionFaf.getQuestion()),DBUtils.escapeSql(questionFaf.getReponse()),questionFaf.getDifficulte(),DBUtils.escapeSql(questionFaf.getClub()),questionFaf.getDateEnvoi(),questionFaf.getVersion(),questionFaf.getReference());
 
-        executerUpdateOuInsert(query.toString());
+        executerUpdateOuInsert(requete);
     }
 
     /**

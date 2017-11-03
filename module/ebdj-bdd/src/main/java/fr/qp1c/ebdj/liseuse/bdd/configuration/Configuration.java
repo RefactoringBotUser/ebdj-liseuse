@@ -18,9 +18,9 @@ public class Configuration {
 
 	private String urlDb;
 
-	private String dbUser = "";
+	private String dbUser;
 
-	private String dbPassword = "";
+	private String dbPwd;
 	
 	private boolean test = false;
 
@@ -48,7 +48,7 @@ public class Configuration {
 		}
 		
 		dbUser = prop.getProperty("dbuser");
-		dbPassword = prop.getProperty("dbpassword");
+		dbPwd = prop.getProperty("dbpassword");
 
 		LOGGER.debug(urlDb);
 	}
@@ -69,7 +69,7 @@ public class Configuration {
 	}
 
 	public String getDbPassword() {
-		return dbPassword;
+		return dbPwd;
 	}
 
 	public boolean isTest() {

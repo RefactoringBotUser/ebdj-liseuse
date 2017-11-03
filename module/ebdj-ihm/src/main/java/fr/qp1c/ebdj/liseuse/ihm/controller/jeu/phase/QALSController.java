@@ -180,7 +180,6 @@ public class QALSController implements PreferencesLecteur {
                 LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 1\".");
 
                 theme4ALS1.afficherTheme();
-
                 moteurQALS.jouerTheme(themeQALS1.getReference());
             }
         });
@@ -194,7 +193,6 @@ public class QALSController implements PreferencesLecteur {
                 LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 2\".");
 
                 theme4ALS2.afficherTheme();
-
                 moteurQALS.jouerTheme(themeQALS2.getReference());
             }
         });
@@ -208,7 +206,6 @@ public class QALSController implements PreferencesLecteur {
                 LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 3\".");
 
                 theme4ALS3.afficherTheme();
-
                 moteurQALS.jouerTheme(themeQALS3.getReference());
             }
         });
@@ -222,7 +219,6 @@ public class QALSController implements PreferencesLecteur {
                 LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 4\".");
 
                 theme4ALS4.afficherTheme();
-
                 moteurQALS.jouerTheme(themeQALS4.getReference());
             }
         });

@@ -117,7 +117,7 @@ public class MoteurNPG implements Moteur{
 	private QuestionNPG donnerNouvelleQuestion() {
 		LOGGER.info("[DEBUT] Donner une nouvelle question.");
 
-		QuestionNPG question = null;
+		QuestionNPG question;
 
 		if ((niveau == 1 && Mode9PG.MODE_123.equals(mode9PG)) || (niveau == 2 && Mode9PG.MODE_23.equals(mode9PG))
 				|| (niveau == 3 && Mode9PG.MODE_3.equals(mode9PG))) {

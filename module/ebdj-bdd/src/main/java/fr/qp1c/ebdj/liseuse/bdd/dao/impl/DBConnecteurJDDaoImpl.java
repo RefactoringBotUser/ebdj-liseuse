@@ -72,52 +72,18 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	@Override
 	public void creerQuestion(QuestionJDBdjDistante questionJd) {
 		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"INSERT INTO QUESTION_JD (theme,question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('");
-		query.append(DBUtils.escapeSql(questionJd.getTheme()));
-		query.append("','");
-		query.append(DBUtils.escapeSql(questionJd.getQuestion()));
-		query.append("','");
-		query.append(DBUtils.escapeSql(questionJd.getReponse()));
-		query.append("',");
-		query.append(questionJd.getDifficulte());
-		query.append(",'");
-		query.append(questionJd.getReference());
-		query.append("','");
-		query.append(DBUtils.escapeSql(questionJd.getClub()));
-		query.append("','");
-		query.append(questionJd.getDateEnvoi());
-		query.append("',");
-		query.append(questionJd.getVersion());
-		query.append(",1);"); // question active
+		String requete = String.format(
+				"INSERT INTO QUESTION_JD (theme,question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('%s','%s','%s',%d,'%s','%s','%s',%d,1);",DBUtils.escapeSql(questionJd.getTheme()),DBUtils.escapeSql(questionJd.getQuestion()),DBUtils.escapeSql(questionJd.getReponse()),questionJd.getDifficulte(),questionJd.getReference(),DBUtils.escapeSql(questionJd.getClub()),questionJd.getDateEnvoi(),questionJd.getVersion());
 
-		executerUpdateOuInsert(query.toString());
+		executerUpdateOuInsert(requete);
 	}
 
 	@Override
 	public void corrigerQuestion(QuestionJDBdjDistante questionJd) {
 		// Création de la requête
-		StringBuilder query = new StringBuilder();
-		query.append("UPDATE QUESTION_JD SET theme='");
-		query.append(DBUtils.escapeSql(questionJd.getTheme()));
-		query.append("', question='");
-		query.append(DBUtils.escapeSql(questionJd.getQuestion()));
-		query.append("', reponse='");
-		query.append(DBUtils.escapeSql(questionJd.getReponse()));
-		query.append("', difficulte=");
-		query.append(questionJd.getDifficulte());
-		query.append(", club='");
-		query.append(DBUtils.escapeSql(questionJd.getClub()));
-		query.append("', dateReception='");
-		query.append(questionJd.getDateEnvoi());
-		query.append("', version=");
-		query.append(questionJd.getVersion());
-		query.append(" WHERE reference=");
-		query.append(questionJd.getReference());
-		query.append(";");
+		String requete = String.format("UPDATE QUESTION_JD SET theme='%s', question='%s', reponse='%s', difficulte=%d, club='%s', dateReception='%s', version=%d WHERE reference=%d;",DBUtils.escapeSql(questionJd.getTheme()),DBUtils.escapeSql(questionJd.getQuestion()),DBUtils.escapeSql(questionJd.getReponse()),questionJd.getDifficulte(),DBUtils.escapeSql(questionJd.getClub()),questionJd.getDateEnvoi(),questionJd.getVersion(),questionJd.getReference());
 
-		executerUpdateOuInsert(query.toString());
+		executerUpdateOuInsert(requete);
 	}
 
 	/**

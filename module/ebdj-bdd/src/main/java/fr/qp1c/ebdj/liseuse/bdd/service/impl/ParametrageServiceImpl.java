@@ -21,12 +21,9 @@ public class ParametrageServiceImpl implements ParametrageService {
 	
 	@Override
 	public String afficherFichierParametrage() {
-		// Nous déclarons nos objets en dehors du bloc try/catch
-		BufferedInputStream bis = null;
 		StringBuilder sb = new StringBuilder();
 
-		try {
-			bis = new BufferedInputStream(new FileInputStream(new File("configuration.properties")));
+		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File("configuration.properties")))){
 			byte[] buf = new byte[8];
 
 			while (bis.read(buf) != -1) {
@@ -34,14 +31,6 @@ public class ParametrageServiceImpl implements ParametrageService {
 			}
 		} catch (Exception e) {
 			LOGGER.error("An error has occured :", e);
-		} finally {
-			if (bis != null) {
-				try {
-					bis.close();
-				} catch (IOException e) {
-					LOGGER.error("An error has occured :", e);
-				}
-			}
 		}
 
 		return sb.toString();

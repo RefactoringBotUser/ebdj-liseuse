@@ -14,6 +14,10 @@ public class MapperConstants {
 
     public static final String THEME = "theme";
 
+    public static final String LECTEUR = "lecteur";
+    
+    public static final String DIFFICULTE = "difficulte";
+
     private MapperConstants() {
 
     }
