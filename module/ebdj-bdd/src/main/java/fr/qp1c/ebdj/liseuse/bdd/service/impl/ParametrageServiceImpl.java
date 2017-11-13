@@ -14,57 +14,61 @@ import fr.qp1c.ebdj.liseuse.bdd.service.ParametrageService;
 
 public class ParametrageServiceImpl implements ParametrageService {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(ParametrageServiceImpl.class);
-	
-	@Override
-	public String afficherFichierParametrage() {
-		StringBuilder sb = new StringBuilder();
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParametrageServiceImpl.class);
 
-		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File("configuration.properties")))){
-			byte[] buf = new byte[8];
+    @Override
+    public String afficherFichierParametrage() {
+        StringBuilder sb = new StringBuilder();
 
-			while (bis.read(buf) != -1) {
-				sb.append(buf);
-			}
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-		}
+        File f = new File(".");
+        System.out.println(f.getAbsolutePath());
 
-		return sb.toString();
-	}
+        try (BufferedInputStream bis = new BufferedInputStream(
+                new FileInputStream(new File("configuration.properties")))) {
+            byte[] buf = new byte[8];
 
-	@Override
-	public String afficherVersionApplication() {
-		Properties props = new Properties();
+            while (bis.read(buf) != -1) {
+                sb.append(buf);
+            }
+        } catch (Exception e) {
+            LOGGER.error("An error has occured :", e);
+        }
 
-		InputStream input = null;
+        return sb.toString();
+    }
 
-		String version = null;
+    @Override
+    public String afficherVersionApplication() {
+        Properties props = new Properties();
 
-		try {
-			// http://blog.soebes.de/blog/2014/01/02/version-information-into-your-appas-with-maven/
-			input = this.getClass().getResourceAsStream("/configuration.properties");
+        InputStream input = null;
 
-			// load a properties file
-			props.load(input);
+        String version = null;
 
-			version = props.getProperty("version");
-		} catch (IOException ex) {
-			LOGGER.error("An error has occured :", ex);
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					LOGGER.error("An error has occured :", e);
-				}
-			}
-		}
+        try {
+            // http://blog.soebes.de/blog/2014/01/02/version-information-into-your-appas-with-maven/
+            input = this.getClass().getResourceAsStream("/configuration.properties");
 
-		return version;
-	}
+            // load a properties file
+            props.load(input);
+
+            version = props.getProperty("version");
+        } catch (IOException ex) {
+            LOGGER.error("An error has occured :", ex);
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    LOGGER.error("An error has occured :", e);
+                }
+            }
+        }
+
+        return version;
+    }
 
 }

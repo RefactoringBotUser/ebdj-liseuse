@@ -9,70 +9,96 @@ import org.slf4j.LoggerFactory;
 
 public class Configuration {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
-	
-	private static Configuration configuration;
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
 
-	private String urlDb;
+    private static Configuration configuration;
 
-	private String dbUser;
+    private String url;
 
-	private String dbPwd;
-	
-	private boolean test = false;
+    private String user;
 
-	private Configuration() {
-		LOGGER.debug("Init config.");
-		
-		File f = new File(".");
+    private String password;
 
-		Properties prop = new Properties();
-	
-		// load a properties file
-		try {
-			prop.load(getClass().getClassLoader().getResourceAsStream("config.properties"));
-		} catch (IOException e) {
-			LOGGER.error("L'initialisation a échouée : ",e);
-		}
-		
-		String database=prop.getProperty("database");
+    private String database;
 
-		if(database.contains("TEST")) {
-			test=true;
-			urlDb = "jdbc:h2:mem:test";
-		} else {
-			urlDb = "jdbc:sqlite:" + f.getAbsolutePath() + "/db/" + database;
-		}
-		
-		dbUser = prop.getProperty("dbuser");
-		dbPwd = prop.getProperty("dbpassword");
+    private boolean test = false;
 
-		LOGGER.debug(urlDb);
-	}
+    private String urlCockpit;
 
-	public static Configuration getInstance() {
-		if(configuration==null) {
-			configuration= new Configuration();
-		}
-		return configuration;
-	}
+    private String nomCockpit;
 
-	public String getUrlDb() {
-		return urlDb;
-	}
+    private String cleCockpit;
 
-	public String getDbUser() {
-		return dbUser;
-	}
+    private Configuration() {
+        LOGGER.debug("Init config.");
 
-	public String getDbPassword() {
-		return dbPwd;
-	}
+        File f = new File(".");
 
-	public boolean isTest() {
-		return test;
-	}
+        Properties prop = new Properties();
+
+        // load a properties file
+        try {
+            prop.load(getClass().getClassLoader().getResourceAsStream("config.properties"));
+        } catch (IOException e) {
+            LOGGER.error("L'initialisation a échouée : ", e);
+        }
+
+        database = prop.getProperty("database");
+
+        if (database.contains("TEST")) {
+            test = true;
+            url = "jdbc:h2:mem:test";
+        } else {
+            url = "jdbc:sqlite:" + f.getAbsolutePath() + "/db/" + database;
+        }
+
+        user = prop.getProperty("dbuser");
+        password = prop.getProperty("dbpassword");
+        // urlCockpit = prop
+
+        LOGGER.debug(url);
+    }
+
+    public static Configuration getInstance() {
+        if (configuration == null) {
+            configuration = new Configuration();
+        }
+        return configuration;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getDatabase() {
+        return database;
+    }
+
+    public boolean isTest() {
+        return test;
+    }
+
+    public String getUrlCockpit() {
+        return urlCockpit;
+    }
+
+    public String getNomCockpit() {
+        return nomCockpit;
+    }
+
+    public String getCleCockpit() {
+        return cleCockpit;
+    }
+
 }

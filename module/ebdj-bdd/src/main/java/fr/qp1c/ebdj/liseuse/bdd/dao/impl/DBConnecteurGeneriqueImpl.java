@@ -145,7 +145,11 @@ public class DBConnecteurGeneriqueImpl {
     public void signalerAnomalie(String type, String reference, Long version, SignalementAnomalie anomalie,
             String lecteur) {
         // Création de la requête
-        String requete=String.format("INSERT INTO %s_ANOMALIE (reference,version,date_anomalie,type_anomalie,cause,lecteur) VALUES ('%s',%d,'%s',%d,'%s','%s');",donnerPrefixeTable(type),reference,version,Utils.recupererDateHeureCourante(),anomalie.getTypeAnomalie().ordinal(), DBUtils.escapeSql(anomalie.getDescription()),DBUtils.escapeSql(lecteur));
+        String requete = String.format(
+                "INSERT INTO %s_ANOMALIE (reference,version,date_anomalie,type_anomalie,cause,lecteur) VALUES ('%s',%d,'%s',%d,'%s','%s');",
+                donnerPrefixeTable(type), reference, version, Utils.recupererDateHeureCourante(),
+                anomalie.getTypeAnomalie().ordinal(), DBUtils.escapeSql(anomalie.getDescription()),
+                DBUtils.escapeSql(lecteur));
 
         executerUpdateOuInsert(requete);
     }
@@ -240,18 +244,19 @@ public class DBConnecteurGeneriqueImpl {
 
     protected void executerUpdateOuInsert(String requete) {
         // Connexion à la base de données SQLite
-    		Connection connection = null;
-    		Statement stmt = null;
+        Connection connection = null;
+        Statement stmt = null;
         try {
-	    		if(Configuration.getInstance().isTest()) {
-				Class.forName("org.h2.Driver");
-			} else {
-				Class.forName("org.sqlite.JDBC");
-			}
-						
-			connection = DriverManager.getConnection(Configuration.getInstance().getUrlDb(),Configuration.getInstance().getDbUser(),Configuration.getInstance().getDbPassword());
+            if (Configuration.getInstance().isTest()) {
+                Class.forName("org.h2.Driver");
+            } else {
+                Class.forName("org.sqlite.JDBC");
+            }
 
-            stmt=connection.createStatement();
+            connection = DriverManager.getConnection(Configuration.getInstance().getUrl(),
+                    Configuration.getInstance().getUser(), Configuration.getInstance().getPassword());
+
+            stmt = connection.createStatement();
 
             LOGGER.debug(requete);
 
@@ -261,44 +266,45 @@ public class DBConnecteurGeneriqueImpl {
             LOGGER.error("An error has occured :", e);
             throw new DBManagerException();
         } finally {
-        		if(stmt!=null) {
-        			// Fermeture des connections.
-        			try {
-        				stmt.close();
-        			} catch (SQLException e) {
-					LOGGER.error("An error has occured :", e);
-				}
-        		}
-	    		if(connection!=null) {
-	    			// Fermeture des connections.
-	    			try {
-	    				connection.close();
-	    			} catch (SQLException e) {
-					LOGGER.error("An error has occured :", e);
-				}
-	    		}
+            if (stmt != null) {
+                // Fermeture des connections.
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    LOGGER.error("An error has occured :", e);
+                }
+            }
+            if (connection != null) {
+                // Fermeture des connections.
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    LOGGER.error("An error has occured :", e);
+                }
+            }
         }
     }
 
     public <T> T executerRequete(String requete, ResultSetHandler<T> h) {
 
         T result = null;
-        
-        // Connexion à la base de données SQLite
-    		Connection connection = null;
-    		Statement stmt = null;
-        try {
-        		if(Configuration.getInstance().isTest()) {
-				Class.forName("org.h2.Driver");
-			} else {
-				Class.forName("org.sqlite.JDBC");
-			}
-						
-			connection = DriverManager.getConnection(Configuration.getInstance().getUrlDb(),Configuration.getInstance().getDbUser(),Configuration.getInstance().getDbPassword());
 
-			LOGGER.trace("Connexion  avec succès à la base de données {}", Configuration.getInstance().getUrlDb());
-			
-            stmt=connection.createStatement();
+        // Connexion à la base de données SQLite
+        Connection connection = null;
+        Statement stmt = null;
+        try {
+            if (Configuration.getInstance().isTest()) {
+                Class.forName("org.h2.Driver");
+            } else {
+                Class.forName("org.sqlite.JDBC");
+            }
+
+            connection = DriverManager.getConnection(Configuration.getInstance().getUrl(),
+                    Configuration.getInstance().getUser(), Configuration.getInstance().getPassword());
+
+            LOGGER.trace("Connexion  avec succès à la base de données {}", Configuration.getInstance().getUrl());
+
+            stmt = connection.createStatement();
 
             LOGGER.debug(requete);
 
@@ -309,23 +315,23 @@ public class DBConnecteurGeneriqueImpl {
             LOGGER.error("An error has occured :", e);
             throw new DBManagerException();
         } finally {
-	    		if(stmt!=null) {
-	    			// Fermeture des connections.
-	    			try {
-	    				stmt.close();
-	    			} catch (SQLException e) {
-					LOGGER.error("An error has occured :", e);
-				}
-	    		}
-	    		if(connection!=null) {
-	    			// Fermeture des connections.
-	    			try {
-	    				connection.close();
-	    			} catch (SQLException e) {
-					LOGGER.error("An error has occured :", e);
-				}
-	    		}
-	    }
+            if (stmt != null) {
+                // Fermeture des connections.
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    LOGGER.error("An error has occured :", e);
+                }
+            }
+            if (connection != null) {
+                // Fermeture des connections.
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    LOGGER.error("An error has occured :", e);
+                }
+            }
+        }
 
         return result;
     }
