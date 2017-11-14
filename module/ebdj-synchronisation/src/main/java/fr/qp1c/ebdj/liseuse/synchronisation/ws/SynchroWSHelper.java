@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.qp1c.ebdj.liseuse.commun.bean.exception.BdjException;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
+import fr.qp1c.ebdj.liseuse.commun.configuration.Configuration;
 import fr.qp1c.ebdj.liseuse.commun.exchange.AuthentificationBdj;
 import fr.qp1c.ebdj.liseuse.commun.exchange.anomalie.AnomaliesBdjDistante;
 import fr.qp1c.ebdj.liseuse.commun.exchange.anomalie.BdjDistanteAnomalie;
@@ -26,144 +27,134 @@ import fr.qp1c.ebdj.liseuse.commun.exchange.lecture.LecturesBdjDistante;
 
 public class SynchroWSHelper {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SynchroWSHelper.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(SynchroWSHelper.class);
 
-	protected String urlCockpitRest;
+    protected String urlCockpitRest;
 
-	protected AuthentificationBdj authentificationBdj;
+    protected AuthentificationBdj authentificationBdj;
 
-	public SynchroWSHelper() {
-		// TODO : recuperer la configuration dans le fichier de properties
-		urlCockpitRest = "http://localhost:9000/";
-		authentificationBdj = new AuthentificationBdj();
+    public SynchroWSHelper() {
+        urlCockpitRest = Configuration.getInstance().getCockpitUrl();
+        authentificationBdj = new AuthentificationBdj();
+        authentificationBdj.setNomBdj(Configuration.getInstance().getCockpitBdjNom());
+        authentificationBdj.setCleAuthentification(Configuration.getInstance().getCockpitBdjCle());
+    }
 
-		// BDJ CLUB
+    protected String post(String urlToCall, String request) throws Exception {
+        String response = null;
 
-		// authentificationBdj.setNomBdj("E-BDJ - PILOTE");
-		// authentificationBdj.setCleAuthentification("45fa69e4-1a99-4b02-996e-b1985a05ddbb");
+        try {
+            Long deb = System.nanoTime();
+            LOGGER.info("URL :" + urlToCall + " Request : " + request);
 
-		// BDJ TEST
+            URL url = new URL(urlToCall);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
 
-		authentificationBdj.setNomBdj("EBDJ - TEST");
-		authentificationBdj.setCleAuthentification("1936a18b-898d-467a-bc1b-f5d91604f8a8");
-	}
+            OutputStream os = conn.getOutputStream();
+            os.write(request.getBytes());
+            os.flush();
 
-	protected String post(String urlToCall, String request) throws Exception {
-		String response = null;
+            if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED
+                    && conn.getResponseCode() != HttpURLConnection.HTTP_NO_CONTENT
+                    && conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+            }
 
-		try {
-			Long deb = System.nanoTime();
-			LOGGER.info("URL :" + urlToCall + " Request : " + request);
+            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
-			URL url = new URL(urlToCall);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/json");
+            String output;
+            if ((output = br.readLine()) != null) {
+                response = output;
+            }
+            conn.disconnect();
 
-			OutputStream os = conn.getOutputStream();
-			os.write(request.getBytes());
-			os.flush();
+            Long fin = System.nanoTime();
 
-			if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED
-					&& conn.getResponseCode() != HttpURLConnection.HTTP_NO_CONTENT
-					&& conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
-			}
+            LOGGER.info("Duree de l'appel : " + (fin - deb) / 100000 + " ms.");
+        } catch (Exception e) {
+            LOGGER.error("An error has occured :", e);
+            throw e;
+        }
+        return response;
+    }
 
-			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+    protected void synchroniserLectures(String urlToCall, List<Lecture> lectures) throws BdjException {
 
-			String output;
-			if ((output = br.readLine()) != null) {
-				response = output;
-			}
+        try {
+            ObjectMapper mapper = new ObjectMapper();
 
-			conn.disconnect();
+            LecturesBdjDistante lecturesBdjDistante = new LecturesBdjDistante();
+            lecturesBdjDistante.setAuthentificationBdj(authentificationBdj);
 
-			Long fin = System.nanoTime();
+            List<BdjDistanteLecture> bdjDistanteLectures = new ArrayList<>();
 
-			LOGGER.info("Duree de l'appel : " + (fin - deb) / 100000 + " ms.");
-		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
-			throw e;
-		}
-		return response;
-	}
+            for (Lecture lecture : lectures) {
+                bdjDistanteLectures.add(convertirLecture(lecture));
+            }
 
-	protected void synchroniserLectures(String urlToCall, List<Lecture> lectures) throws BdjException {
+            lecturesBdjDistante.setLectures(bdjDistanteLectures);
 
-		try {
-			ObjectMapper mapper = new ObjectMapper();
+            String request = mapper.writeValueAsString(lecturesBdjDistante);
 
-			LecturesBdjDistante lecturesBdjDistante = new LecturesBdjDistante();
-			lecturesBdjDistante.setAuthentificationBdj(authentificationBdj);
+            post(urlToCall, request);
 
-			List<BdjDistanteLecture> bdjDistanteLectures = new ArrayList<>();
+        } catch (Exception e) {
+            LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+            throw new BdjException(e, "SYNCHRO_LECTURE_01");
+        }
+    }
 
-			for (Lecture lecture : lectures) {
-				bdjDistanteLectures.add(convertirLecture(lecture));
-			}
+    protected void synchroniserAnomalies(String urlToCall, List<Anomalie> anomalies) throws BdjException {
 
-			lecturesBdjDistante.setLectures(bdjDistanteLectures);
+        try {
+            ObjectMapper mapper = new ObjectMapper();
 
-			String request = mapper.writeValueAsString(lecturesBdjDistante);
+            AnomaliesBdjDistante anomaliesBdjDistante = new AnomaliesBdjDistante();
+            anomaliesBdjDistante.setAuthentificationBdj(authentificationBdj);
 
-			post(urlToCall, request);
+            List<BdjDistanteAnomalie> bdjDistanteAnomalies = new ArrayList<>();
 
-		} catch (Exception e) {
-			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
-			throw new BdjException(e, "SYNCHRO_LECTURE_01");
-		}
-	}
+            for (Anomalie anomalie : anomalies) {
+                bdjDistanteAnomalies.add(convertirAnomalie(anomalie));
+            }
 
-	protected void synchroniserAnomalies(String urlToCall, List<Anomalie> anomalies) throws BdjException {
+            anomaliesBdjDistante.setAnomalies(bdjDistanteAnomalies);
 
-		try {
-			ObjectMapper mapper = new ObjectMapper();
+            String request = mapper.writeValueAsString(anomaliesBdjDistante);
 
-			AnomaliesBdjDistante anomaliesBdjDistante = new AnomaliesBdjDistante();
-			anomaliesBdjDistante.setAuthentificationBdj(authentificationBdj);
+            post(urlToCall, request);
 
-			List<BdjDistanteAnomalie> bdjDistanteAnomalies = new ArrayList<>();
+        } catch (Exception e) {
+            LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+            throw new BdjException(e, "SYNCHRO_ANOMALIE_01");
+        }
+    }
 
-			for (Anomalie anomalie : anomalies) {
-				bdjDistanteAnomalies.add(convertirAnomalie(anomalie));
-			}
+    protected BdjDistanteAnomalie convertirAnomalie(Anomalie anomalie) {
+        BdjDistanteAnomalie anomalieWs = new BdjDistanteAnomalie();
+        anomalieWs.setCommentaire(anomalie.getCause());
+        anomalieWs.setLecteur(anomalie.getLecteur());
+        anomalieWs.setReference(anomalie.getReference());
+        anomalieWs.setTypeAnomalie(anomalie.getTypeAnomalie());
+        // TODO : Convertir la date de l'anomalie
+        anomalieWs.setDateAnomalie(new Date(Calendar.getInstance().getTimeInMillis()));
+        anomalieWs.setVersion(anomalie.getVersion());
+        return anomalieWs;
+    }
 
-			anomaliesBdjDistante.setAnomalies(bdjDistanteAnomalies);
+    protected BdjDistanteLecture convertirLecture(Lecture lecture) {
+        BdjDistanteLecture lectureWs = new BdjDistanteLecture();
+        lectureWs.setReference(lecture.getReference());
+        lectureWs.setLecteur(lecture.getLecteur());
+        lectureWs.setDateLecture(new Date(Calendar.getInstance().getTimeInMillis()));
 
-			String request = mapper.writeValueAsString(anomaliesBdjDistante);
-
-			post(urlToCall, request);
-
-		} catch (Exception e) {
-			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
-			throw new BdjException(e, "SYNCHRO_ANOMALIE_01");
-		}
-	}
-
-	protected BdjDistanteAnomalie convertirAnomalie(Anomalie anomalie) {
-		BdjDistanteAnomalie anomalieWs = new BdjDistanteAnomalie();
-		anomalieWs.setCommentaire(anomalie.getCause());
-		anomalieWs.setLecteur(anomalie.getLecteur());
-		anomalieWs.setReference(anomalie.getReference());
-		anomalieWs.setTypeAnomalie(anomalie.getTypeAnomalie());
-		// TODO : Convertir la date de l'anomalie
-		anomalieWs.setDateAnomalie(new Date(Calendar.getInstance().getTimeInMillis()));
-		anomalieWs.setVersion(anomalie.getVersion());
-		return anomalieWs;
-	}
-
-	protected BdjDistanteLecture convertirLecture(Lecture lecture) {
-		BdjDistanteLecture lectureWs = new BdjDistanteLecture();
-		lectureWs.setReference(lecture.getReference());
-		lectureWs.setLecteur(lecture.getLecteur());
-		lectureWs.setDateLecture(new Date(Calendar.getInstance().getTimeInMillis()));
-
-		return lectureWs;
-	}
+        return lectureWs;
+    }
 
 }

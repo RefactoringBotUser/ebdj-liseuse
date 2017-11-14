@@ -12,13 +12,13 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.qp1c.ebdj.liseuse.bdd.configuration.Configuration;
 import fr.qp1c.ebdj.liseuse.bdd.dao.mapper.MapperQuestion;
 import fr.qp1c.ebdj.liseuse.bdd.utils.db.DBUtils;
 import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
 import fr.qp1c.ebdj.liseuse.commun.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
+import fr.qp1c.ebdj.liseuse.commun.configuration.Configuration;
 import fr.qp1c.ebdj.liseuse.commun.utils.Utils;
 
 public class DBConnecteurGeneriqueImpl {
