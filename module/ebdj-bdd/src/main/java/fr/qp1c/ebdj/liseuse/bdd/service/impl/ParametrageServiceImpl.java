@@ -1,8 +1,5 @@
 package fr.qp1c.ebdj.liseuse.bdd.service.impl;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -11,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.liseuse.bdd.service.ParametrageService;
+import fr.qp1c.ebdj.liseuse.commun.configuration.Configuration;
 
 public class ParametrageServiceImpl implements ParametrageService {
 
@@ -21,23 +19,7 @@ public class ParametrageServiceImpl implements ParametrageService {
 
     @Override
     public String afficherFichierParametrage() {
-        StringBuilder sb = new StringBuilder();
-
-        File f = new File(".");
-        System.out.println(f.getAbsolutePath());
-
-        try (BufferedInputStream bis = new BufferedInputStream(
-                new FileInputStream(new File("configuration.properties")))) {
-            byte[] buf = new byte[8];
-
-            while (bis.read(buf) != -1) {
-                sb.append(buf);
-            }
-        } catch (Exception e) {
-            LOGGER.error("An error has occured :", e);
-        }
-
-        return sb.toString();
+        return Configuration.getInstance().afficherFichierParametrage();
     }
 
     @Override
@@ -49,8 +31,10 @@ public class ParametrageServiceImpl implements ParametrageService {
         String version = null;
 
         try {
+            System.out.println(this.getClass().getResource("/version.properties"));
+
             // http://blog.soebes.de/blog/2014/01/02/version-information-into-your-appas-with-maven/
-            input = this.getClass().getResourceAsStream("/configuration.properties");
+            input = this.getClass().getResourceAsStream("/version.properties");
 
             // load a properties file
             props.load(input);

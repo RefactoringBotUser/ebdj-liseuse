@@ -1,5 +1,6 @@
 package fr.qp1c.ebdj.liseuse.commun.configuration;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -38,20 +39,9 @@ public class Configuration {
 
         Properties prop = new Properties();
 
-        File f = new File(".");
-
         // load a properties file/
         try {
-
-            System.out.println("Répertoire : " + f.getCanonicalPath().toString());
-            // System.out.println("Ressource : " +
-            // getClass().getClassLoader().getResource("config.properties").getPath());
-
-            String fichierConfig = f.getCanonicalPath().toString() + "/config/config.properties";
-            LOGGER.debug("URL du fichier de configuration={}", fichierConfig);
-
-            // prop.load(getClass().getClassLoader().getResourceAsStream("config.properties"));
-            prop.load(new FileInputStream(fichierConfig));
+            prop.load(new FileInputStream(getConfigurationFileName()));
         } catch (IOException e) {
             LOGGER.error("L'initialisation a échouée : ", e);
         }
@@ -62,7 +52,7 @@ public class Configuration {
             test = true;
             url = "jdbc:h2:mem:test";
         } else {
-            url = "jdbc:sqlite:" + f.getAbsolutePath() + "/db/" + database + ".sqlite";
+            url = "jdbc:sqlite:" + getPwd() + "/db/" + database + ".sqlite";
         }
 
         user = prop.getProperty("db-user");
@@ -72,9 +62,27 @@ public class Configuration {
         cockpitBdjNom = prop.getProperty("cockpit-bdj-nom");
         cockpitBdjCle = prop.getProperty("cockpit-bdj-cle");
 
-        LOGGER.debug(url);
+        LOGGER.debug("Url DB : {}", url);
 
         LOGGER.debug("Fin de l'initialisation de la configuration.");
+    }
+
+    private String getConfigurationFileName() {
+        File f = new File(".");
+        try {
+            String fichierConfig = f.getCanonicalPath().toString() + "/config/config.properties";
+            LOGGER.debug("URL du fichier de configuration={}", fichierConfig);
+
+            return fichierConfig;
+        } catch (IOException e) {
+            LOGGER.error("L'initialisation a échouée : ", e);
+        }
+
+        return null;
+    }
+
+    private String getPwd() {
+        return new File(".").getAbsolutePath();
     }
 
     public static Configuration getInstance() {
@@ -114,6 +122,33 @@ public class Configuration {
 
     public String getCockpitBdjCle() {
         return cockpitBdjCle;
+    }
+
+    public String afficherFichierParametrage() {
+        BufferedInputStream bis = null;
+        String strFileContents = "";
+
+        try {
+            bis = new BufferedInputStream(new FileInputStream(getConfigurationFileName()));
+
+            byte[] contents = new byte[1024];
+
+            int bytesRead = 0;
+            while ((bytesRead = bis.read(contents)) != -1) {
+                strFileContents += new String(contents, 0, bytesRead);
+            }
+        } catch (Exception e) {
+            LOGGER.error("An error has occured :", e);
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return strFileContents;
     }
 
 }

@@ -3,6 +3,8 @@ package fr.qp1c.ebdj.liseuse.ihm.controller.parametrage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.qp1c.ebdj.liseuse.bdd.service.ParametrageService;
+import fr.qp1c.ebdj.liseuse.bdd.service.impl.ParametrageServiceImpl;
 import fr.qp1c.ebdj.liseuse.ihm.Launcher;
 import fr.qp1c.ebdj.liseuse.ihm.utils.config.ImageConstants;
 import fr.qp1c.ebdj.liseuse.ihm.view.utils.ImageUtils;
@@ -16,60 +18,64 @@ import javafx.scene.text.TextFlow;
 
 public class ParametrageController {
 
-	/**
-	 * Default logger.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(ParametrageController.class);
+    /**
+     * Default logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParametrageController.class);
 
-	// Composant(s) JavaFX
+    // Composant(s) JavaFX
 
-	@FXML
-	private Button btnHome;
+    @FXML
+    private Button btnHome;
 
-	@FXML
-	private TextFlow configuration;
+    @FXML
+    private TextFlow configuration;
 
-	@FXML
-	private ScrollPane panneauConfiguration;
+    @FXML
+    private ScrollPane panneauConfiguration;
 
-	// Autres attributs
+    private ParametrageService parametrageService;
 
-	private Launcher launcher;
+    // Autres attributs
 
-	@FXML
-	private void initialize() {
-		LOGGER.info("[DEBUT] Initialisation du panneau paramétrage.");
+    private Launcher launcher;
 
-		btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_HOME, 25));
+    @FXML
+    private void initialize() {
+        LOGGER.info("[DEBUT] Initialisation du panneau paramétrage.");
 
-		// TODO : régler : nom de la base de données, clé de la boite de jeu,
-		// url BDJ distante, liste lecteur + préférences taille...)
+        btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_HOME, 25));
 
-		// TODO : Afficher le numéro de version de l'application
+        this.parametrageService = new ParametrageServiceImpl();
 
-		ObservableList<Node> conf = configuration.getChildren();
-		conf.add(new Text("lorem ipsum"));
+        System.out.println(parametrageService.afficherFichierParametrage());
+        System.out.println(parametrageService.afficherVersionApplication());
 
-		panneauConfiguration.setFitToHeight(true);
-		panneauConfiguration.setFitToWidth(true);
+        // TODO : Afficher le numéro de version de l'application
 
-		LOGGER.info("[FIN] Initialisation du panneau paramétrage.");
-	}
+        ObservableList<Node> conf = configuration.getChildren();
+        conf.add(new Text(parametrageService.afficherFichierParametrage()));
 
-	@FXML
-	public void retournerEcranHome() {
-		LOGGER.info("### --> Clic sur \"Ecran HOME\".");
+        panneauConfiguration.setFitToHeight(true);
+        panneauConfiguration.setFitToWidth(true);
 
-		launcher.afficherEcranHome();
-	}
+        LOGGER.info("[FIN] Initialisation du panneau paramétrage.");
+    }
 
-	// Getters - setters
+    @FXML
+    public void retournerEcranHome() {
+        LOGGER.info("### --> Clic sur \"Ecran HOME\".");
 
-	public Launcher getLauncher() {
-		return launcher;
-	}
+        launcher.afficherEcranHome();
+    }
 
-	public void setLauncher(Launcher launcher) {
-		this.launcher = launcher;
-	}
+    // Getters - setters
+
+    public Launcher getLauncher() {
+        return launcher;
+    }
+
+    public void setLauncher(Launcher launcher) {
+        this.launcher = launcher;
+    }
 }
