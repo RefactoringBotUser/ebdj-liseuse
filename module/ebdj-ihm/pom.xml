@@ -4,7 +4,7 @@
 
 	<parent>
 		<artifactId>ebdj-liseuse</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>2.0.3</version>
 		<relativePath>../..</relativePath>
 		<groupId>fr.ebdj.liseuse</groupId>
 	</parent>
@@ -74,7 +74,7 @@
 							<configuration>
 								<archive>
 									<manifest>
-										<mainClass>fr.qp1c.ebdj.Launcher</mainClass>
+										<mainClass>fr.qp1c.ebdj.liseuse.ihm.Launcher</mainClass>
 									</manifest>
 								</archive>
 							</configuration>
@@ -89,7 +89,17 @@
 		<dependency>
 			<groupId>fr.ebdj.liseuse</groupId>
 			<artifactId>ebdj-moteur</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.ebdj.liseuse</groupId>
+			<artifactId>ebdj-synchronisation</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.ebdj.liseuse</groupId>
+			<artifactId>ebdj-stats</artifactId>
+			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>
 </project>

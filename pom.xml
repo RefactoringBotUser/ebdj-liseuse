@@ -4,49 +4,54 @@
 
 	<groupId>fr.ebdj.liseuse</groupId>
 	<artifactId>ebdj-liseuse</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>2.0.3</version>
 	<packaging>pom</packaging>
 
 	<name>ebdj-liseuse</name>
 	<url>http://maven.apache.org</url>
 
 	<modules>
+		<module>module/ebdj-commun</module>
+		<module>module/ebdj-bdd</module>
+		<module>module/ebdj-stats</module>
+		<module>module/ebdj-synchronisation</module>
 		<module>module/ebdj-moteur</module>
 		<module>module/ebdj-ihm</module>
 	</modules>
 
-	<build>
-		<plugins>
-
-			<plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-release-plugin</artifactId>
-		        <version>2.5.3</version>
-		        <configuration>
-		        	<tagNameFormat>v@{project.version}</tagNameFormat>
-          <providerImplementations>
-              <git>jgit</git>
-          </providerImplementations>
-       			</configuration>
-         <dependencies>
-          <dependency>
-              <groupId>org.apache.maven.scm</groupId>
-              <artifactId>maven-scm-provider-jgit</artifactId>
-                    <version>1.9.5</version>
-          </dependency>
-         </dependencies>
-      		</plugin>
-      	</plugins>
-	</build>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<global.version>2.0.3</global.version>
 	</properties>
-	
-	
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<providerImplementations>
+						<git>jgit</git>
+					</providerImplementations>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-jgit</artifactId>
+						<version>1.9.5</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
 	<scm>
 		<url>https://github.com/ngendron/ebdj-liseuse</url>
 		<connection>scm:git:https://github.com/ngendron/ebdj-liseuse.git</connection>
@@ -54,12 +59,6 @@
 	</scm>
 
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.3</version>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -74,6 +73,21 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
 			<version>1.1.2</version>
+		</dependency>
+
+		<!-- Apache Commons -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

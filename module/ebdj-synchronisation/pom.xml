@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>ebdj-liseuse</artifactId>
+		<version>2.0.3</version>
+		<relativePath>../..</relativePath>
+		<groupId>fr.ebdj.liseuse</groupId>
+	</parent>
+
+  <artifactId>ebdj-synchronisation</artifactId>
+  <packaging>jar</packaging>
+
+  <name>ebdj-synchronisation</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+	<dependencies>
+
+		<!-- JSON -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>fr.ebdj.liseuse</groupId>
+			<artifactId>ebdj-bdd</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+	</dependencies>
+</project>

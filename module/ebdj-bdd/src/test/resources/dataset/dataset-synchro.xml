@@ -1,0 +1,5 @@
+<dataset>
+	<synchro id="1" cle="JD_CORRECTION" valeur="0" date_derniere_synchro="2017-09-01 00:00:00"/>
+	<synchro id="2" cle="JD_ANOMALIE" valeur="4" date_derniere_synchro="2017-09-01 00:00:00"/>
+	<synchro id="3" cle="JD_LECTURE" valeur="1234" date_derniere_synchro="2017-09-01 00:00:00"/>
+</dataset>
