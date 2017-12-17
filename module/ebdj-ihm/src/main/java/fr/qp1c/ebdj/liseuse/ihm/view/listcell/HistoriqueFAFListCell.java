@@ -27,7 +27,7 @@ public class HistoriqueFAFListCell extends ListCell<HistoriqueQuestionFAF> {
 
 	@Override
 	public void updateItem(HistoriqueQuestionFAF item, boolean empty) {
-		LOGGER.debug("[DEBUT] Maj de l'entrée de l'historique : {} ", item);
+		//LOGGER.debug("[DEBUT] Maj de l'entrée de l'historique : {} ", item);
 
 		if (item != null) {
 			super.updateItem(item, empty);
@@ -56,7 +56,6 @@ public class HistoriqueFAFListCell extends ListCell<HistoriqueQuestionFAF> {
 				setGraphic(hbox);
 			}
 		}
-
-		LOGGER.debug("[FIN] Maj de l'entrée de l'historique.");
+		//LOGGER.debug("[FIN] Maj de l'entrée de l'historique.");
 	}
 }

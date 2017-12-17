@@ -157,6 +157,15 @@ public class NPGController implements PreferencesLecteur {
         btnReprendre9PG.setDisable(true);
 
         modifierTaille(TaillePolice.GRAND);
+		
+
+		// Fix anomalie JD en mode historique par
+		btnNouvelleQuestion9PG.setVisible(true);
+		btnNouvelleQuestion9PG.setDisable(false);
+
+		btnRemplacerQuestion9PG.setDisable(false);
+		
+		carton9PG.setStyle(Style.FOND_CARTON);
 
         nbQuestion.setStyle(Style.FOND_NORMAL);
 
@@ -366,14 +375,12 @@ public class NPGController implements PreferencesLecteur {
     private void afficherCarton9PG(QuestionNPG questionNPG, int niveau) {
         LOGGER.info("[DEBUT] Affichage carton 9PG.");
 
-        if (questionNPG != null) {
-            afficherNiveauQuestion(niveau);
+        afficherNiveauQuestion(niveau);
 
-            question9PG.setText(questionNPG.getQuestion());
-            reponse9PG.setText(questionNPG.getReponse().toUpperCase());
-            reponse9PG.setTextAlignment(TextAlignment.CENTER);
-            question9PGInfos.setText(formaterQuestion9PGInfos(questionNPG));
-        }
+        question9PG.setText(questionNPG.getQuestion());
+        reponse9PG.setText(questionNPG.getReponse().toUpperCase());
+        reponse9PG.setTextAlignment(TextAlignment.CENTER);
+        question9PGInfos.setText(formaterQuestion9PGInfos(questionNPG));
 
         LOGGER.info("[FIN] Affichage carton 9PG.");
     }

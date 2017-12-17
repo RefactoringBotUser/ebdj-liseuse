@@ -14,6 +14,7 @@ import fr.qp1c.ebdj.liseuse.ihm.controller.jeu.phase.preferences.PreferencesLect
 import fr.qp1c.ebdj.liseuse.ihm.utils.config.ImageConstants;
 import fr.qp1c.ebdj.liseuse.ihm.view.TaillePolice;
 import fr.qp1c.ebdj.liseuse.ihm.view.panneau.PanneauTheme4ALS;
+import fr.qp1c.ebdj.liseuse.ihm.view.popup.PopUpPenurieTheme4ALS;
 import fr.qp1c.ebdj.liseuse.ihm.view.utils.FontConstants;
 import fr.qp1c.ebdj.liseuse.moteur.MoteurQALS;
 import javafx.collections.ObservableList;
@@ -165,72 +166,74 @@ public class QALSController implements PreferencesLecteur {
     public void jouerNouveau4ALS() {
 
         Map<String, Theme4ALS> themes4ALS = moteurQALS.tirerThemes();
+        
+        if(themes4ALS.size()==4) {
 
-        Theme4ALS themeQALS1 = themes4ALS.get("1");
-        Theme4ALS themeQALS2 = themes4ALS.get("2");
-        Theme4ALS themeQALS3 = themes4ALS.get("3");
-        Theme4ALS themeQALS4 = themes4ALS.get("4");
+            Theme4ALS themeQALS1 = themes4ALS.get("1");
+            Theme4ALS themeQALS2 = themes4ALS.get("2");
+            Theme4ALS themeQALS3 = themes4ALS.get("3");
+            Theme4ALS themeQALS4 = themes4ALS.get("4");
 
-        theme4ALS1.setGraphic(ImageConstants.IMAGE_1);
-        theme4ALS1.setText(themeQALS1.getTheme());
-        theme4ALS1.setCollapsible(true);
-        theme4ALS1.setExpanded(false);
-        theme4ALS1.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-            if (isNowExpanded) {
-                LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 1\".");
+            theme4ALS1.setGraphic(ImageConstants.IMAGE_1);
+            theme4ALS1.setText(themeQALS1.getTheme());
+            theme4ALS1.setCollapsible(true);
+            theme4ALS1.setExpanded(false);
+            theme4ALS1.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+                if (isNowExpanded) {
+                    LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 1\".");
 
-                theme4ALS1.afficherTheme();
-                moteurQALS.jouerTheme(themeQALS1.getReference());
-            }
-        });
+                    theme4ALS1.afficherTheme();
+                    moteurQALS.jouerTheme(themeQALS1.getReference());
+                }
+            });
 
-        theme4ALS2.setGraphic(ImageConstants.IMAGE_2);
-        theme4ALS2.setText(themeQALS2.getTheme());
-        theme4ALS2.setCollapsible(true);
-        theme4ALS2.setExpanded(false);
-        theme4ALS2.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-            if (isNowExpanded) {
-                LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 2\".");
+            theme4ALS2.setGraphic(ImageConstants.IMAGE_2);
+            theme4ALS2.setText(themeQALS2.getTheme());
+            theme4ALS2.setCollapsible(true);
+            theme4ALS2.setExpanded(false);
+            theme4ALS2.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+                if (isNowExpanded) {
+                    LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 2\".");
 
-                theme4ALS2.afficherTheme();
-                moteurQALS.jouerTheme(themeQALS2.getReference());
-            }
-        });
+                    theme4ALS2.afficherTheme();
+                    moteurQALS.jouerTheme(themeQALS2.getReference());
+                }
+            });
 
-        theme4ALS3.setGraphic(ImageConstants.IMAGE_3);
-        theme4ALS3.setText(themeQALS3.getTheme());
-        theme4ALS3.setCollapsible(true);
-        theme4ALS3.setExpanded(false);
-        theme4ALS3.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-            if (isNowExpanded) {
-                LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 3\".");
+            theme4ALS3.setGraphic(ImageConstants.IMAGE_3);
+            theme4ALS3.setText(themeQALS3.getTheme());
+            theme4ALS3.setCollapsible(true);
+            theme4ALS3.setExpanded(false);
+            theme4ALS3.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+                if (isNowExpanded) {
+                    LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 3\".");
 
-                theme4ALS3.afficherTheme();
-                moteurQALS.jouerTheme(themeQALS3.getReference());
-            }
-        });
+                    theme4ALS3.afficherTheme();
+                    moteurQALS.jouerTheme(themeQALS3.getReference());
+                }
+            });
 
-        theme4ALS4.setGraphic(ImageConstants.IMAGE_4);
-        theme4ALS4.setText(themeQALS4.getTheme());
-        theme4ALS4.setCollapsible(true);
-        theme4ALS4.setExpanded(false);
-        theme4ALS4.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-            if (isNowExpanded) {
-                LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 4\".");
+            theme4ALS4.setGraphic(ImageConstants.IMAGE_4);
+            theme4ALS4.setText(themeQALS4.getTheme());
+            theme4ALS4.setCollapsible(true);
+            theme4ALS4.setExpanded(false);
+            theme4ALS4.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+                if (isNowExpanded) {
+                    LOGGER.info("### --> Clic sur l'onglet \"Quatre à la suite 4\".");
 
-                theme4ALS4.afficherTheme();
-                moteurQALS.jouerTheme(themeQALS4.getReference());
-            }
-        });
+                    theme4ALS4.afficherTheme();
+                    moteurQALS.jouerTheme(themeQALS4.getReference());
+                }
+            });
 
-        // Retrieving the observable list of the TextFlow Pane
-        formaterContenuTheme4ALS(questionTheme4ALS1.getChildren(), themeQALS1);
-
-        formaterContenuTheme4ALS(questionTheme4ALS2.getChildren(), themeQALS2);
-
-        formaterContenuTheme4ALS(questionTheme4ALS3.getChildren(), themeQALS3);
-
-        formaterContenuTheme4ALS(questionTheme4ALS4.getChildren(), themeQALS4);
+            // Retrieving the observable list of the TextFlow Pane
+            formaterContenuTheme4ALS(questionTheme4ALS1.getChildren(), themeQALS1);
+            formaterContenuTheme4ALS(questionTheme4ALS2.getChildren(), themeQALS2);
+            formaterContenuTheme4ALS(questionTheme4ALS3.getChildren(), themeQALS3);
+            formaterContenuTheme4ALS(questionTheme4ALS4.getChildren(), themeQALS4);
+        } else {
+        		PopUpPenurieTheme4ALS.afficherPopUp();
+        }
     }
 
     public void formaterContenuTheme4ALS(ObservableList<Node> list, Theme4ALS theme4ALS) {
@@ -258,18 +261,14 @@ public class QALSController implements PreferencesLecteur {
             Text textLV = new Text("\n");
             textLV.setFont(fontLV);
 
-            if (list != null) {
-                // Adding cylinder to the pane
-                list.addAll(textQ, textR, textLV);
-            }
+            // Adding cylinder to the pane
+            list.addAll(textQ, textR, textLV);
         }
 
         Text textS = new Text("\n(" + theme4ALS.getSource() + ")");
         textS.setFont(fontS);
 
-        if (list != null) {
-            list.addAll(textS);
-        }
+        list.addAll(textS);
 
         LOGGER.info("[FIN] Afficher theme 4ALS.");
     }

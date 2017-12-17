@@ -32,7 +32,24 @@ public class StockGroupeCategorieQALS {
 	 */
 	public StockGroupeCategorieQALS(StatsGroupeCategorieQALS statsGroupeCategorieQALS) {
 		super();
-		this.groupeCategorie = new SimpleStringProperty(statsGroupeCategorieQALS.getGroupeCategorie());
+		
+		switch(statsGroupeCategorieQALS.getGroupeCategorie()) {
+		case "1":
+			this.groupeCategorie = new SimpleStringProperty("Histoire, géo, religion,...");
+			break;
+		case "2":
+			this.groupeCategorie = new SimpleStringProperty("Arts, ciné, musique, litt...");
+			break;
+		case "3":
+			this.groupeCategorie = new SimpleStringProperty("Sciences et techniques, sport...");
+			break;
+		case "4":
+			this.groupeCategorie = new SimpleStringProperty("Société, varia, vocabulaire...");
+			break;
+		default:
+			this.groupeCategorie = new SimpleStringProperty("");
+		}
+		
 		this.niveau1 = new SimpleStringProperty(statsGroupeCategorieQALS.getStatsNiveau1().afficherQuantites());
 		this.niveau2 = new SimpleStringProperty(statsGroupeCategorieQALS.getStatsNiveau2().afficherQuantites());
 		this.niveau3 = new SimpleStringProperty(statsGroupeCategorieQALS.getStatsNiveau3().afficherQuantites());

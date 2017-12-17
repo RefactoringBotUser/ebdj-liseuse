@@ -194,8 +194,39 @@ public class DBConnecteurGeneriqueImpl {
         // Création de la requête
         StringBuilder query = new StringBuilder();
         query.append(String.format(
-                "SELECT count(1) FROM %s Q WHERE EXISTS(SELECT DISTINCT * FROM %s_LECTURE Q_J WHERE Q.reference=Q_J.reference)",
+                "SELECT count(1) FROM %s Q WHERE Q.reference IN (SELECT DISTINCT Q_J.reference FROM %s_LECTURE Q_J)",
                 donnerPrefixeTable(type), donnerPrefixeTable(type)));
+        if (complement != null) {
+            query.append(complement);
+        }
+        query.append(";");
+
+        ResultSetHandler<Integer> h = new ResultSetHandler<Integer>() {
+            @Override
+            public Integer handle(ResultSet rs) throws SQLException {
+                int nbQuestion = 0;
+
+                if (rs.next()) {
+                    nbQuestion = rs.getInt(1);
+                }
+                return Integer.valueOf(nbQuestion);
+            }
+        };
+
+        return executerRequete(query.toString(), h);
+    }
+    
+    protected int compterNbQuestionNonLue(String type, String complement) {
+        // Création de la requête
+        StringBuilder query = new StringBuilder();
+        query.append(String.format(
+                "SELECT count(1) FROM %s Q WHERE Q.reference NOT IN (SELECT DISTINCT Q_J.reference FROM %s_LECTURE Q_J)",
+                donnerPrefixeTable(type), donnerPrefixeTable(type)));
+        if("QALS".equals(type)) {
+            query.append(String.format(
+                    " AND Q.reference NOT IN (SELECT DISTINCT Q_T.reference FROM %s_PRESENTE Q_T)",
+                    donnerPrefixeTable(type), donnerPrefixeTable(type)));
+        }
         if (complement != null) {
             query.append(complement);
         }
@@ -220,7 +251,7 @@ public class DBConnecteurGeneriqueImpl {
         // Création de la requête
         StringBuilder query = new StringBuilder();
         query.append(String.format(
-                "SELECT count(1) FROM %s Q WHERE EXISTS(SELECT DISTINCT * FROM %s_PRESENTE Q_T WHERE Q.reference=Q_T.reference)",
+                "SELECT count(1) FROM %s Q WHERE Q.reference IN (SELECT DISTINCT Q_T.reference FROM %s_PRESENTE Q_T)",
                 donnerPrefixeTable(type), donnerPrefixeTable(type)));
         if (complement != null) {
             query.append(complement);
@@ -244,8 +275,8 @@ public class DBConnecteurGeneriqueImpl {
 
     protected void executerUpdateOuInsert(String requete) {
         // Connexion à la base de données SQLite
-        Connection connection = null;
-        Statement stmt = null;
+    		Connection connection = null;
+    		Statement stmt = null;
         try {
             if (Configuration.getInstance().isTest()) {
                 Class.forName("org.h2.Driver");
@@ -266,32 +297,32 @@ public class DBConnecteurGeneriqueImpl {
             LOGGER.error("An error has occured :", e);
             throw new DBManagerException();
         } finally {
-            if (stmt != null) {
-                // Fermeture des connections.
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    LOGGER.error("An error has occured :", e);
-                }
-            }
-            if (connection != null) {
-                // Fermeture des connections.
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    LOGGER.error("An error has occured :", e);
-                }
-            }
+        		if(stmt!=null) {
+        			// Fermeture des connections.
+        			try {
+        				stmt.close();
+        			} catch (SQLException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+        		}
+	    		if(connection!=null) {
+	    			// Fermeture des connections.
+	    			try {
+	    				connection.close();
+	    			} catch (SQLException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+	    		}
         }
     }
 
     public <T> T executerRequete(String requete, ResultSetHandler<T> h) {
 
         T result = null;
-
+        
         // Connexion à la base de données SQLite
-        Connection connection = null;
-        Statement stmt = null;
+    		Connection connection = null;
+    		Statement stmt = null;
         try {
             if (Configuration.getInstance().isTest()) {
                 Class.forName("org.h2.Driver");
@@ -315,23 +346,23 @@ public class DBConnecteurGeneriqueImpl {
             LOGGER.error("An error has occured :", e);
             throw new DBManagerException();
         } finally {
-            if (stmt != null) {
-                // Fermeture des connections.
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    LOGGER.error("An error has occured :", e);
-                }
-            }
-            if (connection != null) {
-                // Fermeture des connections.
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    LOGGER.error("An error has occured :", e);
-                }
-            }
-        }
+	    		if(stmt!=null) {
+	    			// Fermeture des connections.
+	    			try {
+	    				stmt.close();
+	    			} catch (SQLException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+	    		}
+	    		if(connection!=null) {
+	    			// Fermeture des connections.
+	    			try {
+	    				connection.close();
+	    			} catch (SQLException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+	    		}
+	    }
 
         return result;
     }

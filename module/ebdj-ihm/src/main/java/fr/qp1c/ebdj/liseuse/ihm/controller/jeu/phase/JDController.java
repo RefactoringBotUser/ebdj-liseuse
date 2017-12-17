@@ -36,305 +36,311 @@ import javafx.util.Callback;
 
 public class JDController implements PreferencesLecteur {
 
-    /**
-     * Default logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(JDController.class);
+	/**
+	 * Default logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(JDController.class);
 
-    // Labels.
+	// Labels.
 
-    @FXML
-    private Label nbQuestion;
+	@FXML
+	private Label nbQuestion;
 
-    @FXML
-    private Label themeJD;
+	@FXML
+	private Label themeJD;
 
-    @FXML
-    private Label libelleQuestionJD;
+	@FXML
+	private Label libelleQuestionJD;
 
-    @FXML
-    private Label reponseJD;
+	@FXML
+	private Label reponseJD;
 
-    @FXML
-    private Label questionJDInfos;
+	@FXML
+	private Label questionJDInfos;
 
-    // Liste.
+	// Liste.
 
-    @FXML
-    private ListView<HistoriqueQuestionJD> histoQuestion;
+	@FXML
+	private ListView<HistoriqueQuestionJD> histoQuestion;
 
-    public static final ObservableList<HistoriqueQuestionJD> listeHistoriqueJD = FXCollections.observableArrayList();
+	public static final ObservableList<HistoriqueQuestionJD> listeHistoriqueJD = FXCollections.observableArrayList();
 
-    // Boutons.
+	// Boutons.
 
-    @FXML
-    private Button btnNouvelleQuestionJD;
+	@FXML
+	private Button btnNouvelleQuestionJD;
 
-    @FXML
-    private Button btnReprendreJD;
+	@FXML
+	private Button btnReprendreJD;
 
-    @FXML
-    private Button btnSignalerErreurQuestionJD;
+	@FXML
+	private Button btnSignalerErreurQuestionJD;
 
-    @FXML
-    private Button btnRemplacerQuestionJD;
+	@FXML
+	private Button btnRemplacerQuestionJD;
 
-    // Panneau.
+	// Panneau.
 
-    @FXML
-    private BorderPane panneau;
+	@FXML
+	private BorderPane panneau;
 
-    @FXML
-    private VBox cartonJD;
+	@FXML
+	private VBox cartonJD;
 
-    // Données JD.
+	// Données JD.
 
-    private MoteurJD moteurJD;
+	private MoteurJD moteurJD;
 
-    private boolean affichageHistoriqueEnCours = false;
+	private boolean affichageHistoriqueEnCours = false;
 
-    private int numQuestionAffiche = 0;
+	private int numQuestionAffiche = 0;
 
-    @FXML
-    private void initialize() {
-        LOGGER.info("[DEBUT] Initialisation du panneau JD.");
+	@FXML
+	private void initialize() {
+		LOGGER.info("[DEBUT] Initialisation du panneau JD.");
 
-        reinitialiser();
+		reinitialiser();
 
-        LOGGER.info("[FIN] Initialisation du panneau JD.");
-    }
+		LOGGER.info("[FIN] Initialisation du panneau JD.");
+	}
 
-    public void reinitialiser() {
-        LOGGER.info("[DEBUT] Reinitialisation du panneau JD.");
+	public void reinitialiser() {
+		LOGGER.info("[DEBUT] Reinitialisation du panneau JD.");
 
-        moteurJD = new MoteurJD();
+		moteurJD = new MoteurJD();
 
-        listeHistoriqueJD.clear();
+		listeHistoriqueJD.clear();
 
-        numQuestionAffiche = 0;
+		numQuestionAffiche = 0;
 
-        // Création de l'historique des questions du 9PG
-        histoQuestion.setEditable(false);
-        histoQuestion.setItems(listeHistoriqueJD);
-        histoQuestion.setCellFactory(new Callback<ListView<HistoriqueQuestionJD>, ListCell<HistoriqueQuestionJD>>() {
+		// Création de l'historique des questions du 9PG
+		histoQuestion.setEditable(false);
+		histoQuestion.setItems(listeHistoriqueJD);
+		histoQuestion.setCellFactory(new Callback<ListView<HistoriqueQuestionJD>, ListCell<HistoriqueQuestionJD>>() {
 
-            // only one global event handler
-            private EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    Parent p = (Parent) event.getSource();
-                    LOGGER.info("### --> Clic sur \"Historique JD\" : {}.", p.getUserData());
+			// only one global event handler
+			private EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					Parent p = (Parent) event.getSource();
+					LOGGER.info("### --> Clic sur \"Historique JD\" : {}.", p.getUserData());
 
-                    afficherQuestionHistorique((HistoriqueQuestionJD) p.getUserData());
-                    btnRemplacerQuestionJD.setDisable(true);
-                    affichageHistoriqueEnCours = true;
-                }
-            };
+					afficherQuestionHistorique((HistoriqueQuestionJD) p.getUserData());
+					btnRemplacerQuestionJD.setDisable(true);
+					affichageHistoriqueEnCours = true;
+				}
+			};
 
-            @Override
-            public ListCell<HistoriqueQuestionJD> call(ListView<HistoriqueQuestionJD> list) {
-                return new HistoriqueJDListCell(eventHandler);
-            }
-        });
+			@Override
+			public ListCell<HistoriqueQuestionJD> call(ListView<HistoriqueQuestionJD> list) {
+				return new HistoriqueJDListCell(eventHandler);
+			}
+		});
 
-        // Création des boutons
+		// Création des boutons
 
-        btnReprendreJD.setVisible(false);
-        btnReprendreJD.setDisable(true);
+		btnReprendreJD.setVisible(false);
+		btnReprendreJD.setDisable(true);
 
-        nbQuestion.setStyle(Style.FOND_NORMAL);
+		// Fix anomalie JD en mode historique par
+		btnNouvelleQuestionJD.setVisible(true);
+		btnNouvelleQuestionJD.setDisable(false);
 
-        modifierTaille(TaillePolice.GRAND);
+		btnRemplacerQuestionJD.setDisable(false);
+		
+		cartonJD.setStyle(Style.FOND_CARTON);
 
-        LOGGER.info("[FIN] Reinitialisation du panneau JD.");
-    }
+		nbQuestion.setStyle(Style.FOND_NORMAL);
 
-    // Gestion des évenements
+		modifierTaille(TaillePolice.GRAND);
 
-    @FXML
-    public void jouerNouvelleQuestionJD() {
-        LOGGER.info("### --> Clic sur \"Nouvelle question JD\".");
+		LOGGER.info("[FIN] Reinitialisation du panneau JD.");
+	}
 
-        changerQuestion(true);
-    }
+	// Gestion des évenements
 
-    @FXML
-    public void reprendreJD() {
-        LOGGER.info("### --> Clic sur \"Reprendre JD\".");
+	@FXML
+	public void jouerNouvelleQuestionJD() {
+		LOGGER.info("### --> Clic sur \"Nouvelle question JD\".");
 
-        if (affichageHistoriqueEnCours) {
+		changerQuestion(true);
+	}
 
-            btnReprendreJD.setDisable(true);
-            btnReprendreJD.setVisible(false);
+	@FXML
+	public void reprendreJD() {
+		LOGGER.info("### --> Clic sur \"Reprendre JD\".");
 
-            btnNouvelleQuestionJD.setDisable(false);
-            btnNouvelleQuestionJD.setVisible(true);
+		if (affichageHistoriqueEnCours) {
 
-            btnRemplacerQuestionJD.setDisable(false);
+			btnReprendreJD.setDisable(true);
+			btnReprendreJD.setVisible(false);
 
-            cartonJD.setStyle(Style.FOND_CARTON);
+			btnNouvelleQuestionJD.setDisable(false);
+			btnNouvelleQuestionJD.setVisible(true);
 
-            afficherCartonJD(moteurJD.getDerniereQuestionJD());
+			btnRemplacerQuestionJD.setDisable(false);
 
-            numQuestionAffiche = moteurJD.getNbQuestReel();
-        }
-    }
+			cartonJD.setStyle(Style.FOND_CARTON);
 
-    @FXML
-    public void signalerErreurQuestionJD() {
-        LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de JD\".");
+			afficherCartonJD(moteurJD.getDerniereQuestionJD());
 
-        SignalementAnomalie signalementAnomalie = PopUpAnomalieQuestion.afficherPopUp(TypePartie.JD);
+			numQuestionAffiche = moteurJD.getNbQuestReel();
+		}
+	}
 
-        if (signalementAnomalie != null) {
+	@FXML
+	public void signalerErreurQuestionJD() {
+		LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de JD\".");
 
-            moteurJD.signalerAnomalie(signalementAnomalie);
+		SignalementAnomalie signalementAnomalie = PopUpAnomalieQuestion.afficherPopUp(TypePartie.JD);
 
-            listeHistoriqueJD.get(listeHistoriqueJD.size() - numQuestionAffiche).setNonComptabilise(true);
-            histoQuestion.refresh();
-        }
-    }
+		if (signalementAnomalie != null) {
 
-    @FXML
-    public void remplacerQuestionJD() {
-        LOGGER.info("### --> Clic sur \"Remplacer la question de JD\".");
+			moteurJD.signalerAnomalie(signalementAnomalie);
 
-        changerQuestion(false);
+			listeHistoriqueJD.get(listeHistoriqueJD.size() - numQuestionAffiche).setNonComptabilise(true);
+			histoQuestion.refresh();
+		}
+	}
 
-        listeHistoriqueJD.get((moteurJD.getNbQuestReel() - listeHistoriqueJD.size()) + 1).setNonComptabilise(true);
-    }
+	@FXML
+	public void remplacerQuestionJD() {
+		LOGGER.info("### --> Clic sur \"Remplacer la question de JD\".");
 
-    // Méthodes d'affichage
+		changerQuestion(false);
 
-    private void changerQuestion(boolean questionACompter) {
-        LOGGER.info("[DEBUT] Changer de question.");
+		listeHistoriqueJD.get((moteurJD.getNbQuestReel() - listeHistoriqueJD.size()) + 1).setNonComptabilise(true);
+	}
 
-        QuestionJD nouvelleQuestion = moteurJD.changerQuestion(questionACompter);
+	// Méthodes d'affichage
 
-        // Historiser la nouvelle question
-        historiserQuestionJD(nouvelleQuestion);
+	private void changerQuestion(boolean questionACompter) {
+		LOGGER.info("[DEBUT] Changer de question.");
 
-        // Mise à jour de l'affichage
-        afficherCartonJD(nouvelleQuestion);
-        afficherNbQuestion();
+		QuestionJD nouvelleQuestion = moteurJD.changerQuestion(questionACompter);
 
-        LOGGER.info("[FIN] Changer de question.");
-    }
+		// Historiser la nouvelle question
+		historiserQuestionJD(nouvelleQuestion);
 
-    private void afficherQuestionHistorique(HistoriqueQuestionJD question) {
-        LOGGER.info("[DEBUT] Affichage question depuis l'historique.");
+		// Mise à jour de l'affichage
+		afficherCartonJD(nouvelleQuestion);
+		afficherNbQuestion();
 
-        // Mise à jour de l'affichage
-        afficherCartonJD(question.getQuestion());
+		LOGGER.info("[FIN] Changer de question.");
+	}
 
-        // Désactivation du bouton "Nouvelle question"
-        btnNouvelleQuestionJD.setVisible(false);
-        btnNouvelleQuestionJD.setDisable(true);
+	private void afficherQuestionHistorique(HistoriqueQuestionJD question) {
+		LOGGER.info("[DEBUT] Affichage question depuis l'historique.");
 
-        // Activation du bouton "Reprendre le JD"
-        btnReprendreJD.setVisible(true);
-        btnReprendreJD.setDisable(false);
+		// Mise à jour de l'affichage
+		afficherCartonJD(question.getQuestion());
 
-        // Modifcation de la couleur de fond du carton du JD.
-        cartonJD.setStyle(Style.FOND_CARTON);
+		// Désactivation du bouton "Nouvelle question"
+		btnNouvelleQuestionJD.setVisible(false);
+		btnNouvelleQuestionJD.setDisable(true);
 
-        numQuestionAffiche = question.getNbQuestionReel();
+		// Activation du bouton "Reprendre le JD"
+		btnReprendreJD.setVisible(true);
+		btnReprendreJD.setDisable(false);
 
-        LOGGER.info("[FIN] Affichage question depuis l'historique.");
-    }
+		// Modifcation de la couleur de fond du carton du JD.
+		cartonJD.setStyle(Style.FOND_CARTON);
 
-    private void afficherNbQuestion() {
-        LOGGER.info("[DEBUT] Affichage du nombre de question.");
+		numQuestionAffiche = question.getNbQuestionReel();
 
-        if (moteurJD.getNbQuest() == 1) {
-            nbQuestion.setText(moteurJD.getNbQuest() + " question jouée");
-        } else {
-            if (moteurJD.getNbQuest() >= Seuil.SEUIL_WARNING_JD) {
-                nbQuestion.setStyle(Style.FOND_WARNING);
-            }
-            nbQuestion.setText(moteurJD.getNbQuest() + " questions jouées");
-        }
-        LOGGER.info("[FIN] Affichage du nombre de question.");
-    }
+		LOGGER.info("[FIN] Affichage question depuis l'historique.");
+	}
 
-    private void afficherCartonJD(QuestionJD questionJD) {
-        LOGGER.info("[DEBUT] Affichage carton JD.");
+	private void afficherNbQuestion() {
+		LOGGER.info("[DEBUT] Affichage du nombre de question.");
 
-        if (questionJD != null) {
-            themeJD.setText(questionJD.getTheme());
-            libelleQuestionJD.setText(questionJD.getQuestion());
-            reponseJD.setText(questionJD.getReponse().toUpperCase());
-            reponseJD.setTextAlignment(TextAlignment.CENTER);
-            questionJDInfos.setText(Utils.formaterReference(questionJD.getReference(), TypePhase.JD) + " - "
-                    + questionJD.getSource().toString());
-        }
+		if (moteurJD.getNbQuest() == 1) {
+			nbQuestion.setText(moteurJD.getNbQuest() + " question jouée");
+		} else {
+			if (moteurJD.getNbQuest() >= Seuil.SEUIL_WARNING_JD) {
+				nbQuestion.setStyle(Style.FOND_WARNING);
+			}
+			nbQuestion.setText(moteurJD.getNbQuest() + " questions jouées");
+		}
+		LOGGER.info("[FIN] Affichage du nombre de question.");
+	}
 
-        LOGGER.info("[FIN] Affichage carton JD.");
-    }
+	private void afficherCartonJD(QuestionJD questionJD) {
+		LOGGER.info("[DEBUT] Affichage carton JD.");
 
-    // Méthodes métier
+		themeJD.setText(questionJD.getTheme());
+		libelleQuestionJD.setText(questionJD.getQuestion());
+		reponseJD.setText(questionJD.getReponse().toUpperCase());
+		reponseJD.setTextAlignment(TextAlignment.CENTER);
+		questionJDInfos.setText(Utils.formaterReference(questionJD.getReference(), TypePhase.JD) + " - "
+				+ questionJD.getSource().toString());
 
-    private void historiserQuestionJD(QuestionJD questionJD) {
-        LOGGER.info("[DEBUT] Historisation de la question JD.");
+		LOGGER.info("[FIN] Affichage carton JD.");
+	}
 
-        if (questionJD != null) {
+	// Méthodes métier
 
-            HistoriqueQuestionJD histo = new HistoriqueQuestionJD();
-            histo.setNbQuestion(moteurJD.getNbQuest());
-            histo.setNbQuestionReel(moteurJD.getNbQuestReel());
-            histo.setQuestion(questionJD);
+	private void historiserQuestionJD(QuestionJD questionJD) {
+		LOGGER.info("[DEBUT] Historisation de la question JD.");
 
-            listeHistoriqueJD.add(0, histo);
-        }
+		if (questionJD != null) {
 
-        LOGGER.info("[FIN] Historisation de la question JD.");
-    }
+			HistoriqueQuestionJD histo = new HistoriqueQuestionJD();
+			histo.setNbQuestion(moteurJD.getNbQuest());
+			histo.setNbQuestionReel(moteurJD.getNbQuestReel());
+			histo.setQuestion(questionJD);
 
-    @Override
-    public void modifierTaille(TaillePolice taille) {
-        LOGGER.info("[DEBUT] Modifier la taille.");
+			listeHistoriqueJD.add(0, histo);
+		}
 
-        switch (taille) {
-        case PETIT:
-            definirTailleCartonJD(14);
-            break;
-        case MOYEN:
-            definirTailleCartonJD(18);
-            break;
-        case GRAND:
-            definirTailleCartonJD(22);
-            break;
-        }
+		LOGGER.info("[FIN] Historisation de la question JD.");
+	}
 
-        LOGGER.info("[FIN] Modifier la taille.");
-    }
+	@Override
+	public void modifierTaille(TaillePolice taille) {
+		LOGGER.info("[DEBUT] Modifier la taille.");
 
-    private void definirTailleCartonJD(int taille) {
-        LOGGER.info("[DEBUT] Définir taille carton.");
+		switch (taille) {
+		case PETIT:
+			definirTailleCartonJD(14);
+			break;
+		case MOYEN:
+			definirTailleCartonJD(18);
+			break;
+		case GRAND:
+			definirTailleCartonJD(22);
+			break;
+		}
 
-        themeJD.setStyle(FontConstants.FONT_SIZE + ":" + taille + "px");
-        libelleQuestionJD.setStyle(FontConstants.FONT_SIZE + ":" + taille + "px");
-        reponseJD.setStyle(FontConstants.FONT_SIZE + ":" + taille + "px");
-        questionJDInfos.setStyle(FontConstants.FONT_SIZE + ":" + (taille - 4) + "px");
+		LOGGER.info("[FIN] Modifier la taille.");
+	}
 
-        LOGGER.info("[FIN] Définir taille carton.");
-    }
+	private void definirTailleCartonJD(int taille) {
+		LOGGER.info("[DEBUT] Définir taille carton.");
 
-    @Override
-    public void definirNiveauPartie(NiveauPartie niveauPartie) {
-        LOGGER.info("[DEBUT] Définir niveau partie.");
+		themeJD.setStyle(FontConstants.FONT_SIZE+":" + taille + "px");
+		libelleQuestionJD.setStyle(FontConstants.FONT_SIZE+":" + taille + "px");
+		reponseJD.setStyle(FontConstants.FONT_SIZE+":" + taille + "px");
+		questionJDInfos.setStyle(FontConstants.FONT_SIZE+":" + (taille - 4) + "px");
 
-        moteurJD.definirNiveauPartie(niveauPartie);
+		LOGGER.info("[FIN] Définir taille carton.");
+	}
 
-        LOGGER.info("[FIN] Définir niveau partie.");
-    }
+	@Override
+	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		LOGGER.info("[DEBUT] Définir niveau partie.");
 
-    @Override
-    public void definirLecteur(Lecteur lecteur) {
-        LOGGER.info("[DEBUT] Définir lecteur.");
+		moteurJD.definirNiveauPartie(niveauPartie);
 
-        moteurJD.definirLecteur(lecteur);
+		LOGGER.info("[FIN] Définir niveau partie.");
+	}
 
-        LOGGER.info("[FIN] Définir lecteur.");
-    }
+	@Override
+	public void definirLecteur(Lecteur lecteur) {
+		LOGGER.info("[DEBUT] Définir lecteur.");
+
+		moteurJD.definirLecteur(lecteur);
+
+		LOGGER.info("[FIN] Définir lecteur.");
+	}
 }

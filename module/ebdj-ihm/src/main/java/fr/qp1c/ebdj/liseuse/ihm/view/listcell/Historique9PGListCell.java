@@ -34,7 +34,7 @@ public class Historique9PGListCell extends ListCell<HistoriqueQuestion9PG> {
 
 	@Override
 	public void updateItem(HistoriqueQuestion9PG item, boolean empty) {
-		LOGGER.debug("[DEBUT] Maj de l'entrée de l'historique : {} ", item);
+	//	LOGGER.debug("[DEBUT] Maj de l'entrée de l'historique : {} ", item);
 
 		if (item != null) {
 			super.updateItem(item, empty);
@@ -93,7 +93,6 @@ public class Historique9PGListCell extends ListCell<HistoriqueQuestion9PG> {
 				setGraphic(hbox);
 			}
 		}
-
-		LOGGER.debug("[FIN] Maj de l'entrée de l'historique.");
+		//LOGGER.debug("[FIN] Maj de l'entrée de l'historique.");
 	}
 }

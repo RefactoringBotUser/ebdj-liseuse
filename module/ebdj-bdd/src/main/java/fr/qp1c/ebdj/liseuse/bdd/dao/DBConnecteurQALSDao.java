@@ -84,7 +84,15 @@ public interface DBConnecteurQALSDao {
 	 * @return le nombre de thème jouable.
 	 */
 	public int compterNbThemeJoue(int categorie);
-	
+
+	/**
+	 * Compter le nombre total de thème jouable.
+	 * 
+	 * @return le nombre de thème jouable.
+	 */
+	public int compterNbThemeNonJoue(int categorie);
+
+    public boolean existerThemeNonJoue(int groupeCategorieRef, int niveau);
 
 	/**
 	 * Compter le nombre total de thème jouable.

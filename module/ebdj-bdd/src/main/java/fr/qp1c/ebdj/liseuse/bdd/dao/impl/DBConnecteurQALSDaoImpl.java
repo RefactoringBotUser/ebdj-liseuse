@@ -158,6 +158,24 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
     public int compterNbThemeJoue(int groupeCategorieRef) {
         return compterNbQuestionLue("QALS", ajouterClauseGroupeCategorieRef(groupeCategorieRef));
     }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public int compterNbThemeNonJoue(int groupeCategorieRef) {
+        return compterNbQuestionNonLue("QALS", ajouterClauseGroupeCategorieRef(groupeCategorieRef));
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public boolean existerThemeNonJoue(int groupeCategorieRef, int niveau) {
+        return compterNbQuestionNonLue("QALS", ajouterClauseGroupeCategorieRef(groupeCategorieRef)+" "+ajouterClauseDifficulte(niveau)) > 0;
+    }
     
     /**
      * {@inheritDoc}
@@ -183,6 +201,17 @@ public class DBConnecteurQALSDaoImpl extends DBConnecteurGeneriqueImpl implement
         if (groupeCategorieRef > 0) {
             query.append(" AND groupeCategorieRef=");
             query.append(groupeCategorieRef);
+        }
+        
+        return query.toString();
+    }
+
+    private String ajouterClauseDifficulte(int niveau) {
+        StringBuilder query = new StringBuilder();
+
+        if (niveau > 0) {
+            query.append(" AND difficulte=");
+            query.append(niveau);
         }
         
         return query.toString();
