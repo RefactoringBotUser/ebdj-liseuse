@@ -55,6 +55,7 @@ public class ParametrageController {
 
         ObservableList<Node> conf = configuration.getChildren();
         conf.add(new Text(parametrageService.afficherFichierParametrage()));
+        conf.add(new Text("\n\nVersion : "+ parametrageService.afficherVersionApplication()));
 
         panneauConfiguration.setFitToHeight(true);
         panneauConfiguration.setFitToWidth(true);
