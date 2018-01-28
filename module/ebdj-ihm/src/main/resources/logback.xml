@@ -4,7 +4,7 @@
 
 	<appender name="FILE-AUDIT"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>./logs/debug.log</file>
+		<file>./logs/logs.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
 				%d{yyyy-MM-dd HH:mm:ss} [%thread] %level %logger{35} - %msg%n
@@ -13,14 +13,34 @@
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>./logs/archived/debug.%d{yyyy-MM-dd}.%i.log
+			<fileNamePattern>./logs/archived/logs.%d{yyyy-MM-dd}.%i.log
                         </fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>10MB</maxFileSize>
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
+	</appender>
+	
+	
+	<appender name="FILE-AUDIT-SYNCHRONISATION"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./logs/logs-synchronisation.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%thread] %level %logger{35} - %msg%n
+			</Pattern>
+		</encoder>
 
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>./logs/archived/logs-synchronisation.%d{yyyy-MM-dd}.%i.log
+                        </fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
 	</appender>
 
     <logger name="fr.qp1c.ebdj" level="DEBUG" additivity="false">
@@ -37,6 +57,10 @@
     
     <logger name="fr.qp1c.ebdj.loader" level="ERROR" additivity="false">
 		<appender-ref ref="FILE-AUDIT" />
+    </logger>
+    
+    <logger name="fr.qp1c.ebdj.liseuse.synchronisation" level="DEBUG" additivity="false">
+		<appender-ref ref="FILE-AUDIT-SYNCHRONISATION" />
     </logger>
 
     <!-- By default, the level of the root level is set to INFo -->

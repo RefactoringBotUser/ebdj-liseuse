@@ -16,6 +16,7 @@ import fr.qp1c.ebdj.liseuse.commun.exchange.correction.CorrectionQuestionJDBdjDi
 import fr.qp1c.ebdj.liseuse.commun.exchange.correction.TypeCorrection;
 import fr.qp1c.ebdj.liseuse.commun.exchange.question.QuestionJDBdjDistante;
 import fr.qp1c.ebdj.liseuse.synchronisation.service.SynchronisationJDService;
+import fr.qp1c.ebdj.liseuse.synchronisation.utils.SynchronisationConstants;
 import fr.qp1c.ebdj.liseuse.synchronisation.ws.SynchroJDWSHelper;
 
 public class SynchronisationJDServiceImpl implements SynchronisationJDService {
@@ -59,7 +60,7 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 		LOGGER.info("[DEBUT] synchroniserCorrectionsJD");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
-		Long indexReprise = dbConnecteurSynchroDao.recupererIndexParCle("JD_CORRECTION");
+		Long indexReprise = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_JD_CORRECTION);
 
 		List<CorrectionQuestionJDBdjDistante> corrections = wsCockpitJDHelper.synchroniserCorrectionsJD(indexReprise);
 
@@ -77,7 +78,9 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 			}
 		}
 
-		dbConnecteurSynchroDao.modifierIndexParCle("JD_CORRECTION", indexMax);
+		if (indexMax > indexReprise) {
+			dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_JD_CORRECTION, indexMax);
+		}
 
 		LOGGER.info("[FIN] synchroniserCorrectionsJD");
 	}
@@ -87,19 +90,20 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 		LOGGER.info("[DEBUT] synchroniserAnomaliesJD");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
-		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("JD_ANOMALIE");
-
-		// Lister les anomalies à synchroniser
-		List<Anomalie> anomalies = dbConnecteurJDDao.listerAnomalies(dernierIndex);
+		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_JD_ANOMALIE);
 
 		Long nouveauDernierIndex = dbConnecteurJDDao.recupererIndexMaxAnomalie();
 
-		// Pusher les lectures sur le cockpit
-		wsCockpitJDHelper.synchroniserAnomaliesJD(anomalies);
+		if (dernierIndex < nouveauDernierIndex) {
+			// Lister les anomalies à synchroniser
+			List<Anomalie> anomalies = dbConnecteurJDDao.listerAnomalies(dernierIndex);
 
-		// Mettre à jour l'index de la dernière question synchronisée.
-		dbConnecteurSynchroDao.modifierIndexParCle("JD_ANOMALIE", nouveauDernierIndex);
+			// Pusher les lectures sur le cockpit
+			wsCockpitJDHelper.synchroniserAnomaliesJD(anomalies);
 
+			// Mettre à jour l'index de la dernière question synchronisée.
+			dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_JD_ANOMALIE, nouveauDernierIndex);
+		}
 		LOGGER.info("[FIN] synchroniserAnomaliesJD");
 	}
 
@@ -108,18 +112,20 @@ public class SynchronisationJDServiceImpl implements SynchronisationJDService {
 		LOGGER.info("[DEBUT] synchroniserLecturesJD");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
-		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("JD_LECTURE");
-
-		// Lister les lectures à synchroniser
-		List<Lecture> lectures = dbConnecteurJDDao.listerQuestionsLues(dernierIndex);
+		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_JD_LECTURE);
 
 		Long nouveauDernierIndex = dbConnecteurJDDao.recupererIndexMaxLecture();
 
-		// Pusher les lectures sur le cockpit
-		wsCockpitJDHelper.synchroniserLecturesJD(lectures);
+		if (dernierIndex < nouveauDernierIndex) {
+			// Lister les lectures à synchroniser
+			List<Lecture> lectures = dbConnecteurJDDao.listerQuestionsLues(dernierIndex);
 
-		// Mettre à jour l'index de la dernière question synchronisée.
-		dbConnecteurSynchroDao.modifierIndexParCle("JD_LECTURE", nouveauDernierIndex);
+			// Pusher les lectures sur le cockpit
+			wsCockpitJDHelper.synchroniserLecturesJD(lectures);
+
+			// Mettre à jour l'index de la dernière question synchronisée.
+			dbConnecteurSynchroDao.modifierIndexParCle("JD_LECTURE", nouveauDernierIndex);
+		}
 
 		LOGGER.info("[FIN] synchroniserLecturesJD");
 	}

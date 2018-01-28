@@ -16,6 +16,7 @@ import fr.qp1c.ebdj.liseuse.commun.exchange.correction.CorrectionQuestionFAFBdjD
 import fr.qp1c.ebdj.liseuse.commun.exchange.correction.TypeCorrection;
 import fr.qp1c.ebdj.liseuse.commun.exchange.question.QuestionFAFBdjDistante;
 import fr.qp1c.ebdj.liseuse.synchronisation.service.SynchronisationFAFService;
+import fr.qp1c.ebdj.liseuse.synchronisation.utils.SynchronisationConstants;
 import fr.qp1c.ebdj.liseuse.synchronisation.ws.SynchroFAFWSHelper;
 
 public class SynchronisationFAFServiceImpl implements SynchronisationFAFService {
@@ -59,7 +60,7 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 		LOGGER.info("[DEBUT] synchroniserCorrectionsFAF");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
-		Long indexReprise = dbConnecteurSynchroDao.recupererIndexParCle("FAF_CORRECTION");
+		Long indexReprise = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_FAF_CORRECTION);
 
 		List<CorrectionQuestionFAFBdjDistante> corrections = wsCockpitFAFHelper
 				.synchroniserCorrectionsFAF(indexReprise);
@@ -78,7 +79,9 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 			}
 		}
 
-		dbConnecteurSynchroDao.modifierIndexParCle("FAF_CORRECTION", indexMax);
+		if (indexMax > indexReprise) {
+			dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_FAF_CORRECTION, indexMax);
+		}
 
 		LOGGER.info("[FIN] synchroniserCorrectionsFAF");
 	}
@@ -88,18 +91,20 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 		LOGGER.info("[DEBUT] synchroniserAnomaliesFAF");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
-		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("FAF_ANOMALIE");
-
-		// Lister les anomalies à synchroniser
-		List<Anomalie> anomalies = dbConnecteurFAFDao.listerAnomalies(dernierIndex);
+		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_FAF_ANOMALIE);
 
 		Long nouveauDernierIndex = dbConnecteurFAFDao.recupererIndexMaxAnomalie();
 
-		// Pusher les lectures sur le cockpit
-		wsCockpitFAFHelper.synchroniserAnomaliesFAF(anomalies);
+		if (dernierIndex < nouveauDernierIndex) {
+			// Lister les anomalies à synchroniser
+			List<Anomalie> anomalies = dbConnecteurFAFDao.listerAnomalies(dernierIndex);
 
-		// Mettre à jour l'index de la dernière question synchronisée.
-		dbConnecteurSynchroDao.modifierIndexParCle("FAF_ANOMALIE", nouveauDernierIndex);
+			// Pusher les lectures sur le cockpit
+			wsCockpitFAFHelper.synchroniserAnomaliesFAF(anomalies);
+
+			// Mettre à jour l'index de la dernière question synchronisée.
+			dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_FAF_ANOMALIE, nouveauDernierIndex);
+		}
 
 		LOGGER.info("[FIN] synchroniserAnomaliesFAF");
 	}
@@ -109,18 +114,20 @@ public class SynchronisationFAFServiceImpl implements SynchronisationFAFService 
 		LOGGER.info("[DEBUT] synchroniserLecturesFAF");
 
 		// Retrouver l'index de la derniere lecture synchronisée.
-		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle("FAF_LECTURE");
-
-		// Lister les lectures à synchroniser
-		List<Lecture> lectures = dbConnecteurFAFDao.listerQuestionsLues(dernierIndex);
+		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_FAF_LECTURE);
 
 		Long nouveauDernierIndex = dbConnecteurFAFDao.recupererIndexMaxLecture();
 
-		// Pusher les lectures sur le cockpit
-		wsCockpitFAFHelper.synchroniserLecturesFAF(lectures);
+		if (dernierIndex < nouveauDernierIndex) {
+			// Lister les lectures à synchroniser
+			List<Lecture> lectures = dbConnecteurFAFDao.listerQuestionsLues(dernierIndex);
 
-		// Mettre à jour l'index de la dernière question synchronisée.
-		dbConnecteurSynchroDao.modifierIndexParCle("FAF_LECTURE", nouveauDernierIndex);
+			// Pusher les lectures sur le cockpit
+			wsCockpitFAFHelper.synchroniserLecturesFAF(lectures);
+
+			// Mettre à jour l'index de la dernière question synchronisée.
+			dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_FAF_LECTURE, nouveauDernierIndex);
+		}
 
 		LOGGER.info("[FIN] synchroniserLecturesFAF");
 	}

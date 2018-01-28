@@ -62,7 +62,9 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 			}
 		}
 
-		dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_4ALS_CORRECTION, indexMax);
+		if (indexMax > indexReprise) {
+			dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_4ALS_CORRECTION, indexMax);
+		}
 
 		LOGGER.info("[FIN] synchroniserCorrections4ALS");
 	}
@@ -74,16 +76,18 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_4ALS_ANOMALIE);
 
-		// Lister les anomalies à synchroniser
-		List<Anomalie> anomalies = dbConnecteur4ALSDao.listerAnomalies(dernierIndex);
-
 		Long nouveauDernierIndex = dbConnecteur4ALSDao.recupererIndexMaxAnomalie();
 
-		// Pusher les lectures sur le cockpit
-		wsCockpit4ALSHelper.synchroniserAnomalies4ALS(anomalies);
+		if (dernierIndex < nouveauDernierIndex) {
+			// Lister les anomalies à synchroniser
+			List<Anomalie> anomalies = dbConnecteur4ALSDao.listerAnomalies(dernierIndex);
 
-		// Mettre à jour l'index de la dernière question synchronisée.
-		dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_4ALS_ANOMALIE, nouveauDernierIndex);
+			// Pusher les lectures sur le cockpit
+			wsCockpit4ALSHelper.synchroniserAnomalies4ALS(anomalies);
+
+			// Mettre à jour l'index de la dernière question synchronisée.
+			dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_4ALS_ANOMALIE, nouveauDernierIndex);
+		}
 
 		LOGGER.info("[FIN] synchroniserAnomalies4ALS");
 	}
@@ -95,16 +99,18 @@ public class Synchronisation4ALSServiceImpl implements Synchronisation4ALSServic
 		// Retrouver l'index de la derniere lecture synchronisée.
 		Long dernierIndex = dbConnecteurSynchroDao.recupererIndexParCle(SynchronisationConstants.CLE_4ALS_LECTURE);
 
-		// Lister les lectures à synchroniser
-		List<Lecture> lectures = dbConnecteur4ALSDao.listerQuestionsLues(dernierIndex);
-
 		Long nouveauDernierIndex = dbConnecteur4ALSDao.recupererIndexMaxLecture();
 
-		// Pusher les lectures sur le cockpit
-		wsCockpit4ALSHelper.synchroniserLectures4ALS(lectures);
+		if (dernierIndex < nouveauDernierIndex) {
+			// Lister les lectures à synchroniser
+			List<Lecture> lectures = dbConnecteur4ALSDao.listerQuestionsLues(dernierIndex);
 
-		// Mettre à jour l'index de la dernière question synchronisée.
-		dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_4ALS_LECTURE, nouveauDernierIndex);
+			// Pusher les lectures sur le cockpit
+			wsCockpit4ALSHelper.synchroniserLectures4ALS(lectures);
+
+			// Mettre à jour l'index de la dernière question synchronisée.
+			dbConnecteurSynchroDao.modifierIndexParCle(SynchronisationConstants.CLE_4ALS_LECTURE, nouveauDernierIndex);
+		}
 
 		LOGGER.info("[FIN] synchroniserLectures4ALS");
 	}

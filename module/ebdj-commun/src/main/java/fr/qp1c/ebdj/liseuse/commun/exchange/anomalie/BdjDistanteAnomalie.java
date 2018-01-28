@@ -1,6 +1,6 @@
 package fr.qp1c.ebdj.liseuse.commun.exchange.anomalie;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class BdjDistanteAnomalie {
 
