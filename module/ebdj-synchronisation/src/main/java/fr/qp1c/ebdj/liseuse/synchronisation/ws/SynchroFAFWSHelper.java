@@ -35,7 +35,7 @@ public class SynchroFAFWSHelper extends SynchroWSHelper {
 
 			ObjectMapper mapper = new ObjectMapper();
 
-			String urlToCall = urlCockpitRest + "/synchroniser/faf/questions";
+			String urlToCall = urlCockpitRest + "/synchroniser/liseuse/faf/questions";
 
 			QuestionSynchroBdjDistanteDemande questionSynchroBdjDistanteDemande = new QuestionSynchroBdjDistanteDemande();
 			questionSynchroBdjDistanteDemande.setAuthentificationBdj(authentificationBdj);
@@ -66,7 +66,7 @@ public class SynchroFAFWSHelper extends SynchroWSHelper {
 
 			ObjectMapper mapper = new ObjectMapper();
 
-			String urlToCall = urlCockpitRest + "/synchroniser/faf/corrections";
+			String urlToCall = urlCockpitRest + "/synchroniser/liseuse/faf/corrections";
 
 			CorrectionQuestionBdjDistanteDemande correctionQuestionSynchroBdjDistanteDemande = new CorrectionQuestionBdjDistanteDemande();
 			correctionQuestionSynchroBdjDistanteDemande.setAuthentificationBdj(authentificationBdj);
@@ -89,14 +89,14 @@ public class SynchroFAFWSHelper extends SynchroWSHelper {
 
 	public void synchroniserLecturesFAF(List<Lecture> lectures) throws BdjException {
 
-		String urlToCall = urlCockpitRest + "/synchroniser/faf/lectures";
+		String urlToCall = urlCockpitRest + "/synchroniser/liseuse/faf/lectures";
 
 		synchroniserLectures(urlToCall, lectures);
 	}
 
 	public void synchroniserAnomaliesFAF(List<Anomalie> anomalies) throws BdjException {
 
-		String urlToCall = urlCockpitRest + "/synchroniser/faf/anomalies";
+		String urlToCall = urlCockpitRest + "/synchroniser/liseuse/faf/anomalies";
 
 		synchroniserAnomalies(urlToCall, anomalies);
 	}

@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.login.Configuration;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.qp1c.ebdj.liseuse.commun.bean.exception.BdjException;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Anomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.synchro.Lecture;
-import fr.qp1c.ebdj.liseuse.commun.configuration.Configuration;
 import fr.qp1c.ebdj.liseuse.commun.exchange.AuthentificationBdj;
 import fr.qp1c.ebdj.liseuse.commun.exchange.StatutBdjDistanteDemande;
 import fr.qp1c.ebdj.liseuse.commun.exchange.anomalie.AnomaliesBdjDistante;
@@ -162,7 +163,7 @@ public class SynchroWSHelper {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 
-			String urlToCall = urlCockpitRest + "/synchroniser/statut/relever";
+			String urlToCall = urlCockpitRest + "/synchroniser/liseuse/statut/relever";
 
 			StatutBdjDistanteDemande statutBdjDistanteDemande = new StatutBdjDistanteDemande();
 			statutBdjDistanteDemande.setAuthentificationBdj(authentificationBdj);
