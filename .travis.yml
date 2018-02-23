@@ -1,1 +1,9 @@
   language: java
+  
+  addons:
+  sonarcloud:
+    organization: "ngendron-github"
+    token:
+      secure: "n18fcab8a41314c509e65f1f14a442bf137e29cf0"
+  script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
