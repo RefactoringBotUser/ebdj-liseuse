@@ -5,7 +5,7 @@
     sonarcloud:
       organization: "ngendron-github"
       token:
-        secure: "n18fcab8a41314c509e65f1f14a442bf137e29cf0"
+        secure: "565538301b2ebbfe2072170276c9aba6666b9156"
 
   jdk:
   - oraclejdk8      
