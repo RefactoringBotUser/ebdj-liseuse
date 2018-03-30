@@ -38,8 +38,8 @@ public class TypePartieController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TypePartieController.class);
 
 	// Composant(s) JavaFX
-	
-	private String phase="";
+
+	private String phase = "";
 
 	@FXML
 	private BorderPane content;
@@ -180,7 +180,7 @@ public class TypePartieController {
 		panneauLecteur.selectionnerLecteurParDefaut();
 
 		phase = "";
-		
+
 		if (controllerNPG != null) {
 			LOGGER.debug("Réinitialisation du 9PG.");
 			controllerNPG.reinitialiser();
@@ -218,7 +218,7 @@ public class TypePartieController {
 			controllerJD.jouerNouvelleQuestionJD();
 		} else if (TypePartie.FAF.equals(typePartie)) {
 			controllerFAF.jouerNouvelleQuestionFAF();
-		} else if (TypePartie.PARTIE.equals(typePartie)){
+		} else if (TypePartie.PARTIE.equals(typePartie)) {
 			// Lancer en mode 1,2,3
 			controllerNPG.changerNiveau123();
 			controller4ALS.jouerNouveau4ALS();
@@ -246,9 +246,9 @@ public class TypePartieController {
 		btnFAF.setMaxWidth(0.0);
 		btnFAF.setText("");
 
-		hboxPhase.setMargin(btn4ALS, new Insets(0.0, 0.0, 0.0, 0.0));
-		hboxPhase.setMargin(btnJD, new Insets(0.0, 0.0, 0.0, 0.0));
-		hboxPhase.setMargin(btnFAF, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btn4ALS, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btnJD, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btnFAF, new Insets(0.0, 0.0, 0.0, 0.0));
 
 		selectionnerVue(panneauNPG);
 	}
@@ -270,9 +270,9 @@ public class TypePartieController {
 		btnFAF.setMaxWidth(0.0);
 		btnFAF.setText("");
 
-		hboxPhase.setMargin(btn9PG, new Insets(0.0, 0.0, 0.0, 0.0));
-		hboxPhase.setMargin(btnJD, new Insets(0.0, 0.0, 0.0, 0.0));
-		hboxPhase.setMargin(btnFAF, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btn9PG, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btnJD, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btnFAF, new Insets(0.0, 0.0, 0.0, 0.0));
 
 		selectionnerVue(panneau4ALS);
 	}
@@ -294,9 +294,9 @@ public class TypePartieController {
 		btnFAF.setMaxWidth(0.0);
 		btnFAF.setText("");
 
-		hboxPhase.setMargin(btn9PG, new Insets(0.0, 0.0, 0.0, 0.0));
-		hboxPhase.setMargin(btn4ALS, new Insets(0.0, 0.0, 0.0, 0.0));
-		hboxPhase.setMargin(btnFAF, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btn9PG, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btn4ALS, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btnFAF, new Insets(0.0, 0.0, 0.0, 0.0));
 
 		selectionnerVue(panneauJD);
 	}
@@ -317,9 +317,9 @@ public class TypePartieController {
 		btnFAF.setSelected(true);
 		btnFAF.setMaxWidth(100.0);
 		btnFAF.setText("FAF");
-		hboxPhase.setMargin(btn9PG, new Insets(0.0, 0.0, 0.0, 0.0));
-		hboxPhase.setMargin(btn4ALS, new Insets(0.0, 0.0, 0.0, 0.0));
-		hboxPhase.setMargin(btnJD, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btn9PG, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btn4ALS, new Insets(0.0, 0.0, 0.0, 0.0));
+		HBox.setMargin(btnJD, new Insets(0.0, 0.0, 0.0, 0.0));
 
 		selectionnerVue(panneauFAF);
 	}
@@ -340,10 +340,10 @@ public class TypePartieController {
 		btnFAF.setVisible(true);
 		btnFAF.setMaxWidth(100.0);
 		btnFAF.setText("FAF");
-		hboxPhase.setMargin(btn9PG, new Insets(10.0, 10.0, 10.0, 10.0));
-		hboxPhase.setMargin(btn4ALS, new Insets(10.0, 10.0, 10.0, 10.0));
-		hboxPhase.setMargin(btnJD, new Insets(10.0, 10.0, 10.0, 10.0));
-		hboxPhase.setMargin(btnFAF, new Insets(10.0, 10.0, 10.0, 10.0));
+		HBox.setMargin(btn9PG, new Insets(10.0, 10.0, 10.0, 10.0));
+		HBox.setMargin(btn4ALS, new Insets(10.0, 10.0, 10.0, 10.0));
+		HBox.setMargin(btnJD, new Insets(10.0, 10.0, 10.0, 10.0));
+		HBox.setMargin(btnFAF, new Insets(10.0, 10.0, 10.0, 10.0));
 
 		selectionnerVue(panneauNPG);
 	}
@@ -355,28 +355,27 @@ public class TypePartieController {
 		btn9PG.setSelected(true);
 
 		selectionnerVue(panneauNPG);
-		
-		phase= "9PG";
+
+		phase = "9PG";
 	}
 
 	@FXML
 	public void afficherVuePhase4ALS() {
 		LOGGER.info("### --> Clic sur \"Affichage vue 4ALS\".");
 
-		if("4ALS".equals(phase)) {
+		if ("4ALS".equals(phase)) {
 			LOGGER.info("Vue 4ALS déja sélectionné.");
-			boolean nouveauTirage=PopUpNouveauTirage4ALS.afficherPopUp();
-			
-			if(nouveauTirage) {				
+			boolean nouveauTirage = PopUpNouveauTirage4ALS.afficherPopUp();
+
+			if (nouveauTirage) {
 				controller4ALS.jouerNouveau4ALS();
 			}
 		}
 		btn4ALS.setSelected(true);
 
-
 		selectionnerVue(panneau4ALS);
-		
-		phase= "4ALS";
+
+		phase = "4ALS";
 	}
 
 	@FXML
@@ -388,8 +387,8 @@ public class TypePartieController {
 		controllerJD.jouerNouvelleQuestionJD();
 
 		selectionnerVue(panneauJD);
-		
-		phase= "JD";
+
+		phase = "JD";
 	}
 
 	@FXML
@@ -401,8 +400,8 @@ public class TypePartieController {
 		controllerFAF.jouerNouvelleQuestionFAF();
 
 		selectionnerVue(panneauFAF);
-		
-		phase= "FAF";
+
+		phase = "FAF";
 	}
 
 	@FXML
