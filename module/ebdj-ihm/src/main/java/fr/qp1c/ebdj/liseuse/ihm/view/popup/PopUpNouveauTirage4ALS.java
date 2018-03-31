@@ -11,24 +11,27 @@ import javafx.scene.control.DialogPane;
 
 public class PopUpNouveauTirage4ALS {
 
-    private PopUpNouveauTirage4ALS() {
-    }
+	private PopUpNouveauTirage4ALS() {
+	}
 
-    public static boolean afficherPopUp() {
+	public static boolean afficherPopUp() {
 
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle(Libelle.TITRE);
-        // Ne pas remplir l'entete
-        alert.setHeaderText(null);
-        alert.setContentText("Voulez-vous réellement 4 nouveaux thèmes de 4ALS ?");
-        alert.initOwner(Launcher.getStage());
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle(Libelle.TITRE);
+		// Ne pas remplir l'entete
+		alert.setHeaderText(null);
+		alert.setContentText("Voulez-vous réellement 4 nouveaux thèmes de 4ALS ?");
+		alert.initOwner(Launcher.getStage());
 
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add("/css/styles.css");
-        dialogPane.getStyleClass().add("popUp");
+		DialogPane dialogPane = alert.getDialogPane();
+		dialogPane.getStylesheets().add("/css/styles.css");
+		dialogPane.getStyleClass().add("popUp");
 
-        Optional<ButtonType> result = alert.showAndWait();
+		Optional<ButtonType> result = alert.showAndWait();
 
-        return result.get() == ButtonType.OK;
-    }
+		if (result.isPresent()) {
+			return result.get() == ButtonType.OK;
+		}
+		return false;
+	}
 }

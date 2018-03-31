@@ -261,14 +261,18 @@ public class QALSController implements PreferencesLecteur {
 			Text textLV = new Text("\n");
 			textLV.setFont(fontLV);
 
-			// Adding cylinder to the pane
-			list.addAll(textQ, textR, textLV);
+			if (list != null) {
+				// Adding cylinder to the pane
+				list.addAll(textQ, textR, textLV);
+			}
 		}
 
 		Text textS = new Text("\n(" + theme4ALS.getSource() + ")\n\n\n" + "");
 		textS.setFont(fontS);
 
-		list.addAll(textS);
+		if (list != null) {
+			list.addAll(textS);
+		}
 
 		LOGGER.info("[FIN] Afficher theme 4ALS.");
 	}

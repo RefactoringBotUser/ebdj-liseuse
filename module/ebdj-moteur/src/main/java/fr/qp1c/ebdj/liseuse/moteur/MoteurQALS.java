@@ -109,7 +109,7 @@ public class MoteurQALS implements Moteur {
 	private boolean existeThemeDispo(int niveau) {
 
 		LOGGER.debug("existeThemeDispo ?  : {}", niveau);
-		
+
 		return dbConnecteurQALSDao.existerThemeNonJoue(1, niveau) && dbConnecteurQALSDao.existerThemeNonJoue(2, niveau)
 				&& dbConnecteurQALSDao.existerThemeNonJoue(3, niveau)
 				&& dbConnecteurQALSDao.existerThemeNonJoue(4, niveau);
@@ -122,7 +122,7 @@ public class MoteurQALS implements Moteur {
 		for (int groupeCategorie = 1; groupeCategorie <= 4; groupeCategorie++) {
 
 			Theme4ALS theme4ALS = dbConnecteurQALSDao.donnerTheme(groupeCategorie, niveau);
-			if (themes4ALS == null) {
+			if (theme4ALS == null) {
 				LOGGER.debug("Attention le theme de 4ALS pour le groupe {} est introuvable (=null).", groupeCategorie);
 			} else {
 				themes4ALS.put(String.valueOf(groupeCategorie), theme4ALS);

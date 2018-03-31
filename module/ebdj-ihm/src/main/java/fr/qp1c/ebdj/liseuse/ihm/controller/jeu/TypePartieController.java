@@ -209,16 +209,16 @@ public class TypePartieController {
 			panneauChronometre.restart();
 		}
 
-		if (TypePartie.NPG.equals(typePartie)) {
+		if (TypePartie.NPG.equals(typePartie) && controllerNPG != null) {
 			// Lancer en mode 1,2,3
 			controllerNPG.changerNiveau123();
-		} else if (TypePartie.QALS.equals(typePartie)) {
+		} else if (TypePartie.QALS.equals(typePartie) && controller4ALS != null) {
 			controller4ALS.jouerNouveau4ALS();
-		} else if (TypePartie.JD.equals(typePartie)) {
+		} else if (TypePartie.JD.equals(typePartie) && controllerJD != null) {
 			controllerJD.jouerNouvelleQuestionJD();
-		} else if (TypePartie.FAF.equals(typePartie)) {
+		} else if (TypePartie.FAF.equals(typePartie) && controllerFAF != null) {
 			controllerFAF.jouerNouvelleQuestionFAF();
-		} else if (TypePartie.PARTIE.equals(typePartie)) {
+		} else if (TypePartie.PARTIE.equals(typePartie) && controllerNPG != null && controller4ALS != null) {
 			// Lancer en mode 1,2,3
 			controllerNPG.changerNiveau123();
 			controller4ALS.jouerNouveau4ALS();
