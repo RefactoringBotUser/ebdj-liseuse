@@ -51,7 +51,7 @@ public class Synchro9PGWSHelper extends SynchroWSHelper {
 			});
 
 		} catch (Exception e) {
-			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			LOGGER.error("Exception : an exception has occured : ", e.getMessage());
 			throw new BdjException(e, "SYNCHRO_9PG_01");
 		}
 
@@ -80,7 +80,7 @@ public class Synchro9PGWSHelper extends SynchroWSHelper {
 			});
 
 		} catch (Exception e) {
-			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			LOGGER.error("Exception : an exception has occured : ", e.getMessage());
 			throw new BdjException(e, "SYNCHRO_9PG_02");
 		}
 

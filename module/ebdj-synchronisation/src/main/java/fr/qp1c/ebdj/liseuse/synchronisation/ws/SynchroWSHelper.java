@@ -106,7 +106,7 @@ public class SynchroWSHelper {
 			post(urlToCall, request);
 
 		} catch (Exception e) {
-			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			LOGGER.error("Exception : an exception has occured : ", e.getMessage());
 			throw new BdjException(e, "SYNCHRO_LECTURE_01");
 		}
 	}
@@ -132,7 +132,7 @@ public class SynchroWSHelper {
 			post(urlToCall, request);
 
 		} catch (Exception e) {
-			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			LOGGER.error("Exception : an exception has occured : ", e.getMessage());
 			throw new BdjException(e, "SYNCHRO_ANOMALIE_01");
 		}
 	}
@@ -177,7 +177,7 @@ public class SynchroWSHelper {
 
 			LOGGER.info(response);
 		} catch (Exception e) {
-			LOGGER.error("Exception : an exception has occured : " + e.getMessage());
+			LOGGER.error("Exception : an exception has occured : ", e.getMessage());
 			throw new BdjException(e, "SYNCHRO_GLOBAL_01");
 		}
 	}

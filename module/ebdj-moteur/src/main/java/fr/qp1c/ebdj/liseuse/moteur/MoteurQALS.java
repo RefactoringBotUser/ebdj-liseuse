@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.liseuse.bdd.dao.DBConnecteurQALSDao;
 import fr.qp1c.ebdj.liseuse.bdd.dao.impl.DBConnecteurQALSDaoImpl;
-import fr.qp1c.ebdj.liseuse.bdd.utils.exception.DBManagerException;
 import fr.qp1c.ebdj.liseuse.commun.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.liseuse.commun.bean.partie.NiveauPartie;
@@ -75,7 +74,7 @@ public class MoteurQALS implements Moteur {
 	 * {@inheritDoc} - V1
 	 * 
 	 */
-	public Map<String, Theme4ALS> listerThemesJouables(NiveauPartie niveauPartie) throws DBManagerException {
+	public Map<String, Theme4ALS> listerThemesJouables(NiveauPartie niveauPartie) {
 		// Lister les niveaux possibles en fonction du niveau
 		int niveau = donnerNiveauJouable(niveauPartie);
 
@@ -176,7 +175,6 @@ public class MoteurQALS implements Moteur {
 	@Override
 	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
 		// TODO Auto-generated method stub
-
 	}
 
 }
