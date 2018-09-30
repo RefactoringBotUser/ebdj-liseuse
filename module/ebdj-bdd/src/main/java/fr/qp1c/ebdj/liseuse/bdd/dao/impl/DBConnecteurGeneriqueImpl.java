@@ -270,12 +270,12 @@ public class DBConnecteurGeneriqueImpl {
 	}
 
 	public <T> T executerRequete(String requete, ResultSetHandler<T> h) {
-
 		T result = null;
 
 		// Connexion à la base de données SQLite
 		Connection connection = null;
 		Statement stmt = null;
+		ResultSet rs = null;
 		try {
 			if (Configuration.getInstance().isTest()) {
 				Class.forName("org.h2.Driver");
@@ -293,7 +293,7 @@ public class DBConnecteurGeneriqueImpl {
 			long start = System.currentTimeMillis();
 
 			// Executer la requête
-			ResultSet rs = stmt.executeQuery(requete);
+			rs = stmt.executeQuery(requete);
 
 			LOGGER.debug((System.currentTimeMillis() - start) + " ms ==> " + requete);
 
@@ -302,6 +302,15 @@ public class DBConnecteurGeneriqueImpl {
 			LOGGER.error("An error has occured during request " + requete + " :", e);
 			throw new DBManagerException();
 		} finally {
+
+			if (rs != null) {
+				// Fermeture des connections.
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+			}
 			if (stmt != null) {
 				// Fermeture des connections.
 				try {

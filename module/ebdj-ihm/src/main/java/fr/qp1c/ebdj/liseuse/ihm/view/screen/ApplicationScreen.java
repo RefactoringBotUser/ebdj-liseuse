@@ -61,7 +61,7 @@ public class ApplicationScreen extends Application {
 	public static ClassLoader cachingClassLoader = new MyClassLoader(FXMLLoader.getDefaultClassLoader());
 
 	// Image
-	public Image icon;
+	public static Image icon;
 
 	@Override
 	public void init() throws Exception {
