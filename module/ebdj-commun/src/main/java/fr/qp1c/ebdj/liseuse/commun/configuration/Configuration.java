@@ -70,7 +70,7 @@ public class Configuration {
 	private String getConfigurationFileName() {
 		File f = new File(".");
 		try {
-			String fichierConfig = f.getCanonicalPath().toString() + "/config/config.properties";
+			String fichierConfig = f.getCanonicalPath() + "/config/config.properties";
 			LOGGER.debug("URL du fichier de configuration={}", fichierConfig);
 
 			return fichierConfig;

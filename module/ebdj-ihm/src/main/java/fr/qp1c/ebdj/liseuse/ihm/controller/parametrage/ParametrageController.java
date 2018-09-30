@@ -48,12 +48,15 @@ public class ParametrageController {
 
 		this.parametrageService = new ParametrageServiceImpl();
 
-		System.out.println(parametrageService.afficherFichierParametrage());
-		System.out.println(parametrageService.afficherVersionApplication());
+		String fichierParametrage = this.parametrageService.afficherFichierParametrage();
+		String version = this.parametrageService.afficherVersionApplication();
+
+		LOGGER.info(fichierParametrage);
+		LOGGER.info(version);
 
 		ObservableList<Node> conf = configuration.getChildren();
-		conf.add(new Text(parametrageService.afficherFichierParametrage()));
-		conf.add(new Text("\n\nVersion : " + parametrageService.afficherVersionApplication()));
+		conf.add(new Text(fichierParametrage));
+		conf.add(new Text("\n\nVersion : " + version));
 
 		panneauConfiguration.setFitToHeight(true);
 		panneauConfiguration.setFitToWidth(true);

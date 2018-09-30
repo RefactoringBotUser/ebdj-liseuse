@@ -12,47 +12,45 @@ import fr.qp1c.ebdj.liseuse.commun.configuration.Configuration;
 
 public class ParametrageServiceImpl implements ParametrageService {
 
-    /**
-     * Default logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(ParametrageServiceImpl.class);
+	/**
+	 * Default logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(ParametrageServiceImpl.class);
 
-    @Override
-    public String afficherFichierParametrage() {
-        return Configuration.getInstance().afficherFichierParametrage();
-    }
+	@Override
+	public String afficherFichierParametrage() {
+		return Configuration.getInstance().afficherFichierParametrage();
+	}
 
-    @Override
-    public String afficherVersionApplication() {
-        Properties props = new Properties();
+	@Override
+	public String afficherVersionApplication() {
+		Properties props = new Properties();
 
-        InputStream input = null;
+		InputStream input = null;
 
-        String version = null;
+		String version = null;
 
-        try {
-            System.out.println(this.getClass().getResource("/version.properties"));
+		try {
+			// http://blog.soebes.de/blog/2014/01/02/version-information-into-your-appas-with-maven/
+			input = this.getClass().getResourceAsStream("/version.properties");
 
-            // http://blog.soebes.de/blog/2014/01/02/version-information-into-your-appas-with-maven/
-            input = this.getClass().getResourceAsStream("/version.properties");
+			// load a properties file
+			props.load(input);
 
-            // load a properties file
-            props.load(input);
+			version = props.getProperty("version");
+		} catch (IOException ex) {
+			LOGGER.error("An error has occured :", ex);
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					LOGGER.error("An error has occured :", e);
+				}
+			}
+		}
 
-            version = props.getProperty("version");
-        } catch (IOException ex) {
-            LOGGER.error("An error has occured :", ex);
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    LOGGER.error("An error has occured :", e);
-                }
-            }
-        }
-
-        return version;
-    }
+		return version;
+	}
 
 }
