@@ -289,7 +289,7 @@ public class JDController implements PreferencesLecteur {
 		reponseJD.setTextAlignment(TextAlignment.CENTER);
 		questionJDInfos.setText(formaterQuestionJDInfos(questionJD));
 
-		LOGGER.info("=> Question JD - {} - Difficulté : {}", formaterQuestionJDInfos(questionJD));
+		LOGGER.info("=> Question JD - {}", formaterQuestionJDInfos(questionJD));
 
 		LOGGER.info("[FIN] Affichage carton JD.");
 	}
