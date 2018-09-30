@@ -18,10 +18,14 @@ import fr.qp1c.ebdj.liseuse.ihm.view.TaillePolice;
 import fr.qp1c.ebdj.liseuse.ihm.view.listcell.Historique9PGListCell;
 import fr.qp1c.ebdj.liseuse.ihm.view.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.liseuse.moteur.MoteurNPG;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,461 +38,481 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 public class NPGController implements PreferencesLecteur {
 
-    /**
-     * Default logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(NPGController.class);
+	/**
+	 * Default logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(NPGController.class);
 
-    // Labels.
+	// Labels.
 
-    @FXML
-    private Label nbQuestion;
+	@FXML
+	private Label nbQuestion;
 
-    @FXML
-    private Label question9PG;
+	@FXML
+	private Label question9PG;
 
-    @FXML
-    private Label reponse9PG;
+	@FXML
+	private Label reponse9PG;
 
-    @FXML
-    private Label question9PGInfos;
+	@FXML
+	private Label question9PGInfos;
 
-    // Liste.
+	// Liste.
 
-    @FXML
-    private ListView<HistoriqueQuestion9PG> histoQuestion;
+	@FXML
+	private ListView<HistoriqueQuestion9PG> histoQuestion;
 
-    public static final ObservableList<HistoriqueQuestion9PG> listeHistorique9PG = FXCollections.observableArrayList();
+	public static final ObservableList<HistoriqueQuestion9PG> listeHistorique9PG = FXCollections.observableArrayList();
 
-    // Images.
+	// Images.
 
-    @FXML
-    private ImageView niveau1;
+	@FXML
+	private ImageView niveau1;
 
-    @FXML
-    private ImageView niveau2;
+	@FXML
+	private ImageView niveau2;
 
-    @FXML
-    private ImageView niveau3;
+	@FXML
+	private ImageView niveau3;
 
-    // Boutons.
+	// Boutons.
 
-    @FXML
-    private Button btnNouvelleQuestion9PG;
+	@FXML
+	private Button btnNouvelleQuestion9PG;
 
-    @FXML
-    private Button btnReprendre9PG;
+	@FXML
+	private Button btnReprendre9PG;
 
-    @FXML
-    private Button btnSignalerErreurQuestion9PG;
+	@FXML
+	private Button btnSignalerErreurQuestion9PG;
 
-    @FXML
-    private Button btnRemplacerQuestion9PG;
+	@FXML
+	private Button btnRemplacerQuestion9PG;
 
-    @FXML
-    private ToggleButton btn123;
+	@FXML
+	private ToggleButton btn123;
 
-    @FXML
-    private ToggleButton btn23;
+	@FXML
+	private ToggleButton btn23;
 
-    @FXML
-    private ToggleButton btn3;
+	@FXML
+	private ToggleButton btn3;
 
-    // Panneau.
+	// Panneau.
 
-    @FXML
-    private BorderPane panneau;
+	@FXML
+	private BorderPane panneau;
 
-    @FXML
-    private VBox carton9PG;
+	@FXML
+	private VBox carton9PG;
 
-    // Données 9PG.
+	// Données 9PG.
 
-    private MoteurNPG moteur9PG;
+	private MoteurNPG moteur9PG;
 
-    private boolean affichageHistoriqueEnCours = false;
+	private boolean affichageHistoriqueEnCours = false;
 
-    private int numQuestionAffiche = 0;
+	private int numQuestionAffiche = 0;
 
-    @FXML
-    private void initialize() {
-        reinitialiser();
-    }
+	@FXML
+	private void initialize() {
+		reinitialiser();
+	}
 
-    public void reinitialiser() {
-        LOGGER.info("[DEBUT] Initialisation du panneau 9PG.");
+	public void reinitialiser() {
+		LOGGER.info("[DEBUT] Initialisation du panneau 9PG.");
 
-        moteur9PG = new MoteurNPG();
+		moteur9PG = new MoteurNPG();
 
-        listeHistorique9PG.clear();
+		listeHistorique9PG.clear();
 
-        numQuestionAffiche = 0;
+		numQuestionAffiche = 0;
 
-        // Création de l'historique des questions du 9PG
-        histoQuestion.setEditable(false);
-        histoQuestion.setItems(listeHistorique9PG);
-        histoQuestion.setCellFactory(new Callback<ListView<HistoriqueQuestion9PG>, ListCell<HistoriqueQuestion9PG>>() {
+		// Création de l'historique des questions du 9PG
+		histoQuestion.setEditable(false);
+		histoQuestion.setItems(listeHistorique9PG);
+		histoQuestion.setCellFactory(new Callback<ListView<HistoriqueQuestion9PG>, ListCell<HistoriqueQuestion9PG>>() {
 
-            // only one global event handler
-            private EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    Parent p = (Parent) event.getSource();
-                    LOGGER.info("### --> Clic sur \"Historique 9PG\" : {}.", p.getUserData());
+			// only one global event handler
+			private EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					Parent p = (Parent) event.getSource();
+					LOGGER.info("### --> Clic sur \"Historique 9PG\" : {}.", p.getUserData());
 
-                    afficherQuestionHistorique((HistoriqueQuestion9PG) p.getUserData());
-                    btnRemplacerQuestion9PG.setDisable(true);
-                    affichageHistoriqueEnCours = true;
-                }
-            };
+					afficherQuestionHistorique((HistoriqueQuestion9PG) p.getUserData());
+					btnRemplacerQuestion9PG.setDisable(true);
+					affichageHistoriqueEnCours = true;
+				}
+			};
 
-            @Override
-            public ListCell<HistoriqueQuestion9PG> call(ListView<HistoriqueQuestion9PG> list) {
-                return new Historique9PGListCell(eventHandler);
-            }
-        });
+			@Override
+			public ListCell<HistoriqueQuestion9PG> call(ListView<HistoriqueQuestion9PG> list) {
+				return new Historique9PGListCell(eventHandler);
+			}
+		});
 
-        // Création des boutons
+		// Création des boutons
 
-        btnReprendre9PG.setVisible(false);
-        btnReprendre9PG.setDisable(true);
+		btnReprendre9PG.setVisible(false);
+		btnReprendre9PG.setDisable(true);
 
-        modifierTaille(TaillePolice.GRAND);
-		
+		modifierTaille(TaillePolice.GRAND);
 
 		// Fix anomalie JD en mode historique par
 		btnNouvelleQuestion9PG.setVisible(true);
 		btnNouvelleQuestion9PG.setDisable(false);
 
 		btnRemplacerQuestion9PG.setDisable(false);
-		
+
 		carton9PG.setStyle(Style.FOND_CARTON);
 
-        nbQuestion.setStyle(Style.FOND_NORMAL);
+		nbQuestion.setStyle(Style.FOND_NORMAL);
 
-        LOGGER.info("[FIN] Initialisation du panneau 9PG.");
-    }
+		btnNouvelleQuestion9PG.setCursor(Cursor.HAND);
+		btnRemplacerQuestion9PG.setCursor(Cursor.HAND);
+		btnReprendre9PG.setCursor(Cursor.HAND);
+		btnSignalerErreurQuestion9PG.setCursor(Cursor.HAND);
+		btn123.setCursor(Cursor.HAND);
+		btn23.setCursor(Cursor.HAND);
+		btn3.setCursor(Cursor.HAND);
 
-    // Gestion des évenements
+		LOGGER.info("[FIN] Initialisation du panneau 9PG.");
+	}
 
-    @FXML
-    public void jouerNouvelleQuestion9PG() {
-        LOGGER.info("### --> Clic sur \"Nouvelle question 9PG\".");
+	// Gestion des évenements
 
-        changerQuestion(true, true);
-    }
+	@FXML
+	public void jouerNouvelleQuestion9PG() {
+		LOGGER.info("### --> Clic sur \"Nouvelle question 9PG\".");
 
-    @FXML
-    public void reprendre9PG() {
-        LOGGER.info("### --> Clic sur \"Reprendre 9PG\".");
+		changerQuestion(true, true);
 
-        if (affichageHistoriqueEnCours) {
+		final KeyFrame kf1 = new KeyFrame(Duration.millis(0), e -> btnNouvelleQuestion9PG.setDisable(true));
+		final KeyFrame kf2 = new KeyFrame(Duration.millis(300), e -> btnNouvelleQuestion9PG.setDisable(false));
+		final Timeline timeline = new Timeline(kf1, kf2);
+		Platform.runLater(timeline::play);
+	}
 
-            btnReprendre9PG.setDisable(true);
-            btnReprendre9PG.setVisible(false);
+	public void activerBoutonNouvelleQuestion(boolean value) {
+		btnNouvelleQuestion9PG.setDisable(value);
+	}
 
-            btnNouvelleQuestion9PG.setDisable(false);
-            btnNouvelleQuestion9PG.setVisible(true);
+	@FXML
+	public void reprendre9PG() {
+		LOGGER.info("### --> Clic sur \"Reprendre 9PG\".");
 
-            btnRemplacerQuestion9PG.setDisable(false);
+		if (affichageHistoriqueEnCours) {
 
-            carton9PG.setStyle(Style.FOND_CARTON);
+			btnReprendre9PG.setDisable(true);
+			btnReprendre9PG.setVisible(false);
 
-            afficherCarton9PG(moteur9PG.getDerniereQuestion9PG(), moteur9PG.getNiveau());
+			btnNouvelleQuestion9PG.setDisable(false);
+			btnNouvelleQuestion9PG.setVisible(true);
 
-            numQuestionAffiche = moteur9PG.getNbQuestReel();
-        }
-    }
+			btnRemplacerQuestion9PG.setDisable(false);
 
-    @FXML
-    public void changerNiveau123() {
-        LOGGER.info("### --> Clic sur \"Niveau 1-2-3\".");
+			carton9PG.setStyle(Style.FOND_CARTON);
 
-        btn123.setSelected(true);
-        btn123.setDisable(false);
-        btn23.setDisable(false);
-        btn3.setDisable(false);
+			afficherCarton9PG(moteur9PG.getDerniereQuestion9PG(), moteur9PG.getNiveau());
 
-        moteur9PG.changerNiveau123();
+			numQuestionAffiche = moteur9PG.getNbQuestReel();
+		}
+	}
 
-        changerQuestion(true, true);
+	@FXML
+	public void changerNiveau123() {
+		LOGGER.info("### --> Clic sur \"Niveau 1-2-3\".");
 
-        if (affichageHistoriqueEnCours) {
+		btn123.setSelected(true);
+		btn123.setDisable(false);
+		btn23.setDisable(false);
+		btn3.setDisable(false);
 
-            affichageHistoriqueEnCours = false;
+		moteur9PG.changerNiveau123();
 
-            btnReprendre9PG.setDisable(true);
-            btnReprendre9PG.setVisible(false);
+		changerQuestion(true, true);
 
-            btnNouvelleQuestion9PG.setDisable(false);
-            btnNouvelleQuestion9PG.setVisible(true);
+		if (affichageHistoriqueEnCours) {
 
-            btnRemplacerQuestion9PG.setDisable(false);
+			affichageHistoriqueEnCours = false;
 
-            carton9PG.setStyle(Style.FOND_CARTON);
-        }
-    }
+			btnReprendre9PG.setDisable(true);
+			btnReprendre9PG.setVisible(false);
 
-    @FXML
-    public void changerNiveau23() {
-        LOGGER.info("### --> Clic sur \"Niveau 2-3\".");
+			btnNouvelleQuestion9PG.setDisable(false);
+			btnNouvelleQuestion9PG.setVisible(true);
 
-        btn23.setSelected(true);
-        btn123.setDisable(true);
+			btnRemplacerQuestion9PG.setDisable(false);
 
-        moteur9PG.changerNiveau23();
-        changerQuestion(true, false);
+			carton9PG.setStyle(Style.FOND_CARTON);
+		}
+	}
 
-        if (affichageHistoriqueEnCours) {
+	@FXML
+	public void changerNiveau23() {
+		LOGGER.info("### --> Clic sur \"Niveau 2-3\".");
 
-            affichageHistoriqueEnCours = false;
+		btn23.setSelected(true);
+		btn123.setDisable(true);
 
-            btnReprendre9PG.setDisable(true);
-            btnReprendre9PG.setVisible(false);
+		moteur9PG.changerNiveau23();
+		changerQuestion(true, false);
 
-            btnNouvelleQuestion9PG.setDisable(false);
-            btnNouvelleQuestion9PG.setVisible(true);
+		if (affichageHistoriqueEnCours) {
 
-            btnRemplacerQuestion9PG.setDisable(false);
+			affichageHistoriqueEnCours = false;
 
-            carton9PG.setStyle(Style.FOND_CARTON);
-        }
-    }
+			btnReprendre9PG.setDisable(true);
+			btnReprendre9PG.setVisible(false);
 
-    @FXML
-    public void changerNiveau3() {
-        LOGGER.info("### --> Clic sur \"Niveau 3\".");
+			btnNouvelleQuestion9PG.setDisable(false);
+			btnNouvelleQuestion9PG.setVisible(true);
 
-        btn3.setSelected(true);
-        btn23.setDisable(true);
+			btnRemplacerQuestion9PG.setDisable(false);
 
-        moteur9PG.changerNiveau3();
-        changerQuestion(true, false);
+			carton9PG.setStyle(Style.FOND_CARTON);
+		}
+	}
 
-        if (affichageHistoriqueEnCours) {
+	@FXML
+	public void changerNiveau3() {
+		LOGGER.info("### --> Clic sur \"Niveau 3\".");
 
-            affichageHistoriqueEnCours = false;
+		btn3.setSelected(true);
+		btn23.setDisable(true);
 
-            btnReprendre9PG.setDisable(true);
-            btnReprendre9PG.setVisible(false);
+		moteur9PG.changerNiveau3();
+		changerQuestion(true, false);
 
-            btnNouvelleQuestion9PG.setDisable(false);
-            btnNouvelleQuestion9PG.setVisible(true);
+		if (affichageHistoriqueEnCours) {
 
-            btnRemplacerQuestion9PG.setDisable(false);
+			affichageHistoriqueEnCours = false;
 
-            carton9PG.setStyle(Style.FOND_CARTON);
-        }
-    }
+			btnReprendre9PG.setDisable(true);
+			btnReprendre9PG.setVisible(false);
 
-    @FXML
-    public void signalerErreurQuestion9PG() {
-        LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de 9PG\".");
+			btnNouvelleQuestion9PG.setDisable(false);
+			btnNouvelleQuestion9PG.setVisible(true);
 
-        SignalementAnomalie signalementAnomalie = PopUpAnomalieQuestion.afficherPopUp(TypePartie.NPG);
+			btnRemplacerQuestion9PG.setDisable(false);
 
-        if (signalementAnomalie != null) {
+			carton9PG.setStyle(Style.FOND_CARTON);
+		}
+	}
 
-            moteur9PG.signalerAnomalie(signalementAnomalie);
+	@FXML
+	public void signalerErreurQuestion9PG() {
+		LOGGER.info("### --> Clic sur \"Signaler une erreur sur la question de 9PG\".");
 
-            LOGGER.debug("Num question affiche            : {}", numQuestionAffiche);
+		SignalementAnomalie signalementAnomalie = PopUpAnomalieQuestion.afficherPopUp(TypePartie.NPG);
 
-            listeHistorique9PG.get(listeHistorique9PG.size() - numQuestionAffiche).setNonComptabilise(true);
-            histoQuestion.refresh();
-        }
+		if (signalementAnomalie != null) {
 
-    }
+			moteur9PG.signalerAnomalie(signalementAnomalie);
 
-    @FXML
-    public void remplacerQuestion9PG() {
-        LOGGER.info("### --> Clic sur \"Remplacer la question de 9PG\".");
+			LOGGER.debug("Num question affiche            : {}", numQuestionAffiche);
 
-        changerQuestion(false, false);
+			listeHistorique9PG.get(listeHistorique9PG.size() - numQuestionAffiche).setNonComptabilise(true);
+			histoQuestion.refresh();
+		}
 
-        listeHistorique9PG.get((moteur9PG.getNbQuestReel() - listeHistorique9PG.size()) + 1).setNonComptabilise(true);
-    }
+	}
 
-    // Méthodes d'affichage
+	@FXML
+	public void remplacerQuestion9PG() {
+		LOGGER.info("### --> Clic sur \"Remplacer la question de 9PG\".");
 
-    private void changerQuestion(boolean questionACompter, boolean calculerNiveau) {
-        LOGGER.info("[DEBUT] Changer de question.");
+		changerQuestion(false, false);
 
-        QuestionNPG nouvelleQuestion;
+		listeHistorique9PG.get((moteur9PG.getNbQuestReel() - listeHistorique9PG.size()) + 1).setNonComptabilise(true);
+	}
 
-        if (calculerNiveau) {
-            nouvelleQuestion = moteur9PG.changerQuestionAvecNiveau(questionACompter);
-        } else {
-            nouvelleQuestion = moteur9PG.changerQuestion(questionACompter);
-        }
+	// Méthodes d'affichage
 
-        numQuestionAffiche = moteur9PG.getNbQuestReel();
+	private void changerQuestion(boolean questionACompter, boolean calculerNiveau) {
+		LOGGER.info("[DEBUT] Changer de question.");
 
-        // Historiser la nouvelle question
-        historiserQuestion9PG(nouvelleQuestion);
+		QuestionNPG nouvelleQuestion;
 
-        // Mise à jour de l'affichage
-        afficherCarton9PG(nouvelleQuestion, moteur9PG.getNiveau());
-        afficherNbQuestion();
+		if (calculerNiveau) {
+			nouvelleQuestion = moteur9PG.changerQuestionAvecNiveau(questionACompter);
+		} else {
+			nouvelleQuestion = moteur9PG.changerQuestion(questionACompter);
+		}
 
-        LOGGER.info("[FIN] Changer de question.");
-    }
+		numQuestionAffiche = moteur9PG.getNbQuestReel();
 
-    private void afficherQuestionHistorique(HistoriqueQuestion9PG question) {
-        LOGGER.info("[DEBUT] Affichage question depuis l'historique.");
+		// Historiser la nouvelle question
+		historiserQuestion9PG(nouvelleQuestion);
 
-        // Mise à jour de l'affichage
-        afficherCarton9PG(question.getQuestion(), question.getNiveau());
+		// Mise à jour de l'affichage
+		afficherCarton9PG(nouvelleQuestion, moteur9PG.getNiveau());
+		afficherNbQuestion();
 
-        // Désactivation du bouton "Nouvelle question"
-        btnNouvelleQuestion9PG.setVisible(false);
-        btnNouvelleQuestion9PG.setDisable(true);
+		LOGGER.info("[FIN] Changer de question.");
+	}
 
-        // Activation du bouton "Reprendre le 9PG"
-        btnReprendre9PG.setVisible(true);
-        btnReprendre9PG.setDisable(false);
+	private void afficherQuestionHistorique(HistoriqueQuestion9PG question) {
+		LOGGER.info("[DEBUT] Affichage question depuis l'historique.");
 
-        // Modification de la couleur de fond du carton du 9PG.
-        carton9PG.setStyle(Style.FOND_CARTON_HISTORIQUE);
+		// Mise à jour de l'affichage
+		afficherCarton9PG(question.getQuestion(), question.getNiveau());
 
-        numQuestionAffiche = question.getNbQuestionReel();
+		// Désactivation du bouton "Nouvelle question"
+		btnNouvelleQuestion9PG.setVisible(false);
+		btnNouvelleQuestion9PG.setDisable(true);
 
-        LOGGER.info("[FIN] Affichage question depuis l'historique.");
-    }
+		// Activation du bouton "Reprendre le 9PG"
+		btnReprendre9PG.setVisible(true);
+		btnReprendre9PG.setDisable(false);
 
-    private void afficherNbQuestion() {
-        LOGGER.info("[DEBUT] Affichage du nombre de question.");
+		// Modification de la couleur de fond du carton du 9PG.
+		carton9PG.setStyle(Style.FOND_CARTON_HISTORIQUE);
 
-        if (moteur9PG.getNbQuest() == 1) {
-            nbQuestion.setText(moteur9PG.getNbQuest() + " question jouée");
-        } else {
-            if (moteur9PG.getNbQuest() >= Seuil.SEUIL_WARNING_9PG) {
-                nbQuestion.setStyle(Style.FOND_WARNING);
-            }
-            nbQuestion.setText(moteur9PG.getNbQuest() + " questions jouées");
-        }
-        LOGGER.info("[FIN] Affichage du nombre de question.");
-    }
+		numQuestionAffiche = question.getNbQuestionReel();
 
-    private void afficherCarton9PG(QuestionNPG questionNPG, int niveau) {
-        LOGGER.info("[DEBUT] Affichage carton 9PG.");
+		LOGGER.info("[FIN] Affichage question depuis l'historique.");
+	}
 
-        afficherNiveauQuestion(niveau);
+	private void afficherNbQuestion() {
+		LOGGER.info("[DEBUT] Affichage du nombre de question.");
 
-        question9PG.setText(questionNPG.getQuestion());
-        reponse9PG.setText(questionNPG.getReponse().toUpperCase());
-        reponse9PG.setTextAlignment(TextAlignment.CENTER);
-        question9PGInfos.setText(formaterQuestion9PGInfos(questionNPG));
+		if (moteur9PG.getNbQuest() == 1) {
+			nbQuestion.setText(moteur9PG.getNbQuest() + " question jouée");
+		} else {
+			if (moteur9PG.getNbQuest() >= Seuil.SEUIL_WARNING_9PG) {
+				nbQuestion.setStyle(Style.FOND_WARNING);
+			}
+			nbQuestion.setText(moteur9PG.getNbQuest() + " questions jouées");
+		}
+		LOGGER.info("[FIN] Affichage du nombre de question.");
+	}
 
-        LOGGER.info("[FIN] Affichage carton 9PG.");
-    }
+	private void afficherCarton9PG(QuestionNPG questionNPG, int niveau) {
+		LOGGER.info("[DEBUT] Affichage carton 9PG.");
 
-    private String formaterQuestion9PGInfos(QuestionNPG questionNPG) {
-        return Utils.formaterReference(questionNPG.getReference(), TypePhase.NPG) + " - " + questionNPG.getSource();
-    }
+		afficherNiveauQuestion(niveau);
 
-    private void afficherNiveauQuestion(int niveau) {
-        LOGGER.info("[DEBUT] Affichage niveau question : {}", niveau);
+		question9PG.setText(questionNPG.getQuestion());
+		reponse9PG.setText(questionNPG.getReponse().toUpperCase());
+		reponse9PG.setTextAlignment(TextAlignment.CENTER);
+		question9PGInfos.setText(formaterQuestion9PGInfos(questionNPG));
 
-        if (niveau == 1) {
-            niveau1.setVisible(false);
-            // niveau2.setFitWidth(0.0);
-            niveau2.setVisible(true);
-            niveau3.setVisible(false);
-            niveau3.setFitWidth(0.0);
-        } else if (niveau == 2) {
-            niveau1.setVisible(true);
-            niveau2.setVisible(true);
-            niveau2.setFitWidth(40.0);
-            niveau3.setVisible(false);
-            niveau3.setFitWidth(0.0);
-        } else if (niveau == 3) {
-            niveau1.setVisible(true);
-            niveau2.setVisible(true);
-            niveau2.setFitWidth(40.0);
-            niveau3.setVisible(true);
-            niveau3.setFitWidth(40.0);
-        }
+		LOGGER.info("=> Question 9PG - {} - Difficulté : {} - Niveau : {}", formaterQuestion9PGInfos(questionNPG),
+				questionNPG.getDifficulte(), niveau);
 
-        LOGGER.info("[FIN] Affichage niveau question.");
-    }
+		LOGGER.info("[FIN] Affichage carton 9PG.");
+	}
 
-    // Méthodes métier
+	private String formaterQuestion9PGInfos(QuestionNPG questionNPG) {
+		return Utils.formaterReference(questionNPG.getReference(), TypePhase.NPG) + " - " + questionNPG.getSource();
+	}
 
-    private void historiserQuestion9PG(QuestionNPG question9PG) {
-        LOGGER.info("[DEBUT] Historisation de la question 9PG.");
+	private void afficherNiveauQuestion(int niveau) {
+		LOGGER.info("[DEBUT] Affichage niveau question : {}", niveau);
 
-        if (question9PG != null) {
-            HistoriqueQuestion9PG histo = new HistoriqueQuestion9PG();
-            histo.setNbQuestion(moteur9PG.getNbQuest());
-            histo.setNbQuestionReel(moteur9PG.getNbQuestReel());
-            histo.setNiveau(moteur9PG.getNiveau());
-            histo.setQuestion(question9PG);
+		if (niveau == 1) {
+			niveau1.setVisible(false);
+			// niveau2.setFitWidth(0.0);
+			niveau2.setVisible(true);
+			niveau3.setVisible(false);
+			niveau3.setFitWidth(0.0);
+		} else if (niveau == 2) {
+			niveau1.setVisible(true);
+			niveau2.setVisible(true);
+			niveau2.setFitWidth(40.0);
+			niveau3.setVisible(false);
+			niveau3.setFitWidth(0.0);
+		} else if (niveau == 3) {
+			niveau1.setVisible(true);
+			niveau2.setVisible(true);
+			niveau2.setFitWidth(40.0);
+			niveau3.setVisible(true);
+			niveau3.setFitWidth(40.0);
+		}
 
-            listeHistorique9PG.add(0, histo);
-        }
+		LOGGER.info("[FIN] Affichage niveau question.");
+	}
 
-        LOGGER.info("[FIN] Historisation de la question 9PG.");
-    }
+	// Méthodes métier
 
-    /**
-     * Modifier la taille du texte sur le carton.
-     * 
-     * @param taille
-     *            liste de taille pré-établi (PETIT, MOYEN ou GRAND)
-     */
-    @Override
-    public void modifierTaille(TaillePolice taille) {
-        LOGGER.info("[DEBUT] Modifier la taille.");
+	private void historiserQuestion9PG(QuestionNPG question9PG) {
+		LOGGER.info("[DEBUT] Historisation de la question 9PG.");
 
-        switch (taille) {
-        case PETIT:
-            definirTailleCarton9PG(14);
-            break;
-        case MOYEN:
-            definirTailleCarton9PG(18);
-            break;
-        case GRAND:
-            definirTailleCarton9PG(22);
-            break;
-        }
+		if (question9PG != null) {
+			HistoriqueQuestion9PG histo = new HistoriqueQuestion9PG();
+			histo.setNbQuestion(moteur9PG.getNbQuest());
+			histo.setNbQuestionReel(moteur9PG.getNbQuestReel());
+			histo.setNiveau(moteur9PG.getNiveau());
+			histo.setQuestion(question9PG);
 
-        LOGGER.info("[FIN] Modifier la taille.");
-    }
+			listeHistorique9PG.add(0, histo);
+		}
 
-    /**
-     * Modifier la taille du texte sur le carton.
-     * 
-     * @param taille
-     *            la taille à définir
-     */
-    private void definirTailleCarton9PG(int taille) {
-        LOGGER.info("[DEBUT] Définir taille carton.");
+		LOGGER.info("[FIN] Historisation de la question 9PG.");
+	}
 
-        question9PG.setStyle("-fx-font-size:" + taille + "px");
-        reponse9PG.setStyle("-fx-font-size:" + taille + "px");
-        question9PGInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
+	/**
+	 * Modifier la taille du texte sur le carton.
+	 * 
+	 * @param taille
+	 *            liste de taille pré-établi (PETIT, MOYEN ou GRAND)
+	 */
+	@Override
+	public void modifierTaille(TaillePolice taille) {
+		LOGGER.info("[DEBUT] Modifier la taille.");
 
-        LOGGER.info("[FIN] Définir taille carton.");
-    }
+		switch (taille) {
+		case PETIT:
+			definirTailleCarton9PG(14);
+			break;
+		case MOYEN:
+			definirTailleCarton9PG(18);
+			break;
+		case GRAND:
+			definirTailleCarton9PG(22);
+			break;
+		}
 
-    @Override
-    public void definirNiveauPartie(NiveauPartie niveauPartie) {
-        LOGGER.info("[DEBUT] Définir niveau partie.");
+		LOGGER.info("[FIN] Modifier la taille.");
+	}
 
-        moteur9PG.definirNiveauPartie(niveauPartie);
+	/**
+	 * Modifier la taille du texte sur le carton.
+	 * 
+	 * @param taille
+	 *            la taille à définir
+	 */
+	private void definirTailleCarton9PG(int taille) {
+		LOGGER.info("[DEBUT] Définir taille carton.");
 
-        LOGGER.info("[FIN] Définir niveau partie.");
-    }
+		question9PG.setStyle("-fx-font-size:" + taille + "px");
+		reponse9PG.setStyle("-fx-font-size:" + taille + "px");
+		question9PGInfos.setStyle("-fx-font-size:" + (taille - 4) + "px");
 
-    @Override
-    public void definirLecteur(Lecteur lecteur) {
-        LOGGER.info("[DEBUT] Définir lecteur.");
+		LOGGER.info("[FIN] Définir taille carton.");
+	}
 
-        moteur9PG.definirLecteur(lecteur);
+	@Override
+	public void definirNiveauPartie(NiveauPartie niveauPartie) {
+		LOGGER.info("[DEBUT] Définir niveau partie.");
 
-        LOGGER.info("[FIN] Définir lecteur.");
-    }
+		moteur9PG.definirNiveauPartie(niveauPartie);
+
+		LOGGER.info("[FIN] Définir niveau partie.");
+	}
+
+	@Override
+	public void definirLecteur(Lecteur lecteur) {
+		LOGGER.info("[DEBUT] Définir lecteur.");
+
+		moteur9PG.definirLecteur(lecteur);
+
+		LOGGER.info("[FIN] Définir lecteur.");
+	}
 }

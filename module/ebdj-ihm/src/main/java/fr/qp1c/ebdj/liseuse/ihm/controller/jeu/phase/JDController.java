@@ -19,10 +19,14 @@ import fr.qp1c.ebdj.liseuse.ihm.view.listcell.HistoriqueJDListCell;
 import fr.qp1c.ebdj.liseuse.ihm.view.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.liseuse.ihm.view.utils.FontConstants;
 import fr.qp1c.ebdj.liseuse.moteur.MoteurJD;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,6 +37,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 public class JDController implements PreferencesLecteur {
 
@@ -147,12 +152,17 @@ public class JDController implements PreferencesLecteur {
 		btnNouvelleQuestionJD.setDisable(false);
 
 		btnRemplacerQuestionJD.setDisable(false);
-		
+
 		cartonJD.setStyle(Style.FOND_CARTON);
 
 		nbQuestion.setStyle(Style.FOND_NORMAL);
 
 		modifierTaille(TaillePolice.GRAND);
+
+		btnNouvelleQuestionJD.setCursor(Cursor.HAND);
+		btnRemplacerQuestionJD.setCursor(Cursor.HAND);
+		btnReprendreJD.setCursor(Cursor.HAND);
+		btnSignalerErreurQuestionJD.setCursor(Cursor.HAND);
 
 		LOGGER.info("[FIN] Reinitialisation du panneau JD.");
 	}
@@ -164,6 +174,11 @@ public class JDController implements PreferencesLecteur {
 		LOGGER.info("### --> Clic sur \"Nouvelle question JD\".");
 
 		changerQuestion(true);
+
+		final KeyFrame kf1 = new KeyFrame(Duration.millis(0), e -> btnNouvelleQuestionJD.setDisable(true));
+		final KeyFrame kf2 = new KeyFrame(Duration.millis(300), e -> btnNouvelleQuestionJD.setDisable(false));
+		final Timeline timeline = new Timeline(kf1, kf2);
+		Platform.runLater(timeline::play);
 	}
 
 	@FXML
@@ -272,10 +287,15 @@ public class JDController implements PreferencesLecteur {
 		libelleQuestionJD.setText(questionJD.getQuestion());
 		reponseJD.setText(questionJD.getReponse().toUpperCase());
 		reponseJD.setTextAlignment(TextAlignment.CENTER);
-		questionJDInfos.setText(Utils.formaterReference(questionJD.getReference(), TypePhase.JD) + " - "
-				+ questionJD.getSource().toString());
+		questionJDInfos.setText(formaterQuestionJDInfos(questionJD));
+
+		LOGGER.info("=> Question JD - {} - Difficulté : {} - Niveau : {}", formaterQuestionJDInfos(questionJD));
 
 		LOGGER.info("[FIN] Affichage carton JD.");
+	}
+
+	private String formaterQuestionJDInfos(QuestionJD questionJD) {
+		return Utils.formaterReference(questionJD.getReference(), TypePhase.JD) + " - " + questionJD.getSource();
 	}
 
 	// Méthodes métier
@@ -318,10 +338,10 @@ public class JDController implements PreferencesLecteur {
 	private void definirTailleCartonJD(int taille) {
 		LOGGER.info("[DEBUT] Définir taille carton.");
 
-		themeJD.setStyle(FontConstants.FONT_SIZE+":" + taille + "px");
-		libelleQuestionJD.setStyle(FontConstants.FONT_SIZE+":" + taille + "px");
-		reponseJD.setStyle(FontConstants.FONT_SIZE+":" + taille + "px");
-		questionJDInfos.setStyle(FontConstants.FONT_SIZE+":" + (taille - 4) + "px");
+		themeJD.setStyle(FontConstants.FONT_SIZE + ":" + taille + "px");
+		libelleQuestionJD.setStyle(FontConstants.FONT_SIZE + ":" + taille + "px");
+		reponseJD.setStyle(FontConstants.FONT_SIZE + ":" + taille + "px");
+		questionJDInfos.setStyle(FontConstants.FONT_SIZE + ":" + (taille - 4) + "px");
 
 		LOGGER.info("[FIN] Définir taille carton.");
 	}

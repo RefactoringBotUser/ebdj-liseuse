@@ -200,7 +200,7 @@ public class DBConnecteurGeneriqueImpl {
 				donnerPrefixeTable(type), donnerPrefixeTable(type)));
 		if ("QALS".equals(type)) {
 			query.append(String.format(" AND Q.reference NOT IN (SELECT DISTINCT Q_T.reference FROM %s_PRESENTE Q_T)",
-					donnerPrefixeTable(type), donnerPrefixeTable(type)));
+					donnerPrefixeTable(type)));
 		}
 		if (complement != null) {
 			query.append(complement);
@@ -240,12 +240,14 @@ public class DBConnecteurGeneriqueImpl {
 
 			stmt = connection.createStatement();
 
-			LOGGER.debug(requete);
+			long start = System.currentTimeMillis();
 
 			// Executer la requête
 			stmt.executeUpdate(requete);
+
+			LOGGER.debug((System.currentTimeMillis() - start) + " ms ==> " + requete);
 		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
+			LOGGER.error("An error has occured during request " + requete + " :", e);
 			throw new DBManagerException();
 		} finally {
 			if (stmt != null) {
@@ -288,13 +290,16 @@ public class DBConnecteurGeneriqueImpl {
 
 			stmt = connection.createStatement();
 
-			LOGGER.debug(requete);
+			long start = System.currentTimeMillis();
 
 			// Executer la requête
 			ResultSet rs = stmt.executeQuery(requete);
+
+			LOGGER.debug((System.currentTimeMillis() - start) + " ms ==> " + requete);
+
 			result = h.handle(rs);
 		} catch (Exception e) {
-			LOGGER.error("An error has occured :", e);
+			LOGGER.error("An error has occured during request " + requete + " :", e);
 			throw new DBManagerException();
 		} finally {
 			if (stmt != null) {

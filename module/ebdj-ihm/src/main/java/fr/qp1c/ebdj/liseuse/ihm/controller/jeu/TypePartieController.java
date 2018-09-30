@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.liseuse.commun.bean.lecteur.Lecteur;
 import fr.qp1c.ebdj.liseuse.commun.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.liseuse.commun.bean.partie.TypePartie;
-import fr.qp1c.ebdj.liseuse.ihm.Launcher;
 import fr.qp1c.ebdj.liseuse.ihm.controller.jeu.phase.FAFController;
 import fr.qp1c.ebdj.liseuse.ihm.controller.jeu.phase.JDController;
 import fr.qp1c.ebdj.liseuse.ihm.controller.jeu.phase.NPGController;
@@ -19,11 +18,13 @@ import fr.qp1c.ebdj.liseuse.ihm.view.panneau.PanneauLecteur;
 import fr.qp1c.ebdj.liseuse.ihm.view.popup.PopUpErreur;
 import fr.qp1c.ebdj.liseuse.ihm.view.popup.PopUpFinPartie;
 import fr.qp1c.ebdj.liseuse.ihm.view.popup.PopUpNouveauTirage4ALS;
+import fr.qp1c.ebdj.liseuse.ihm.view.screen.ApplicationScreen;
 import fr.qp1c.ebdj.liseuse.ihm.view.utils.ImageUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
@@ -93,7 +94,7 @@ public class TypePartieController {
 
 	// Autres attributs
 
-	private Launcher launcher;
+	private ApplicationScreen launcher;
 
 	@FXML
 	private void initialize() {
@@ -104,6 +105,12 @@ public class TypePartieController {
 		btnHome.setGraphic(ImageUtils.reduireImage(ImageConstants.IMAGE_QUITTER_PARTIE, 20));
 		btnHome.setText("Quitter la partie");
 		btnHome.setTextAlignment(TextAlignment.CENTER);
+		btnHome.setCursor(Cursor.HAND);
+
+		btn9PG.setCursor(Cursor.HAND);
+		btn4ALS.setCursor(Cursor.HAND);
+		btnJD.setCursor(Cursor.HAND);
+		btnFAF.setCursor(Cursor.HAND);
 
 		LOGGER.info("[FIN] Initialisation du panneau quitter la partie.");
 	}
@@ -114,7 +121,6 @@ public class TypePartieController {
 		initialiser4ALS(panneauLecteur.getLecteur());
 		initialiserJD(panneauLecteur.getLecteur());
 		initialiserFAF(panneauLecteur.getLecteur());
-
 	}
 
 	public void definirLecteur(Lecteur lecteur) {
@@ -201,8 +207,8 @@ public class TypePartieController {
 		}
 		if (controllerFAF != null) {
 			LOGGER.debug("Réinitialisation du FAF.");
-			controllerFAF.reinitialiser();
-			controllerFAF.definirNiveauPartie(niveauPartie);
+			controllerFAF.reinitialiser(niveauPartie);
+			// controllerFAF.definirNiveauPartie(niveauPartie);
 			controllerFAF.definirLecteur(lecteur);
 		}
 		if (panneauChronometre != null) {
@@ -421,11 +427,11 @@ public class TypePartieController {
 
 	// Getters - setters
 
-	public Launcher getLauncher() {
+	public ApplicationScreen getLauncher() {
 		return launcher;
 	}
 
-	public void setLauncher(Launcher launcher) {
+	public void setLauncher(ApplicationScreen launcher) {
 		this.launcher = launcher;
 	}
 

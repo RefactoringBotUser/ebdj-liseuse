@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.qp1c.ebdj.liseuse.commun.bean.partie.TypePartie;
-import fr.qp1c.ebdj.liseuse.ihm.Launcher;
 import fr.qp1c.ebdj.liseuse.ihm.utils.config.ImageConstants;
+import fr.qp1c.ebdj.liseuse.ihm.view.screen.ApplicationScreen;
 import fr.qp1c.ebdj.liseuse.ihm.view.utils.BoutonUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -57,7 +57,7 @@ public class HomeController {
 
 	// Autres attributs
 
-	private Launcher launcher;
+	private ApplicationScreen launcher;
 
 	@FXML
 	private void initialize() {
@@ -148,8 +148,7 @@ public class HomeController {
 	}
 
 	/**
-	 * Afficher le sous-menu permettant de selectionner le type de
-	 * questionnaire.
+	 * Afficher le sous-menu permettant de selectionner le type de questionnaire.
 	 * 
 	 */
 	private void afficherSousMenuTypeQuestionnaire() {
@@ -200,11 +199,11 @@ public class HomeController {
 
 	// Getters - setters
 
-	public Launcher getLauncher() {
+	public ApplicationScreen getLauncher() {
 		return launcher;
 	}
 
-	public void setLauncher(Launcher launcher) {
+	public void setLauncher(ApplicationScreen launcher) {
 		this.launcher = launcher;
 	}
 

@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import fr.qp1c.ebdj.liseuse.commun.bean.stats.StatsBDJ;
 import fr.qp1c.ebdj.liseuse.commun.bean.stats.StatsCategorieFAF;
 import fr.qp1c.ebdj.liseuse.commun.bean.stats.StatsGroupeCategorieQALS;
-import fr.qp1c.ebdj.liseuse.ihm.Launcher;
 import fr.qp1c.ebdj.liseuse.ihm.model.stats.StockCategorieFAF;
 import fr.qp1c.ebdj.liseuse.ihm.model.stats.StockGroupeCategorieQALS;
 import fr.qp1c.ebdj.liseuse.ihm.model.stats.StockQuantite;
 import fr.qp1c.ebdj.liseuse.ihm.utils.config.ImageConstants;
 import fr.qp1c.ebdj.liseuse.ihm.view.popup.PopUpSynchronisationQuestion;
+import fr.qp1c.ebdj.liseuse.ihm.view.screen.ApplicationScreen;
 import fr.qp1c.ebdj.liseuse.ihm.view.utils.ImageUtils;
 import fr.qp1c.ebdj.liseuse.stats.service.StatistiqueService;
 import fr.qp1c.ebdj.liseuse.stats.service.impl.StatistiqueServiceImpl;
@@ -122,7 +122,7 @@ public class StatistiquesController {
 
 	// Autres attributs
 
-	private Launcher launcher;
+	private ApplicationScreen launcher;
 
 	private ObservableList<StockQuantite> donneesTableauSG = FXCollections.observableArrayList();
 
@@ -303,11 +303,11 @@ public class StatistiquesController {
 
 	// Getters - setters
 
-	public Launcher getLauncher() {
+	public ApplicationScreen getLauncher() {
 		return launcher;
 	}
 
-	public void setLauncher(Launcher launcher) {
+	public void setLauncher(ApplicationScreen launcher) {
 		this.launcher = launcher;
 	}
 }

@@ -2,8 +2,8 @@ package fr.qp1c.ebdj.liseuse.ihm.view.popup;
 
 import java.util.Optional;
 
-import fr.qp1c.ebdj.liseuse.ihm.Launcher;
 import fr.qp1c.ebdj.liseuse.ihm.utils.config.Libelle;
+import fr.qp1c.ebdj.liseuse.ihm.view.screen.ApplicationScreen;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -21,7 +21,7 @@ public class PopUpNouveauTirage4ALS {
 		// Ne pas remplir l'entete
 		alert.setHeaderText(null);
 		alert.setContentText("Voulez-vous réellement 4 nouveaux thèmes de 4ALS ?");
-		alert.initOwner(Launcher.getStage());
+		alert.initOwner(ApplicationScreen.getStage());
 
 		DialogPane dialogPane = alert.getDialogPane();
 		dialogPane.getStylesheets().add("/css/styles.css");

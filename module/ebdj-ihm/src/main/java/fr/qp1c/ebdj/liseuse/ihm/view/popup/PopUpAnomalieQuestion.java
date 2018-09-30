@@ -7,9 +7,9 @@ import java.util.Optional;
 import fr.qp1c.ebdj.liseuse.commun.bean.anomalie.SignalementAnomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.anomalie.TypeAnomalie;
 import fr.qp1c.ebdj.liseuse.commun.bean.partie.TypePartie;
-import fr.qp1c.ebdj.liseuse.ihm.Launcher;
 import fr.qp1c.ebdj.liseuse.ihm.utils.config.ImageConstants;
 import fr.qp1c.ebdj.liseuse.ihm.utils.config.Libelle;
+import fr.qp1c.ebdj.liseuse.ihm.view.screen.ApplicationScreen;
 import fr.qp1c.ebdj.liseuse.ihm.view.utils.DialogUtils;
 import fr.qp1c.ebdj.liseuse.ihm.view.utils.ImageUtils;
 import javafx.application.Platform;
@@ -48,7 +48,7 @@ public class PopUpAnomalieQuestion {
 
 		Dialog<ButtonType> dialog = new Dialog<>();
 		dialog.setTitle(Libelle.TITRE);
-		dialog.initOwner(Launcher.getStage());
+		dialog.initOwner(ApplicationScreen.getStage());
 		dialog.setHeaderText("Description de l'anomalie");
 
 		// TODO remplacer le logo

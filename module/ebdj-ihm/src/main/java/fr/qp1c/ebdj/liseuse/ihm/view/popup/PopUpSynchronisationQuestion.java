@@ -1,8 +1,8 @@
 package fr.qp1c.ebdj.liseuse.ihm.view.popup;
 
 import fr.qp1c.ebdj.liseuse.commun.bean.exception.BdjException;
-import fr.qp1c.ebdj.liseuse.ihm.Launcher;
 import fr.qp1c.ebdj.liseuse.ihm.utils.config.Libelle;
+import fr.qp1c.ebdj.liseuse.ihm.view.screen.ApplicationScreen;
 import fr.qp1c.ebdj.liseuse.synchronisation.service.Synchronisation4ALSService;
 import fr.qp1c.ebdj.liseuse.synchronisation.service.Synchronisation9PGService;
 import fr.qp1c.ebdj.liseuse.synchronisation.service.SynchronisationFAFService;
@@ -46,7 +46,7 @@ public class PopUpSynchronisationQuestion {
 		Dialog<Pair<String, String>> dialog = new Dialog<>();
 		dialog.setTitle(Libelle.TITRE);
 		dialog.setHeaderText("Synchronisation de la boite de jeu");
-		dialog.initOwner(Launcher.getStage());
+		dialog.initOwner(ApplicationScreen.getStage());
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		dialog.setHeight(200);
 		dialog.setWidth(500);

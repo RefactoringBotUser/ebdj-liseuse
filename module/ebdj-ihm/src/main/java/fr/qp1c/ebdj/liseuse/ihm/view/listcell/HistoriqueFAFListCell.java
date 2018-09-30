@@ -1,8 +1,5 @@
 package fr.qp1c.ebdj.liseuse.ihm.view.listcell;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import fr.qp1c.ebdj.liseuse.commun.bean.historique.HistoriqueQuestionFAF;
 import fr.qp1c.ebdj.liseuse.commun.utils.StringUtilities;
 import fr.qp1c.ebdj.liseuse.ihm.view.Style;
@@ -17,7 +14,8 @@ public class HistoriqueFAFListCell extends ListCell<HistoriqueQuestionFAF> {
 	/**
 	 * Default logger.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(HistoriqueFAFListCell.class);
+	// private static final Logger LOGGER =
+	// LoggerFactory.getLogger(HistoriqueFAFListCell.class);
 
 	private EventHandler<MouseEvent> clickHandler;
 
@@ -27,7 +25,7 @@ public class HistoriqueFAFListCell extends ListCell<HistoriqueQuestionFAF> {
 
 	@Override
 	public void updateItem(HistoriqueQuestionFAF item, boolean empty) {
-		//LOGGER.debug("[DEBUT] Maj de l'entrée de l'historique : {} ", item);
+		// LOGGER.debug("[DEBUT] Maj de l'entrée de l'historique : {} ", item);
 
 		if (item != null) {
 			super.updateItem(item, empty);
@@ -56,6 +54,6 @@ public class HistoriqueFAFListCell extends ListCell<HistoriqueQuestionFAF> {
 				setGraphic(hbox);
 			}
 		}
-		//LOGGER.debug("[FIN] Maj de l'entrée de l'historique.");
+		// LOGGER.debug("[FIN] Maj de l'entrée de l'historique.");
 	}
 }

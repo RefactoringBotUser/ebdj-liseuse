@@ -23,31 +23,31 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	 * 
 	 */
 	@Override
-	public List<QuestionJD> listerQuestionsJouable(int nbQuestion){
+	public List<QuestionJD> listerQuestionsJouable(int nbQuestion) {
 		// Création de la requête
 		StringBuilder query = new StringBuilder();
 		query.append(
-				"SELECT id,question,reponse,theme,reference,version,club,dateReception FROM QUESTION_JD Q_JD WHERE active=1 AND NOT EXISTS(SELECT * FROM QUESTION_JD_LECTURE Q_JD_J WHERE Q_JD.reference=Q_JD_J.reference)");
+				"SELECT id,question,reponse,theme,reference,version,club,dateReception FROM QUESTION_JD Q_JD WHERE active=1 AND Q_JD.reference NOT IN(SELECT Q_JD_J.reference FROM QUESTION_JD_LECTURE Q_JD_J)");
 
 		if (nbQuestion > 0) {
 			query.append(" LIMIT ");
 			query.append(nbQuestion);
 		}
 		query.append(";");
-		
+
 		ResultSetHandler<List<QuestionJD>> h = new ResultSetHandler<List<QuestionJD>>() {
 			@Override
-		    public List<QuestionJD> handle(ResultSet rs) throws SQLException {
+			public List<QuestionJD> handle(ResultSet rs) throws SQLException {
 				List<QuestionJD> listeQuestionsAJouer = new ArrayList<>();
-		    	
-		    		while (rs.next()) {
+
+				while (rs.next()) {
 					// Ajouter la question à la liste
 					listeQuestionsAJouer.add(MapperQuestion.convertirQuestionJD(rs));
 				}
-		        return listeQuestionsAJouer;
-		    }
+				return listeQuestionsAJouer;
+			}
 		};
-		
+
 		return executerRequete(query.toString(), h);
 	}
 
@@ -73,7 +73,10 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	public void creerQuestion(QuestionJDBdjDistante questionJd) {
 		// Création de la requête
 		String requete = String.format(
-				"INSERT INTO QUESTION_JD (theme,question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('%s','%s','%s',%d,'%s','%s','%s',%d,1);",DBUtils.escapeSql(questionJd.getTheme()),DBUtils.escapeSql(questionJd.getQuestion()),DBUtils.escapeSql(questionJd.getReponse()),questionJd.getDifficulte(),questionJd.getReference(),DBUtils.escapeSql(questionJd.getClub()),questionJd.getDateEnvoi(),questionJd.getVersion());
+				"INSERT INTO QUESTION_JD (theme,question,reponse,difficulte,reference,club,dateReception,version,active) VALUES ('%s','%s','%s',%d,'%s','%s','%s',%d,1);",
+				DBUtils.escapeSql(questionJd.getTheme()), DBUtils.escapeSql(questionJd.getQuestion()),
+				DBUtils.escapeSql(questionJd.getReponse()), questionJd.getDifficulte(), questionJd.getReference(),
+				DBUtils.escapeSql(questionJd.getClub()), questionJd.getDateEnvoi(), questionJd.getVersion());
 
 		executerUpdateOuInsert(requete);
 	}
@@ -81,7 +84,12 @@ public class DBConnecteurJDDaoImpl extends DBConnecteurGeneriqueImpl implements 
 	@Override
 	public void corrigerQuestion(QuestionJDBdjDistante questionJd) {
 		// Création de la requête
-		String requete = String.format("UPDATE QUESTION_JD SET theme='%s', question='%s', reponse='%s', difficulte=%d, club='%s', dateReception='%s', version=%d WHERE reference=%d;",DBUtils.escapeSql(questionJd.getTheme()),DBUtils.escapeSql(questionJd.getQuestion()),DBUtils.escapeSql(questionJd.getReponse()),questionJd.getDifficulte(),DBUtils.escapeSql(questionJd.getClub()),questionJd.getDateEnvoi(),questionJd.getVersion(),questionJd.getReference());
+		String requete = String.format(
+				"UPDATE QUESTION_JD SET theme='%s', question='%s', reponse='%s', difficulte=%d, club='%s', dateReception='%s', version=%d WHERE reference=%d;",
+				DBUtils.escapeSql(questionJd.getTheme()), DBUtils.escapeSql(questionJd.getQuestion()),
+				DBUtils.escapeSql(questionJd.getReponse()), questionJd.getDifficulte(),
+				DBUtils.escapeSql(questionJd.getClub()), questionJd.getDateEnvoi(), questionJd.getVersion(),
+				questionJd.getReference());
 
 		executerUpdateOuInsert(requete);
 	}

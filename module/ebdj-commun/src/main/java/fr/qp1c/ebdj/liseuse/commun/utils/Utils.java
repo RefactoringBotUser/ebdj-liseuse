@@ -61,7 +61,6 @@ public class Utils {
 	}
 
 	public static String formaterReference(String reference, TypePhase typePhase) {
-
 		switch (typePhase) {
 		case NPG:
 			return "Q_9PG_" + StringUtilities.pad(5, '0', reference);

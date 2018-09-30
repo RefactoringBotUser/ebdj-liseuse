@@ -14,7 +14,7 @@ import fr.qp1c.ebdj.liseuse.commun.bean.partie.NiveauPartie;
 import fr.qp1c.ebdj.liseuse.commun.bean.question.QuestionFAF;
 import fr.qp1c.ebdj.liseuse.moteur.loader.LoaderQuestionFAF;
 
-public class MoteurFAF implements Moteur{
+public class MoteurFAF implements Moteur {
 
 	/**
 	 * Default logger.
@@ -26,6 +26,8 @@ public class MoteurFAF implements Moteur{
 
 	// Nombre de questions réel (inclus erreur et remplacement).
 	private int nbQuestReel = 0;
+
+	private int nbQuestDifficileMax = 0;
 
 	private List<QuestionFAF> questionsFAF = new ArrayList<>();
 
@@ -40,12 +42,12 @@ public class MoteurFAF implements Moteur{
 	// Tracker
 
 	private Lecteur lecteur;
-	
+
 	private DBConnecteurFAFDao dbConnecteurFAFDao;
 
 	// Constructeur
 
-	public MoteurFAF() {
+	public MoteurFAF(NiveauPartie niveauPartie) {
 
 		// Chargement des questions.
 		questionsFAF = new ArrayList<>();
@@ -58,15 +60,27 @@ public class MoteurFAF implements Moteur{
 
 		categoriesJouees = new ArrayList<>();
 
-		this.niveauPartie = NiveauPartie.MOYEN;
+		if (niveauPartie == null) {
+			this.niveauPartie = NiveauPartie.MOYEN;
+		} else {
+			this.niveauPartie = niveauPartie;
+		}
+
+		if (NiveauPartie.DIFFICILE.equals(this.niveauPartie)) {
+			nbQuestDifficileMax = 4;
+		} else if (NiveauPartie.MOYEN.equals(this.niveauPartie)) {
+			nbQuestDifficileMax = 2;
+		}
 
 		this.dbConnecteurFAFDao = new DBConnecteurFAFDaoImpl();
 	}
 
+	@Override
 	public void definirLecteur(Lecteur lecteur) {
 		this.lecteur = lecteur;
 	}
 
+	@Override
 	public void definirNiveauPartie(NiveauPartie niveauPartie) {
 		this.niveauPartie = niveauPartie;
 	}
@@ -76,7 +90,6 @@ public class MoteurFAF implements Moteur{
 		QuestionFAF questionFAF;
 
 		if (nbQuest % 2 == 0) {
-
 			Long niveauMin = Long.valueOf(1);
 			Long niveauMax = Long.valueOf(4);
 
@@ -85,10 +98,21 @@ public class MoteurFAF implements Moteur{
 			} else if (NiveauPartie.FACILE.equals(niveauPartie)) {
 				niveauMin = Long.valueOf(2);
 			}
+
+			if (nbQuestDifficileMax == 0) {
+				niveauMin = Long.valueOf(2);
+				LOGGER.info("Limite du nombre de FAF difficile atteinte.");
+			}
+
 			questionFAF = LoaderQuestionFAF.chargerQuestions(categoriesJouees, niveauMin, niveauMax);
 		} else {
 			questionFAF = LoaderQuestionFAF.chargerQuestions(categoriesJouees, derniereQuestionFAF.getDifficulte());
 		}
+
+		if (questionFAF.getDifficulte().intValue() == 1) {
+			nbQuestDifficileMax -= 1;
+		}
+
 		questionsFAF.add(questionFAF);
 
 		return questionFAF;
@@ -100,7 +124,7 @@ public class MoteurFAF implements Moteur{
 		QuestionFAF question = donnerNouvelleQuestionInedite();
 
 		categoriesJouees.add(question.getCategorieRef());
-		
+
 		dbConnecteurFAFDao.jouerQuestion(question.getReference(), lecteur.formatterNomUtilisateur());
 
 		LOGGER.info("[FIN] Donner une nouvelle question.");
@@ -127,6 +151,7 @@ public class MoteurFAF implements Moteur{
 		return nouvelleQuestion;
 	}
 
+	@Override
 	public void signalerAnomalie(SignalementAnomalie signalementAnomalie) {
 		LOGGER.info("[DEBUT] Signaler anomalie.");
 

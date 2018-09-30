@@ -3,6 +3,7 @@ package fr.qp1c.ebdj.liseuse.ihm.controller.jeu.phase;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,6 +78,8 @@ public class QALSController implements PreferencesLecteur {
 
 	private MoteurQALS moteurQALS;
 
+	private final static int TAILLE_MAX_THEME = 70;
+
 	@FXML
 	private void initialize() {
 		reinitialiser();
@@ -150,15 +153,19 @@ public class QALSController implements PreferencesLecteur {
 		// Retrieving the observable list of the TextFlow Pane
 		panneauQuestionTheme4ALS1.setFitToHeight(true);
 		panneauQuestionTheme4ALS1.setFitToWidth(true);
+		panneauQuestionTheme4ALS1.setVvalue(0);
 
 		panneauQuestionTheme4ALS2.setFitToHeight(true);
 		panneauQuestionTheme4ALS2.setFitToWidth(true);
+		panneauQuestionTheme4ALS2.setVvalue(0);
 
 		panneauQuestionTheme4ALS3.setFitToHeight(true);
 		panneauQuestionTheme4ALS3.setFitToWidth(true);
+		panneauQuestionTheme4ALS3.setVvalue(0);
 
 		panneauQuestionTheme4ALS4.setFitToHeight(true);
 		panneauQuestionTheme4ALS4.setFitToWidth(true);
+		panneauQuestionTheme4ALS4.setVvalue(0);
 
 		LOGGER.info("[FIN] Reinitialisation du panneau 4ALS.");
 	}
@@ -175,7 +182,7 @@ public class QALSController implements PreferencesLecteur {
 			Theme4ALS themeQALS4 = themes4ALS.get("4");
 
 			theme4ALS1.setGraphic(ImageConstants.IMAGE_1);
-			theme4ALS1.setText(themeQALS1.getTheme());
+			theme4ALS1.setText(StringUtils.abbreviate(themeQALS1.getTheme(), TAILLE_MAX_THEME));
 			theme4ALS1.setCollapsible(true);
 			theme4ALS1.setExpanded(false);
 			theme4ALS1.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
@@ -188,7 +195,7 @@ public class QALSController implements PreferencesLecteur {
 			});
 
 			theme4ALS2.setGraphic(ImageConstants.IMAGE_2);
-			theme4ALS2.setText(themeQALS2.getTheme());
+			theme4ALS2.setText(StringUtils.abbreviate(themeQALS2.getTheme(), TAILLE_MAX_THEME));
 			theme4ALS2.setCollapsible(true);
 			theme4ALS2.setExpanded(false);
 			theme4ALS2.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
@@ -201,7 +208,7 @@ public class QALSController implements PreferencesLecteur {
 			});
 
 			theme4ALS3.setGraphic(ImageConstants.IMAGE_3);
-			theme4ALS3.setText(themeQALS3.getTheme());
+			theme4ALS3.setText(StringUtils.abbreviate(themeQALS3.getTheme(), TAILLE_MAX_THEME));
 			theme4ALS3.setCollapsible(true);
 			theme4ALS3.setExpanded(false);
 			theme4ALS3.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
@@ -214,7 +221,7 @@ public class QALSController implements PreferencesLecteur {
 			});
 
 			theme4ALS4.setGraphic(ImageConstants.IMAGE_4);
-			theme4ALS4.setText(themeQALS4.getTheme());
+			theme4ALS4.setText(StringUtils.abbreviate(themeQALS4.getTheme(), TAILLE_MAX_THEME));
 			theme4ALS4.setCollapsible(true);
 			theme4ALS4.setExpanded(false);
 			theme4ALS4.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {

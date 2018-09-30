@@ -1,8 +1,5 @@
 package fr.qp1c.ebdj.liseuse.ihm.view.listcell;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import fr.qp1c.ebdj.liseuse.commun.bean.historique.HistoriqueQuestion9PG;
 import fr.qp1c.ebdj.liseuse.commun.utils.StringUtilities;
 import fr.qp1c.ebdj.liseuse.ihm.utils.config.ImageConstants;
@@ -20,7 +17,8 @@ public class Historique9PGListCell extends ListCell<HistoriqueQuestion9PG> {
 	/**
 	 * Default logger.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(Historique9PGListCell.class);
+	// private static final Logger LOGGER =
+	// LoggerFactory.getLogger(Historique9PGListCell.class);
 
 	private EventHandler<MouseEvent> clickHandler;
 
@@ -34,7 +32,7 @@ public class Historique9PGListCell extends ListCell<HistoriqueQuestion9PG> {
 
 	@Override
 	public void updateItem(HistoriqueQuestion9PG item, boolean empty) {
-	//	LOGGER.debug("[DEBUT] Maj de l'entrée de l'historique : {} ", item);
+		// LOGGER.debug("[DEBUT] Maj de l'entrée de l'historique : {} ", item);
 
 		if (item != null) {
 			super.updateItem(item, empty);
@@ -93,6 +91,6 @@ public class Historique9PGListCell extends ListCell<HistoriqueQuestion9PG> {
 				setGraphic(hbox);
 			}
 		}
-		//LOGGER.debug("[FIN] Maj de l'entrée de l'historique.");
+		// LOGGER.debug("[FIN] Maj de l'entrée de l'historique.");
 	}
 }

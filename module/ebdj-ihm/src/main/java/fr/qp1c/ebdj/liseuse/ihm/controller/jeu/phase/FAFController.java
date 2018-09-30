@@ -19,10 +19,14 @@ import fr.qp1c.ebdj.liseuse.ihm.view.TaillePolice;
 import fr.qp1c.ebdj.liseuse.ihm.view.listcell.HistoriqueFAFListCell;
 import fr.qp1c.ebdj.liseuse.ihm.view.popup.PopUpAnomalieQuestion;
 import fr.qp1c.ebdj.liseuse.moteur.MoteurFAF;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,6 +37,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 /**
  * 
@@ -103,13 +108,13 @@ public class FAFController implements PreferencesLecteur {
 
 	@FXML
 	private void initialize() {
-		reinitialiser();
+		reinitialiser(NiveauPartie.MOYEN);
 	}
 
-	public void reinitialiser() {
+	public void reinitialiser(NiveauPartie niveauPartie) {
 		LOGGER.info("[DEBUT] Initialisation du panneau FAF.");
 
-		moteurFAF = new MoteurFAF();
+		moteurFAF = new MoteurFAF(niveauPartie);
 
 		listeHistoriqueFAF.clear();
 
@@ -143,18 +148,23 @@ public class FAFController implements PreferencesLecteur {
 
 		btnReprendreFAF.setVisible(false);
 		btnReprendreFAF.setDisable(true);
-		
+
 		// Fix anomalie FAF en mode historique par
 		btnNouvelleQuestionFAF.setVisible(true);
 		btnNouvelleQuestionFAF.setDisable(false);
 
 		btnRemplacerQuestionFAF.setDisable(false);
-		
+
 		cartonFAF.setStyle(Style.FOND_CARTON);
 
 		nbQuestion.setStyle(Style.FOND_NORMAL);
 
 		modifierTaille(TaillePolice.GRAND);
+
+		btnNouvelleQuestionFAF.setCursor(Cursor.HAND);
+		btnRemplacerQuestionFAF.setCursor(Cursor.HAND);
+		btnReprendreFAF.setCursor(Cursor.HAND);
+		btnSignalerErreurQuestionFAF.setCursor(Cursor.HAND);
 
 		LOGGER.info("[FIN] Initialisation du panneau FAF.");
 	}
@@ -166,6 +176,11 @@ public class FAFController implements PreferencesLecteur {
 		LOGGER.info("### --> Clic sur \"Nouvelle question FAF\".");
 
 		changerQuestion(true);
+
+		final KeyFrame kf1 = new KeyFrame(Duration.millis(0), e -> btnNouvelleQuestionFAF.setDisable(true));
+		final KeyFrame kf2 = new KeyFrame(Duration.millis(300), e -> btnNouvelleQuestionFAF.setDisable(false));
+		final Timeline timeline = new Timeline(kf1, kf2);
+		Platform.runLater(timeline::play);
 	}
 
 	@FXML
@@ -278,10 +293,31 @@ public class FAFController implements PreferencesLecteur {
 		libelleQuestionFAF.setText(questionFAF.getQuestion());
 		reponseFAF.setText(questionFAF.getReponse().toUpperCase());
 		reponseFAF.setTextAlignment(TextAlignment.CENTER);
-		questionFAFInfos.setText(Utils.formaterReference(questionFAF.getReference(), TypePhase.FAF) + " - "
-				+ questionFAF.getSource().toString());
+		questionFAFInfos.setText(formaterQuestionFAFInfos(questionFAF));
+
+		LOGGER.info("=> Question FAF - {} - Difficulté : {}", formaterQuestionFAFInfos(questionFAF),
+				questionFAF.getDifficulte());
 
 		LOGGER.info("[FIN] Affichage carton FAF.");
+	}
+
+	private String formaterQuestionFAFInfos(QuestionFAF questionFAF) {
+		return Utils.formaterReference(questionFAF.getReference(), TypePhase.FAF) + " - " + questionFAF.getSource()
+				+ " - " + formaterDifficulteFAF(questionFAF.getDifficulte());
+	}
+
+	private static String formaterDifficulteFAF(Long difficulte) {
+		if (difficulte.intValue() == 1) {
+			return "(niveau DIFFICILE)";
+		} else if (difficulte.intValue() == 2) {
+			return "(niveau MOYEN +)";
+		} else if (difficulte.intValue() == 3) {
+			return "(niveau MOYEN -)";
+		} else if (difficulte.intValue() == 4) {
+			return "(niveau FACILE)";
+		} else {
+			return "INCONNU";
+		}
 	}
 
 	// Méthodes métier
