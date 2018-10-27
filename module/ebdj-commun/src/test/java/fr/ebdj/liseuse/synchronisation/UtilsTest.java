@@ -1,9 +1,11 @@
 package fr.ebdj.liseuse.synchronisation;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import fr.qp1c.ebdj.liseuse.commun.bean.question.TypePhase;
@@ -21,13 +23,14 @@ public class UtilsTest {
 
 	@Test
 	public void testFormaterReference() {
-		assertEquals("Q_9PG_00001",Utils.formaterReference("1", TypePhase.NPG));
-		assertEquals("Q_4ALS_0001",Utils.formaterReference("1", TypePhase.QALS));
-		assertEquals("Q_JD_00001",Utils.formaterReference("1", TypePhase.JD));
-		assertEquals("Q_FAF_00001",Utils.formaterReference("1", TypePhase.FAF));
+		assertEquals("Q_9PG_00001", Utils.formaterReference("1", TypePhase.NPG));
+		assertEquals("Q_4ALS_0001", Utils.formaterReference("1", TypePhase.QALS));
+		assertEquals("Q_JD_00001", Utils.formaterReference("1", TypePhase.JD));
+		assertEquals("Q_FAF_00001", Utils.formaterReference("1", TypePhase.FAF));
 	}
 
 	@Test
+	@Ignore
 	public void testRecupererAdresseMac() {
 		assertNotNull(Utils.recupererAdresseMac());
 	}
@@ -36,7 +39,5 @@ public class UtilsTest {
 	public void testRecupererDateHeureCourante() {
 		assertNotNull(Utils.recupererDateHeureCourante());
 	}
-	
-	
 
 }
