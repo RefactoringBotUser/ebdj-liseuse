@@ -9,13 +9,6 @@ public class ImageUtils {
 
     }
 
-    // public static void iconiserImage(ImageView imageView) {
-    // reduireImageCustom(imageView, 12);
-    // }
-    //
-    // public static void reduireImage(ImageView imageView) {
-    // reduireImageCustom(imageView, 40);
-    // }
 
     public static ImageView iconiserImage(Image image) {
         return reduireImage(image, 12);
