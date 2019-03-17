@@ -54,6 +54,5 @@ public class HistoriqueFAFListCell extends ListCell<HistoriqueQuestionFAF> {
 				setGraphic(hbox);
 			}
 		}
-		// LOGGER.debug("[FIN] Maj de l'entrée de l'historique.");
 	}
 }
